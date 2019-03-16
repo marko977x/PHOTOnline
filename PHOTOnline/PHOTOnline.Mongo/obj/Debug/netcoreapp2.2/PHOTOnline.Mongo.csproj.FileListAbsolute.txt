@@ -1,0 +1,9 @@
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Mongo\bin\Debug\netcoreapp2.2\PHOTOnline.Mongo.deps.json
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Mongo\bin\Debug\netcoreapp2.2\PHOTOnline.Mongo.dll
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Mongo\obj\Debug\netcoreapp2.2\PHOTOnline.Mongo.csprojAssemblyReference.cache
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Mongo\obj\Debug\netcoreapp2.2\PHOTOnline.Mongo.csproj.CoreCompileInputs.cache
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Mongo\obj\Debug\netcoreapp2.2\PHOTOnline.Mongo.AssemblyInfoInputs.cache
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Mongo\obj\Debug\netcoreapp2.2\PHOTOnline.Mongo.AssemblyInfo.cs
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Mongo\bin\Debug\netcoreapp2.2\PHOTOnline.Mongo.pdb
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Mongo\obj\Debug\netcoreapp2.2\PHOTOnline.Mongo.dll
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Mongo\obj\Debug\netcoreapp2.2\PHOTOnline.Mongo.pdb

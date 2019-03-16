@@ -1,0 +1,9 @@
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Domain\bin\Debug\netcoreapp2.2\PHOTOnline.Domain.deps.json
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Domain\bin\Debug\netcoreapp2.2\PHOTOnline.Domain.dll
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.csproj.CoreCompileInputs.cache
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.AssemblyInfoInputs.cache
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.AssemblyInfo.cs
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Domain\bin\Debug\netcoreapp2.2\PHOTOnline.Domain.pdb
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.csprojAssemblyReference.cache
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.dll
+F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.pdb
