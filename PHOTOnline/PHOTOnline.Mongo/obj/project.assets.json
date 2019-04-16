@@ -2897,7 +2897,7 @@
       ]
     },
     "System.ComponentModel.Annotations/4.5.0": {
-      "sha512": "f1ApUHGWq/lJC8PZE7JqbA3tiY7ZngZQO2mbYfCG0JlQVVUqqmVMAy0fMvAwEuG639M47ELdP6PQxc5OIo6i6A==",
+      "sha512": "UxYQ3FGUOtzJ7LfSdnYSFd7+oEv6M8NgUatatIN2HxNtDdlcvFAf+VIq4Of9cDMJEJC0aSRv/x898RYhB4Yppg==",
       "type": "package",
       "path": "system.componentmodel.annotations/4.5.0",
       "files": [
@@ -3952,7 +3952,7 @@
       ]
     },
     "System.Memory/4.5.1": {
-      "sha512": "vcG3/MbfpxznMkkkaAblJi7RHOmuP7kawQMhDgLSuA1tRpRQYsFSCTxRSINDUgn2QNn2jWeLxv8er5BXbyACkw==",
+      "sha512": "sDJYJpGtTgx+23Ayu5euxG5mAXWdkDb4+b0rD0Cab0M1oQS9H0HXGPriKcqpXuiJDTV7fTp/d+fMDJmnr6sNvA==",
       "type": "package",
       "path": "system.memory/4.5.1",
       "files": [
@@ -4708,7 +4708,7 @@
       ]
     },
     "System.Runtime.CompilerServices.Unsafe/4.5.1": {
-      "sha512": "qUJMNWhbm9oZ3XaMFiEMiYmRPszbnXIkRIi7+4b2Md2xZ6JUOepf0/kY3S85qistRohl9OdMe4PsO+RdG2kTIQ==",
+      "sha512": "Zh8t8oqolRaFa9vmOZfdQm/qKejdqz0J9kr7o2Fu0vPeoH3BL1EOXipKWwkWtLT1JPzjByrF19fGuFlNbmPpiw==",
       "type": "package",
       "path": "system.runtime.compilerservices.unsafe/4.5.1",
       "files": [
@@ -5767,11 +5767,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "f:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Mongo\\PHOTOnline.Mongo.csproj",
+      "projectUniqueName": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Mongo\\PHOTOnline.Mongo.csproj",
       "projectName": "PHOTOnline.Mongo",
-      "projectPath": "f:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Mongo\\PHOTOnline.Mongo.csproj",
+      "projectPath": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Mongo\\PHOTOnline.Mongo.csproj",
       "packagesPath": "C:\\Users\\Marko\\.nuget\\packages\\",
-      "outputPath": "f:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Mongo\\obj\\",
+      "outputPath": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Mongo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

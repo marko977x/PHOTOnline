@@ -763,11 +763,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "f:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj",
+      "projectUniqueName": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj",
       "projectName": "PHOTOnline.Services",
-      "projectPath": "f:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj",
+      "projectPath": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj",
       "packagesPath": "C:\\Users\\Marko\\.nuget\\packages\\",
-      "outputPath": "f:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Services\\obj\\",
+      "outputPath": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Services\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -786,8 +786,8 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "f:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj": {
-              "projectPath": "f:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj"
+            "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj": {
+              "projectPath": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj"
             }
           }
         }

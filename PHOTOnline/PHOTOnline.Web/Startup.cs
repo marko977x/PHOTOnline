@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PHOTOnline.Business;
 using PHOTOnline.Mongo;
 using PHOTOnline.Services;
-using VueCliMiddleware;
+using PHOTOnline.Web.Config;
 
 namespace PHOTOnline.Web
 {
@@ -44,26 +44,10 @@ namespace PHOTOnline.Web
                 app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
-            });
-
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseVueCli(npmScript: "serve", port: 8080);
-                }
-            });
+            app.UsePHOTOnlineMvc();
+            app.UsePHOTOnlineSpa(env);
         }
     }
 }
