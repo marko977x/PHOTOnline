@@ -246,7 +246,7 @@
   },
   "libraries": {
     "Microsoft.Extensions.DependencyInjection/2.2.0": {
-      "sha512": "ASF77AJjnyi9hL7IJU1KCAvnCTgI3JEwkU+D4gnKd53nFIYpibVjR6SW8tdTkkuZ+QkmIx2rPvKdTMNVPfVU9A==",
+      "sha512": "7JzIJyfA1Wr19ibRr67CoG3lFklnTkzhkJ6thWFcNrmZCgLf9oEqrED4Tz08y7F18wTWsWUnI52BCjraBGtPIA==",
       "type": "package",
       "path": "microsoft.extensions.dependencyinjection/2.2.0",
       "files": [
@@ -263,7 +263,7 @@
       ]
     },
     "Microsoft.Extensions.DependencyInjection.Abstractions/2.2.0": {
-      "sha512": "2xMk9LHz1EY+7gVG0lG4qBvkUiVjg8QNPqd2HYmEP5+PL7Ayo96EhBieAhd++Gx4yM+xN8kNqmhZdFMBHeG0HQ==",
+      "sha512": "YZcHF0/+XeKv12ZEo+OmrAa6rNayjye0qvEjYSDIhN99StqxnS2gZpwkcCrH/8JuXxzzcDSVpZw5Bruz8xYfXQ==",
       "type": "package",
       "path": "microsoft.extensions.dependencyinjection.abstractions/2.2.0",
       "files": [
@@ -757,23 +757,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Marko\\.nuget\\packages\\": {},
+    "C:\\Users\\Aritonovic\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "f:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj",
+      "projectUniqueName": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj",
       "projectName": "PHOTOnline.Services",
-      "projectPath": "f:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj",
-      "packagesPath": "C:\\Users\\Marko\\.nuget\\packages\\",
-      "outputPath": "f:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Services\\obj\\",
+      "projectPath": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj",
+      "packagesPath": "C:\\Users\\Aritonovic\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Services\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Marko\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Aritonovic\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -786,8 +786,8 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "f:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj": {
-              "projectPath": "f:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj"
+            "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj": {
+              "projectPath": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj"
             }
           }
         }
