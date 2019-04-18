@@ -782,11 +782,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Business\\PHOTOnline.Business.csproj",
       "projectName": "PHOTOnline.Business",
       "projectPath": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Business\\PHOTOnline.Business.csproj",
       "packagesPath": "C:\\Users\\Aritonovic\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Business\\obj\\",
+=======
+      "projectUniqueName": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Business\\PHOTOnline.Business.csproj",
+      "projectName": "PHOTOnline.Business",
+      "projectPath": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Business\\PHOTOnline.Business.csproj",
+      "packagesPath": "C:\\Users\\Marko\\.nuget\\packages\\",
+      "outputPath": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Business\\obj\\",
+>>>>>>> bfdd8b7d8aa143eb9c48bdee3ad3ef22fe4fcd5d
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -805,8 +813,13 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
+<<<<<<< HEAD
             "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj": {
               "projectPath": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj"
+=======
+            "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj": {
+              "projectPath": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj"
+>>>>>>> bfdd8b7d8aa143eb9c48bdee3ad3ef22fe4fcd5d
             }
           }
         }

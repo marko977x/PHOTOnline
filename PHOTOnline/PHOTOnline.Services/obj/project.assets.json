@@ -763,11 +763,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj",
       "projectName": "PHOTOnline.Services",
       "projectPath": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj",
       "packagesPath": "C:\\Users\\Aritonovic\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Services\\obj\\",
+=======
+      "projectUniqueName": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj",
+      "projectName": "PHOTOnline.Services",
+      "projectPath": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Services\\PHOTOnline.Services.csproj",
+      "packagesPath": "C:\\Users\\Marko\\.nuget\\packages\\",
+      "outputPath": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Services\\obj\\",
+>>>>>>> bfdd8b7d8aa143eb9c48bdee3ad3ef22fe4fcd5d
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -786,8 +794,13 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
+<<<<<<< HEAD
             "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj": {
               "projectPath": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj"
+=======
+            "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj": {
+              "projectPath": "F:\\Marko\\Faks\\Softversko Inzenjerstvo\\Workspace\\PHOTOnline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj"
+>>>>>>> bfdd8b7d8aa143eb9c48bdee3ad3ef22fe4fcd5d
             }
           }
         }
