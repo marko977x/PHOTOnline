@@ -1,27 +1,30 @@
 <template>
     <div class="dodavanje-abluma-container">
-        <el-dialog @close="$emit('zavrsiDodavanje')" visible title="Dodavanje Albuma"
+        <el-dialog  visible title="Dodavanje Albuma"
                 width="30%">
-            <forma-dodavanje-albuma @AddFinished="potvrdiFormu($event)"
-                                            :dodavanje-albuma="true"></forma-dodavanje-albuma>
+            <form-dodaj-album @AddFinished="potvrdiFormu($event)"
+                                            :dodavanje-albuma="true"></form-dodaj-album>
        </el-dialog>
     </div>
 </template>
 
 <script>
     import {Dialog} from 'element-ui'
-    import FormaDodavanjeAlbuma from  "./FormaDodavanjeAlbuma"
+    import FormDodajAlbum from  "./FormDodajAlbum"
 
 export default {
-    components: { Dialog, FormaDodavanjeAlbuma},
+    components: { FormDodajAlbum},
     data() {
-        return {}
+        return {
+            visible: true
+        }
     },
     methodes: {
-        potvrdiFormu(event){
-            console.log("Dodavanje je zavrseno!")
-            console.log(event);
-            this.$emit("zavrsiDodavanje")
+     //    potvrdiFormu: function(event){
+       //     this.$emit("zavrsiDodavanje")
+        //},
+        zatvori: function() {
+            this.visible = !this.visible;
         }
     }
 }

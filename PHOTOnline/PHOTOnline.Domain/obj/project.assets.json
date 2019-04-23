@@ -738,31 +738,30 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Aritonovic\\.nuget\\packages\\": {},
+    "C:\\Users\\STRONG\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\STRONG\\Desktop\\PHOTOnline Project\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj",
       "projectName": "PHOTOnline.Domain",
-      "projectPath": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj",
-      "packagesPath": "C:\\Users\\Aritonovic\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Aritonovic\\Desktop\\PHOTOnline\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Domain\\obj\\",
+      "projectPath": "C:\\Users\\STRONG\\Desktop\\PHOTOnline Project\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Domain\\PHOTOnline.Domain.csproj",
+      "packagesPath": "C:\\Users\\STRONG\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\STRONG\\Desktop\\PHOTOnline Project\\si.19.45.photonline\\PHOTOnline\\PHOTOnline.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Aritonovic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\STRONG\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
       },
       "frameworks": {
         "netcoreapp2.2": {
