@@ -24,6 +24,8 @@ Bin/
 obj/
 Obj/
 obj
+vs
+vscode
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -66,6 +68,8 @@ dlldata.c
 *.pidb
 *.svclog
 *.scc
+*.vscode
+*.vs
 
 # Chutzpah Test files
 _Chutzpah*
