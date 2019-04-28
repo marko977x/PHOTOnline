@@ -2,9 +2,9 @@
     <div class="foto-container">
         <div class="foto-background"></div>
             <custom-header-bar :list="this.menuItems">
-                <!--<dodavanje-albuma></dodavanje-albuma>-->
-                <prikaz-obaveza></prikaz-obaveza>
-             </custom-header-bar>
+            <dodavanje-albuma v-if="s"></dodavanje-albuma>
+            <prikaz-obaveza></prikaz-obaveza>
+            </custom-header-bar>
     </div>
 </template>
 

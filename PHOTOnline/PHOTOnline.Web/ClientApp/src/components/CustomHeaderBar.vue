@@ -22,6 +22,7 @@
                     </el-menu>
             </div>
              </el-collapse-transition>
+              <slot></slot>
         </div>
     </div>
 </template>
@@ -60,6 +61,8 @@ export default {
     width: 100%;
     position: absolute;
     flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 .menuContainer{
     height: 100%;
@@ -97,18 +100,11 @@ export default {
 }
 .side-menu{
    height: 100%;
-   display: flex;
-   position: absolute;
-   background-color: rgba(22, 50, 95, 0.924);
-}
-.menu-item{
-    border: 1px solid black;
-    height: 60px;
-    width: 300px;
+   width: 16em;
 }
 .side-menu-item{
     display: flex;
-    width: 300px;
+    width: 220px;
     justify-content: center;
     background-color: rgba(22, 50, 95, 0.924);
     font-family: sans-serif;

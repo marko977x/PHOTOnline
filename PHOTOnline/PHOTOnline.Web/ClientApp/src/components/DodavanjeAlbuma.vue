@@ -1,5 +1,5 @@
 <template>
-    <div class="dodavanje-abluma-container">
+    <div class="dodavanje-albuma-container">
         <el-dialog  visible title="Dodavanje Albuma"
                 width="30%">
             <form-dodaj-album @AddFinished="potvrdiFormu($event)"
@@ -36,6 +36,7 @@ export default {
         height: 100%;
         width: 100%;
         justify-content: center;
+        position: relative;
     }
     .dialog-dodavanje-albuma >{
         width: 60%;
