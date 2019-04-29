@@ -7,3 +7,12 @@ F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Mongo\obj\
 F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Mongo\bin\Debug\netcoreapp2.2\PHOTOnline.Mongo.pdb
 F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Mongo\obj\Debug\netcoreapp2.2\PHOTOnline.Mongo.dll
 F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Mongo\obj\Debug\netcoreapp2.2\PHOTOnline.Mongo.pdb
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Mongo\bin\Debug\netcoreapp2.2\PHOTOnline.Mongo.deps.json
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Mongo\bin\Debug\netcoreapp2.2\PHOTOnline.Mongo.dll
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Mongo\bin\Debug\netcoreapp2.2\PHOTOnline.Mongo.pdb
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Mongo\obj\Debug\netcoreapp2.2\PHOTOnline.Mongo.csprojAssemblyReference.cache
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Mongo\obj\Debug\netcoreapp2.2\PHOTOnline.Mongo.csproj.CoreCompileInputs.cache
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Mongo\obj\Debug\netcoreapp2.2\PHOTOnline.Mongo.AssemblyInfoInputs.cache
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Mongo\obj\Debug\netcoreapp2.2\PHOTOnline.Mongo.AssemblyInfo.cs
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Mongo\obj\Debug\netcoreapp2.2\PHOTOnline.Mongo.dll
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Mongo\obj\Debug\netcoreapp2.2\PHOTOnline.Mongo.pdb

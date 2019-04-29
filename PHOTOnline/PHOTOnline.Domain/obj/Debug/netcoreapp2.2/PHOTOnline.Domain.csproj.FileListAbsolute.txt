@@ -7,3 +7,12 @@ F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Domain\bin
 F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.csprojAssemblyReference.cache
 F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.dll
 F:\Marko\Faks\Softversko Inzenjerstvo\Workspace\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.pdb
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Domain\bin\Debug\netcoreapp2.2\PHOTOnline.Domain.deps.json
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Domain\bin\Debug\netcoreapp2.2\PHOTOnline.Domain.dll
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Domain\bin\Debug\netcoreapp2.2\PHOTOnline.Domain.pdb
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.csprojAssemblyReference.cache
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.AssemblyInfoInputs.cache
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.AssemblyInfo.cs
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.dll
+C:\Users\Milica\Desktop\PHOTOnline\si.19.45.photonline\PHOTOnline\PHOTOnline.Domain\obj\Debug\netcoreapp2.2\PHOTOnline.Domain.pdb
