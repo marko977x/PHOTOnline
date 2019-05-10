@@ -4,38 +4,32 @@
             <el-table-column
                     prop="datum"
                     label="Datum"
-                    class="table-column"
-                    width="150">
+                    class="table-column">
             </el-table-column>
              <el-table-column 
                      prop="dan"
                     label="Dan u nedelji"
-                    class="table-column"
-                    width="200">
+                    class="table-column">
             </el-table-column>
             <el-table-column 
                     prop="vreme"
                     label="Vreme"
-                    class="table-column"
-                    width="150">
+                    class="table-column">
             </el-table-column>
             <el-table-column 
                      prop="lokacija"
                     label="Lokacija"
-                    class="table-column"
-                   width="150">
+                    class="table-column">
             </el-table-column>
              <el-table-column 
                      prop="tip"
                     label="Tip"
-                    class="table-column"
-                    width="150">
+                    class="table-column">
             </el-table-column>
              <el-table-column 
                      prop="info"
                     label="Dodatne informacije"
-                    class="table-column"
-                    width="250">
+                    class="table-column">
             </el-table-column>
         </el-table>
         <label v-else> Trenutno nemate dodeljene obaveze </label>

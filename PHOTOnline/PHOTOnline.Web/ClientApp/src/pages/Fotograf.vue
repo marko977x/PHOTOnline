@@ -1,22 +1,24 @@
 <template>
     <div class="foto-container">
         <div class="foto-background"></div>
-            <custom-header-bar :list="this.menuItems">
-            <dodavanje-albuma v-if="s"></dodavanje-albuma>
-            <prikaz-obaveza></prikaz-obaveza>
-            </custom-header-bar>
+            <custom-bar :list="this.menuItems">
+            <dodavanje-albuma hidden></dodavanje-albuma>
+            <prikaz-obaveza hidden ></prikaz-obaveza>
+            <pocetna-strana></pocetna-strana>
+            </custom-bar>
     </div>
 </template>
 
 <script>
 import Button from 'element-ui'
-import CustomHeaderBar from "../components/CustomHeaderBar"
+import CustomBar from "../components/CustomBar"
 import DodavanjeAlbuma from "../components/DodavanjeAlbuma"
 import PrikazObaveza from "../components/PrikazObaveza"
+import PocetnaStrana from "../components/PocetnaStrana"
 
 export default {
     components: {
-        DodavanjeAlbuma,CustomHeaderBar,PrikazObaveza
+        DodavanjeAlbuma,PrikazObaveza,CustomBar,PocetnaStrana
     },
     data() {
         return {

@@ -20,6 +20,11 @@
                         <li> <el-button type="primary"> Log in </el-button> </li>
                     </ul>
                 </div>
+                <div class="navbar-right-menu" hidden>
+                    <el-button class="el-icon-menu" 
+                        style="background-color:#737982; color:white;opacity:0.9;"> </el-button>
+                    <el-button type="primary"> Log in </el-button>
+                </div>
             </nav>
         </div>
 </template>
@@ -65,6 +70,11 @@ export default {
       justify-content: flex-end;
       flex-direction: row;
       align-items:stretch;
+  }
+  .navbar-right-menu{
+      display: flex;
+      justify-content: flex-end;
+      width: 80%;
   }
   .items{
       display: flex;
