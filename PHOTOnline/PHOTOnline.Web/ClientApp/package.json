@@ -12,7 +12,10 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.14",
     "element-ui": "^2.6.1",
-    "vue": "^2.6.9"
+    "super-tiny-icons": "^0.2.0",
+    "vue": "^2.6.9",
+    "vue-router": "^3.0.6",
+    "vue-social-sharing": "^2.4.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",

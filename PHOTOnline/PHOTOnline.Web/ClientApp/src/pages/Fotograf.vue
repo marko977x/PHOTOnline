@@ -1,17 +1,22 @@
 <template>
-    <div class="foto-kontejner">
+    <div class="foto-container">
         <div class="foto-background"></div>
-            <dodavanje-albuma @zavrsiDodavanje="this.zavrsenoDodavanje()" ></dodavanje-albuma>
+            <custom-header-bar :list="this.menuItems">
+            <dodavanje-albuma v-if="s"></dodavanje-albuma>
+            <prikaz-obaveza></prikaz-obaveza>
+            </custom-header-bar>
     </div>
 </template>
 
 <script>
 import Button from 'element-ui'
+import CustomHeaderBar from "../components/CustomHeaderBar"
 import DodavanjeAlbuma from "../components/DodavanjeAlbuma"
+import PrikazObaveza from "../components/PrikazObaveza"
 
 export default {
     components: {
-        DodavanjeAlbuma
+        DodavanjeAlbuma,CustomHeaderBar,PrikazObaveza
     },
     data() {
         return {
@@ -39,19 +44,19 @@ export default {
             this.showComp = component;
 
         },
-        zavrsenoDodavanje(){
-            this.showComp = 'dodajalbum'
-            console.log(this.showComp);
-        }
+       // zavrsenoDodavanje(){
+        //    this.showComp = 'dodajalbum'
+       // }
     }
 
 }
 </script>
 
 <style scoped>
-    .foto-kontejner{
+    .foto-container{
         height: 100%;
-
+        width: 100%;
+        position: absolute;
     }
     .foto-background{
         position: absolute;
@@ -61,15 +66,11 @@ export default {
         height: 100%;
         width:100%;
         background-size: cover;
+        background-position: bottom;
         background-image: linear-gradient(
-            rgba(179, 51, 46, 0.452),
-            rgba(185, 190, 133, 0.466)
+            rgba(26, 111, 168, 0.555),
+            rgba(37, 41, 40, 0.781)
         ),url("../assets/pictures/1.jpg");
-    }
-    .stranica{
-        background-color:rgba(6, 125, 180, 0.733);
-        height: 100%;
-        width: 100%;
     }
 </style>
 

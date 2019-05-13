@@ -69,7 +69,6 @@ export default {
         },
         prekiniDodavanjeAlbuma: function(){
             this.$emit('AddFinished','cancel') // takodje je i ovde 'cancel' podatak koji se salje i koji 
-            console.log("Ove je upalo");
             //ce biti ispisan!
         }
     }
