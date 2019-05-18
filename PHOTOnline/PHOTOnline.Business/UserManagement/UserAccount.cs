@@ -30,6 +30,9 @@ namespace Business.UserManagement
             Result<string> result = await
                 _authService.CreateUserAsync(user, input.Password);
 
+            if (input.UserType != UserType.Photograph)
+                await _authService.SignInAsync(input.Email, input.Password);
+
             await _authService.AddUserToRoleByEmail(
                 input.Email, input.UserType.ToString());
 

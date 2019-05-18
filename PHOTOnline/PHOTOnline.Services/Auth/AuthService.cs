@@ -30,7 +30,6 @@ namespace PHOTOnline.Services.Auth
         public async Task<Result<string>> CreateUserAsync(PHOTOnlineUser user, string password)
         {
             var operationResult = await _userManager.CreateAsync(user, password);
-
             if (!operationResult.Succeeded)
             {
                 return new Result<string>()
@@ -40,14 +39,7 @@ namespace PHOTOnline.Services.Auth
                 };
             }
 
-            SignInResult signInResult = await _signInManager.PasswordSignInAsync(
-                user, password, false, false);
-
-            return new Result<string>()
-            {
-                Success = signInResult.Succeeded,
-                Data = signInResult.Succeeded ? user.Id : null
-            };
+            return new Result<string>() { Success = true, Data = user.Id };
         }
 
         public async Task<Result> UpdateCredentials(
