@@ -2,6 +2,7 @@
 using Business.UserManagement;
 using Business.UserManagement.Input;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.Services.Auth;
@@ -10,6 +11,7 @@ namespace PHOTOnline.Web.Controllers
 {
     [Route("/api/[controller]/[action]")]
     [Produces("application/json")]
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IUserAccount _userAccount;
@@ -22,6 +24,7 @@ namespace PHOTOnline.Web.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateUserAsync([FromBody]CreateUserInput input)
         {
             Result<string> result = await _userAccount.CreateUserAsync(input);
@@ -55,6 +58,7 @@ namespace PHOTOnline.Web.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> SignIn(string email, string password)
         {
             Result result = await _authService.SignInAsync(email, password);
@@ -69,5 +73,7 @@ namespace PHOTOnline.Web.Controllers
             if (result.Success) return Ok(result);
             else return BadRequest(result);
         }
+
     }
+
 }

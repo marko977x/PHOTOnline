@@ -26,6 +26,7 @@ namespace PHOTOnline.Web
             services.AddMongoDatabase(Configuration);
             services.AddPHOTOnlineBusinessServices();
             services.AddPHOTOnlineServices();
+            //services.AddAuthorization();
 
             services.AddSpaStaticFiles(configuration =>
             {
