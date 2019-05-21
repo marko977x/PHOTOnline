@@ -14,6 +14,8 @@ namespace PHOTOnline.Mongo
             MongoClientSettings settings = MongoClientSettings.FromUrl(
                 new MongoUrl(options.Value.ConnectionString));
 
+            string conn = options.Value.ConnectionString;
+
             settings.SslSettings = new SslSettings()
             {
                 EnabledSslProtocols = SslProtocols.Tls12

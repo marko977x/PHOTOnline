@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Business.UserManagement;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace PHOTOnline.Business
 {
@@ -6,7 +7,7 @@ namespace PHOTOnline.Business
     {
         public static void AddPHOTOnlineBusinessServices(this IServiceCollection service)
         {
-
+            service.AddScoped<IUserAccount, UserAccount>();
         }
     }
 }
