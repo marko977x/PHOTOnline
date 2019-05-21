@@ -25,6 +25,7 @@
                 </el-carousel-item>
             </el-carousel>
         </div>
+        <login></login>
         <footer-bar class="footer"></footer-bar>
     </div>
 </template>
@@ -32,8 +33,9 @@
 <script>
  import HeaderBar from '../components/HeaderBar.vue'
  import FooterBar from '../components/FooterBar.vue'
+ import Login from "../components/Login.vue"
 export default {
-    components: { HeaderBar, FooterBar},
+    components: { HeaderBar, FooterBar, Login},
     data() {
         return {
             photos:[

@@ -14,12 +14,9 @@
                 <el-input class="input-polje" v-model="mesto"></el-input>
             </div>
             <div class="stavka">
-                 <el-upload multiple wdith="40%"
-                    class="upload-demo"
-                    action="https://jsonplaceholder.typicode.com/posts/" 
-                    >
-                    <el-button size="small" type="primary">Upload Slika</el-button>
-                </el-upload>
+                 <file-upload   action="https://jsonplaceholder.typicode.com/posts/" :directory="true" multiple="true">
+                           <el-button size="small" type="primary">Upload Slika</el-button>
+                    </file-upload>
             </div>
             <div class="stavka">
                 <label> Password: </label>
@@ -33,10 +30,12 @@
 </template>
 
 <script>
+    import FileUpload from 'vue-upload-component'
     import {Button} from 'element-ui'
 export default {
     components: {
-        Button
+        Button,
+         FileUpload
     },
     data(){
         return{

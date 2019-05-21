@@ -11,11 +11,14 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.14",
+    "dayspan-vuetify": "^0.4.0",
     "element-ui": "^2.6.1",
+    "moment": "^2.24.0",
     "super-tiny-icons": "^0.2.0",
     "vue": "^2.6.9",
     "vue-router": "^3.0.6",
-    "vue-social-sharing": "^2.4.3"
+    "vue-social-sharing": "^2.4.3",
+    "vue-upload-component": "^2.8.20"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",

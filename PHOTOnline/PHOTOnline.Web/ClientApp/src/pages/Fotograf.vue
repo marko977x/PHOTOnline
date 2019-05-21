@@ -3,8 +3,8 @@
         <div class="foto-background"></div>
             <custom-bar :list="this.menuItems">
             <dodavanje-albuma hidden></dodavanje-albuma>
-            <prikaz-obaveza hidden ></prikaz-obaveza>
-            <pocetna-strana></pocetna-strana>
+            <prikaz-obaveza ></prikaz-obaveza>
+            <pocetna-strana hidden></pocetna-strana>
             </custom-bar>
     </div>
 </template>
@@ -26,14 +26,14 @@ export default {
                 {
                     key: 1,
                     label: 'Dodaj Album',
-                    index: 'dodajalbum'
-                    // dodaj sliku!
+                    index: 'dodajalbum',
+                    slika: 'album.png'
                 },
                 {
                     key:2,
                     label: 'Raspored Aktivnosti',
-                    index: 'raspored'
-                    //slika!
+                    index: 'raspored',
+                    slika: 'zakazivanje.png'
                 }
             ],
             showComp: '',

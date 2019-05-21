@@ -1,7 +1,7 @@
 <template>
     <div class="menu-container">
         <div class="header-bar" text-color="white">
-            <div class="naslov"><h3> Foto Aritonovic </h3> </div>
+            <div class="naslov"><h3 style="color:#e6ebf4; font-family:Arial Black, Gadget, sans-serif; font-size:27px;"> Foto Aritonovic </h3> </div>
             <div class="top-menu-button-container">
                 <el-button class="top-menu-button" @click="zatvoriMeni">
                     <el-icon class="el-icon-menu"></el-icon>
@@ -11,14 +11,22 @@
             </div>
         </div>
         <div class="body-container">
+            <transition name="el-zoom-in-center">
             <div class="side-menu" v-if="this.menuShown">
-                <el-menu style="height:100%" mode="vertical" 
-                    background-color="#2980c7d3">
-                    <el-menu-item v-for="item in itemList" :key="item.key" class="side-menu-item">
-                        {{item.label}}
+                <el-menu style="height:100%; font-family:sans-serif; 
+                         background: linear-gradient(0deg, rgba(173, 202, 226, 0.938), rgba(10, 102, 177, 0.979) );"
+                    background-color="rgba(16, 123, 199, 0.986)"
+                    mode="vertical"
+                    text-color="white" 
+                    active-text-color="rgba(144, 225, 240, 0.938)">
+                    <el-menu-item v-for="item in itemList" :key="item.key" class="side-menu-item" :index="item.index"
+                        style=" background: linear-gradient(0deg, rgba(39, 114, 175, 0.938), rgba(10, 102, 177, 0.979) );">
+                       <img v-if="item.slika != undefined" style="height:30%; margin-right: 1em; margin-left:0.1em; position:left;
+                       margin-top:20px;" :src="getImgUrl(item.slika)"/>{{item.label}}
                     </el-menu-item>
                 </el-menu>
             </div>
+            </transition>
             <slot></slot>
         </div>
     </div>
@@ -38,6 +46,9 @@ export default {
     methods: {
         zatvoriMeni: function(){
             this.menuShown = !this.menuShown;
+        },
+        getImgUrl(slika){
+            return require("../assets/" + slika)
         }
     },
     props: ['list']
@@ -57,11 +68,12 @@ export default {
 }
 .header-bar{
     width: 100%;
-    height: 50px;
+    height: 56px;
     display: flex;
     flex-direction: column;
     position: relative;
-    background-color: rgba(26, 104, 168, 0.904);
+    /*background-color: rgba(26, 104, 168, 0.904);*/
+    background: linear-gradient(0deg, rgba(26, 104, 168, 0.904), rgba(173, 202, 226, 0.938) );
 }
 .top-menu-button-container{
     display: flex;
@@ -74,13 +86,10 @@ export default {
     padding-top: 0.5em;
     padding-bottom: 0.3em;
 }
-.odjava{
-    display: flex;
-}
 .body-container{
     display: flex;
     flex-direction: row;
-    height: calc(100% - 50px);
+    height: calc(100% - 56px);
     width: 100%;
     position: absolute;
     flex-direction: row;
@@ -88,19 +97,19 @@ export default {
 .side-menu{
     height: 100%;
     width: 14em;
-     background-color: #2980c7d3;
+     /*background-color: #2980c7d3;*/
 
 }
 .side-menu-item{
     display: flex;
-    justify-content: center;
+    
 }
 @media screen and (max-width: 700px){
     .body-container{
         flex-direction: column;
     }
     .side-menu{
-        height: 170px;
+        height: 225px;
         width: 100%;
     }
 }

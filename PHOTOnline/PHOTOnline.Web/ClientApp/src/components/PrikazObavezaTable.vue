@@ -1,6 +1,7 @@
 <template>
     <div class="prikaz-obaveza">
-        <el-table v-if="this.ListaObaveza.length > 0">
+        <el-table v-if="this.ListaObaveza.length > 0"
+            :data="tableData">
             <el-table-column
                     prop="datum"
                     label="Datum"
@@ -40,7 +41,13 @@
 export default {
     data() {
         return{
-            ListaObaveza: 'lista'
+            ListaObaveza: 'lista',
+            tableData: [
+                {datum: '21.09.1997', dan: 'Utorak', vreme: '18:00h', lokacija: 'Restoran Junior', tip: 'Svadba', info: '0614210997'},
+                {datum: '21.09.1997', dan: 'Utorak', vreme: '18:00h', lokacija: 'Restoran Junior', tip: 'Svadba', info: '0614210997'},
+                {datum: '21.09.1997', dan: 'Utorak', vreme: '18:00h', lokacija: 'Restoran Junior', tip: 'Svadba', info: '0614210997'},
+                {datum: '21.09.1997', dan: 'Utorak', vreme: '18:00h', lokacija: 'Restoran Junior', tip: 'Svadba', info: '0614210997'},
+            ]
         }
     }
 }
