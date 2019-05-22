@@ -1,7 +1,7 @@
 <template>
     <div class="menu-container">
         <div class="header-bar" text-color="white">
-            <div class="naslov"><h3 style="color:#e6ebf4; font-family:Arial Black, Gadget, sans-serif; font-size:30px;"> Foto Aritonovic </h3> </div>
+            <div class="naslov"><h3 style="color:#e6ebf4; margin-top:5px; font-family:Arial Black, Gadget, sans-serif; font-size:30px;"> Foto Aritonovic </h3> </div>
             <div class="top-menu-button-container">
                 <el-button class="top-menu-button" @click="zatvoriMeni">
                     <el-icon class="el-icon-menu"></el-icon>

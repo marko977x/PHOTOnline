@@ -9,7 +9,7 @@
             <div class="tabela-obaveza-container">
                 <prikaz-obaveza-table></prikaz-obaveza-table>
             </div>
-            <el-button @click="zatvori">Zatvori</el-button>
+            <el-button @click="zatvori" type="primary">Zatvori</el-button>
         </div>
     </div>
 </template>
@@ -53,7 +53,7 @@ export default {
                 this.broj = 11;
         },
         zatvori: function(){
-            this.obaveza = !this.obaveza;
+              this.$emit('editFinished','cancel')
         }
     },
 }
@@ -72,7 +72,7 @@ export default {
         justify-content: center;
         align-items: center;
         height: 80%;
-        width: 90%;
+        width: 80%;
         background-color:  rgba(204, 204, 211, 0.897);
         opacity: 1;
         padding: 1em;
@@ -99,6 +99,7 @@ export default {
         height: calc(95% - 6em);
         overflow: auto;
         margin-top: 10px;
+        margin-bottom: 25px;
     }
 </style>
 

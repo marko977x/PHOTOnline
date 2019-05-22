@@ -3,7 +3,7 @@
         <div class="foto-background"></div>
             <custom-bar :list="this.menuItems" @changeView="setComponent($event)">
             <dodavanje-albuma @zavrsenoDodavanje="this.zavrsiDodavanje" v-if="showComp === 'dodajalbum'"></dodavanje-albuma>
-            <prikaz-obaveza v-if="this.showComp === 'raspored'" ></prikaz-obaveza>
+            <prikaz-obaveza v-if="this.showComp === 'raspored'"  @editFinished="this.zavrsiDodavanje"></prikaz-obaveza>
             <pocetna-strana hidden></pocetna-strana>
             </custom-bar>
     </div>
@@ -81,8 +81,17 @@ export default {
         height: 100%;
         width: 100%;
         position: absolute;
+        top: 0;
+        left:0;
+        z-index: -1;
+        background-size: cover;
+        background-position: bottom;
+        background-image: linear-gradient(
+            rgba(26, 111, 168, 0.555),
+            rgba(37, 41, 40, 0.781)
+        ),url("../assets/pictures/1.jpg");
     }
-    .foto-background{
+   /* .foto-background{
         position: absolute;
         top: 0;
         left:0;
@@ -95,7 +104,7 @@ export default {
             rgba(26, 111, 168, 0.555),
             rgba(37, 41, 40, 0.781)
         ),url("../assets/pictures/1.jpg");
-    }
+    }*/
 </style>
 
 
