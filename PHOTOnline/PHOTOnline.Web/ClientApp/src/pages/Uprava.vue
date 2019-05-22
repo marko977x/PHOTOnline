@@ -4,7 +4,7 @@
            <evidencija-clanova hidden></evidencija-clanova>
            <narudzbina hidden></narudzbina>
            <pocetna-strana hidden></pocetna-strana>
-           <album-uprave  ></album-uprave>
+           <album-uprave></album-uprave>
            <zakazivanja hidden></zakazivanja>
        </custom-bar>
     </div>

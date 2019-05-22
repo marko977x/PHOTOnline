@@ -1,9 +1,9 @@
 <template>
     <div class="foto-container">
         <div class="foto-background"></div>
-            <custom-bar :list="this.menuItems">
-            <dodavanje-albuma hidden></dodavanje-albuma>
-            <prikaz-obaveza ></prikaz-obaveza>
+            <custom-bar :list="this.menuItems" @changeView="setComponent($event)">
+            <dodavanje-albuma @zavrsenoDodavanje="this.zavrsiDodavanje" v-if="showComp === 'dodajalbum'"></dodavanje-albuma>
+            <prikaz-obaveza v-if="this.showComp === 'raspored'" ></prikaz-obaveza>
             <pocetna-strana hidden></pocetna-strana>
             </custom-bar>
     </div>
@@ -15,6 +15,7 @@ import CustomBar from "../components/CustomBar"
 import DodavanjeAlbuma from "../components/DodavanjeAlbuma"
 import PrikazObaveza from "../components/PrikazObaveza"
 import PocetnaStrana from "../components/PocetnaStrana"
+import {setPageShown, getPageToShow, getUserInfo, clearUserInfo, clearFormMode} from "../services/contextManagement";
 
 export default {
     components: {
@@ -36,19 +37,40 @@ export default {
                     slika: 'zakazivanje.png'
                 }
             ],
-            showComp: '',
+            showComp: 'raspored',
+            userID: -1,
             userType: 'fotograf'
         }
 
     },
-    methodes: {
-        setCompononet(component){
-            this.showComp = component;
-
+    methods: {
+        radi: function(){
+            console.log("Ovo radi!")
         },
-       // zavrsenoDodavanje(){
-        //    this.showComp = 'dodajalbum'
-       // }
+        setComponent(index){
+            this.showComp = index
+            setPageShown(index);
+        },
+        changeComp: function(event){
+            if(event == '')
+                this.showComp = 'raspored'
+            else
+                this.showComp = event;
+                setPageShown(this.showComp)
+        },
+        zavrsiDodavanje(){
+            this.showComp = ''
+            setPageShown('')
+        }
+    },
+    beforeMount(){
+       var index = getPageToShow().page
+       this.userID = getUserInfo().userID
+       if(index != null){
+           this.showComp = index;
+           return;
+       }
+       this.showComp = ''
     }
 
 }
