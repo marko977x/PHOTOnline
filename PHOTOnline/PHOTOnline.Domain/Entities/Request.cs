@@ -8,9 +8,7 @@ namespace Domain.Entities
         public string Id { get; set; }
         public string Notification { get; set; }
         public RequestStatus RequestStatus { get; set; }
-        public RequestType RequestType { get; set; }
-        public EventType EventType { get; set; }
-        public string DeliveryAddress { get; set; }
+        public string EventType { get; set; }
         public string Location { get; set; }
         public DateTime DateTime { get; set; }
         public string AdditionalRequests { get; set; }

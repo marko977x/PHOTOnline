@@ -117,7 +117,7 @@ namespace PHOTOnline.Services.Auth
 
         public async Task<Result<PHOTOnlineUser>> GetUserByEmail(string email)
         {
-            PHOTOnlineUser user = await _userManager.FindByEmailAsync(id);
+            PHOTOnlineUser user = await _userManager.FindByEmailAsync(email);
 
             return new Result<PHOTOnlineUser>()
             {

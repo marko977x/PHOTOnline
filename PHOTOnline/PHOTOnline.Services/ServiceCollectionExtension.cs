@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PHOTOnline.Services.Auth;
-using PHOTOnline.Services.Repositories;
+using PHOTOnline.Services.Repositories.Products;
 
 namespace PHOTOnline.Services
 {

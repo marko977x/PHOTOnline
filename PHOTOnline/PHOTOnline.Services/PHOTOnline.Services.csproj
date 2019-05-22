@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PHOTOnline.BlobStorage\PHOTOnline.BlobStorage.csproj" />
     <ProjectReference Include="..\PHOTOnline.Domain\PHOTOnline.Domain.csproj" />
     <ProjectReference Include="..\PHOTOnline.Mongo\PHOTOnline.Mongo.csproj" />
   </ItemGroup>

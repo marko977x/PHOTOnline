@@ -31,6 +31,10 @@ namespace PHOTOnline.Mongo
             {
                 cm.AutoMap();
             });
+            BsonClassMap.RegisterClassMap<Order>(cm =>
+            {
+                cm.AutoMap();
+            });
         }
     }
 }
