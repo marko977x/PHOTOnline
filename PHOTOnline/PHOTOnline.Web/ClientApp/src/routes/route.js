@@ -15,6 +15,10 @@ const router = new VueRouter({
         {
             path: '/pocetna',
             name: 'Pocetna',
+        },
+        {
+            path: '/uprava',
+            name: 'Uprava'
         }
     ]
 })

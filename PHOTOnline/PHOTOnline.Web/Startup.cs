@@ -15,6 +15,7 @@ namespace PHOTOnline.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            MongoDBMapperConfiguration.RegisterMapping();
         }
 
         public IConfiguration Configuration { get; }
@@ -22,9 +23,10 @@ namespace PHOTOnline.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMongoDatabase(Configuration);
             services.AddPHOTOnlineBusinessServices();
             services.AddPHOTOnlineServices();
-            services.AddMongoDatabase(Configuration);
+            //services.AddAuthorization();
 
             services.AddSpaStaticFiles(configuration =>
             {

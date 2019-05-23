@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Contrib.Microsoft.AspNetCore.Identity.MongoDB" Version="2.0.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PHOTOnline.Domain\PHOTOnline.Domain.csproj" />
+    <ProjectReference Include="..\PHOTOnline.Mongo\PHOTOnline.Mongo.csproj" />
   </ItemGroup>
 
 </Project>

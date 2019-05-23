@@ -1,8 +1,9 @@
 <template>
     <div class="dodavanje-albuma-container">
-        <el-dialog  visible title="Dodavanje Albuma"
+        <el-dialog @close="$emit('zavrsenoDodavanje')" 
+         :visible.sync="dialogVisible" title="Dodavanje Albuma"
                 width="30%">
-            <form-dodaj-album @AddFinished="potvrdiFormu($event)"
+            <form-dodaj-album @editFinished="potvrdiFormu($event)"
                                             :dodavanje-albuma="true"></form-dodaj-album>
        </el-dialog>
     </div>
@@ -16,13 +17,13 @@ export default {
     components: { FormDodajAlbum},
     data() {
         return {
-            visible: true
+            dialogVisible: true
         }
     },
-    methodes: {
-     //    potvrdiFormu: function(event){
-       //     this.$emit("zavrsiDodavanje")
-        //},
+    methods: {
+       potvrdiFormu: function(event){
+            this.$emit("zavrsenoDodavanje")
+        },
         zatvori: function() {
             this.visible = !this.visible;
         }
