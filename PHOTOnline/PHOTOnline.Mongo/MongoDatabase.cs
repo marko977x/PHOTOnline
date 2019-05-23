@@ -23,7 +23,7 @@ namespace PHOTOnline.Mongo
             {
                 new IgnoreExtraElementsConvention(true)
             };
-            ConventionRegistry.Register("AffineApp Conventions", pack, t => true);
+            ConventionRegistry.Register("PHOTOnline Conventions", pack, t => true);
 
             var client = new MongoClient(settings);
             _database = client.GetDatabase(options.Value.Database);

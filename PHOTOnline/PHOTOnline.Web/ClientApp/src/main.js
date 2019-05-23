@@ -1,5 +1,9 @@
 import Vue from "vue";
 import App from "./App.vue";
+import router from './routes/route'
+import Fotograf from './pages/Fotograf.vue'
+import Korisnik from './pages/Korisnik.vue'
+import Pocetna from './pages/Pocetna.vue'
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import BootstrapVue from "bootstrap-vue";
@@ -11,5 +15,7 @@ Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 
 new Vue({
-  render: h => h(App)
+    router,
+    render: 
+        h => h(Korisnik)
 }).$mount("#app");
