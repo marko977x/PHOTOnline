@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Domain.Entities
+namespace PHOTOnline.Business.AlbumManagement.Input
 {
-    public class Album : IEntity
+    public class AddAlbumInput
     {
-        public string Id { get; set; }
         public string Password { get; set; }
         public string Location { get; set; }
         public string Organizer { get; set; }

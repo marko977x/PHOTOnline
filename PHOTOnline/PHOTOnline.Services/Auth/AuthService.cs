@@ -114,5 +114,16 @@ namespace PHOTOnline.Services.Auth
             await _signInManager.SignOutAsync();
             return new Result() { Success = true };
         }
+
+        public async Task<Result<PHOTOnlineUser>> GetUserByEmail(string email)
+        {
+            PHOTOnlineUser user = await _userManager.FindByEmailAsync(email);
+
+            return new Result<PHOTOnlineUser>()
+            {
+                Success = user == null ? false : true,
+                Data = user
+            };
+        }
     }
 }

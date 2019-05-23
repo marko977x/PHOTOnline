@@ -1,13 +1,11 @@
-﻿using Domain.Entities.Enums;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Domain.Entities
+namespace PHOTOnline.Business.RequestManagement.Input
 {
-    public class Request : IEntity
+    public class CreateRequestInput
     {
-        public string Id { get; set; }
-        public string Notification { get; set; }
-        public RequestStatus RequestStatus { get; set; }
         public string EventType { get; set; }
         public string Location { get; set; }
         public DateTime DateTime { get; set; }

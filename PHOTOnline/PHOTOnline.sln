@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.421
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PHOTOnline.Web", "PHOTOnline.Web\PHOTOnline.Web.csproj", "{AA189012-4528-4C89-AC41-2C8E744CEA4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHOTOnline.Business", "PHOTOnline.Business\PHOTOnline.Business.csproj", "{BF0DD820-AEFC-4B34-8690-D1462E70366F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PHOTOnline.Business", "PHOTOnline.Business\PHOTOnline.Business.csproj", "{BF0DD820-AEFC-4B34-8690-D1462E70366F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHOTOnline.Services", "PHOTOnline.Services\PHOTOnline.Services.csproj", "{85EF9B4C-356D-4799-8B8D-E91892D62186}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PHOTOnline.Services", "PHOTOnline.Services\PHOTOnline.Services.csproj", "{85EF9B4C-356D-4799-8B8D-E91892D62186}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHOTOnline.Domain", "PHOTOnline.Domain\PHOTOnline.Domain.csproj", "{59CB24D8-8D52-4C94-ACE9-F432AB99F8B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PHOTOnline.Domain", "PHOTOnline.Domain\PHOTOnline.Domain.csproj", "{59CB24D8-8D52-4C94-ACE9-F432AB99F8B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHOTOnline.Mongo", "PHOTOnline.Mongo\PHOTOnline.Mongo.csproj", "{50EC5CB1-56D4-4D2D-8DBB-44CADA8CDD94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PHOTOnline.Mongo", "PHOTOnline.Mongo\PHOTOnline.Mongo.csproj", "{50EC5CB1-56D4-4D2D-8DBB-44CADA8CDD94}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PHOTOnline.Web", "PHOTOnline.Web", "{ED48B844-D946-4866-A07D-9E018E73E92E}"
 EndProject
@@ -22,6 +22,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PHOTOnline.Mongo", "PHOTOnline.Mongo", "{9DAC4377-21B2-43D4-A642-BE981C29915C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PHOTOnline.Services", "PHOTOnline.Services", "{A782326E-F379-4789-9FA6-FABC630AA81F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PHOTOnline.BlobStorage", "PHOTOnline.BlobStorage\PHOTOnline.BlobStorage.csproj", "{F4F83448-22A9-4D98-BADD-43AD0F234A75}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PHOTOnline.BlobStorage", "PHOTOnline.BlobStorage", "{28ACD311-592D-488D-A42C-293C458105AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,10 @@ Global
 		{50EC5CB1-56D4-4D2D-8DBB-44CADA8CDD94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50EC5CB1-56D4-4D2D-8DBB-44CADA8CDD94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50EC5CB1-56D4-4D2D-8DBB-44CADA8CDD94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4F83448-22A9-4D98-BADD-43AD0F234A75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4F83448-22A9-4D98-BADD-43AD0F234A75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4F83448-22A9-4D98-BADD-43AD0F234A75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4F83448-22A9-4D98-BADD-43AD0F234A75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +67,7 @@ Global
 		{85EF9B4C-356D-4799-8B8D-E91892D62186} = {A782326E-F379-4789-9FA6-FABC630AA81F}
 		{59CB24D8-8D52-4C94-ACE9-F432AB99F8B1} = {5EF54FE7-E301-4623-8A66-928D58B298CF}
 		{50EC5CB1-56D4-4D2D-8DBB-44CADA8CDD94} = {9DAC4377-21B2-43D4-A642-BE981C29915C}
+		{F4F83448-22A9-4D98-BADD-43AD0F234A75} = {28ACD311-592D-488D-A42C-293C458105AD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E558043-29BC-4B84-8BB5-BA7671F9B8C1}

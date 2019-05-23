@@ -58,6 +58,14 @@ namespace PHOTOnline.Web.Controllers
             else return BadRequest(result);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetUserByEmail(string email)
+        {
+            Result<PHOTOnlineUser> result = await _authService.GetUserByEmail(email);
+            if (result.Success) return Ok(result);
+            else return BadRequest(result);
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> SignIn([FromBody] SignInInput input)
