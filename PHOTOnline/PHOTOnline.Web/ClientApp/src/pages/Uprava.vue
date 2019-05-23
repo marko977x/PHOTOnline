@@ -1,10 +1,10 @@
 <template>
     <div class="uprava-container">
-       <custom-bar :list="menuItems">
-           <evidencija-clanova hidden></evidencija-clanova>
-           <narudzbina hidden></narudzbina>
+       <custom-bar :list="menuItems" @changeView="setComponent($event)">
+           <evidencija-clanova v-if="this.showComp == 'evidencijaclanova'"></evidencija-clanova>
+           <narudzbina v-if="this.showComp == 'narudzbina'"></narudzbina>
            <pocetna-strana hidden></pocetna-strana>
-           <album-uprave></album-uprave>
+           <album-uprave v-if="this.showComp == 'albumuprave'"></album-uprave>
            <zakazivanja hidden></zakazivanja>
        </custom-bar>
     </div>
@@ -19,6 +19,7 @@
     import Narudzbina from "../components/Narudzbina.vue"
     import AlbumUprave from "../components/AlbumUprave.vue"
     import Zakazivanja from "../components/Zakazivanja.vue"
+    import {setPageShown, getPageToShow, getUserInfo, clearUserInfo, clearFormMode} from "../services/contextManagement"
 export default {
     components: { CustomBar, PrikazObaveza, EvidencijaClanova, Narudzbina, PocetnaStrana, AlbumUprave, Zakazivanja },
     data(){
@@ -48,8 +49,16 @@ export default {
                     index: 'evidencijaclanova',
                     slika: 'evidencijaclanova.png'
                 }
-            ]
+            ],
+            showComp: 'albumuprave'
         }
+        
+    },
+    methods: {
+         setComponent(index){
+            this.showComp = index
+            setPageShown(index);
+         }
     }
 }
 </script>
@@ -62,8 +71,6 @@ export default {
         top: 0;
         left:0;
         z-index: -1;
-        height: 100%;
-        width:100%;
         background-size: cover;
         background-position: bottom;
         background-image: linear-gradient(

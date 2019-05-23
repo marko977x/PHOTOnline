@@ -18,14 +18,14 @@
                                 nulla illum!.</p>
                 </div>
             </div>
-            <el-carousel  class="carousel">
+            <el-carousel style=""  class="carousel">
                 <el-carousel-item v-for="photo in photos" :key="photo">
-                <img :src="photo" height="200" width="400"/>
-                <h1>{{photo}}</h1>
+                <img :src="photo" height="100%" width="100%"/>
                 </el-carousel-item>
             </el-carousel>
         </div>
-        <login></login>
+        <login hidden></login>
+        <form-signup></form-signup>
         <footer-bar class="footer"></footer-bar>
     </div>
 </template>
@@ -34,13 +34,16 @@
  import HeaderBar from '../components/HeaderBar.vue'
  import FooterBar from '../components/FooterBar.vue'
  import Login from "../components/Login.vue"
+ import FormSignup from "../components/FormSignup.vue"
+ import slika1 from "../assets/pictures/1.jpg"
+ import slika2 from "../assets/pictures/evidencija.jpg"
 export default {
-    components: { HeaderBar, FooterBar, Login},
+    components: { HeaderBar, FooterBar, Login, FormSignup},
     data() {
         return {
             photos:[
-                '../assets/pictures/h1.JPG',
-                '../assets/pictures/h2.JPG',
+                slika1,
+                slika2,
                 '../assets/pictures/h3.JPG',
             ],
             count: 0
@@ -60,11 +63,11 @@ export default {
 
   .el-carousel__item:nth-child(n) {
     background-color: #99a9bf;
+    height: 610px;
   }
   .carousel{
-      height: 310px;
-      width: 60%;
-      margin-left: 280px;
+      height: 610px;
+      width: 100%;
       border-radius: 5px;
   }
   .main-container{

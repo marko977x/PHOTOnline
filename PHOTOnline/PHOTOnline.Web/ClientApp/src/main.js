@@ -17,5 +17,5 @@ Vue.use(BootstrapVue);
 new Vue({
     router,
     render: 
-        h => h(Fotograf)
+        h => h(Pocetna)
 }).$mount("#app");
