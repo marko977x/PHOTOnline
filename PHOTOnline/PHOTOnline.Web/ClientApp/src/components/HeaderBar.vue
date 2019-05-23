@@ -14,19 +14,19 @@
                 </div>
                 <div class="navbar-right">
                     <ul class="items">
-                        <li class="list-item"> <a href='' style="color:white;text-decoration: none;">Početna</a> </li>
+                        <li class="list-item"> <a href='' style="color:white;text-decoration: none;">Zakazivanja</a> </li>
                         <li class="list-item"> <a href='' style="color:white;text-decoration: none;"> Albumi </a> </li>
                         <li class="list-item"> <a href='' style="color:white;text-decoration: none;">Proizvodi </a> </li> 
-                        <li> <el-button type="primary"> Log in </el-button> </li>
+                        <li> <el-button type="primary" @click="$emit('login')"> Log in </el-button> </li>
                         <li> <el-button type="primary" 
-                        style="margin-left:10px;" plain>SIGN UP</el-button> </li>
+                        style="margin-left:10px;" @click="$emit('signup')" plain >SIGN UP</el-button> </li>
                     </ul>
                 </div>
                 <div class="navbar-right-menu" hidden>
                     <el-button class="el-icon-menu" 
                         style="background-color:#737982; color:white;opacity:0.9;"> </el-button>
-                    <el-button type="primary"> Log in </el-button>
-                    <el-button type="primary" plain>SIGN UP</el-button>
+                    <el-button type="primary" @click="$emit('loguj')"> Log in </el-button>
+                    <el-button type="primary" @click="$emit('signup')">SIGN UP</el-button>
                 </div>
             </nav>
         </div>

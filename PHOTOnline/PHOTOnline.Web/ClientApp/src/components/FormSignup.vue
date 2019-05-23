@@ -1,6 +1,6 @@
 <template>
     <div class="signup-container">
-        <el-dialog visible width="35%">
+        <el-dialog visible width="35%" @close="$emit('zavrsiDodavanje')">
              <div class="forma">
                 <el-form>
                     <h3 style="text-align:center; margin-bottom:40px;
@@ -38,7 +38,7 @@
                       <div class="stavka">
                         <label>Password:</label>
                         <el-input class="input" v-model="signupData.password"
-                        placeholder=""></el-input>
+                        placeholder="*****"></el-input>
                     </div>
                     <div class="dugme">
                     <el-button type="primary">Sačuvaj</el-button>

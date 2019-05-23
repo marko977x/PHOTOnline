@@ -5,7 +5,7 @@
            <narudzbina v-if="this.showComp == 'narudzbina'"></narudzbina>
            <pocetna-strana hidden></pocetna-strana>
            <album-uprave v-if="this.showComp == 'albumuprave'"></album-uprave>
-           <zakazivanja hidden></zakazivanja>
+           <zakazivanja v-if="this.showComp == 'zakazivanja'" ></zakazivanja>
        </custom-bar>
     </div>
 </template>
@@ -50,7 +50,7 @@ export default {
                     slika: 'evidencijaclanova.png'
                 }
             ],
-            showComp: 'albumuprave'
+            showComp: 'zakazivanja'
         }
         
     },
