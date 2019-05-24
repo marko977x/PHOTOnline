@@ -36,6 +36,7 @@
 <script>
     import FileUpload from 'vue-upload-component'
     import {Button} from 'element-ui'
+    import {apiFetch, destinationUrl} from "../services/authFetch";
 export default {
     components: {
         Button,
@@ -61,14 +62,14 @@ export default {
         },
         dodajAlbum: async function(){
                 const formData = new FormData();
-                for(let key in this.signupData){
-					formData.append(key, this.signupData[key]);
+                for(let key in this.albumData){
+					formData.append(key, this.albumData[key]);
 				}
                 const fetchData = { 
                     body: formData,
                     method: "POST"
                 }
-                fetch("https://localhost:5001/api/User/CreateUserAsync", fetchData)
+                fetch("https://localhost:5001/api//", fetchData)
                     .then(response => {
                         console.log(response);
                         return response.json(); 
@@ -76,8 +77,7 @@ export default {
                     .then(result => {
                         console.log(result);
                     });
-              console.log(this.naziv + this.mesto + this.password);
-            this.$emit('editFinished',retAlbum) // ovo retAlbum je DataObject koji se salje drugoj komponenti
+                    this.$emit('editFinished',retAlbum) // ovo retAlbum je DataObject koji se salje drugoj komponenti
             // AddFinished je ime eventa okidaca koji se okida u drugoj kompononeti odnosno parent komponenti!
         },
         prekiniDodavanjeAlbuma: function(){

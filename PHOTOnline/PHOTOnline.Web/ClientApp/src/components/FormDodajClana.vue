@@ -23,14 +23,17 @@
                     <label>Password:</label>
                     <el-input v-model="zaposleni.password" placeholder="password" type="password" size="small"></el-input>
                 </div>
-                <el-button type="primary" size="mini" @click="dodajClana()">Potvrdi</el-button>
+                <el-button type="primary" size="mini" @click="prihvatiUnosForme()">Potvrdi</el-button>
             </el-form>
         </el-dialog>
     </div>
 </template>
 
 <script>
+
  const FOTOGRAF_USER_TYPE = 2;
+
+ import {apiFetch, destinationUrl} from "../services/authFetch";
 export default {
     data(){
         return{
@@ -66,7 +69,19 @@ export default {
                     .then(result => {
                         console.log(result);
                     });
-        }
+        },
+        prihvatiUnosForme() {
+                    apiFetch('POST', destinationUrl + "/User/CreateUserAsync", {responseType: 'text'}, event)
+                        .then(function (res) {
+                            // if (res.charAt(0) == "2") {
+                            //  that.$message({message: "Uspešna registracija zaposlenog.", type: "success"})
+
+                            //   return
+                            //  }
+                            //  that.$message({message: "Greška pri registraciji zaposlenog.", type: "error"})
+                            console.log(res)
+                    })
+                }
     }
 }
 </script>
