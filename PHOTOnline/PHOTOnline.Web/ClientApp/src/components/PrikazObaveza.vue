@@ -1,18 +1,15 @@
 <template>
     <div class="obaveza-container" v-if="this.obaveza">
         <div class="obaveza-container-inner">
-            <div class="month">
-                <h3>Mesečne obaveze</h3>
-            </div>
             <div class="month-button">
                 <el-button class="button-arrow" @click="decrement"> <el-icon class="el-icon-arrow-left"></el-icon> </el-button>
-                <h5 v-for="month in months" :name="month.name" :key="month.key" >{{month.name}}</h5>
+                <h5>{{months[broj].name}}</h5>
                 <el-button class="button-arrow" @click="increment">  <el-icon class="el-icon-arrow-right"></el-icon> </el-button>
             </div>
             <div class="tabela-obaveza-container">
                 <prikaz-obaveza-table></prikaz-obaveza-table>
             </div>
-            <el-button @click="zatvori">Zatvori</el-button>
+            <el-button @click="zatvori" type="primary">Zatvori</el-button>
         </div>
     </div>
 </template>
@@ -23,18 +20,18 @@ export default {
     data() {
         return{
             months: [
-                {name: 'Januar', key: 1},
-                {name: 'Februar', key: 2},
-                {name: 'Mart', key: 3},
-                {name: 'April', key: 4},
-                {name: 'Maj', key: 5},
-                {name: 'Jun', key: 6},
-                {name: 'Jul', key: 7},
-                {name: 'Avgust', key: 8},
-                {name: 'Septembar', key: 9},
-                {name: 'Oktobar', key: 10},
-                {name: 'Novembar', key: 11},
-                {name: 'Decembar', key: 12},
+                {name: 'Januar'},
+                {name: 'Februar'},
+                {name: 'Mart'},
+                {name: 'April'},
+                {name: 'Maj'},
+                {name: 'Jun'},
+                {name: 'Jul'},
+                {name: 'Avgust'},
+                {name: 'Septembar'},
+                {name: 'Oktobar'},
+                {name: 'Novembar'},
+                {name: 'Decembar'},
             ],
             broj: 0,
             obaveza: true
@@ -44,16 +41,19 @@ export default {
     methods: {
         decrement: function()
         {
-            brojac--;
-            this.months.key--;
+            if(this.broj > 0)
+                this.broj--;
+            else
+                this.broj = 0;
         },
         increment: function(){
-            brojac++;
-            this.months.key++;
-            console.log(brojac);
+            if(this.broj < 11)
+                this.broj++;
+            else
+                this.broj = 11;
         },
         zatvori: function(){
-            this.obaveza = !this.obaveza;
+              this.$emit('editFinished','cancel')
         }
     },
 }
@@ -71,7 +71,7 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 70%;
+        height: 80%;
         width: 80%;
         background-color:  rgba(204, 204, 211, 0.897);
         opacity: 1;
@@ -98,8 +98,8 @@ export default {
     .tabela-obaveza-container{
         height: calc(95% - 6em);
         overflow: auto;
-        justify-content: center;
-        align-items: center;
+        margin-top: 10px;
+        margin-bottom: 25px;
     }
 </style>
 

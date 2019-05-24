@@ -1,22 +1,25 @@
 <template>
     <div class="foto-container">
         <div class="foto-background"></div>
-            <custom-header-bar :list="this.menuItems">
-            <dodavanje-albuma v-if="s"></dodavanje-albuma>
-            <prikaz-obaveza></prikaz-obaveza>
-            </custom-header-bar>
+            <custom-bar :list="this.menuItems"  @changeView="setComponent($event)">
+            <dodavanje-albuma @zavrsenoDodavanje="this.zavrsiDodavanje" v-if="showComp === 'dodajalbum'"></dodavanje-albuma>
+            <prikaz-obaveza v-if="this.showComp === 'raspored'"  @editFinished="this.zavrsiDodavanje"></prikaz-obaveza>
+            <pocetna-strana hidden></pocetna-strana>
+            </custom-bar>
     </div>
 </template>
 
 <script>
 import Button from 'element-ui'
-import CustomHeaderBar from "../components/CustomHeaderBar"
+import CustomBar from "../components/CustomBar"
 import DodavanjeAlbuma from "../components/DodavanjeAlbuma"
 import PrikazObaveza from "../components/PrikazObaveza"
+import PocetnaStrana from "../components/PocetnaStrana"
+import {setPageShown, getPageToShow, getUserInfo, clearUserInfo, clearFormMode} from "../services/contextManagement";
 
 export default {
     components: {
-        DodavanjeAlbuma,CustomHeaderBar,PrikazObaveza
+        DodavanjeAlbuma,PrikazObaveza,CustomBar,PocetnaStrana
     },
     data() {
         return {
@@ -24,31 +27,50 @@ export default {
                 {
                     key: 1,
                     label: 'Dodaj Album',
-                    index: 'dodajalbum'
-                    // dodaj sliku!
+                    index: 'dodajalbum',
+                    slika: 'album.png'
                 },
                 {
                     key:2,
                     label: 'Raspored Aktivnosti',
-                    index: 'raspored'
-                    //slika!
+                    index: 'raspored',
+                    slika: 'zakazivanje.png'
                 }
             ],
-            showComp: '',
+            showComp: 'raspored',
+            userID: -1,
             userType: 'fotograf'
         }
-
     },
-    methodes: {
-        setCompononet(component){
-            this.showComp = component;
-
+    methods: {
+        radi: function(){
+            console.log("Ovo radi!")
         },
-       // zavrsenoDodavanje(){
-        //    this.showComp = 'dodajalbum'
-       // }
+        setComponent(index){
+            this.showComp = index
+            setPageShown(index);
+        },
+        changeComp: function(event){
+            if(event == '')
+                this.showComp = 'raspored'
+            else
+                this.showComp = event;
+                setPageShown(this.showComp)
+        },
+        zavrsiDodavanje(){
+            this.showComp = ''
+            setPageShown('')
+        }
+    },
+    beforeMount(){
+       var index = getPageToShow().page
+       this.userID = getUserInfo().userID
+       if(index != null){
+           this.showComp = index;
+           return;
+       }
+       this.showComp = ''
     }
-
 }
 </script>
 
@@ -57,8 +79,17 @@ export default {
         height: 100%;
         width: 100%;
         position: absolute;
+        top: 0;
+        left:0;
+        z-index: -1;
+        background-size: cover;
+        background-position: bottom;
+        background-image: linear-gradient(
+            rgba(26, 111, 168, 0.555),
+            rgba(37, 41, 40, 0.781)
+        ),url("../assets/pictures/1.jpg");
     }
-    .foto-background{
+   /* .foto-background{
         position: absolute;
         top: 0;
         left:0;
@@ -71,7 +102,7 @@ export default {
             rgba(26, 111, 168, 0.555),
             rgba(37, 41, 40, 0.781)
         ),url("../assets/pictures/1.jpg");
-    }
+    }*/
 </style>
 
 

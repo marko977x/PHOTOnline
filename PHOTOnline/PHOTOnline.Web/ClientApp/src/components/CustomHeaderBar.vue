@@ -16,7 +16,7 @@
             <div class="side-menu" v-if="this.menuShown">
                     <el-menu v-show="klik" mode="vertical" style="height: 100%; border:none;"
                             text-color= "white" :router="false"  default-active="2" background-color="#1A417F">
-                        <el-menu-item v-for="item in itemList" :key="item.key" class="side-menu-item" background-color="#3062b2">
+                        <el-menu-item v-for="item in itemList" :key="item.key" class="side-menu-item" style="color:white;">
                             {{item.label}}
                         </el-menu-item>
                     </el-menu>
@@ -51,7 +51,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .header{
     display: flex;
     justify-content: flex-end;

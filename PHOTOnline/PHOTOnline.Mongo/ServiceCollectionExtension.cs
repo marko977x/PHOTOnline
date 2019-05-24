@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.MongoDB;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace PHOTOnline.Mongo
@@ -11,6 +14,8 @@ namespace PHOTOnline.Mongo
         {
             services.AddSingleton<MongoDatabase>();
             services.Configure<MongoOptions>(configuration.GetSection(MONGO_SECTION));
+            services.AddIdentityWithMongoStoresUsingCustomTypes<PHOTOnlineUser, IdentityRole>(
+                "mongodb://localhost/PHOTOnlineDB").AddRoles<IdentityRole>().AddDefaultTokenProviders();
         }
     }
 }

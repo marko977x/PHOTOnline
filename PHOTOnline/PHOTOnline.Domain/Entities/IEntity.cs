@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PhotoLine.Domain.Entities
+﻿namespace Domain.Entities
 {
-    public abstract class IEntity
+    public interface IEntity
     {
-        public int Id { get; set; }
+        string Id { get; set; }
     }
 }
