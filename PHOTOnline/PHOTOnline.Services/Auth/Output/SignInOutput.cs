@@ -7,6 +7,6 @@ namespace PHOTOnline.Services.Auth.Output
     public class SignInOutput
     {
         public string Id { get; set; }
-        public UserType UserType { get; set; }
+        //public UserType UserType { get; set; }
     }
 }

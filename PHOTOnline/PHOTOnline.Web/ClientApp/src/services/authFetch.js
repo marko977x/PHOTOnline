@@ -1,4 +1,4 @@
-export const destinationUrl = 'https://localhost:5001'
+export const destinationUrl = 'https://localhost:5001/api'
 export function getCredentials() {
     return {
         accessToken: localStorage.getItem('accessToken'),
@@ -7,30 +7,23 @@ export function getCredentials() {
 export function setCredentials(accessToken) {
     localStorage.setItem('accessToken', accessToken)
 }
-export function deleteCredentials()
-{
+export function deleteCredentials() {
     localStorage.removeItem('accessToken')
 }
-export function apiFetchFactory({getCredentials, deleteCredentials, setCredentials, fetch}) {
-    return async function apiFetch(method, url, {
-        contentType = 'application/json',
-        hasAuthHeader = true,
-        responseType = 'json'
-    } = {}, body) {
-        // isReachable('192.168.137.105:8080').then(r => console.log("reachable ", r))
-        const {accessToken} = getCredentials()
-        const res = await fetch(url, {
+export function apiFetchFactory() {
+    return async function apiFetch(method, url, body) {
+        const formData = new FormData();
+        for (let key in body) {
+            formData.append(key, body[key]);
+        }
+        const result = await fetch(url, {
             method: method,
-            body: JSON.stringify(body),
-            headers: {
-                ...(hasAuthHeader ? {'authorization': accessToken} : {}),
-            }
-        })
-        if (responseType == "json" && res.status >= 200 && res.status < 300)
-            return res.json()
-        else
-            return res.status.toString()
+            body: formData
+        });
+
+        if (result.ok) return result.json();
+        else return result.status.toString();
     }
 }
 
-export const apiFetch = apiFetchFactory({getCredentials, setCredentials, deleteCredentials, fetch})
+export const apiFetch = apiFetchFactory();

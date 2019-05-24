@@ -71,17 +71,9 @@ export default {
                     });
         },
         prihvatiUnosForme() {
-                    apiFetch('POST', destinationUrl + "/User/CreateUserAsync", {responseType: 'text'}, event)
-                        .then(function (res) {
-                            // if (res.charAt(0) == "2") {
-                            //  that.$message({message: "Uspešna registracija zaposlenog.", type: "success"})
-
-                            //   return
-                            //  }
-                            //  that.$message({message: "Greška pri registraciji zaposlenog.", type: "error"})
-                            console.log(res)
-                    })
-                }
+            apiFetch('POST', destinationUrl + "/User/CreateUserAsync", this.zaposleni)
+                .then(result => {console.log(result)});
+        }
     }
 }
 </script>

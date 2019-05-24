@@ -71,7 +71,7 @@ namespace PHOTOnline.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> SignIn([FromForm] SignInInput input)
         {
-            Result<SignInOutput> result = await _authService.SignInAsync(
+            Result result = await _authService.SignInAsync(
                 input.Email, input.Password);
             if (result.Success) return Ok(result);
             else return BadRequest(result);

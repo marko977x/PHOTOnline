@@ -107,9 +107,8 @@ namespace PHOTOnline.Services.Auth
             SignInResult signInResult = await _signInManager.PasswordSignInAsync(
                 user, password, false, false);
 
-            return new Result<SignInOutput>()
+            return new Result()
             {
-                Data = new SignInOutput() { Id = user.Id, UserType = user.Roles[0] }
                 Success = signInResult.Succeeded
             };
         }
