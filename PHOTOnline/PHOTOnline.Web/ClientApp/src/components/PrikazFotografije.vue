@@ -3,7 +3,7 @@
         <div class="download-delete">
             <el-icon class="el-icon-download"></el-icon>
             <el-icon class="el-icon-delete"></el-icon>
-            <el-image :src="source" style="height:100px; width:100px;" />
+            <image :src="this.slika" style="height:100px; width:100px;" />
         </div>
         <h6 style="font-size:10px; text-align:center; position:bottom;">{{naziv}}</h6>
     </div>
@@ -11,11 +11,12 @@
 
 <script>
 import {} from 'element-ui'
+import slika from "../assets/pictures/1.jpg"
 export default {
     data(){
         return{
             naziv: 'DSC_1567',
-            source: "../assets/pictures/evidencija.jpg"
+            slika
             
         }
     }

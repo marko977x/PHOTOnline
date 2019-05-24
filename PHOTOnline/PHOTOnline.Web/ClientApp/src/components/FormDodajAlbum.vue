@@ -15,9 +15,9 @@
                 <label>Mesto:</label>
                 <el-input class="input-polje" v-model="mesto"></el-input>
             </div>
-            <div class="stavka">
+            <div class="stavka-2">
                  <file-upload   action="https://jsonplaceholder.typicode.com/posts/" :directory="true" multiple="multiple">
-                           <el-button size="small" type="primary">Upload Slika</el-button>
+                           <el-button size="small" type="warning">Upload Slika</el-button>
                 </file-upload>
             </div>
             <div class="stavka">
@@ -25,7 +25,7 @@
                 <el-input type="password" class="input-polje" v-model="password"></el-input> 
             </div>
             <div class="dugmici">
-            <el-button @click="this.dodajAlbum()">Sačuvaj</el-button>
+            <el-button @click="dodajAlbum()" type="primary">Sačuvaj</el-button>
             <el-button @click="prekiniDodavanjeAlbuma">Odustani</el-button>
             </div>
             
@@ -36,6 +36,7 @@
 <script>
     import FileUpload from 'vue-upload-component'
     import {Button} from 'element-ui'
+    import {apiFetch, destinationUrl} from "../services/authFetch";
 export default {
     components: {
         Button,
@@ -43,31 +44,40 @@ export default {
     },
     data(){
         return{
-            naziv: '',
-            datum: '', // Nisam siguran da li bi trebalo da se pamti kao string ili kao Date?
-            mesto: '',
-            password: '',
+            albumData:{
+                naziv: '',
+                datum: '',
+                mesto: '',
+                password: ''
+            }
         }
     },
     methods: {
         validacija: function(){
             if(this.naziv === '' || this.mesto === '' || this.datum === ''){
                 this.$message({message : 'Sva polja moraju biti popunjena', type: 'warning'})
-                return false;
+                return
             }
-            return true;
+            this.dodajAlbum()
         },
         dodajAlbum: async function(){
-            if(!this.validacija())
-                return;
-            var retAlbum = {
-                naziv: this.naziv,
-                mesto: this.mesto,
-                password: this.password,
-                datum: this.datum
-            }
-              console.log(this.naziv + this.mesto + this.password);
-            this.$emit('editFinished',retAlbum) // ovo retAlbum je DataObject koji se salje drugoj komponenti
+                const formData = new FormData();
+                for(let key in this.albumData){
+					formData.append(key, this.albumData[key]);
+				}
+                const fetchData = { 
+                    body: formData,
+                    method: "POST"
+                }
+                fetch("https://localhost:5001/api//", fetchData)
+                    .then(response => {
+                        console.log(response);
+                        return response.json(); 
+                    }) 
+                    .then(result => {
+                        console.log(result);
+                    });
+                    this.$emit('editFinished',retAlbum) // ovo retAlbum je DataObject koji se salje drugoj komponenti
             // AddFinished je ime eventa okidaca koji se okida u drugoj kompononeti odnosno parent komponenti!
         },
         prekiniDodavanjeAlbuma: function(){
@@ -86,8 +96,9 @@ export default {
         justify-content: space-between;
     }
     label{
+       font-size: 15px;
+        text-align: left;
         flex-basis: 30%;
-        text-align: center;
     }
     .input-polje{
         flex-basis: 70%
@@ -102,8 +113,10 @@ export default {
         margin-top: 10px;
         margin-bottom: 10px;
     }
-    el-date-picker{
-
+    .stavka-2{
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
     }
 </style>
 

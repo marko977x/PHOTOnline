@@ -1,7 +1,7 @@
 <template>
     <div class="albumuprave-container">
-        <div class="dodavanje" >
-                <el-button type="primary" size="mini" style="height:35px;">Dodaj Album</el-button>
+        <div class="dodavanje"  v-if="this.showComp == 'albumi'" >
+                <el-button type="primary" size="mini" style="height:35px;" @click="dodajAlbum">Dodaj Album</el-button>
                  <el-input v-model="Pretraga"
                                         size="medium"
                                         style="width:600px; margin-left:220px; margin-right:205px;"
@@ -10,10 +10,12 @@
                 <label style="text-align:center; position:right;">Broj Albuma:</label>
         </div>
         <div class="albumi">
-            <prikaz-albuma  v-for="item in 30" :key="item"></prikaz-albuma>
+            <prikaz-albuma @otvorialbum="prikaziAlbume"
+                v-if="this.showComp == 'albumi'"></prikaz-albuma>
         </div>
-        <dodavanje-albuma hidden></dodavanje-albuma>
-        <prikaz-sadrzaja-albuma hidden  ></prikaz-sadrzaja-albuma>
+        <dodavanje-albuma  @zavrsenoDodavanje="this.zavrsiDodavanje" v-if="showComp === 'dodajalbum'"></dodavanje-albuma>
+        <prikaz-sadrzaja-albuma  v-if="this.showComp == 'prikazalbuma'" 
+            @zavrsipregled='zavrsiDodavanje'></prikaz-sadrzaja-albuma>
     </div>
 </template>
 
@@ -25,7 +27,20 @@ export default {
     components: {PrikazAlbuma, DodavanjeAlbuma, PrikazSadrzajaAlbuma},
     data(){
         return{
-            Pretraga: ''
+            Pretraga: '',
+            showComp: 'albumi'
+        }
+    },
+    methods:{
+        dodajAlbum(){
+            this.showComp = 'dodajalbum'
+        },
+        zavrsiDodavanje(){
+            this.showComp = 'albumi'
+        },
+        prikaziAlbume(){
+            this.showComp = 'prikazalbuma'
+            console.log("jldjsladjlka")
         }
     }
 }
@@ -43,7 +58,6 @@ export default {
 .dodavanje{
     width: 98%;
     height: 7%;
-    margin-right: 10px;
     margin-top: 15px;
     margin-left: 21px;
     display: flex;

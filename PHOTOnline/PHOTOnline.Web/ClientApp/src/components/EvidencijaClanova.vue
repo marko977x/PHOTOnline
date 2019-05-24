@@ -33,23 +33,26 @@
                         </el-table-column>
                         <el-table-column
                             align="right">
-                            <template slot="header">
-                                <el-input v-model="search"
+                            <template slot="header"
+                            slot-scope="scope">
+                                <el-input 
+                                        v-model="search"
                                         size="big"
-                                        placeholder="Unesite ime za pretragu">
+                                        placeholder="  Ime za pretragu"
+                                        :focus="scope.search">
                                 </el-input>
                             </template>
-                            <template slot-scope="">
-                                <el-button size="mini">Izmeni</el-button>
-                                <el-button size="mini" type="danger"> Otpusti </el-button>
+                            <template slot-scope="scope">
+                                <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Izmeni</el-button>
+                                <el-button size="mini" type="danger" @click="handleEdit(scope.$index, scope.row)"> Otpusti </el-button>
                             </template>
                         </el-table-column>
                  </el-table>
                  <div class="dodaj-button">
-                     <el-button type="primary" size="mini" style="height:40px;width:95px;">Dodaj Člana</el-button>
+                     <el-button type="primary" size="mini" style="height:40px;width:95px;"  @click="dodajClana">Dodaj Člana</el-button>
                  </div>
         </div>
-          <form-dodaj-clana hidden ></form-dodaj-clana>
+          <form-dodaj-clana v-if="this.showComp == 'album'" @zatvoriDodavanjeClana="zavrsiDodavanje"></form-dodaj-clana>
     </div>
 </template>
 
@@ -57,11 +60,11 @@
 import FilterClanova from './FilterClanova'
 import FormDodajClana from './FormDodajClana'
 import {} from 'element-ui'
+import { setPageShown } from '../services/contextManagement';
 export default {
     components: {FilterClanova,FormDodajClana},
     data(){
         return{
-            search: '',
             tableData: [
                 {
                     ime: 'Vladica',
@@ -97,7 +100,21 @@ export default {
                     password: '12345'
                 }
 
-            ]
+            ],
+            showComp: '',
+            search: ''
+        }
+    },
+    methods: {
+        dodajClana: function(){
+            this.showComp = 'album'
+            setPageShown('album')
+        },
+         handleEdit(index, row) {
+        console.log(index, row);
+        },
+        zavrsiDodavanje(){
+            this.showComp = ''
         }
     }
 }

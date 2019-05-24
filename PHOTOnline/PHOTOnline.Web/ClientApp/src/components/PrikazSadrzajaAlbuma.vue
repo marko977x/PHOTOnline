@@ -2,6 +2,8 @@
     <div class="sadrzaj-albuma">
          <div class="dodavanje" style="margin:none;">
              <div class="left">
+                 <el-button class="el-icon-arrow-left" type="success" size="mini" 
+                 style="size:10px;" @click="$emit('zavrsipregled')"></el-button>
                 <el-button type="primary" size="mini" style="height:35px; font-family:sans-serif;" class="el-icon-download"> Download Album</el-button>
                  <el-input v-model="PretragaFotografije"
                              size="medium"
