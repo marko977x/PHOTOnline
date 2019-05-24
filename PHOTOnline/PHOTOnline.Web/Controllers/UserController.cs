@@ -11,7 +11,7 @@ using PHOTOnline.Services.Auth;
 namespace PHOTOnline.Web.Controllers
 {
     [Route("/api/[controller]/[action]")]
-    [Produces("application/json")]
+    // [Produces("application/json")]
     [Authorize]
     public class UserController : Controller
     {
@@ -26,7 +26,7 @@ namespace PHOTOnline.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateUserAsync([FromBody]CreateUserInput input)
+        public async Task<IActionResult> CreateUserAsync([FromForm]CreateUserInput input)
         {
             Result<string> result = await _userAccount.CreateUserAsync(input);
             if (result.Success) return Ok(result);

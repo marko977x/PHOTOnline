@@ -27,6 +27,18 @@ namespace PHOTOnline.Web
             services.AddPHOTOnlineBusinessServices();
             services.AddPHOTOnlineServices();
             //services.AddAuthorization();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyCorsPolicy",
+                builder => builder
+                    .SetIsOriginAllowedToAllowWildcardSubdomains()
+                    .WithOrigins("http://localhost:8080")
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .AllowAnyHeader()
+                    .Build()
+                );
+            });
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -45,7 +57,7 @@ namespace PHOTOnline.Web
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-
+            app.UseCors("MyCorsPolicy");
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UsePHOTOnlineMvc();
