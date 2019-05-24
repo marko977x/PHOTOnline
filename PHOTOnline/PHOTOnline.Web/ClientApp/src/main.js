@@ -18,5 +18,5 @@ Vue.use(BootstrapVue);
 new Vue({
     router,
     render: 
-        h => h(Uprava)
+        h => h(Pocetna)
 }).$mount("#app");

@@ -1,6 +1,6 @@
 <template>
     <div class="main-container">
-        <header-bar @signup="Signup" @login='logovanje'></header-bar>
+        <header-bar @signup="setSignUpForm" @login='setLoginForm'></header-bar>
         <div class="main">
             <div class="information">
                 <div class="info1">
@@ -24,8 +24,8 @@
                 </el-carousel-item>
             </el-carousel>
         </div>
-        <login v-if="this.showComp == 'login'" @zavrsiPrijavu="signupEnd"></login>
-        <form-signup v-if="this.showComp == 'signup'" @zavrsiDodavanje="signupEnd" ></form-signup>
+        <login v-if="this.showComp == 'login'" @closeLoginForm="closeForm"></login>
+        <form-signup v-if="this.showComp == 'signup'" @closeSignUpForm="closeForm" ></form-signup>
         <footer-bar class="footer"></footer-bar>
     </div>
 </template>
@@ -53,13 +53,13 @@ export default {
         }
     },
     methods: {
-        Signup: function(){
+        setSignUpForm: function(){
             this.showComp = 'signup'
         },
-        logovanje: function(){
+        setLoginForm: function(){
             this.showComp = 'login'
         },
-        signupEnd: function(){
+        closeForm: function(){
             this.showComp = ''
             setPageShown('')
         }

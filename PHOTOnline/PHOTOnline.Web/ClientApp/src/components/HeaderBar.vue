@@ -25,7 +25,7 @@
                 <div class="navbar-right-menu" hidden>
                     <el-button class="el-icon-menu" 
                         style="background-color:#737982; color:white;opacity:0.9;"> </el-button>
-                    <el-button type="primary" @click="$emit('loguj')"> Log in </el-button>
+                    <el-button type="primary" @click="$emit('login')"> Log in </el-button>
                     <el-button type="primary" @click="$emit('signup')">SIGN UP</el-button>
                 </div>
             </nav>

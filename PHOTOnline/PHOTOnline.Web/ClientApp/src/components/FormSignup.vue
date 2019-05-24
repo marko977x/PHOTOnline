@@ -1,6 +1,6 @@
 <template>
     <div class="signup-container">
-        <el-dialog visible width="35%">
+        <el-dialog @close="$emit('closeSignUpForm')" visible width="35%">
             <div class="forma">
                 <el-form>
                     <h3 style="text-align:center; margin-bottom:40px;
@@ -53,8 +53,12 @@
 </template>
 
 <script>
-    import { } from 'element-ui'
-    export default {
+    import { } from 'element-ui';
+import { setUserInfo } from '../services/contextManagement';
+
+    const REGULAR_USER_TYPE = 1;
+
+    export default { 
         data() {
             return {
                 signupData: {
@@ -64,7 +68,8 @@
                     PhoneNumber: '',
                     Email: '',
                     Username: '',
-                    Password: ''
+                    Password: '',
+                    UserType: REGULAR_USER_TYPE
                 }
             }
         },
@@ -80,11 +85,16 @@
                 }
                 fetch("https://localhost:5001/api/User/CreateUserAsync", fetchData)
                     .then(response => {
-                        console.log(response);
-                        return response.json(); 
-                    }) 
-                    .then(result => {
-                        console.log(result);
+                        if(response.ok) return response.json();
+                        else return new Error(response.Error);
+                    }).then(result => {
+                        if(result.success){
+                            setUserInfo(result.data, REGULAR_USER_TYPE);
+                            window.location.href = "/korisnik";
+                        } 
+                        else this.$message("Pogresni podaci");
+                    }).catch(error => {
+                        console.log(error);
                     });
             }
         }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.Business.UserManagement.Input;
 using PHOTOnline.Services.Auth;
+using PHOTOnline.Services.Auth.Output;
 
 namespace PHOTOnline.Web.Controllers
 {
@@ -68,9 +69,9 @@ namespace PHOTOnline.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> SignIn([FromBody] SignInInput input)
+        public async Task<IActionResult> SignIn([FromForm] SignInInput input)
         {
-            Result result = await _authService.SignInAsync(
+            Result<SignInOutput> result = await _authService.SignInAsync(
                 input.Email, input.Password);
             if (result.Success) return Ok(result);
             else return BadRequest(result);
