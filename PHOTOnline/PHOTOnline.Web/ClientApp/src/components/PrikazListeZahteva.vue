@@ -36,7 +36,8 @@
             <el-table-column align="right">
                 <template slot="">
                       <el-button type="danger" size="mini">Potvrdi</el-button>
-                    <el-button type="info" icon="el-icon-message" circle size="mini"></el-button>
+                    <el-button type="info" icon="el-icon-message" circle size="mini"
+                        @click="$event('poruka')"></el-button>
                 </template>
             </el-table-column>
         </el-table>

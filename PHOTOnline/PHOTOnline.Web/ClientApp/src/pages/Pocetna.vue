@@ -111,7 +111,7 @@ export default {
   }
   .information{
       width: 100%;
-      height: 820px;
+      height: 720px;
       display: flex;
       flex-direction: row;
       padding: 50px;

@@ -25,7 +25,7 @@
                 <el-input type="password" class="input-polje" v-model="password"></el-input> 
             </div>
             <div class="dugmici">
-            <el-button @click="this.dodajAlbum()" type="primary">Sačuvaj</el-button>
+            <el-button @click="dodajAlbum()" type="primary">Sačuvaj</el-button>
             <el-button @click="prekiniDodavanjeAlbuma">Odustani</el-button>
             </div>
             
@@ -43,29 +43,39 @@ export default {
     },
     data(){
         return{
-            naziv: '',
-            datum: '', // Nisam siguran da li bi trebalo da se pamti kao string ili kao Date?
-            mesto: '',
-            password: '',
+            albumData:{
+                naziv: '',
+                datum: '',
+                mesto: '',
+                password: ''
+            }
         }
     },
     methods: {
         validacija: function(){
             if(this.naziv === '' || this.mesto === '' || this.datum === ''){
                 this.$message({message : 'Sva polja moraju biti popunjena', type: 'warning'})
-                return false;
+                return
             }
-            return true;
+            this.dodajAlbum()
         },
         dodajAlbum: async function(){
-            if(!this.validacija())
-                return;
-            var retAlbum = {
-                naziv: this.naziv,
-                mesto: this.mesto,
-                password: this.password,
-                datum: this.datum
-            }
+                const formData = new FormData();
+                for(let key in this.signupData){
+					formData.append(key, this.signupData[key]);
+				}
+                const fetchData = { 
+                    body: formData,
+                    method: "POST"
+                }
+                fetch("https://localhost:5001/api/User/CreateUserAsync", fetchData)
+                    .then(response => {
+                        console.log(response);
+                        return response.json(); 
+                    }) 
+                    .then(result => {
+                        console.log(result);
+                    });
               console.log(this.naziv + this.mesto + this.password);
             this.$emit('editFinished',retAlbum) // ovo retAlbum je DataObject koji se salje drugoj komponenti
             // AddFinished je ime eventa okidaca koji se okida u drugoj kompononeti odnosno parent komponenti!

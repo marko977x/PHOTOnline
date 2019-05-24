@@ -11,30 +11,30 @@
                     <label>Prezime:</label>
                     <el-input v-model="zaposleni.prezime" placeholder="Prezime" size="small"></el-input>
                 </div>
-                 <div class="stavka-2">
-                   <el-select v-model="tip" placeholder="Izaberi Tip" size="small">
-                       <el-option v-for="item in tip" :key="item.value" :value="item.value" :label="item.value">{{item.value}}</el-option>
-                   </el-select>
+                 <div class="stavka">
+                   <label>Email:</label>
+                    <el-input v-model="zaposleni.Email" placeholder="korisnik@primer.com" size="small"></el-input>
                 </div>
                  <div class="stavka">
                     <label>Username:</label>
-                    <el-input v-model="zaposleni.username" placeholder="korisnik@primer.com" size="small"></el-input>
+                    <el-input v-model="zaposleni.username" placeholder="username" size="small"></el-input>
                 </div>
                  <div class="stavka">
                     <label>Password:</label>
                     <el-input v-model="zaposleni.password" placeholder="password" type="password" size="small"></el-input>
                 </div>
-                <el-button type="primary" size="mini" @click="$emit('dodaj')">Potvrdi</el-button>
+                <el-button type="primary" size="mini" @click="dodajClana()">Potvrdi</el-button>
             </el-form>
         </el-dialog>
     </div>
 </template>
 
 <script>
+ const FOTOGRAF_USER_TYPE = 2;
 export default {
     data(){
         return{
-            zaposleni: {ime:'',prezime: '', username: '', password: ''},
+            zaposleni: {FirstName:'',LastName: '', Email: '', Username: '', Password: '', UserType: FOTOGRAF_USER_TYPE},
             tip: [
                 {
                     value: 'Kamerman'
@@ -46,6 +46,26 @@ export default {
                     value: 'Korisnik'
                 }
             ]
+        }
+    },
+    methods: {
+        dodajClana(){
+             const formData = new FormData();
+                for(let key in this.signupData){
+					formData.append(key, this.signupData[key]);
+				}
+                const fetchData = { 
+                    body: formData,
+                    method: "POST"
+                }
+                fetch("https://localhost:5001/api/User/CreateUserAsync", fetchData)
+                    .then(response => {
+                        console.log(response);
+                        return response.json(); 
+                    }) 
+                    .then(result => {
+                        console.log(result);
+                    });
         }
     }
 }

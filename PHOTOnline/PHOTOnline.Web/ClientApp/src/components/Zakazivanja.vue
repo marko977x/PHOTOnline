@@ -13,7 +13,7 @@
                 </div>
         </template>
         </el-calendar>
-        <prikaz-liste-zahteva></prikaz-liste-zahteva>
+        <prikaz-liste-zahteva @poruka="otvoriPoruku"></prikaz-liste-zahteva>
         <obavesti-korisnika v-if="this.showComp == 'obavestenje'"
              @zatvoriPoruku="zatvori"
              ></obavesti-korisnika>
@@ -32,7 +32,7 @@ export default {
             value: new Date(),
             bell: '',
             datum: ['2019-05-24','2019-05-25','2019-07-26','2019-05-27','2019-05-28'],
-            showComp: 'obavestenje'
+            showComp: ''
         }
     },
     methods: {
@@ -44,6 +44,9 @@ export default {
         },
         zatvori(){
             this.showComp = ''
+        },
+        otvoriPoruku(){
+            this.showComp = 'obavestenje'
         }
     }
     
