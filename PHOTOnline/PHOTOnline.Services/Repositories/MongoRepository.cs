@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Domain.Entities;
 using Task = System.Threading.Tasks.Task;
+using System.Collections.Generic;
 
 namespace PHOTOnline.Services.Repositories
 {
@@ -58,6 +59,12 @@ namespace PHOTOnline.Services.Repositories
         {
             var filter = Builders<T>.Filter.Eq(entity => entity.Id, id);
             await Collection.DeleteOneAsync(filter);
+        }
+
+        public async Task<List<T>> GetAll()
+        {
+            var filter = Builders<T>.Filter.Empty;
+            return await (await Collection.FindAsync(filter)).ToListAsync();
         }
     }
 }

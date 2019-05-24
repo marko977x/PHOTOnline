@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
@@ -11,5 +12,6 @@ namespace Domain.Entities
         public string Description { get; set; }
         public string Title { get; set; }
         public DateTime Date { get; set; }
+        public List<string> Images { get; set; }
     }
 }

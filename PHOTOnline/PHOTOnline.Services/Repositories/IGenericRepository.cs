@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Task = System.Threading.Tasks.Task;
 
@@ -10,5 +11,6 @@ namespace PhotoLine.Services.Repositories
         Task<string> CreateAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(string id);
+        Task<List<T>> GetAll();
     }
 }

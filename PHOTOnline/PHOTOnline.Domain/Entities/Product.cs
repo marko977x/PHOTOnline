@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Enums;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Domain.Entities
 {
@@ -9,11 +10,8 @@ namespace Domain.Entities
         public float Price { get; set; }
         public string Size { get; set; }
         public string Description { get; set; }
-        public string RequestId { get; set; }
-        public string AlbumId { get; set; }
-        public ProductType ProductType { get; set; }
-        public CoverType CoverType { get; set; }
-        public CalendarType CalendarType { get; set; }
-        public MugType MugType { get; set; }
+        public string ProductCategory { get; set; }
+        public string CategoryType { get; set; }
+        public string ImageBlobId { get; set; }
     }
 }
