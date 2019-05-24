@@ -1,6 +1,7 @@
 <template>
     <div class="GlavniContainer">
-        <vc-calendar />
+        <!--<vc-calendar :attributes='attrs' v-model="datum" v-on:select='izabranDatum'/>-->
+        <vc-date-picker v-model="datum" v-on:input="$emit('izabranDatum',datum)" mode="single" is-inline/>
     </div>
 </template>
 
@@ -17,7 +18,19 @@ Vue.use(VCalendar, {
 export default {
     data(){
         return{
-            datum: '2019-01-01'
+            // attrs: [
+            //  {
+            //     key: 'select',
+            //     highlight: true,
+            //     dates: null
+            // }
+            // ],
+            datum: ""
+        }
+    },
+    methods: {
+        izabranDatum1(){
+            console.log(this.datum);
         }
     }
 }
