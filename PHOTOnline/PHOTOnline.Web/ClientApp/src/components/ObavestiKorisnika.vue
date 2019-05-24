@@ -1,6 +1,6 @@
 <template>
     <div class="obavestenje-container">
-        <el-dialog visible width="30%">
+        <el-dialog visible width="30%" @close="$emit('zatvoriPoruku')">
             <h5 style="text-align:center; font-family:sans-serif; font-size:15px;"> Obaveštenje korisniku </h5>
             <el-input v-model="obavestenje"
              type="textarea"

@@ -1,7 +1,45 @@
 <template>
-    <div class="zahtevi-container">
-        <div class="zahtevi-container-table">
-            <h1>ovo radi </h1>
+    <div class="zahtev-container">
+        <div class="zahtev-container-table">
+             <el-table
+             :data="this.tableData">
+            <el-table-column
+                    prop="ime"
+                    label="Ime"
+                    class="table-column">
+            </el-table-column>
+             <el-table-column 
+                     prop="prezime"
+                    label="Prezime"
+                    class="table-column">
+            </el-table-column>
+            <el-table-column 
+                    prop="lokacija"
+                    label="Lokacija"
+                    class="table-column">
+            </el-table-column>
+            <el-table-column 
+                     prop="datum"
+                    label="Datum"
+                    class="table-column">
+            </el-table-column>
+             <el-table-column 
+                     prop="zahtevi"
+                    label="Dodatni zahtevi"
+                    class="table-column">
+            </el-table-column>
+             <el-table-column 
+                     prop="tip"
+                    label="Tip"
+                    class="table-column">
+            </el-table-column>
+            <el-table-column align="right">
+                <template slot="">
+                      <el-button type="danger" size="mini">Potvrdi</el-button>
+                    <el-button type="info" icon="el-icon-message" circle size="mini"></el-button>
+                </template>
+            </el-table-column>
+        </el-table>
         </div>
     </div>
 </template>
@@ -11,30 +49,26 @@ import {} from 'element-ui'
 export default {
     data(){
         return{
-
+            tableData: [
+                    {
+                        datum: '2019-05-12',
+                        ime: 'Jovan',
+                        prezime: 'Aritonovic',
+                        lokacija: 'Restoran',
+                        datum: '2019-05-12',
+                        zahtevi: 'Slikanje u prirodi',
+                        tip: 'Krstenje'
+                    }
+            ]
         }
     }
 }
 </script>
 
 <style scoped>
-.zahtevi-container{
-        display: flex;
-        height: 1000px;
-        width: 100%;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        overflow: auto;
-}
-.zahtevi-container-table{
-        height: 47%;
-        width: 90%;
-        display: flex;
-        flex-direction: column;
-        background-color: rgba(204,204,211,0.931);
-        opacity: 1;
-        padding: 1em;
+.zahtev-container-table{
+    display: flex;
+    padding: 20px;
 }
 </style>
 

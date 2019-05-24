@@ -4,16 +4,19 @@
         class="kalendar" >
             <template
                 slot="dateCell"
-                slot-scope="{asdsa, data}">
+                slot-scope="{asdsa, data}" @click="radi">
                 <p :class="data.isSelected ? 'is-active' : ''" v-if="zahtevi(data)">
                 </p>
-                <p :class="data.isSelected ? 'is-active' : ''">{{data.day.split('-').slice(1).join('-')}}</p>
+                <p :class="data.isSelected ? 'is-active' : ''">{{data.day.split('-').slice(2).join('-')}}</p>
                 <div class="obavestenje">
                    <img  v-if="data.isSelected" style="width:30px; height:30px;" src="../assets/bell.png"/>
                 </div>
         </template>
         </el-calendar>
         <prikaz-liste-zahteva></prikaz-liste-zahteva>
+        <obavesti-korisnika v-if="this.showComp == 'obavestenje'"
+             @zatvoriPoruku="zatvori"
+             ></obavesti-korisnika>
     </div>
 </template>
 
@@ -21,13 +24,15 @@
 import {Calendar} from 'element-ui'
 import FormZakazi from "./FormZakazi.vue"
 import PrikazListeZahteva from "./PrikazListeZahteva.vue"
+import ObavestiKorisnika from "./ObavestiKorisnika.vue"
 export default {
-    components: {Calendar, FormZakazi, PrikazListeZahteva},
+    components: {Calendar, FormZakazi, PrikazListeZahteva, ObavestiKorisnika},
     data(){
         return{
             value: new Date(),
             bell: '',
-            datum: ['2019-05-24','2019-05-25','2019-07-26','2019-05-27','2019-05-28']
+            datum: ['2019-05-24','2019-05-25','2019-07-26','2019-05-27','2019-05-28'],
+            showComp: 'obavestenje'
         }
     },
     methods: {
@@ -36,6 +41,9 @@ export default {
                if(data.day == element)
                     data.isSelected = true
            });
+        },
+        zatvori(){
+            this.showComp = ''
         }
     }
     
