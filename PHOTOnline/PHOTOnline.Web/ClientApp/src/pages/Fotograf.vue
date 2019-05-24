@@ -41,7 +41,6 @@ export default {
             userID: -1,
             userType: 'fotograf'
         }
-
     },
     methods: {
         radi: function(){
@@ -72,7 +71,6 @@ export default {
        }
        this.showComp = ''
     }
-
 }
 </script>
 

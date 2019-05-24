@@ -1,6 +1,7 @@
 <template>
     <div class="dodavanje-albuma-container">
-        <el-dialog modal="true" @close="$emit('zavrsenoDodavanje')" visible title="Dodavanje Albuma"
+        <el-dialog @close="$emit('zavrsenoDodavanje')" 
+         :visible.sync="dialogVisible" title="Dodavanje Albuma"
                 width="30%">
             <form-dodaj-album @editFinished="potvrdiFormu($event)"
                                             :dodavanje-albuma="true"></form-dodaj-album>
@@ -16,7 +17,7 @@ export default {
     components: { FormDodajAlbum},
     data() {
         return {
-            visible: true
+            dialogVisible: true
         }
     },
     methods: {

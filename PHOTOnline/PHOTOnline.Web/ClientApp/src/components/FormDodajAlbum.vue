@@ -6,8 +6,10 @@
                 <el-input class="input-polje" v-model="naziv" align="left"></el-input>
             </div>
             <div class="stavka">
-                <el-date-picker v-model="datum" type="datetime" placeholder="Izaberi dan" align="right">
-                </el-date-picker>
+                <label>Datum:</label>
+                <div class="datum">
+                <el-date-picker v-model="datum" type="datetime" placeholder="Izaberi dan">
+                </el-date-picker></div>
             </div>
             <div class="stavka">
                 <label>Mesto:</label>
@@ -22,8 +24,10 @@
                 <label> Password: </label>
                 <el-input type="password" class="input-polje" v-model="password"></el-input> 
             </div>
+            <div class="dugmici">
             <el-button @click="this.dodajAlbum()">Sačuvaj</el-button>
             <el-button @click="prekiniDodavanjeAlbuma">Odustani</el-button>
+            </div>
             
         </el-form>
     </div>
@@ -74,9 +78,32 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .stavka{
-        margin-bottom: 5%;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+        justify-content: space-between;
+    }
+    label{
+        flex-basis: 30%;
+        text-align: center;
+    }
+    .input-polje{
+        flex-basis: 70%
+    }
+    .dugmici{
+        display: flex;
+        justify-content: flex-end;
+    }
+    .datum{
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    el-date-picker{
+
     }
 </style>
 

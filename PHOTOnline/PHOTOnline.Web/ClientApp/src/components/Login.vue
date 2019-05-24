@@ -1,6 +1,6 @@
 <template>
     <div class="login-container">
-        <el-dialog visible width="28%">
+        <el-dialog visible width="28%"  @close="$emit('zavrsiPrijavu')" >
             <div class="forma">
                 <el-form>
                     <h3 style="text-align:center; margin-bottom:40px;
@@ -16,8 +16,6 @@
                         class="input" v-model="loginData.password"></el-input>
                     </div>
                     <el-button type="primary">Prijavi se</el-button>
-
-                    
                 </el-form>
             </div>
         </el-dialog>

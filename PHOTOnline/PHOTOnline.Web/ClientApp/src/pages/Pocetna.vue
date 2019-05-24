@@ -1,6 +1,6 @@
 <template>
     <div class="main-container">
-        <header-bar></header-bar>
+        <header-bar @signup="Signup" @login='logovanje'></header-bar>
         <div class="main">
             <div class="information">
                 <div class="info1">
@@ -24,8 +24,8 @@
                 </el-carousel-item>
             </el-carousel>
         </div>
-        <login hidden></login>
-        <form-signup></form-signup>
+        <login v-if="this.showComp == 'login'" @zavrsiPrijavu="signupEnd"></login>
+        <form-signup v-if="this.showComp == 'signup'" @zavrsiDodavanje="signupEnd" ></form-signup>
         <footer-bar class="footer"></footer-bar>
     </div>
 </template>
@@ -37,6 +37,8 @@
  import FormSignup from "../components/FormSignup.vue"
  import slika1 from "../assets/pictures/1.jpg"
  import slika2 from "../assets/pictures/evidencija.jpg"
+import { setPageShown } from '../services/contextManagement';
+ 
 export default {
     components: { HeaderBar, FooterBar, Login, FormSignup},
     data() {
@@ -46,8 +48,22 @@ export default {
                 slika2,
                 '../assets/pictures/h3.JPG',
             ],
-            count: 0
+            count: 0,
+            showComp:''
         }
+    },
+    methods: {
+        Signup: function(){
+            this.showComp = 'signup'
+        },
+        logovanje: function(){
+            this.showComp = 'login'
+        },
+        signupEnd: function(){
+            this.showComp = ''
+            setPageShown('')
+        }
+
     }
 }
 </script>
@@ -63,10 +79,10 @@ export default {
 
   .el-carousel__item:nth-child(n) {
     background-color: #99a9bf;
-    height: 610px;
+    height: 810px;
   }
   .carousel{
-      height: 610px;
+      height: 810px;
       width: 100%;
       border-radius: 5px;
   }
@@ -95,7 +111,7 @@ export default {
   }
   .information{
       width: 100%;
-      height: 680px;
+      height: 820px;
       display: flex;
       flex-direction: row;
       padding: 50px;

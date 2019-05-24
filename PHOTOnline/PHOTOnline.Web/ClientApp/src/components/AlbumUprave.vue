@@ -1,6 +1,6 @@
 <template>
     <div class="albumuprave-container">
-        <div class="dodavanje"  hidden>
+        <div class="dodavanje" >
                 <el-button type="primary" size="mini" style="height:35px;">Dodaj Album</el-button>
                  <el-input v-model="Pretraga"
                                         size="medium"
@@ -10,10 +10,10 @@
                 <label style="text-align:center; position:right;">Broj Albuma:</label>
         </div>
         <div class="albumi">
-            <prikaz-albuma hidden v-for="item in 30" :key="item"></prikaz-albuma>
+            <prikaz-albuma  v-for="item in 30" :key="item"></prikaz-albuma>
         </div>
         <dodavanje-albuma hidden></dodavanje-albuma>
-        <prikaz-sadrzaja-albuma  ></prikaz-sadrzaja-albuma>
+        <prikaz-sadrzaja-albuma hidden  ></prikaz-sadrzaja-albuma>
     </div>
 </template>
 
