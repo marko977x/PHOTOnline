@@ -6,7 +6,7 @@
                 <el-button class="top-menu-button" @click="zatvoriMeni">
                     <el-icon class="el-icon-menu"></el-icon>
                 </el-button>
-                <el-button> <el-icon class="el-icon-user"></el-icon>Nalog</el-button>
+                <el-button> <el-icon class="el-icon-user"></el-icon></el-button>
                 <el-button class="odjava" type="primary"> Odjavi se </el-button>
             </div>
         </div>

@@ -15,9 +15,9 @@
                 <label>Mesto:</label>
                 <el-input class="input-polje" v-model="mesto"></el-input>
             </div>
-            <div class="stavka">
+            <div class="stavka-2">
                  <file-upload   action="https://jsonplaceholder.typicode.com/posts/" :directory="true" multiple="multiple">
-                           <el-button size="small" type="primary">Upload Slika</el-button>
+                           <el-button size="small" type="warning">Upload Slika</el-button>
                 </file-upload>
             </div>
             <div class="stavka">
@@ -25,7 +25,7 @@
                 <el-input type="password" class="input-polje" v-model="password"></el-input> 
             </div>
             <div class="dugmici">
-            <el-button @click="this.dodajAlbum()">Sačuvaj</el-button>
+            <el-button @click="this.dodajAlbum()" type="primary">Sačuvaj</el-button>
             <el-button @click="prekiniDodavanjeAlbuma">Odustani</el-button>
             </div>
             
@@ -86,8 +86,9 @@ export default {
         justify-content: space-between;
     }
     label{
+       font-size: 15px;
+        text-align: left;
         flex-basis: 30%;
-        text-align: center;
     }
     .input-polje{
         flex-basis: 70%
@@ -102,8 +103,10 @@ export default {
         margin-top: 10px;
         margin-bottom: 10px;
     }
-    el-date-picker{
-
+    .stavka-2{
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 10px;
     }
 </style>
 

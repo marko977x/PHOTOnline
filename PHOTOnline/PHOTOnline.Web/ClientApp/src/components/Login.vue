@@ -1,6 +1,6 @@
 <template>
     <div class="login-container">
-        <el-dialog visible width="28%"  @close="$emit('zavrsiPrijavu')" >
+        <el-dialog visible width="30%"  @close="$emit('zavrsiPrijavu')" >
             <div class="forma">
                 <el-form>
                     <h3 style="text-align:center; margin-bottom:40px;
@@ -35,7 +35,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .login-container{
         display: flex;
         height: 100%;

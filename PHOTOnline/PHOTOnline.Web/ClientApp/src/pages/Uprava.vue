@@ -50,7 +50,7 @@ export default {
                     slika: 'evidencijaclanova.png'
                 }
             ],
-            showComp: 'zakazivanja'
+            showComp: 'albumuprave'
         }
         
     },

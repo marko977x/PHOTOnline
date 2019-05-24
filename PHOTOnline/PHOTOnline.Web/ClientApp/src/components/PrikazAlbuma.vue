@@ -4,7 +4,7 @@
             <label style="font-size:12px;" v-for="item in this.info" :key="item.value">{{item}}</label>
             <h5 style="font-family:sans-serif; font-size:16px; text-align:center; margin-top:30px;">Jovan i Miljana</h5>
         </div>
-        <el-button type="primary" size="mini" style="width:140px; position:bottom; border-radius:10px;"> Otvori </el-button>
+        <el-button type="primary" size="mini" style="width:140px; position:bottom; border-radius:10px;" @click="$emit('otvorialbum')"> Otvori </el-button>
     </div>
 </template>
 

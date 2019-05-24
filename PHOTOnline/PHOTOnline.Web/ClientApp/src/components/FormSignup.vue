@@ -75,10 +75,10 @@ export default {
     flex-direction: row;
 }
 .input{
-    flex-basis: 80%;
+    flex-basis: 70%;
 }
 label{
-    flex-basis: 20%;
+    flex-basis: 30%;
 }
 .dugme{
     display: flex;
