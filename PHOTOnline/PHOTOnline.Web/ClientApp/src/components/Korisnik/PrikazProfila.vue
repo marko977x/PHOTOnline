@@ -39,14 +39,13 @@
 </template>
 
 <script>
-    
 export default {
     data() {
         return{
             userId: '',
-            ime: '',
-            prezime: '',
-            email: '',
+            ime: 'Jovan',
+            prezime: 'Aritonovic',
+            email: 'sdjkad@gmail.com',
             password: '',
             adresa: '',
             brojTelefona: '',
@@ -62,21 +61,22 @@ export default {
         width: 100%;
         height: 100%;
         display: flex;
-        justify-content: center;  
+        justify-content: center;
+        align-content: center;
 }
 
 .profile-avatar {
     width: 100%;
     display: flex;
     justify-content: center;
+    padding-bottom: 20px;
  }
 
 .profil-card {
     padding: 1em;
-    width: 45%;
+    width: 42%;
     height: 80%;
     margin-top: 7vh;
-    width: 45%;
     background: rgba(240, 240, 255, 0.8);
     border-radius: 10px;
     display: flex;

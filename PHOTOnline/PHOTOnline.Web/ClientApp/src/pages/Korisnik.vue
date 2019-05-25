@@ -1,44 +1,54 @@
 <template>
 <div class="user-container">
-    <header-bar></header-bar>
-    <user-bar :list="this.menuItems" >
-    </user-bar>
-    <footer-bar></footer-bar>
+    <!-- <custom-bar :list="this.menuItems"> -->
+            <header-bar></header-bar>
+            <zakazivanja-korisnik hidden ></zakazivanja-korisnik>
+            <prikaz-profila hidden ></prikaz-profila>
+            <album-korisnik hidden></album-korisnik>
+            <korpa-korisnik hidden ></korpa-korisnik>
+            <proizvodi></proizvodi>
+    <!-- </custom-bar> -->
+    <!-- <footer-bar></footer-bar> -->
 </div>
 </template>
 
 <script>
-import FooterBar from "../components/FooterBar.vue"
-import UserBar from "../components/UserBar.vue"
-import HeaderBar from '../components/HeaderBar.vue'
+import CustomBar from "../components/CustomBar.vue"
+import HeaderBar from "../components/HeaderBar.vue"
+import ZakazivanjaKorisnik  from "../components/Korisnik/ZakazivanjaKorisnik.vue"
+import PrikazProfila from "../components/Korisnik/PrikazProfila.vue"
+import AlbumKorisnik from "../components/Korisnik/AlbumKorisnik.vue"
+import KorpaKorisnik from "../components/Korisnik/KorpaKorisnik.vue"
+import Proizvodi from "../components/Korisnik/Proizvodi.vue"
+import vuex from 'vuex'
 
 export default {
-    components: {FooterBar,HeaderBar,UserBar},
+    components: {CustomBar, ZakazivanjaKorisnik, PrikazProfila, AlbumKorisnik, KorpaKorisnik, HeaderBar, Proizvodi},
     data() {
         return {
             menuItems: [
                 {
                     key: 1,
-                    label: 'Profil',
-                    index: 'profil'
+                    label: 'Albumi',
+                    index: 'albumi'
                     // dodaj sliku!
                 },
                 {
                     key:2,
-                    label: 'Narudžbine',
-                    index: 'raspored'
+                    label: 'Proizvodi',
+                    index: 'proizvodi'
                     //slika!
                 },
                 {
                     key:3,
-                    label: 'Korpa',
-                    index: 'korpa'
+                    label: 'Zakazivanja',
+                    index: 'zakazivanja'
                     //slika!
                 },
                 {
                     key:4,
-                    label: 'Zakazivanja',
-                    index: 'zakazivanja'
+                    label: 'Korpa',
+                    index: 'korpa'
                     //slika!
                 }
             ],
@@ -56,15 +66,15 @@ export default {
 
 <style scoped>
 .user-container{
-      display: flex;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      flex-direction: column;
-      overflow: auto;
-    background-size: cover;
-    background-position: bottom;
-    background-image: linear-gradient(
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left:0;
+        z-index: -1;
+        background-size: cover;
+        background-position: bottom;
+        background-image: linear-gradient(
             rgba(26, 111, 168, 0.171),
             rgba(57, 63, 61, 0.205)
         ),url("../assets/pictures/ho.jpg");
