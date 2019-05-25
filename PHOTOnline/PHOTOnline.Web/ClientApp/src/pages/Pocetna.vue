@@ -33,7 +33,7 @@
 <script>
  import HeaderBar from '../components/appBar/HeaderBar.vue'
  import FooterBar from '../components/appBar/FooterBar.vue'
- import Login from "../components/Login.vue"
+ import Login from "../components/forme/Login.vue";
  import FormSignup from "../components/forme/FormSignup.vue"
  import slika1 from "../assets/pictures/1.jpg"
  import slika2 from "../assets/pictures/evidencija.jpg"

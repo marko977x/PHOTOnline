@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { apiFetch, destinationUrl } from '../services/authFetch';
+import { apiFetch, destinationUrl } from '../../services/authFetch';
 export default {
     data() {
         return{
