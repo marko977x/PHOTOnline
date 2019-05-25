@@ -7,7 +7,7 @@
             </div>
             <div class="divOpcija">
                 <label>Datum:</label>
-                <el-date-picker class="inputPolje" v-model="podaciZakazi.datum" type="date" placeholder="Izaberite datum iz kalendara" :disabled="true"></el-date-picker>
+                <el-date-picker class="inputPolje" v-bind="izabraniDatum" v-model="podaciZakazi.datum" type="date" placeholder="Izaberite datum iz kalendara" :disabled="true"></el-date-picker>
             </div>
             <div class="divOpcija">
                 <label>Dodatni zahtevi:</label>
@@ -24,7 +24,7 @@
                 <el-time-select class="inputPolje" v-model="podaciZakazi.vreme" :picker-options="{ start: '08:00', step: '00:15', end: '23:00' }" placeholder="Select time"></el-time-select>
             </div>
             <div class="divDugmeZakazi">
-                <el-button id="dugmeZakazi">Zakazi</el-button>
+                <el-button id="dugmeZakazi" v-on:click="proslediZahtev">Zakazi</el-button>
             </div>
         </el-form>
     </div>
@@ -63,7 +63,12 @@ export default {
             }],
         }
     },
-    props: ['izabraniDatum']
+    props: ['izabraniDatum'],
+    methods: {
+        proslediZahtev() {
+            console.log(123);
+        }
+    }
 }
 </script>
 
