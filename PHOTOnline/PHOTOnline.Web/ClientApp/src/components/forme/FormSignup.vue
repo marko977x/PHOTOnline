@@ -54,7 +54,8 @@
 
 <script>
     import { } from 'element-ui';
-import { setUserInfo } from '../services/contextManagement';
+import { setUserInfo } from '../../services/contextManagement';
+import { destinationUrl } from '../../services/authFetch';
 
     const REGULAR_USER_TYPE = 1;
 
@@ -75,19 +76,8 @@ import { setUserInfo } from '../services/contextManagement';
         },
         methods: {
             onSignUpClick() {
-                const formData = new FormData();
-                for(let key in this.signupData){
-					formData.append(key, this.signupData[key]);
-				}
-                const fetchData = { 
-                    body: formData,
-                    method: "POST"
-                }
-                fetch("https://localhost:5001/api/User/CreateUserAsync", fetchData)
-                    .then(response => {
-                        if(response.ok) return response.json();
-                        else return new Error(response.Error);
-                    }).then(result => {
+                apiFetch('POST', destinationUrl + "/User/CreateUserAsync", this.signupData)
+                    .then(result => {
                         if(result.success){
                             setUserInfo(result.data, REGULAR_USER_TYPE);
                             window.location.href = "/korisnik";

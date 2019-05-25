@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 using PHOTOnline.Business;
 using PHOTOnline.Mongo;
 using PHOTOnline.Services;
@@ -22,7 +23,8 @@ namespace PHOTOnline.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddMongoDatabase(Configuration);
             services.AddPHOTOnlineBusinessServices();
             services.AddPHOTOnlineServices();
@@ -61,7 +63,7 @@ namespace PHOTOnline.Web
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UsePHOTOnlineMvc();
-            app.UsePHOTOnlineSpa(env);
+            //app.UsePHOTOnlineSpa(env);
         }
     }
 }

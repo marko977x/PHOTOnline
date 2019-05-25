@@ -36,15 +36,15 @@
 <script>
     import FileUpload from 'vue-upload-component'
     import {Button} from 'element-ui'
-    import {apiFetch, destinationUrl} from "../services/authFetch";
+    import {apiFetch, destinationUrl} from "../../services/authFetch";
 export default {
     components: {
         Button,
-         FileUpload
+        FileUpload
     },
-    data(){
-        return{
-            albumData:{
+    data() {
+        return {
+            albumData: {
                 naziv: '',
                 datum: '',
                 mesto: '',

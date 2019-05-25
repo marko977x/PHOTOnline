@@ -1,4 +1,4 @@
-﻿namespace Business.UserManagement.Input
+﻿namespace PHOTOnline.Domain.Entities.Enums
 {
     public enum UserType
     {

@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { apiFetch, destinationUrl } from '../services/authFetch';
 export default {
     data() {
         return{
@@ -34,24 +35,15 @@ export default {
     },
     methods: {
         onLoginSubmit() {
-            const formData = new FormData();
-            for(let key in this.loginData)
-                formData.append(key, this.loginData[key]);
-
-            const fetchData = { 
-                    body: formData,
-                    method: "POST"
-                }
-            fetch("https://localhost:5001/api/User/SignIn", fetchData)
-                .then(response => {
-                    if(response.ok) return response.json();
-                    else return new Error(response.Error);
-                }).then(result => {
+            apiFetch('POST', destinationUrl + "/User/SignIn", this.loginData)
+                .then(result => {
                     if(result.success){
                         setUserInfo(result.data.id, result.data.userType);
                         window.location.href = "/korisnik";
                     }
-                    else this.$message(result.error);
+                    else this.$message("Pogreska lozinka ili email adresa!");
+                }).catch(error => {
+                    console.log(error);
                 });
         }
     }

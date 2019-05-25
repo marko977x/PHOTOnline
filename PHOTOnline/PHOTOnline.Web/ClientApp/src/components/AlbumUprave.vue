@@ -20,9 +20,9 @@
 </template>
 
 <script>
-    import PrikazAlbuma from "./PrikazAlbuma.vue"
+    import PrikazAlbuma from "./prikazi/PrikazAlbuma"
     import DodavanjeAlbuma from "./DodavanjeAlbuma.vue"
-    import PrikazSadrzajaAlbuma from "./PrikazSadrzajaAlbuma.vue"
+    import PrikazSadrzajaAlbuma from "./prikazi/PrikazSadrzajaAlbuma"
 export default {
     components: {PrikazAlbuma, DodavanjeAlbuma, PrikazSadrzajaAlbuma},
     data(){

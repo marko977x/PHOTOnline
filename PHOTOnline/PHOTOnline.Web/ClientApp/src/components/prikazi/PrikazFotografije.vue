@@ -11,7 +11,7 @@
 
 <script>
 import {} from 'element-ui'
-import slika from "../assets/pictures/1.jpg"
+import slika from "../../assets/pictures/1.jpg"
 export default {
     data(){
         return{

@@ -12,7 +12,7 @@
 
 <script>
     import {} from 'element-ui'
-    import PrikazObaveza from "../components/PrikazObaveza"
+    import PrikazObaveza from "../components/prikazi/PrikazObaveza"
     import CustomBar from "../components/CustomBar"
     import PocetnaStrana from "../components/PocetnaStrana.vue"
     import EvidencijaClanova from "../components/EvidencijaClanova.vue"

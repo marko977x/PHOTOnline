@@ -66,7 +66,7 @@ export default {
     props: ['izabraniDatum'],
     methods: {
         proslediZahtev() {
-            console.log(123);
+            
         }
     }
 }

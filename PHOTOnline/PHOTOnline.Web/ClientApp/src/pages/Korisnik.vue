@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import FooterBar from "../components/FooterBar.vue"
+import FooterBar from "../components/appBar/FooterBar"
 import UserBar from "../components/UserBar.vue"
-import HeaderBar from '../components/HeaderBar.vue'
+import HeaderBar from '../components/appBar/HeaderBar.vue'
 
 export default {
     components: {FooterBar,HeaderBar,UserBar},

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import PrikazObavezaTable from './PrikazObavezaTable'
+import PrikazObavezaTable from './PrikazObavezaTable'
 export default {
     data() {
         return{

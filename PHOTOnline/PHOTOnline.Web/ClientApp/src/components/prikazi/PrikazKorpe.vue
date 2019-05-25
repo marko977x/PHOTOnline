@@ -40,7 +40,7 @@ export default {
                     kolicina: 4,
                     format: '13x18'
                 },
-                 {
+                {
                     tip: 'Kalendar',
                     kolicina: 1,
                     format: 'Srednji'

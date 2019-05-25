@@ -31,10 +31,10 @@
 </template>
 
 <script>
- import HeaderBar from '../components/HeaderBar.vue'
- import FooterBar from '../components/FooterBar.vue'
+ import HeaderBar from '../components/appBar/HeaderBar.vue'
+ import FooterBar from '../components/appBar/FooterBar.vue'
  import Login from "../components/Login.vue"
- import FormSignup from "../components/FormSignup.vue"
+ import FormSignup from "../components/forme/FormSignup.vue"
  import slika1 from "../assets/pictures/1.jpg"
  import slika2 from "../assets/pictures/evidencija.jpg"
 import { setPageShown } from '../services/contextManagement';

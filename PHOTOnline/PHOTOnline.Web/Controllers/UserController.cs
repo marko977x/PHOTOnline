@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Business.UserManagement;
 using Business.UserManagement.Input;
 using Domain.Entities;
@@ -8,21 +9,27 @@ using PhotoLine.Domain.Interop;
 using PHOTOnline.Business.UserManagement.Input;
 using PHOTOnline.Services.Auth;
 using PHOTOnline.Services.Auth.Output;
+using PHOTOnline.Services.Repositories.Users;
 
 namespace PHOTOnline.Web.Controllers
 {
     [Route("/api/[controller]/[action]")]
     // [Produces("application/json")]
-    [Authorize]
+    //[Authorize]
     public class UserController : Controller
     {
         private readonly IUserAccount _userAccount;
         private readonly IAuthService _authService;
+        private readonly IUserRepository _userRepository;
 
-        public UserController(IUserAccount userAccount, IAuthService authService)
+        public UserController(
+            IUserAccount userAccount,
+            IAuthService authService,
+            IUserRepository userRepository)
         {
             _authService = authService;
             _userAccount = userAccount;
+            _userRepository = userRepository;
         }
 
         [HttpPost]
@@ -30,6 +37,14 @@ namespace PHOTOnline.Web.Controllers
         public async Task<IActionResult> CreateUserAsync([FromForm]CreateUserInput input)
         {
             Result<string> result = await _userAccount.CreateUserAsync(input);
+            if (result.Success) return Ok(result);
+            else return BadRequest(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreatePhotographAsync([FromForm]CreatePhotographInput input)
+        {
+            Result<string> result = await _userAccount.CreatePhotographAsync(input);
             if (result.Success) return Ok(result);
             else return BadRequest(result);
         }
@@ -71,7 +86,7 @@ namespace PHOTOnline.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> SignIn([FromForm] SignInInput input)
         {
-            Result result = await _authService.SignInAsync(
+            Result<SignInOutput> result = await _authService.SignInAsync(
                 input.Email, input.Password);
             if (result.Success) return Ok(result);
             else return BadRequest(result);
@@ -83,6 +98,26 @@ namespace PHOTOnline.Web.Controllers
             Result result = await _authService.SignOutAsync();
             if (result.Success) return Ok(result);
             else return BadRequest(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllPhotographs()
+        {
+            return Ok(new Result<List<PHOTOnlineUser>>()
+            {
+                Success = true,
+                Data = await _userRepository.GetAllPhotographs()
+            });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            return Ok(new Result<List<PHOTOnlineUser>>()
+            {
+                Success = true,
+                Data = await _userRepository.GetAllUsers()
+            });
         }
 
     }

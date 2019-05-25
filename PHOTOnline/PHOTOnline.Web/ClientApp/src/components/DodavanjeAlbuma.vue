@@ -11,7 +11,7 @@
 
 <script>
     import {Dialog} from 'element-ui'
-    import FormDodajAlbum from  "./FormDodajAlbum"
+    import FormDodajAlbum from  "./forme/FormDodajAlbum"
 
 export default {
     components: { FormDodajAlbum},

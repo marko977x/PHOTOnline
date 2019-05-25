@@ -101,15 +101,16 @@ namespace PHOTOnline.Services.Auth
             };
         }
 
-        public async Task<Result> SignInAsync(string email, string password)
+        public async Task<Result<SignInOutput>> SignInAsync(string email, string password)
         {
             PHOTOnlineUser user = await _userManager.FindByEmailAsync(email);
             SignInResult signInResult = await _signInManager.PasswordSignInAsync(
                 user, password, false, false);
 
-            return new Result()
+            return new Result<SignInOutput>()
             {
-                Success = signInResult.Succeeded
+                Success = signInResult.Succeeded,
+                Data = new SignInOutput() { Id = user.Id, UserType = user.UserType }
             };
         }
 

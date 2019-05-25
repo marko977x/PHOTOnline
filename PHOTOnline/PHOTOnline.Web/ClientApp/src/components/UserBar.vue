@@ -15,8 +15,8 @@
 </template>
 
 <script>
-    import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
-    import {Menu,MenuItem} from 'element-ui'
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
+import {Menu,MenuItem} from 'element-ui'
 export default {
     components: {
         Menu,MenuItem,CollapseTransition

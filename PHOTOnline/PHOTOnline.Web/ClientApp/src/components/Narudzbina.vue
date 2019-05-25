@@ -43,7 +43,7 @@
 
 <script>
 import {} from 'element-ui'
-import PrikazKorpe from "./PrikazKorpe.vue"
+import PrikazKorpe from "./prikazi/PrikazKorpe"
 import ObavestiKorisnika from "./ObavestiKorisnika.vue"
 export default {
     components: {PrikazKorpe,ObavestiKorisnika},

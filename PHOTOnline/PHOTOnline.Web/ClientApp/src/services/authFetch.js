@@ -16,10 +16,17 @@ export function apiFetchFactory() {
         for (let key in body) {
             formData.append(key, body[key]);
         }
-        const result = await fetch(url, {
-            method: method,
-            body: formData
-        });
+        let result = null;
+        if (body == null) {
+            result = await fetch(url, {
+                method: method
+            });
+        } else {
+            result = await fetch(url, {
+                method: method,
+                body: formData
+            });
+        }
 
         if (result.ok) return result.json();
         else return result.status.toString();
