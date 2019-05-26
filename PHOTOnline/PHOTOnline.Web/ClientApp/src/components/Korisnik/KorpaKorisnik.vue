@@ -1,48 +1,34 @@
 <template>
     <div class="korpa-container">
         <div class="korpa-table-container">
-                    <el-table
+                    <el-table :data="tableData"
+          style="border:1px solid black;"
              >
             <el-table-column
-                    prop="ime"
-                    label="Ime"
-                    class="table-column">
-            </el-table-column>
-             <el-table-column 
-                     prop="prezime"
-                    label="Prezime"
-                    class="table-column">
-            </el-table-column>
-            <el-table-column 
-                    prop="lokacija"
-                    label="Lokacija"
-                    class="table-column">
-            </el-table-column>
-            <el-table-column 
-                     prop="datum"
-                    label="Datum"
-                    class="table-column">
-            </el-table-column>
-             <el-table-column 
-                     prop="zahtevi"
-                    label="Dodatni zahtevi"
-                    class="table-column">
-            </el-table-column>
-             <el-table-column 
-                     prop="tip"
+                    prop="tip"
                     label="Tip"
+                    class="table-column">
+            </el-table-column>
+             <el-table-column 
+                     prop="kolicina"
+                    label="Kolicina"
+                    class="table-column">
+            </el-table-column>
+            <el-table-column 
+                    prop="format"
+                    label="Format"
                     class="table-column">
             </el-table-column>
             <el-table-column align="right">
                 <template slot="">
-                      <el-button type="danger" size="mini">Potvrdi</el-button>
-                    <el-button type="info" icon="el-icon-message" circle size="mini"
-                        @click="$event('poruka')"></el-button>
+                    <el-button type="danger" icon="el-icon-delete" circle size="mini"
+                        @click="$event('obrisiNarudzbinu')"></el-button>
                 </template>
             </el-table-column>
         </el-table>
-        </div>
-        <footer-bar></footer-bar>
+         <el-button @click="Naruci()" type="primary">Naruci</el-button>
+        </div>   
+     <!-- <footer-bar class = "footer-bar"></footer-bar> -->
     </div>
 </template>
 
@@ -53,7 +39,24 @@ export default {
     components: {FormPrikazSolja, FooterBar},
     data(){
         return{
-            
+             tableData: [
+                {
+                    tip: 'Fotografija',
+                    kolicina: 4,
+                    format: '13x18'
+                },
+                 {
+                    tip: 'Kalendar',
+                    kolicina: 1,
+                    format: 'Srednji'
+                }
+            ]
+        }
+    },
+    methods: {
+        Naruci: function()
+        {   
+
         }
     }
 }
@@ -66,15 +69,21 @@ export default {
         width: 100%;
         flex-direction: column;
         overflow: auto;
-        background-color: rgba(224, 224, 235, 0.5);
+        background-color: rgba(224, 224, 235, 0.5);  
 }
 .korpa-table-container{
     display: flex;
     padding: 20px;
+    height: 60%;
+    width: 40%;
+    flex-direction: column;
+    align-items: center;
 }
+
 .footer-bar{
     justify-content: flex-end;
 }
+
 </style>
 
 

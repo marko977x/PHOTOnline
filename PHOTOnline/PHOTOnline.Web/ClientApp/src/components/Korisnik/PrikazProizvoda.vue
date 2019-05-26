@@ -1,11 +1,11 @@
 <template>
     <div class="prikaz-proizvoda-container">
         <div class="part1">
-            <img class="slika" src="../../assets/slikaSolje.jpg">
+            <img class="slika" src="">
         </div>
         <div class="part2">
             <p>Foto šolje sa Vašim dizajnom - natpisom ili fotografijom
-                 u punom koloru, na komad, su naš prepoznatljivi proizvod već preko 15 godina.
+                u punom koloru, na komad, su naš prepoznatljivi proizvod već preko 15 godina.
                 Danas štampu na šoljma radimo isključivo sublimacionim postupkom. Šolja sa slikom 
                 predstavlja idealan poklon za svaku priliku</p>
             <el-upload
@@ -17,7 +17,7 @@
             </el-upload>
         </div>
         <div class="part3">
-            <el-button type="success"> Add to Cart </el-button>
+            <el-button type="success"> Dodaj u korpu </el-button>
         </div>
     </div>
 </template>
@@ -33,7 +33,7 @@ export default {
                 '- u punom koloru, na komad, su naš prepoznatljivi proizvod već preko 15 godina.'+
                 ' Danas štampu na šoljma radimo isključivo sublimacionim postupkom. Šolja sa slikom ,'+
                 'predstavlja idealan poklon za svaku priliku'},
-                {   slika: '../../assets/slikaSolje.jpg',
+                {   slika: '../../assets/logo.png',
                     text: 'Fotogg šolje sa Vašim dizajnom - natpisom ili fotografijom'+
                 '- u punom koloru, na komad, su naš prepoznatljivi proizvod već preko 15 godina.'+
                 ' Danas štampu na šoljma radimo isključivo sublimacionim postupkom. Šolja sa slikom ,'+
