@@ -1,6 +1,6 @@
 <template>
     <div class="main-container">
-        <header-bar @signup="Signup" @login='logovanje'></header-bar>
+        <header-bar @signup="Signup" @login='logovanje' :list="this.menuItems" :korisnik="this.userType"></header-bar>
         <div class="main">
             <div class="information">
                 <div class="info1">
@@ -49,7 +49,28 @@ export default {
                 '../assets/pictures/h3.JPG',
             ],
             count: 0,
-            showComp:''
+            showComp:'',
+            menuItems: [
+                {
+                    key: 1,
+                    label: 'Zakazivanja',
+                    index: 'zakazivanja'
+                    // dodaj sliku!
+                },
+                {
+                    key:2,
+                    label: 'Albumi',
+                    index: 'albumi'
+                    //slika!
+                },
+                {
+                    key:3,
+                    label: 'Proizvodi',
+                    index: 'proizvodi'
+                    //slika!
+                }
+            ],
+            userType: 'pocetna'
         }
     },
     methods: {

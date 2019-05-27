@@ -39,17 +39,21 @@
 </template>
 
 <script>
+import FooterBar from "../FooterBar.vue"
 export default {
+    components: {
+        FooterBar
+    },
     data() {
         return{
             userId: '',
             ime: 'Jovan',
             prezime: 'Aritonovic',
-            email: 'sdjkad@gmail.com',
-            password: '',
-            adresa: '',
-            brojTelefona: '',
-            jmbg: 0,
+            email: 'Aritonovicjovan@gmail.com',
+            password: '*****',
+            adresa: 'Prvomajska 61 Zitkovac',
+            brojTelefona: '0614210997',
+            jmbg: '21099977131319',
         }
     }
     
@@ -59,7 +63,7 @@ export default {
 <style scoped>
 .profil-container{
         width: 100%;
-        height: 100%;
+        height: 90%;
         display: flex;
         justify-content: center;
         align-content: center;

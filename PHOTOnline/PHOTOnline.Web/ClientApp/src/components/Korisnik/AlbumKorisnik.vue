@@ -16,7 +16,7 @@
          <div class="album-fotografije">
             <fotografije v-for="item in 40" :key="item.key" ></fotografije>
         </div>
-        <footer-bar hidden></footer-bar>
+        <footer-bar></footer-bar>
     </div>
 </template>
 
@@ -36,7 +36,7 @@ export default {
 <style>
 .album-korisnik-container{
         display: flex;
-        height: 100%;
+        height: 90%;
         width: 100%;
         flex-direction: column;
         overflow: auto;

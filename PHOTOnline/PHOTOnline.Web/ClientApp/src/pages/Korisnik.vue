@@ -1,12 +1,14 @@
 <template>
 <div class="user-container">
     <!-- <custom-bar :list="this.menuItems"> -->
-            <header-bar></header-bar>
-            <zakazivanja-korisnik hidden ></zakazivanja-korisnik>
-            <prikaz-profila hidden ></prikaz-profila>
-            <album-korisnik hidden></album-korisnik>
-            <korpa-korisnik hidden ></korpa-korisnik>
-            <proizvodi></proizvodi>
+            <!-- <header-bar></header-bar> -->
+            <header-bar :list="this.menuItems" :korisnik="this.userType"
+                    @changeView="setComponent($event)"></header-bar>
+            <zakazivanja-korisnik v-if="this.showComp == 'zakazivanja'" ></zakazivanja-korisnik>
+            <prikaz-profila v-if="this.showComp == 'profil'" ></prikaz-profila>
+            <album-korisnik v-if="this.showComp == 'albumi'"></album-korisnik>
+            <korpa-korisnik v-if="this.showComp == 'korpa'" ></korpa-korisnik>
+            <proizvodi v-if="this.showComp == 'proizvodi'"></proizvodi>
     <!-- </custom-bar> -->
     <!-- <footer-bar></footer-bar> -->
 </div>
@@ -15,50 +17,49 @@
 <script>
 import CustomBar from "../components/CustomBar.vue"
 import HeaderBar from "../components/HeaderBar.vue"
+import FooterBar from "../components/FooterBar.vue"
 import ZakazivanjaKorisnik  from "../components/Korisnik/ZakazivanjaKorisnik.vue"
 import PrikazProfila from "../components/Korisnik/PrikazProfila.vue"
 import AlbumKorisnik from "../components/Korisnik/AlbumKorisnik.vue"
 import KorpaKorisnik from "../components/Korisnik/KorpaKorisnik.vue"
 import Proizvodi from "../components/Korisnik/Proizvodi.vue"
 import vuex from 'vuex'
+import { setPageShown } from '../services/contextManagement';
 
 export default {
-    components: {CustomBar, ZakazivanjaKorisnik, PrikazProfila, AlbumKorisnik, KorpaKorisnik, HeaderBar, Proizvodi},
+    components: {CustomBar, ZakazivanjaKorisnik,
+     PrikazProfila, AlbumKorisnik, KorpaKorisnik, 
+     HeaderBar, Proizvodi, FooterBar},
     data() {
         return {
             menuItems: [
                 {
                     key: 1,
-                    label: 'Albumi',
-                    index: 'albumi'
+                    label: 'Zakazivanja',
+                    index: 'zakazivanja'
                     // dodaj sliku!
                 },
                 {
                     key:2,
-                    label: 'Proizvodi',
-                    index: 'proizvodi'
+                    label: 'Albumi',
+                    index: 'albumi'
                     //slika!
                 },
                 {
                     key:3,
-                    label: 'Zakazivanja',
-                    index: 'zakazivanja'
-                    //slika!
-                },
-                {
-                    key:4,
-                    label: 'Korpa',
-                    index: 'korpa'
+                    label: 'Proizvodi',
+                    index: 'proizvodi'
                     //slika!
                 }
             ],
-            showComp: '',
+            showComp: 'zakazivanja',
             userType: 'korisnik'
         }
     },
-     methodes: {
-        setCompononet(component){
+     methods: {
+        setComponent(component){
             this.showComp = component;
+            console.log(component);
         },
     }
 }

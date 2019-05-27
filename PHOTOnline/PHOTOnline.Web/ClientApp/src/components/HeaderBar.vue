@@ -14,12 +14,27 @@
                 </div>
                 <div class="navbar-right">
                     <ul class="items">
-                        <li class="list-item"> <a href='' style="color:white;text-decoration: none;">Zakazivanja</a> </li>
+                        <!-- <li class="list-item"> <a href='' style="color:white;text-decoration: none;">Zakazivanja</a> </li>
                         <li class="list-item"> <a href='' style="color:white;text-decoration: none;"> Albumi </a> </li>
                         <li class="list-item"> <a href='' style="color:white;text-decoration: none;">Proizvodi </a> </li> 
                         <li> <el-button type="primary" @click="$emit('login')"> Log in </el-button> </li>
                         <li> <el-button type="primary" 
-                        style="margin-left:10px;" @click="$emit('signup')" plain >SIGN UP</el-button> </li>
+                        style="margin-left:10px;" @click="$emit('signup')" plain >SIGN UP</el-button> </li> -->
+                        <li class="list-item" v-for="item in itemList" :key="item.value" @click="emitMenuSelect(item.index)"><a 
+                           style="text-decoration:none; color:white;" href="#">{{item.label}}</a></li>
+                        <li v-if="this.type == 'pocetna'"> <el-button type="primary" @click="$emit('login')"> Log in </el-button> </li>
+                        <li v-if="this.type == 'korisnik'"> <el-button type="primary" @click="$emit('login')">Log out </el-button> </li>
+                        <li v-if="this.type == 'pocetna'"> <el-button type="primary" style="margin-left:10px;" @click="$emit('signup')" plain >SIGN UP</el-button> </li>
+                        <li v-if="this.type == 'korisnik'" @click="emitMenuSelect('korpa')">
+                                <el-button type="primary" style="margin-left:10px;" @click="$emit('signup')" plain >
+                                <el-icon class="el-icon-shopping-cart-2"></el-icon>
+                            </el-button> 
+                        </li>
+                        <li v-if="this.type == 'korisnik'"  @click="emitMenuSelect('profil')"> 
+                                <el-button type="primary" style="margin-left:10px;" @click="$emit('signup')" plain >
+                                <el-icon class="el-icon-user-solid"></el-icon>
+                            </el-button> 
+                        </li>
                     </ul>
                 </div>
                 <div class="navbar-right-menu" hidden>
@@ -35,7 +50,20 @@
 <script>
  import popover from 'element-ui'
 export default {
-    components: {popover}
+    components: {popover},
+    data(){
+        return{
+           itemList: this.list,
+           type: this.korisnik
+        }
+    },
+    methods: {
+          emitMenuSelect: function(event){
+            this.$emit('changeView', event)
+            console.log(event);
+        }
+    },
+    props: ['list','korisnik']
 }
 </script>
 
@@ -87,10 +115,11 @@ export default {
       align-content: center;
   }
   .list-item{
+      margin-top: 5px;
       margin-right: 25px;
       margin-left: 15px;
       font-size: 18px;
-      width: 75px;
+      width: 95px;
       height: 38px;
       justify-content: center;
       display: flex;

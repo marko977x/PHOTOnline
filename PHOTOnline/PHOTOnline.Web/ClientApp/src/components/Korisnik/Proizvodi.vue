@@ -2,37 +2,39 @@
     <div class="proizvodi-container">
         <div class="lista-proizvoda">
             <div v-for="item in proizvodi" :key="item.value" :list="proizvodi">
-                <template>
-    <div class="prikaz-proizvoda-container">
-        <div class="part1">
-            <img class="slika" v-bind:src="item.slika" />
-        </div>
-        <div class="part2">
-            <p>{{item.text}}</p>
-            <el-upload
-                class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                multiple
-                :limit="3">
-                <el-button size="small" type="primary">Click to upload</el-button>
-            </el-upload>
-        </div>
-        <div class="part3">
-            <el-button type="success"> Dodaj u korpu </el-button>
-        </div>
-    </div>
-</template>
+            <template>
+                <div class="prikaz-proizvoda-container">
+                    <div class="part1">
+                        <img class="slika" v-bind:src="item.slika" />
+                    </div>
+                    <div class="part2">
+                        <p>{{item.text}}</p>
+                        <el-upload
+                            class="upload-demo"
+                            action="https://jsonplaceholder.typicode.com/posts/"
+                            multiple
+                            :limit="3">
+                            <el-button size="small" type="primary">Click to upload</el-button>
+                        </el-upload>
+                    </div>
+                    <div class="part3">
+                        <el-button type="success"> Dodaj u korpu </el-button>
+                    </div>
+                </div>
+            </template>
             </div>
-              <narucivanje-fotografija></narucivanje-fotografija>
+            <narucivanje-fotografija></narucivanje-fotografija>
         </div>
+        <footer-bar></footer-bar>
     </div>
 </template>
 
 <script>
 import PrikazProizvoda from "./PrikazProizvoda.vue"
+import FooterBar from "../FooterBar.vue"
 import NarucivanjeFotografija from "./NarucivanjeFotografija.vue"
 export default {
-    components: {PrikazProizvoda, NarucivanjeFotografija},
+    components: {PrikazProizvoda, NarucivanjeFotografija, FooterBar},
     data(){
         return{
             proizvodi: [

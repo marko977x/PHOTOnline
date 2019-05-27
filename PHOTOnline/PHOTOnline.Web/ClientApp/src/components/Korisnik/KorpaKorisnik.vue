@@ -2,8 +2,7 @@
     <div class="korpa-container">
         <div class="korpa-table-container">
                     <el-table :data="tableData"
-          style="border:1px solid black;"
-             >
+                    style="border-radius: 5px;">
             <el-table-column
                     prop="tip"
                     label="Tip"
@@ -28,7 +27,6 @@
         </el-table>
          <el-button @click="Naruci()" type="primary">Naruci</el-button>
         </div>   
-     <!-- <footer-bar class = "footer-bar"></footer-bar> -->
     </div>
 </template>
 
@@ -65,7 +63,7 @@ export default {
 <style>
 .korpa-container{
         display: flex;
-        height: 100%;
+        height: 90%;
         width: 100%;
         flex-direction: column;
         overflow: auto;
@@ -73,9 +71,9 @@ export default {
 }
 .korpa-table-container{
     display: flex;
-    padding: 20px;
-    height: 60%;
-    width: 40%;
+    padding: 5px;
+    height: 40%;
+    width: 60%;
     flex-direction: column;
     align-items: center;
 }

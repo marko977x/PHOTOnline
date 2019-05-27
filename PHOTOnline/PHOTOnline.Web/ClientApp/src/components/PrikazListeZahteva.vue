@@ -33,6 +33,11 @@
                     label="Tip"
                     class="table-column">
             </el-table-column>
+              <el-table-column 
+                     prop="vreme"
+                    label="Vreme"
+                    class="table-column">
+            </el-table-column>
             <el-table-column align="right">
                 <template slot="">
                       <el-button type="danger" size="mini">Potvrdi</el-button>
@@ -58,7 +63,8 @@ export default {
                         lokacija: 'Restoran',
                         datum: '2019-05-12',
                         zahtevi: 'Slikanje u prirodi',
-                        tip: 'Krstenje'
+                        tip: 'Krstenje',
+                        vreme: '09:00'
                     }
             ]
         }
