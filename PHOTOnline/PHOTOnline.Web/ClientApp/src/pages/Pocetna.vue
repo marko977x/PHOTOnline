@@ -20,7 +20,7 @@
             </div>
             <el-carousel style=""  class="carousel">
                 <el-carousel-item v-for="photo in photos" :key="photo">
-                <img :src="photo" height="100%" width="100%"/>
+                <img src="https://photonline.blob.core.windows.net/photonline/c8d72636-6fa1-465d-928d-8c792a9a8e04?sv=2018-03-28&sr=b&sig=a%2BWjZYGxnVb1HsgKCrQ3y7jImDri%2BZK4xeH56Ej70Uk%3D&st=2019-05-26T07%3A27%3A24Z&se=9999-12-31T22%3A59%3A59Z&sp=r" height="100%" width="100%"/>
                 </el-carousel-item>
             </el-carousel>
         </div>

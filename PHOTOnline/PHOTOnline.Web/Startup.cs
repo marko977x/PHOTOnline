@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
+using PHOTOnline.BlobStorage;
 using PHOTOnline.Business;
 using PHOTOnline.Mongo;
 using PHOTOnline.Services;
@@ -28,6 +29,7 @@ namespace PHOTOnline.Web
             services.AddMongoDatabase(Configuration);
             services.AddPHOTOnlineBusinessServices();
             services.AddPHOTOnlineServices();
+            services.AddBlobStore(Configuration);
             //services.AddAuthorization();
             services.AddCors(options =>
             {

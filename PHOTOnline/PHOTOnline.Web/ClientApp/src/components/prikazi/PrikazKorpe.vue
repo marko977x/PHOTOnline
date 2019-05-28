@@ -2,7 +2,7 @@
     <div class="korpa-container">
         <el-table 
         :data="tableData"
-          style="width:50%; border:1px solid black;">
+        style="width:80%; border:1px solid black;">
             <el-table-column
                 prop="tip"
                 label="Tip"

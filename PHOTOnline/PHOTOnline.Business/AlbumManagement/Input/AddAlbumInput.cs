@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PHOTOnline.Domain.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace PHOTOnline.Business.AlbumManagement.Input
@@ -7,10 +8,8 @@ namespace PHOTOnline.Business.AlbumManagement.Input
     {
         public string Password { get; set; }
         public string Location { get; set; }
-        public string Organizer { get; set; }
-        public string Description { get; set; }
         public string Title { get; set; }
-        public DateTime Date { get; set; }
-        public List<string> Images { get; set; }
+        public string Date { get; set; }
+        public List<Image> Images { get; set; }
     }
 }

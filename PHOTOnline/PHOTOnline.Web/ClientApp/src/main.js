@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import locale from 'element-ui/lib/locale/lang/en'
 import Uprava from "./pages/Uprava";
+import Pocetna from "./pages/Pocetna";
 
 Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;

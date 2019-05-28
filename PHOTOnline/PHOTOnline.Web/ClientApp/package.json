@@ -14,6 +14,7 @@
     "dayspan-vuetify": "^0.4.0",
     "element-ui": "^2.8.2",
     "moment": "^2.24.0",
+    "object-to-formdata": "^1.6.4",
     "super-tiny-icons": "^0.2.0",
     "vue": "^2.6.9",
     "vue-router": "^3.0.6",

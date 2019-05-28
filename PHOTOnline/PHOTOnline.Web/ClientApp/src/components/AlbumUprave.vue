@@ -1,20 +1,22 @@
 <template>
     <div class="albumuprave-container">
-        <div class="dodavanje"  v-if="this.showComp == 'albumi'" >
-                <el-button type="primary" size="mini" style="height:35px;" @click="dodajAlbum">Dodaj Album</el-button>
-                 <el-input v-model="Pretraga"
-                                        size="medium"
-                                        style="width:600px; margin-left:220px; margin-right:205px;"
-                                        placeholder="Unesite naziv albuma za pretragu">
-                                </el-input>
-                <label style="text-align:center; position:right;">Broj Albuma:</label>
+        <div class="dodavanje"  v-if="showComp == 'albumi'" >
+            <el-button type="primary" size="mini" style="height:35px;" @click="dodajAlbum">Dodaj Album</el-button>
+            <el-input
+                v-model="Pretraga" size="medium"
+                style="width:600px; margin-left:220px; margin-right:205px;"
+                placeholder="Unesite naziv albuma za pretragu">
+            </el-input>
         </div>
-        <div class="albumi">
-            <prikaz-albuma @otvorialbum="prikaziAlbume"
-                v-if="this.showComp == 'albumi'"></prikaz-albuma>
+        <div class="albumi" v-for="(album, index) in Albums" v-bind:key="index">
+            <prikaz-albuma 
+                v-bind:Album="album" 
+                @otvorialbum="prikaziAlbume(index)" 
+                v-if="showComp == 'albumi'">
+            </prikaz-albuma>
         </div>
-        <dodavanje-albuma  @zavrsenoDodavanje="this.zavrsiDodavanje" v-if="showComp === 'dodajalbum'"></dodavanje-albuma>
-        <prikaz-sadrzaja-albuma  v-if="this.showComp == 'prikazalbuma'" 
+        <dodavanje-albuma  @zavrsenoDodavanje="zavrsiDodavanje" v-if="showComp === 'dodajalbum'"></dodavanje-albuma>
+        <prikaz-sadrzaja-albuma v-bind:Album="Albums[OpenedAlbumIndex]" v-if="showComp == 'prikazalbuma'" 
             @zavrsipregled='zavrsiDodavanje'></prikaz-sadrzaja-albuma>
     </div>
 </template>
@@ -23,12 +25,15 @@
     import PrikazAlbuma from "./prikazi/PrikazAlbuma"
     import DodavanjeAlbuma from "./DodavanjeAlbuma.vue"
     import PrikazSadrzajaAlbuma from "./prikazi/PrikazSadrzajaAlbuma"
+import { apiFetch, destinationUrl } from '../services/authFetch';
 export default {
     components: {PrikazAlbuma, DodavanjeAlbuma, PrikazSadrzajaAlbuma},
     data(){
         return{
             Pretraga: '',
-            showComp: 'albumi'
+            showComp: 'albumi',
+            Albums: [],
+            OpenedAlbumIndex: 0
         }
     },
     methods:{
@@ -38,22 +43,29 @@ export default {
         zavrsiDodavanje(){
             this.showComp = 'albumi'
         },
-        prikaziAlbume(){
+        prikaziAlbume(index){
             this.showComp = 'prikazalbuma'
-            console.log("jldjsladjlka")
+            this.OpenedAlbumIndex = index;
+            console.log(this.OpenedAlbumIndex);
         }
+    },
+    mounted: function() {
+        apiFetch('GET', destinationUrl + "/Album/GetAllAlbums").then(result => {
+            if(result.Success) this.Albums = result.Data;
+            console.log(this.Albums);
+        }).catch(error => {console.log(error)});
     }
 }
 </script>
 
 <style>
 .albumuprave-container{
-         display: flex;
-        height: 100%;
-        width: 100%;
-        flex-direction: column;
-        overflow: auto;
-        background-color: rgba(224, 224, 235, 0.918);
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    overflow: auto;
+    background-color: rgba(224, 224, 235, 0.918);
 }
 .dodavanje{
     width: 98%;

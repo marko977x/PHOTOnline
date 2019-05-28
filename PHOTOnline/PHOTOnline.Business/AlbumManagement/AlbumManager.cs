@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Domain.Entities;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.Business.AlbumManagement.Input;
@@ -22,13 +19,10 @@ namespace PHOTOnline.Business.AlbumManagement
         {
             Album album = new Album()
             {
-                Date = input.Date,
-                Description = input.Description,
                 Images = input.Images,
                 Location = input.Location,
-                Organizer = input.Organizer,
                 Password = input.Password,
-                Title = input.Password
+                Title = input.Title
             };
 
             return new Result<string>()
