@@ -1,0 +1,138 @@
+<template>
+    <div class="formFotografAlbumContainer">
+        <el-form>
+            <div class="stavka">
+                <label>Naziv:</label>
+                <el-input class="input-polje" v-model="album.Title" align="left"></el-input>
+            </div>
+            <div class="stavka">
+                <label>Datum:</label>
+                <div class="datum">
+                    <el-date-picker v-model="album.Date" type="datetime" placeholder="Izaberi dan">
+                    </el-date-picker>
+                </div>
+            </div>
+            <div class="stavka">
+                <label>Mesto:</label>
+                <el-input class="input-polje" v-model="album.Location"></el-input>
+            </div>
+            <div class="stavka-2">
+                <input multiple type="file" accept="image/*" @change="uploadImages($event)" id="file-input" >
+            </div>
+            <div class="stavka">
+                <label> Password: </label>
+                <el-input type="password" class="input-polje" v-model="album.Password"></el-input> 
+            </div>
+            <div class="dugmici">
+            <el-button @click="dodajAlbum()" type="primary">Sačuvaj</el-button>
+            <el-button @click="prekiniDodavanjeAlbuma">Odustani</el-button>
+            </div>
+        </el-form>
+    </div>
+</template>
+
+<script>
+    import FileUpload from 'vue-upload-component'
+    import {Button} from 'element-ui'
+    import {apiFetch, destinationUrl} from "../../services/authFetch";
+    import objectToFormData from "object-to-formdata";
+export default {
+    components: {
+        Button,
+        FileUpload
+    },
+    data() {
+        return {
+            album: {
+                Title: '',
+                Date: '',
+                Location: '',
+                Password: '',
+                Images: []
+            }
+        }
+    },
+    methods: {
+        validacija: function(){
+            if(this.album.Title === '' || this.album.Location === '' || this.album.Date === ''){
+                this.$message({message : 'Sva polja moraju biti popunjena', type: 'warning'})
+                return
+            }
+            this.dodajAlbum()
+        },
+        dodajAlbum: async function(){
+            const formData = new FormData();
+            formData.append("Title", this.album.Title);
+            formData.append("Date", this.album.Date);
+            formData.append("Location", this.album.Location);
+            formData.append("Password", this.album.Password);
+            this.album.Images.forEach((image, index) => {
+                formData.append("Images[" + index + "].BlobId", image.BlobId);
+                formData.append("Images[" + index + "].Url", image.Url);
+                formData.append("Images[" + index + "].Title", image.Title);
+            });
+            
+            fetch(destinationUrl + "/Album/AddAlbum", {
+                body: formData,
+                method: 'POST'
+            }).then(response => response.json()).then(result => {
+                console.log(result);
+            });
+        },
+        prekiniDodavanjeAlbuma: function(){
+            this.$emit('editFinished','cancel') // takodje je i ovde 'cancel' podatak koji se salje i koji 
+            //ce biti ispisan!
+        },
+        uploadImages(event) {
+            const formData = new FormData();
+            for(let index = 0; index < event.target.files.length; index++){
+                formData.append('File', event.target.files[index]);
+                console.log("Preparing for upload!");
+                fetch(destinationUrl + "/Image/UploadImage", {method: 'POST', body: formData})
+                    .then(response => response.json())
+                    .then(result => {
+                        this.album.Images.push(result.Data.Image);
+                        console.log(this.album);
+                        console.log("Uploading completed");
+                    }).catch(error => {console.log(error)});
+            }
+        },
+    },
+    mounted: function() {console.log(this.album)}
+}
+</script>
+
+<style scoped>
+    .stavka{
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+        justify-content: space-between;
+        align-items: center;
+    }
+    label{
+       font-size: 15px;
+        text-align: left;
+        flex-basis: 30%;
+    }
+    .input-polje{
+        flex-basis: 70%
+    }
+    .dugmici{
+        display: flex;
+        justify-content: flex-end;
+    }
+    .datum{
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .stavka-2{
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+</style>
+
+

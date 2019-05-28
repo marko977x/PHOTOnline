@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.MongoDB;
 using PhotoLine.Domain.Errors;
 using PhotoLine.Domain.Interop;
+using PHOTOnline.Services.Auth.Output;
 
 namespace PHOTOnline.Services.Auth
 {
@@ -100,13 +101,17 @@ namespace PHOTOnline.Services.Auth
             };
         }
 
-        public async Task<Result> SignInAsync(string email, string password)
+        public async Task<Result<SignInOutput>> SignInAsync(string email, string password)
         {
             PHOTOnlineUser user = await _userManager.FindByEmailAsync(email);
             SignInResult signInResult = await _signInManager.PasswordSignInAsync(
                 user, password, false, false);
 
-            return new Result() { Success = signInResult.Succeeded };
+            return new Result<SignInOutput>()
+            {
+                Success = signInResult.Succeeded,
+                Data = new SignInOutput() { Id = user.Id, UserType = user.UserType }
+            };
         }
 
         public async Task<Result> SignOutAsync()

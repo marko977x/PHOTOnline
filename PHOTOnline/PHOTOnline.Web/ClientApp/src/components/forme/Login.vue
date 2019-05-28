@@ -1,6 +1,6 @@
 <template>
     <div class="login-container">
-        <el-dialog visible width="30%"  @close="$emit('zavrsiPrijavu')" >
+        <el-dialog visible width="28%"  @close="$emit('closeLoginForm')" >
             <div class="forma">
                 <el-form>
                     <h3 style="text-align:center; margin-bottom:40px;
@@ -15,7 +15,7 @@
                         <el-input type="password"
                         class="input" v-model="loginData.password"></el-input>
                     </div>
-                    <el-button type="primary">Prijavi se</el-button>
+                    <el-button @click="onLoginSubmit()" type="primary">Prijavi se</el-button>
                 </el-form>
             </div>
         </el-dialog>
@@ -23,19 +23,34 @@
 </template>
 
 <script>
+import { apiFetch, destinationUrl } from '../../services/authFetch';
 export default {
     data() {
         return{
-              loginData: {
-                    username: '',
-                    password:''
-                }
+            loginData: {
+                Username: '',
+                Password: ''
+            }
+        }
+    },
+    methods: {
+        onLoginSubmit() {
+            apiFetch('POST', destinationUrl + "/User/SignIn", this.loginData)
+                .then(result => {
+                    if(result.success){
+                        setUserInfo(result.data.id, result.data.userType);
+                        window.location.href = "/korisnik";
+                    }
+                    else this.$message("Pogreska lozinka ili email adresa!");
+                }).catch(error => {
+                    console.log(error);
+                });
         }
     }
 }
 </script>
 
-<style scoped>
+<style>
     .login-container{
         display: flex;
         height: 100%;

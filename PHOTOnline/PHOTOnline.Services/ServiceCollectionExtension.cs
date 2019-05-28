@@ -6,6 +6,7 @@ using PHOTOnline.Services.Repositories.Orders;
 using PHOTOnline.Services.Repositories.Products;
 using PHOTOnline.Services.Repositories.Requests;
 using PHOTOnline.Services.Repositories.Tasks;
+using PHOTOnline.Services.Repositories.Users;
 
 namespace PHOTOnline.Services
 {
@@ -20,6 +21,7 @@ namespace PHOTOnline.Services
             services.AddSingleton<ITaskRepository, TaskRepository>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }

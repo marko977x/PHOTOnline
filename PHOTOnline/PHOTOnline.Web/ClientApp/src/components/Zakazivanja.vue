@@ -22,8 +22,8 @@
 
 <script>
 import {Calendar} from 'element-ui'
-import FormZakazi from "./FormZakazi.vue"
-import PrikazListeZahteva from "./PrikazListeZahteva.vue"
+import FormZakazi from "./forme/FormZakazi.vue"
+import PrikazListeZahteva from "./prikazi/PrikazListeZahteva"
 import ObavestiKorisnika from "./ObavestiKorisnika.vue"
 import { setPageShown } from '../services/contextManagement';
 export default {

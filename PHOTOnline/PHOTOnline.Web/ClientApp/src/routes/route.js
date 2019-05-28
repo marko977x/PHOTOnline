@@ -35,15 +35,15 @@ const router = new VueRouter({
     ]
 })
 
-router.beforeEach((to, from, next) => {
-    if (getCredentials().accessToken == null && to.path != '/pocetna')
-        next("/pocetna")
-    else {
-        let x = getUserInfo().userType
-        if (x != null && to.path != ("/" + x))
-            next("/" + x)
-    }
-    next()
-})
+// router.beforeEach((to, from, next) => {
+//     if (getCredentials().accessToken == null && to.path != '/pocetna')
+//         next("/pocetna")
+//     else {
+//         let x = getUserInfo().userType
+//         if (x != null && to.path != ("/" + x))
+//             next("/" + x)
+//     }
+//     next()
+// })
 
 export default router

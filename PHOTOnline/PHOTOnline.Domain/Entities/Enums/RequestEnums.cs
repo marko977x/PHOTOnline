@@ -2,7 +2,7 @@
 {
     public enum RequestStatus
     {
-        Completed, Rejected, OnHold
+        Completed = 1, Rejected = 2, OnHold = 3
     }
 
     public enum RequestType

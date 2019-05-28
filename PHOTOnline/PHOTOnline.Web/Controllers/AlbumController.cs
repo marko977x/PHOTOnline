@@ -10,7 +10,7 @@ using PHOTOnline.Services.Repositories.Albums;
 namespace PHOTOnline.Web.Controllers
 {
     [Route("api/[controller]/[action]")]
-    [ApiController]
+	[Produces("application/json")]
     public class AlbumController : Controller
     {
         private IAlbumRepository _albumRepository;
@@ -42,14 +42,14 @@ namespace PHOTOnline.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddAlbum([FromBody]AddAlbumInput input)
+        public async Task<IActionResult> AddAlbum([FromForm]AddAlbumInput input)
         {
             Result<string> result = await _albumManager.AddAlbum(input);
             if (result.Success) return Ok(result);
             else return BadRequest(result);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> GetAllAlbums()
         {
             return Ok(new Result<List<Album>>()

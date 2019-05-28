@@ -1,4 +1,6 @@
-﻿namespace Business.UserManagement.Input
+﻿using PHOTOnline.Domain.Entities.Enums;
+
+namespace Business.UserManagement.Input
 {
     public class CreateUserInput
     {

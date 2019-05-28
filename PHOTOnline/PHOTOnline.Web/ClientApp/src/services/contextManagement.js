@@ -11,12 +11,12 @@ export function clearPageShown(){
 }
 export function setUserInfo(userID, userType){
   localStorage.setItem('userID', userID),
-    localStorage.setItem('userType', userType)
+  localStorage.setItem('userType', userType)
 }
 export function getUserInfo(){
   return{
     userID: localStorage.getItem('userID'),
-      userType: localStorage.getItem('userType')
+    userType: localStorage.getItem('userType')
   }
 }
 export function clearUserInfo(){

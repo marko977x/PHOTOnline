@@ -5,34 +5,18 @@
                 :data="tableData"
                 :default-sort = "{prop:'datum', order: 'descending'}"
                 height="1000"
-                style="width:100%;"
+                style="width:100%"
                 :row-class-name="tableColumn">
-                <el-table-column 
-                    prop="datum"
-                    label="Datum"
-                    sortable="true">
+                <el-table-column min-width="20%" prop="datum" label="Datum" sortable="true"></el-table-column>
+                <el-table-column min-width="20%" prop="ime" label="Ime"></el-table-column>
+                <el-table-column min-width="20%" prop="prezime" label="Prezime"></el-table-column>
+                <el-table-column min-width="20%" prop="adresa" label="Adresa"></el-table-column>
+                <el-table-column min-width="20%" prop="brtelefona" label="Broj Telefona"></el-table-column>
+                <el-table-column fixed="right" width="100" align="right">
+                    <el-button type="warning" size="mini">Korpa</el-button>
                 </el-table-column>
-                <el-table-column
-                     prop="ime"
-                    label="Ime">
-                </el-table-column>
-                <el-table-column
-                     prop="prezime"
-                    label="Prezime">
-                </el-table-column>
-                <el-table-column
-                     prop="adresa"
-                    label="Adresa">
-                </el-table-column>
-                <el-table-column
-                     prop="brtelefona"
-                    label="Broj Telefona">
-                </el-table-column>
-                <el-table-column align="right">
-                    <template slot="">
-                        <el-button type="warning" size="mini">Otvori Korpu</el-button>
-                        <el-button type="info" icon="el-icon-message" circle size="mini"></el-button>
-                    </template>
+                <el-table-column fixed="right" width="50">
+                    <el-button type="info" icon="el-icon-message" circle size="mini"></el-button>
                 </el-table-column>
             </el-table>
         </div>
@@ -43,7 +27,7 @@
 
 <script>
 import {} from 'element-ui'
-import PrikazKorpe from "./PrikazKorpe.vue"
+import PrikazKorpe from "./prikazi/PrikazKorpe"
 import ObavestiKorisnika from "./ObavestiKorisnika.vue"
 export default {
     components: {PrikazKorpe,ObavestiKorisnika},
@@ -56,31 +40,29 @@ export default {
                     prezime: 'Aritonovic',
                     adresa: 'Prvomajska 61 Zitkovac',
                     brtelefona: '0614210997'
-
                 },
-                  {
+                {
                     datum: '2019-05-8',
                     ime: 'Jovan',
                     prezime: 'Aritonovic',
                     adresa: 'Prvomajska 61 Zitkovac',
                     brtelefona: '0614210997'
-
                 },
-                  {
+                {
                     datum: '2019-01-2',
                     ime: 'Jovan',
                     prezime: 'Aritonovic',
                     adresa: 'Prvomajska 61 Zitkovac',
                     brtelefona: '0614210997'
                 },
-                 {
+                {
                     datum: '2019-01-2',
                     ime: 'Jovan',
                     prezime: 'Aritonovic',
                     adresa: 'Prvomajska 61 Zitkovac',
                     brtelefona: '0614210997'
                 },
-                 {
+                {
                     datum: '2019-01-2',
                     ime: 'Jovan',
                     prezime: 'Aritonovic',
@@ -130,7 +112,13 @@ export default {
 }
 .el-table .success-row {
     background: #f0f9eb;
-  }
+}
+
+.buttons {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+}
 </style>
 
 
