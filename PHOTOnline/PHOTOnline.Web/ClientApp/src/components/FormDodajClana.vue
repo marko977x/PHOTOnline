@@ -52,7 +52,17 @@ export default {
         }
     },
     methods: {
+        validacija(){
+            if(this.FirstName === '' || this.LastName === '' || this.Email === '' || this.Username === '' 
+                || this.Password === ''){
+                    this.$message({message: 'Sva polja moraju biti popunjena!', type: 'warining'})
+                    return false 
+                }
+                return true
+        },
         dodajClana(){
+            if(!this.validacija())
+                return
              const formData = new FormData();
                 for(let key in this.signupData){
 					formData.append(key, this.signupData[key]);

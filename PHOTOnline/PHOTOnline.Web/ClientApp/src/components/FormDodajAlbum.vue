@@ -3,17 +3,17 @@
         <el-form>
             <div class="stavka">
                 <label>Naziv:</label>
-                <el-input class="input-polje" v-model="naziv" align="left"></el-input>
+                <el-input class="input-polje" v-model="albumData.naziv" align="left"></el-input>
             </div>
             <div class="stavka">
                 <label>Datum:</label>
                 <div class="datum">
-                <el-date-picker v-model="datum" type="datetime" placeholder="Izaberi dan">
+                <el-date-picker v-model="albumData.datum" type="datetime" placeholder="Izaberi dan">
                 </el-date-picker></div>
             </div>
             <div class="stavka">
                 <label>Mesto:</label>
-                <el-input class="input-polje" v-model="mesto"></el-input>
+                <el-input class="input-polje" v-model="albumData.mesto"></el-input>
             </div>
             <div class="stavka-2">
                  <file-upload   action="https://jsonplaceholder.typicode.com/posts/" :directory="true" multiple="multiple">
@@ -22,10 +22,10 @@
             </div>
             <div class="stavka">
                 <label> Password: </label>
-                <el-input type="password" class="input-polje" v-model="password"></el-input> 
+                <el-input type="password" class="input-polje" v-model="albumData.password"></el-input> 
             </div>
             <div class="dugmici">
-            <el-button @click="dodajAlbum()" type="primary">Sačuvaj</el-button>
+            <el-button @click="dodajAlbum" type="primary">Sačuvaj</el-button>
             <el-button @click="prekiniDodavanjeAlbuma">Odustani</el-button>
             </div>
             
@@ -77,7 +77,7 @@ export default {
                     .then(result => {
                         console.log(result);
                     });
-                    this.$emit('editFinished',retAlbum) // ovo retAlbum je DataObject koji se salje drugoj komponenti
+                    this.$emit('editFinished',formData) // ovo retAlbum je DataObject koji se salje drugoj komponenti
             // AddFinished je ime eventa okidaca koji se okida u drugoj kompononeti odnosno parent komponenti!
         },
         prekiniDodavanjeAlbuma: function(){

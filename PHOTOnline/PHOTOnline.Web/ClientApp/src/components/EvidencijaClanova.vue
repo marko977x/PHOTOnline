@@ -43,8 +43,8 @@
                                 </el-input>
                             </template>
                             <template slot-scope="scope">
-                                <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Izmeni</el-button>
-                                <el-button size="mini" type="danger" @click="handleEdit(scope.$index, scope.row)"> Otpusti </el-button>
+                                <!-- <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Izmeni</el-button> -->
+                                <el-button size="mini" type="danger" @click.native.prevent="deleteRow(scope.$index, tableData)"> Otpusti </el-button>
                             </template>
                         </el-table-column>
                  </el-table>
@@ -52,7 +52,8 @@
                      <el-button type="primary" size="mini" style="height:40px;width:95px;"  @click="dodajClana">Dodaj Člana</el-button>
                  </div>
         </div>
-          <form-dodaj-clana v-if="this.showComp == 'album'" @zatvoriDodavanjeClana="zavrsiDodavanje"></form-dodaj-clana>
+          <form-dodaj-clana v-if="this.showComp == 'album'" 
+            mod-forme="add" @zatvoriDodavanjeClana="zavrsiDodavanje"></form-dodaj-clana>
     </div>
 </template>
 
@@ -110,8 +111,8 @@ export default {
             this.showComp = 'album'
             setPageShown('album')
         },
-         handleEdit(index, row) {
-        console.log(index, row);
+        deleteRow(index, rows) {
+        rows.splice(index, 1);
         },
         zavrsiDodavanje(){
             this.showComp = ''

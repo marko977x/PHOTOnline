@@ -4,9 +4,10 @@
                 <el-button type="primary" size="mini" style="height:35px;" @click="dodajAlbum">Dodaj Album</el-button>
                  <el-input v-model="Pretraga"
                                         size="medium"
-                                        style="width:600px; margin-left:220px; margin-right:205px;"
+                                        style="width:600px; margin-left:220px; margin-right:10px;"
                                         placeholder="Unesite naziv albuma za pretragu">
-                                </el-input>
+                </el-input>
+                <el-button type="success" size="small" style="height:35px; margin-right:100px;" @click="vratiAlbum">OK</el-button>
                 <label style="text-align:center; position:right;">Broj Albuma:</label>
         </div>
         <div class="albumi">
@@ -41,6 +42,13 @@ export default {
         prikaziAlbume(){
             this.showComp = 'prikazalbuma'
             console.log("jldjsladjlka")
+        },
+        vratiAlbum(){
+            if(this.Pretraga === ''){
+                this.$message({message: "Morate uneti naziv albuma", type: 'warning'})
+                return 
+            }
+            // fecth koji treba da vrati trazeni album
         }
     }
 }

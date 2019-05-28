@@ -1,6 +1,6 @@
 <template>
     <div class="signup-container">
-        <el-dialog visible width="35%">
+        <el-dialog visible width="30%"  @close="$emit('zavrsiPrijavu')">
             <div class="forma">
                 <el-form>
                     <h3 style="text-align:center; margin-bottom:40px;
@@ -10,17 +10,17 @@
                     <div class="stavka">
                         <label>Ime:</label>
                         <el-input class="input" v-model="signupData.FirstName"
-                                  placeholder="ime"></el-input>
+                                  placeholder="Petar"></el-input>
                     </div>
                     <div class="stavka">
                         <label>Prezime:</label>
                         <el-input class="input" v-model="signupData.LastName"
-                                  placeholder="prezime"></el-input>
+                                  placeholder="Petrovic"></el-input>
                     </div>
                     <div class="stavka">
                         <label>Adresa:</label>
                         <el-input class="input" v-model="signupData.Address"
-                                  placeholder="ulica bb"></el-input>
+                                  placeholder="Ulica bb"></el-input>
                     </div>
                     <div class="stavka">
                         <label>Broj Telefona:</label>
@@ -35,15 +35,15 @@
                     <div class="stavka">
                         <label>Username:</label>
                         <el-input class="input" v-model="signupData.Username"
-                                  placeholder="username"></el-input>
+                                  placeholder="Username"></el-input>
                     </div>
                     <div class="stavka">
                         <label>Password:</label>
                         <el-input class="input" v-model="signupData.Password"
-                                  placeholder=""></el-input>
+                                  placeholder="****"></el-input>
                     </div>
                     <div class="dugme">
-                        <el-button @click="onSignUpClick()" type="primary">Sačuvaj</el-button>
+                        <el-button @click="onSignUpClick()" type="primary" style="margin-right:5px;">Sačuvaj</el-button>
                     </div>
                 </el-form>
             </div>
@@ -96,14 +96,16 @@
     .stavka {
         display: flex;
         flex-direction: row;
+        padding: 5px;
     }
 
     .input {
-        flex-basis: 80%;
+        flex-basis: 70%;
     }
 
     label {
-        flex-basis: 20%;
+        flex-basis: 30%;
+        font-size: 15px;
     }
 
     .dugme {
