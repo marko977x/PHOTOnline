@@ -7,7 +7,7 @@
                 slot-scope="{asdsa, data}" @click="radi">
                 <p :class="data.isSelected ? 'is-active' : ''">
                 </p>
-                <el-badge :value="12" class="item" type="warning">
+                <el-badge v-for="item in this.listaZahteva" :value="item.value" :key="item.value" class="item" type="warning">
                 <p :class="data.isSelected ? 'is-active' : ''">{{data.day.split('-').slice(2).join('-')}}</p>
                 </el-badge>
         </template>
@@ -19,7 +19,8 @@
 export default {
     data(){
         return{
-            value: new Date()
+            value: new Date(),
+            listaZahteva: ['2019-05-24','2019-05-25','2019-05-26','2019-05-27']
         }
     }
 }

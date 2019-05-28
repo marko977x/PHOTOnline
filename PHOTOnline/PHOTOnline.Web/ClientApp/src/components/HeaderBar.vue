@@ -8,8 +8,9 @@
                          width="212"
                          trigger="hover"
                         content="Iskustvo duze od 20 godina"> 
-                      <a class="navbar-item" href="./Pocetna" style="color:white; font-size:17px; 
-                       font-family: Montserrat,Helvetica Neue,Arial,sans-serif; text-decoration:none;" slot="reference">Foto Aritonovic</a> 
+                      <a class="navbar-item" href="./Pocetna" style="color:#c3cfe2; 
+                        margin-top:5px; font-family:Arial Black, Gadget, sans-serif; 
+                        font-size:20px; text-decoration:none;" slot="reference">Foto Aritonović</a> 
                    </el-popover>
                 </div>
                 <div class="navbar-right">
@@ -89,7 +90,6 @@ export default {
   }
   .navbar-left{
       text-transform: uppercase;
-      will-change: auto;
       width: 20%;
       display: flex;
       justify-content: center;

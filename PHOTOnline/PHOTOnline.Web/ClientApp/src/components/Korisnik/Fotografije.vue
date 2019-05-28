@@ -1,9 +1,9 @@
 <template>
     <div class="fotografije">
         <div class="download-delete">
-           <el-checkbox v-model="select"
-            size>Odaberi</el-checkbox>
-            <img src="https://en.wikipedia.org/wiki/File:PNG_transparency_demonstration_1.png" />
+           <el-checkbox v-model="select" style="color:white;" @change="promena($event)">Odaberi
+            </el-checkbox>
+            <img :src="slika" height="130px" width="120px" style="border-radius:2px;"/>
         </div>
         <div class="izbor">
             <el-input-number size="small"
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import slika1 from "../../assets/pictures/p2.jpg"
+import { constants } from 'fs';
 export default {
     data(){
         return{
@@ -31,7 +33,14 @@ export default {
                 {value: '15x20',label: '15x20'},
                 {value: '9x13',label: '9x13'}
             ],
-            select: false
+            select: false,
+            slika: slika1
+        }
+    },
+    methods: {
+        promena(sel){
+            this.$emit("selectPhoto",sel);
+            console.log(sel)
         }
     }
 }
@@ -42,7 +51,7 @@ export default {
     height: 210px;
     width: 120px;
    /* background: linear-gradient(0deg, #d1d356, #e6e88d );*/
-    background: linear-gradient(0deg, #f17272e7, #c3b3b3 );
+    background: linear-gradient(0deg, #f1727228, #3a37376c );
     margin-top: 15px;
     border-radius: 3px;
     margin-left: 22px;

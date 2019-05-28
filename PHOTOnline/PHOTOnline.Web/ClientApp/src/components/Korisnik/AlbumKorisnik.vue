@@ -8,26 +8,53 @@
                             style="width:300px; margin-right:50px;"
                             placeholder="Unesite šifru albuma">
                 </el-input>
-                <el-button type="primary" size="mini" style="height:35px;">Prikaži Album</el-button>
+                <el-button type="primary" size="mini" style="height:35px;" @click="vratiAlbum">Prikaži Album</el-button>
                   <div class="potvrdi">
-                     <el-button type="danger"  size="medium">Poruči </el-button>
+                     <el-button type="danger" size="medium" @click="dodajUKorpu">Poruči </el-button>
                  </div>
         </div>
          <div class="album-fotografije">
-            <fotografije v-for="item in 40" :key="item.key" ></fotografije>
+            <fotografije v-for="item in 10" :key="item.key" @selectPhoto="selektovane($event)"></fotografije>
         </div>
-        <footer-bar></footer-bar>
+        <!-- <footer-bar></footer-bar> -->
     </div>
 </template>
 
 <script>
 import FooterBar from "../FooterBar.vue"
 import Fotografije from "./Fotografije.vue"
+import { constants } from 'fs';
 export default {
     components: {FooterBar, Fotografije},
     data(){
         return {
-            password: ''
+            password: '',
+            select: false
+        }
+    },
+    methods: {
+        validacija(){
+            if(this.password === ''){
+                this.$message({message:"Morate uneti šifru albuma", type: 'warning'})
+                return false
+            }
+            return true
+        },
+        vratiAlbum(){
+            if(!this.validacija())
+                return
+            /// fetch za pribavljanje albuma!
+        },
+        selektovane(event){
+            this.select = event;
+            console.log(event)
+        },
+        dodajUKorpu(){
+            if(this.select === false){
+                this.$message({message: "Morate selektovati bar jednu Fotografiju!",type: 'error'})
+                return false
+            }
+            // ovde treba fetch za dodavanje selektovanih slika u korpu
         }
     }
 }

@@ -4,10 +4,10 @@
             <img class="slika" src="">
         </div>
         <div class="part2">
-            <p>Foto šolje sa Vašim dizajnom - natpisom ili fotografijom
+            <!-- <p>Foto šolje sa Vašim dizajnom - natpisom ili fotografijom
                 u punom koloru, na komad, su naš prepoznatljivi proizvod već preko 15 godina.
                 Danas štampu na šoljma radimo isključivo sublimacionim postupkom. Šolja sa slikom 
-                predstavlja idealan poklon za svaku priliku</p>
+                predstavlja idealan poklon za svaku priliku</p> -->
             <el-upload
                 class="upload-demo"
                 action="https://jsonplaceholder.typicode.com/posts/"
@@ -26,19 +26,7 @@
 export default {
     data(){
         return{
-            proiz: this.list,
-             proizvodi: [
-                {   slika: '../../assets/bell.png',
-                    text: 'Foto šolje sa Vašim dizajnom - natpisom ili fotografijom'+
-                '- u punom koloru, na komad, su naš prepoznatljivi proizvod već preko 15 godina.'+
-                ' Danas štampu na šoljma radimo isključivo sublimacionim postupkom. Šolja sa slikom ,'+
-                'predstavlja idealan poklon za svaku priliku'},
-                {   slika: '../../assets/logo.png',
-                    text: 'Fotogg šolje sa Vašim dizajnom - natpisom ili fotografijom'+
-                '- u punom koloru, na komad, su naš prepoznatljivi proizvod već preko 15 godina.'+
-                ' Danas štampu na šoljma radimo isključivo sublimacionim postupkom. Šolja sa slikom ,'+
-                'predstavlja idealan poklon za svaku priliku'}
-            ]
+            proiz: this.list
         }
     },
     props: ['list']

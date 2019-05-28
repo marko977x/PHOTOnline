@@ -38,11 +38,19 @@
                     label="Vreme"
                     class="table-column">
             </el-table-column>
+            <el-table-column 
+                     prop="fotograf"
+                    label="Fotograf"
+                    class="table-column">
+                    <el-select class="inputPolje" v-model="tableData.fotograf" placeholder="Izaberite fotografa" size="medium">
+                         <el-option v-for="item in options" :key="item.foto" :label="item.label" :value="item.foto"></el-option>
+                    </el-select>
+            </el-table-column>
             <el-table-column align="right">
                 <template slot="">
                       <el-button type="danger" size="mini">Potvrdi</el-button>
                     <el-button type="info" icon="el-icon-message" circle size="mini"
-                        @click="$event('poruka')"></el-button>
+                        @click="poruka"></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -64,9 +72,28 @@ export default {
                         datum: '2019-05-12',
                         zahtevi: 'Slikanje u prirodi',
                         tip: 'Krstenje',
-                        vreme: '09:00'
+                        vreme: '09:00',
+                        fotograf: ''
+                    }
+            ],
+            options: [{
+                    foto: 'Vladica Mladenovic',
+                    label: 'Vladica Mladenovic'
+                    }, {
+                    foto: 'Jovan Aritonovic',
+                    label: 'Jovan Aritonovic'
+                    },
+                    {
+                    foto: 'Dragan Aritonovic',
+                    label: 'Dragan Aritonovic'
                     }
             ]
+        }
+    },
+    methods: {
+        poruka(){
+            this.$emit('poruka');
+            
         }
     }
 }

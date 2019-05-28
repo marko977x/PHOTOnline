@@ -7,7 +7,7 @@
             </div>
             <div class="divOpcija">
                 <label>Datum:</label>
-                <el-input class="inputPolje" v-bind="this.podaciZakazi" :disabled="false" v-model="this.date" placeholder="Izaberite datum iz kalendara"></el-input>
+                <el-input class="inputPolje" :disabled="false" v-model="this.date" placeholder="Izaberite datum iz kalendara"></el-input>
             </div>
             <div class="divOpcija">
                 <label>Dodatni zahtevi:</label>
@@ -25,7 +25,7 @@
                 <el-time-select class="inputPolje" v-model="podaciZakazi.vreme" :picker-options="{ start: '08:00', step: '00:15', end: '23:00' }" placeholder="Select time"></el-time-select>
             </div>
             <div class="divDugmeZakazi">
-                <el-button id="dugmeZakazi" type="primary" v-on:click="proslediZahtev">Zakaži</el-button>
+                <el-button id="dugmeZakazi" type="primary" @click="proslediZahtev">Zakaži</el-button>
             </div>
         </el-form>
     </div>
@@ -66,7 +66,18 @@ export default {
     },
     props: [ 'date'],
     methods: {
+        validacija(){
+            if(this.podaciZakazi.lokacija === '' || this.podaciZakazi.date === '' || this.podaciZakazi.tip === ''
+                 || this.podaciZakazi.vreme === ''){
+                this.$message({message: "Morate popuniti sva polja!", type:'warning' })
+                return false
+            }
+            return true
+        },
         proslediZahtev() {
+            if(!this.validacija())
+                return
+            console.log(this.validacija())
             console.log(123);
             console.log(this.podaciZakazi)
         }

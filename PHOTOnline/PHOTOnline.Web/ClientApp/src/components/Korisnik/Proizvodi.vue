@@ -14,11 +14,11 @@
                             action="https://jsonplaceholder.typicode.com/posts/"
                             multiple
                             :limit="3">
-                            <el-button size="small" type="primary">Click to upload</el-button>
+                            <el-button size="big" type="primary">Click to upload</el-button>
                         </el-upload>
                     </div>
                     <div class="part3">
-                        <el-button type="success"> Dodaj u korpu </el-button>
+                        <el-button type="success" size="medium"> Dodaj u korpu </el-button>
                     </div>
                 </div>
             </template>
@@ -75,10 +75,10 @@ export default {
 }
 
 .prikaz-proizvoda-container{
-     height: 290px;
+     height: 240px;
     width: 75%;
    /* background: linear-gradient(0deg, #d1d356, #e6e88d );*/
-    background: linear-gradient(0deg, #bccecfe7, #fcfcfc );
+    background: linear-gradient(0deg, #bccecfc7, #fcfcfcab );
     margin-top: 15px;
     border-radius: 3px;
     margin-left: 15%;
@@ -109,7 +109,7 @@ export default {
 }
 .slika{
     height: 80%;
-    width: 90%;
+    width: 80%;
 }
 </style>
 

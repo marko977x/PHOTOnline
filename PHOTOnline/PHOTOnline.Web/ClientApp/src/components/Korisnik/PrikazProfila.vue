@@ -67,6 +67,7 @@ export default {
         display: flex;
         justify-content: center;
         align-content: center;
+        background-color: rgba(224, 224, 235, 0.445);
 }
 
 .profile-avatar {
