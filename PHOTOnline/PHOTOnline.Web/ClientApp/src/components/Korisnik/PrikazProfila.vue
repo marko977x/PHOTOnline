@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import FooterBar from "../FooterBar.vue"
+import FooterBar from "../appBar/FooterBar.vue"
 export default {
     components: {
         FooterBar

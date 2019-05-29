@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import FooterBar from "../FooterBar.vue"
+import FooterBar from "../appBar/FooterBar.vue"
 import Fotografije from "./Fotografije.vue"
 import { constants } from 'fs';
 export default {

@@ -35,7 +35,6 @@
     import FileUpload from 'vue-upload-component'
     import {Button} from 'element-ui'
     import {apiFetch, destinationUrl} from "../../services/authFetch";
-    import objectToFormData from "object-to-formdata";
 export default {
     components: {
         Button,

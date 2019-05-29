@@ -31,7 +31,7 @@
 
 <script>
 import PrikazProizvoda from "./PrikazProizvoda.vue"
-import FooterBar from "../FooterBar.vue"
+import FooterBar from "../appBar/FooterBar.vue"
 import NarucivanjeFotografija from "./NarucivanjeFotografija.vue"
 export default {
     components: {PrikazProizvoda, NarucivanjeFotografija, FooterBar},

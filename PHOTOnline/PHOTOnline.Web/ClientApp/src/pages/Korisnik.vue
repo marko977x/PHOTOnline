@@ -16,14 +16,13 @@
 
 <script>
 import CustomBar from "../components/CustomBar.vue"
-import HeaderBar from "../components/HeaderBar.vue"
-import FooterBar from "../components/FooterBar.vue"
+import HeaderBar from "../components/appBar/HeaderBar.vue"
+import FooterBar from "../components/appBar/FooterBar.vue"
 import ZakazivanjaKorisnik  from "../components/Korisnik/ZakazivanjaKorisnik.vue"
 import PrikazProfila from "../components/Korisnik/PrikazProfila.vue"
 import AlbumKorisnik from "../components/Korisnik/AlbumKorisnik.vue"
 import KorpaKorisnik from "../components/Korisnik/KorpaKorisnik.vue"
 import Proizvodi from "../components/Korisnik/Proizvodi.vue"
-import vuex from 'vuex'
 import { setPageShown } from '../services/contextManagement';
 
 export default {

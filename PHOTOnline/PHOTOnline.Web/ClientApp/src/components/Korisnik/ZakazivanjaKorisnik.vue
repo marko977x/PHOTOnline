@@ -24,8 +24,8 @@
 <script>
 
 import PrikazKalendaraKorisnik from "./PrikazKalendaraKorisnik.vue"
-import FormZakazi from "../FormZakazi.vue"
-import FooterBar from "../FooterBar.vue"
+import FormZakazi from "../forme/FormZakazi.vue"
+import FooterBar from "../appBar/FooterBar.vue"
 import { getUserInfo } from '../../services/contextManagement';
 
 export default {

@@ -32,7 +32,7 @@
 
 <script>
 import FormPrikazSolja from "./FormPrikazSolja.vue"
-import FooterBar from "../FooterBar.vue"
+import FooterBar from "../appBar/FooterBar.vue"
 export default {
     components: {FormPrikazSolja, FooterBar},
     data(){
