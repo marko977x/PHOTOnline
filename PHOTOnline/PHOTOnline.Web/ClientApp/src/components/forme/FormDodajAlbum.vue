@@ -1,6 +1,6 @@
 <template>
     <div class="formFotografAlbumContainer">
-        <el-form>
+        <el-form style="word break: false">
             <div class="stavka">
                 <label>Naziv:</label>
                 <el-input class="input-polje" v-model="album.Title" align="left"></el-input>
@@ -8,7 +8,7 @@
             <div class="stavka">
                 <label>Datum:</label>
                 <div class="datum">
-                    <el-date-picker v-model="album.Date" type="datetime" placeholder="Izaberi dan">
+                    <el-date-picker style="width:100%;" v-model="album.Date" type="datetime" placeholder="Izaberi dan">
                     </el-date-picker>
                 </div>
             </div>
@@ -24,8 +24,8 @@
                 <el-input type="password" class="input-polje" v-model="album.Password"></el-input> 
             </div>
             <div class="dugmici">
-            <el-button @click="dodajAlbum()" type="primary">Sačuvaj</el-button>
-            <el-button @click="prekiniDodavanjeAlbuma">Odustani</el-button>
+            <el-button class="dugme" @click="dodajAlbum()" type="primary">Sačuvaj</el-button>
+            <el-button class="dugme1" @click="prekiniDodavanjeAlbuma">Zatvori</el-button>
             </div>
         </el-form>
     </div>
@@ -102,36 +102,87 @@ export default {
 </script>
 
 <style scoped>
+
     .stavka{
         display: flex;
         flex-direction: row;
         margin-bottom: 10px;
         justify-content: space-between;
         align-items: center;
+    
     }
     label{
-       font-size: 15px;
-        text-align: left;
-        flex-basis: 30%;
+       font-size: 14px;
+       text-align: left;
+       flex-basis: 30%;
     }
     .input-polje{
-        flex-basis: 70%
+        flex-basis: 70%;
     }
     .dugmici{
         display: flex;
         justify-content: flex-end;
+        width: 100%;
+    }
+    .dugme{
+        width:30%;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+    }
+    .dugme1{
+        width:30%;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis; 
     }
     .datum{
         display: flex;
         justify-content: flex-end;
         margin-top: 10px;
         margin-bottom: 10px;
+        flex-basis: 70%;
+        width: 70%;
     }
     .stavka-2{
         display: flex;
         justify-content: flex-start;
         margin-bottom: 10px;
     }
+
+   @media screen and (max-width: 1111px){
+    .stavka{
+        flex-direction: column;
+        margin-bottom: 1%;
+    }
+    .stavka-2{
+        flex-direction: column;
+        margin-bottom: 1%;
+        margin-top: 1%;
+    }
+    
+    label{
+        margin-bottom: 1%;
+    }
+    .datum{
+        margin-top: 0px;
+        margin-bottom: 0px;
+        width: 100%;
+    }
+    .dugmici{
+        flex-direction: column;
+
+    }
+    .dugme{
+        width: 60%;
+         margin-left: 6%;
+    }
+    .dugme1{
+        width: 60%;  
+    }
+    }
+
+
 </style>
 
 
