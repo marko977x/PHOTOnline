@@ -23,7 +23,7 @@
                                   placeholder="Ulica bb"></el-input>
                     </div>
                     <div class="stavka">
-                        <label>Broj Telefona:</label>
+                        <label>Broj telefona:</label>
                         <el-input class="input" v-model="signupData.PhoneNumber"
                                   placeholder="06X xxx xxx"></el-input>
                     </div>
@@ -96,11 +96,13 @@
     .stavka {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
         padding: 5px;
     }
 
     .input {
         flex-basis: 70%;
+        margin: 0;
     }
 
     label {
@@ -111,6 +113,19 @@
     .dugme {
         display: flex;
         justify-content: flex-end;
+        padding: 5px;
+    }
+    @media screen and (max-width: 1250px){
+        .stavka{
+            flex-direction: column;
+            padding: 0;
+        }
+        .dugme{
+            margin-top: 5px;
+        }
+        label{
+            margin-bottom: 0;
+        }
     }
 </style>
 
