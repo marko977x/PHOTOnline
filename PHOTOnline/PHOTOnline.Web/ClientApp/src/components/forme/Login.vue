@@ -50,7 +50,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .login-container{
         display: flex;
         height: 100%;
@@ -58,10 +58,17 @@ export default {
         justify-content: center;
     }
     .stavka{
+        display: flex;
+        justify-content: space-between;
         margin-bottom: 10px;
     }
-    @media screen and (max-width: 600px){
-        .el-dialog{
+    .el-input{
+        margin: 0;
+        width: 60%;
+    }
+
+    @media screen and (max-width: 1250px){
+        /*.el-dialog{
             display: flex;
             justify-content: center;
             width: 70%;
@@ -71,6 +78,9 @@ export default {
         }
         el-dialog{
             width: 100%;
+        }*/
+        .stavka{
+            flex-direction: column;
         }
     }
 </style>
