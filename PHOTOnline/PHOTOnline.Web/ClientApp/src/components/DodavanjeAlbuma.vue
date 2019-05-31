@@ -2,8 +2,8 @@
     <div class="dodavanje-albuma-container">
         <el-dialog 
             @close="$emit('zavrsenoDodavanje')" 
-            :visible.sync="dialogVisible" title="Dodavanje Albuma" width="28%">
-            <form-dodaj-album @editFinished="potvrdiFormu($event)" :dodavanje-albuma="true"></form-dodaj-album>
+            :visible.sync="dialogVisible" title="Dodavanje albuma" width="28%">
+            <form-dodaj-album  @editFinished="potvrdiFormu($event)" :dodavanje-albuma="true"></form-dodaj-album>
        </el-dialog>
     </div>
 </template>
@@ -29,7 +29,6 @@ export default {
     }
 }
 </script>
-
 <style scoped>
     .dodavanje-albuma-container{
         display: flex;
@@ -42,6 +41,15 @@ export default {
         width: 60%;
         flex-shrink: initial;
     }
+    
+      @media screen and (max-width: 660px){
+         el-dialog{
+            flex-direction: column;
+
+        }
+       
+    }
+
 </style>
 
 

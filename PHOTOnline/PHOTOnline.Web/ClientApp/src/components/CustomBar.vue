@@ -63,7 +63,7 @@ export default {
 }
 </script>
 
-<style> 
+<style scoped> 
 .naslov{
     display: flex;
     margin-top: 5px;

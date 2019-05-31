@@ -10,7 +10,7 @@
                 <el-table-column prop="UserName" label="Username" class="table-column"></el-table-column>
                 <el-table-column align="right">
                     <template slot="header" slot-scope="scope">
-                        <el-input v-model="search" size="big" placeholder="Ime za pretragu" :focus="scope.search">
+                        <el-input v-model="search" style="margin: 0;" size="big" placeholder="Ime za pretragu" :focus="scope.search">
                         </el-input>
                     </template>
                     <template slot-scope="scope">
@@ -25,7 +25,7 @@
             </el-table>
             <div class="dodaj-button">
                 <el-button type="primary" size="mini" style="height:40px;width:95px;" @click="dodajClana">
-                    Dodaj Člana
+                    Dodaj člana
                 </el-button>
             </div>
         </div>
