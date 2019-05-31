@@ -1,20 +1,21 @@
 <template>
     <div class="album-korisnik-container">
-          <div class="dodavanje" >
-                 <el-input v-model="password"
-                            type="password"
-                            show-password
-                            size="medium"
-                            style="width:300px; margin-right:50px;"
-                            placeholder="Unesite šifru albuma">
-                </el-input>
-                <el-button type="primary" size="mini" style="height:35px;" @click="vratiAlbum">Prikaži Album</el-button>
-                  <div class="potvrdi">
-                     <el-button type="danger" size="medium" @click="dodajUKorpu">Poruči </el-button>
-                 </div>
+        <div class="dodavanje" >
+            <el-input 
+                v-model="password"
+                type="password" show-password size="medium"
+                style="width:300px; margin-right:50px;"
+                placeholder="Unesite šifru albuma">
+            </el-input>
+            <el-button type="primary" size="mini" style="height:35px;" @click="vratiAlbum">Prikaži Album</el-button>
+            <div class="potvrdi">
+                <el-button type="danger" size="medium" @click="dodajUKorpu">Poruči </el-button>
+            </div>
         </div>
-         <div class="album-fotografije">
-            <fotografije v-for="item in 10" :key="item.key" @selectPhoto="selektovane($event)"></fotografije>
+        <div class="album-fotografije">
+            <fotografija 
+                v-for="image in album.Images" :key="image.Id"
+                :imageUrl="image.Thumbnail" @selectPhoto="selektovane($event)"></fotografija>
         </div>
         <!-- <footer-bar></footer-bar> -->
     </div>
@@ -22,14 +23,16 @@
 
 <script>
 import FooterBar from "../appBar/FooterBar.vue"
-import Fotografije from "./Fotografije.vue"
+import Fotografija from "./Fotografija.vue"
 import { constants } from 'fs';
+import { destinationUrl } from '../../services/authFetch';
 export default {
-    components: {FooterBar, Fotografije},
+    components: {FooterBar, Fotografija},
     data(){
         return {
             password: '',
-            select: false
+            select: false,
+            album: {}
         }
     },
     methods: {
@@ -43,7 +46,14 @@ export default {
         vratiAlbum(){
             if(!this.validacija())
                 return
-            /// fetch za pribavljanje albuma!
+            fetch(destinationUrl + "/Album/GetAlbumByPassword/?password=" + this.password, {method: 'GET'})
+                .then(response => response.ok ? response.json() : new Error())
+                .then(result => {
+                    result.Success ? 
+                        this.album = result.Data : 
+                        this.$message("Pogresna sifra albuma!");
+                    console.log(this.album);
+                }).catch(error => console.log(error));
         },
         selektovane(event){
             this.select = event;
@@ -60,14 +70,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .album-korisnik-container{
-        display: flex;
-        height: 90%;
-        width: 100%;
-        flex-direction: column;
-        overflow: auto;
-        background-color: rgba(224, 224, 235, 0.445);
+    display: flex;
+    height: 90%;
+    width: 100%;
+    flex-direction: column;
+    overflow: auto;
+    background-color: rgba(224, 224, 235, 0.445);
 }
 .album-fotografije{
     display: flex;

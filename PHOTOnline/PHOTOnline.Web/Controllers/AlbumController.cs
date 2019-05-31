@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using PhotoLine.Domain.Errors;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.Business.AlbumManagement;
 using PHOTOnline.Business.AlbumManagement.Input;
@@ -10,7 +11,7 @@ using PHOTOnline.Services.Repositories.Albums;
 namespace PHOTOnline.Web.Controllers
 {
     [Route("api/[controller]/[action]")]
-	[Produces("application/json")]
+    [Produces("application/json")]
     public class AlbumController : Controller
     {
         private IAlbumRepository _albumRepository;
@@ -57,6 +58,27 @@ namespace PHOTOnline.Web.Controllers
                 Success = true,
                 Data = await _albumRepository.GetAllAlbums()
             });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAlbumByPassword(string password)
+        {
+            Album album = await _albumRepository.GetAlbumByPassword(password);
+            if (album != null)
+            {
+                return Ok(new Result<Album>()
+                {
+                    Success = true,
+                    Data = album
+                });
+            }
+            else
+            {
+                return BadRequest(new Result<Album>()
+                {
+                    Success = false
+                });
+            }
         }
     }
 }

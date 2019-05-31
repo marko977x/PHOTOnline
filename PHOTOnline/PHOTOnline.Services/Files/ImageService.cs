@@ -9,6 +9,7 @@ using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System.IO;
+using System;
 using System.Threading.Tasks;
 
 namespace PHOTOnline.Services.Files
@@ -51,7 +52,8 @@ namespace PHOTOnline.Services.Files
                 Thumbnail = thumbnailVariant,
                 Small = smallVariant,
                 Medium = mediumVariant,
-                Large = largeVariant
+                Large = largeVariant,
+				Id = Guid.NewGuid().ToString()
             };
         }
 

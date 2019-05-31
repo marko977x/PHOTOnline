@@ -8,5 +8,6 @@ namespace PHOTOnline.Services.Repositories.Albums
     public interface IAlbumRepository : IGenericRepository<Album>
     {
         Task<List<Album>> GetAllAlbums();
+        Task<Album> GetAlbumByPassword(string password);
     }
 }

@@ -3,18 +3,18 @@
         <div class="download-delete">
            <el-checkbox v-model="select" style="color:white;" @change="promena($event)">Odaberi
             </el-checkbox>
-            <img :src="slika" height="130px" width="120px" style="border-radius:2px;"/>
+            <img :src="imageUrl" height="130px" width="120px" style="border-radius:2px;"/>
         </div>
         <div class="izbor">
             <el-input-number size="small"
-            style="width:120px;" v-model="num" :min="1" :max="20">
+                style="width:120px;" v-model="num" :min="1" :max="20">
             </el-input-number>
             <el-select v-model="options[0].value" placeholder="Format Slike" size="mini">
                 <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
                 </el-option>
              </el-select>
         </div>
@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import slika1 from "../../assets/pictures/p2.jpg"
 import { constants } from 'fs';
 export default {
     data(){
@@ -33,10 +32,10 @@ export default {
                 {value: '15x20',label: '15x20'},
                 {value: '9x13',label: '9x13'}
             ],
-            select: false,
-            slika: slika1
+            select: false
         }
     },
+    props: ['imageUrl'],
     methods: {
         promena(sel){
             this.$emit("selectPhoto",sel);

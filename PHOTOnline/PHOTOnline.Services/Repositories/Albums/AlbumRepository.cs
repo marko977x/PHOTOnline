@@ -17,6 +17,14 @@ namespace PHOTOnline.Services.Repositories.Albums
 
         public override string CollectionName => "Album";
 
+        public async Task<Album> GetAlbumByPassword(string password)
+        {
+            var filter = Builders<Album>.Filter.Eq(
+                album => album.Password, password);
+
+            return (await Collection.FindAsync(filter)).First();
+        }
+
         public async Task<List<Album>> GetAllAlbums()
         {
             var all = Builders<Album>.Filter.Empty;
