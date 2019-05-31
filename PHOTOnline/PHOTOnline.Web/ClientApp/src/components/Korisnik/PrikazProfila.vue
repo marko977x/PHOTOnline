@@ -1,59 +1,80 @@
 <template>
          <div class="profil-container">
-             <div class="profil-card">
-                <div class="profile-avatar"><img
-                    style="min-width: 60px; min-height: 60px; max-width: 100px; max-height: 100px;"
-                    src="../../assets/profileAvatar.png"/>
+             <side-bar-profil @changeView="setComponent($event)" :list="this.menuItems"></side-bar-profil>
+             <div class="container">
+                <div class="profil-card" v-if="this.showComp == 'profil'">
+                    <div class="profile-avatar"><img
+                        style="min-width: 60px; min-height: 60px; max-width: 100px; max-height: 100px;"
+                        src="../../assets/profileAvatar.png"/>
+                    </div>
+                    <div class="profile-info-line">
+                        <label>Ime:</label>
+                        <label>{{FirstName}}</label>
+                    </div>
+                    <div class="profile-info-line">
+                        <label>Prezime:</label>
+                        <label>{{LastName}}</label>
+                    </div>
+                
+                    <div class="profile-info-line">
+                        <label>Email:</label>
+                        <label>{{Email}}</label>
+                    </div>
+                    <div class="profile-info-line">
+                        <label>Password:</label>
+                        <label>{{Password}}</label>
+                    </div>
+                    <div class="profile-info-line">
+                        <label>JMBG:</label>
+                        <label>{{JMBG}}</label>
+                    </div>
+                    <div class="profile-info-line">
+                        <label>Adresa:</label>
+                        <label>{{Adress}}</label>
+                    </div>
+                    <div class="profile-info-line">
+                        <label>Broj telefona:</label>
+                        <label>{{PhoneNumber}}</label>
+                    </div>
                 </div>
-                <div class="profile-info-line">
-                    <label>Ime:</label>
-                    <label>{{ime}}</label>
-                </div>
-                <div class="profile-info-line">
-                    <label>Prezime:</label>
-                    <label>{{prezime}}</label>
-                </div>
-               
-                <div class="profile-info-line">
-                    <label>Email:</label>
-                    <label>{{email}}</label>
-                </div>
-                <div class="profile-info-line">
-                    <label>Password:</label>
-                    <label>{{password}}</label>
-                </div>
-                <div class="profile-info-line">
-                    <label>JMBG:</label>
-                    <label>{{jmbg}}</label>
-                </div>
-                <div class="profile-info-line">
-                    <label>Adresa:</label>
-                    <label>{{adresa}}</label>
-                </div>
-                <div class="profile-info-line">
-                    <label>Broj telefona:</label>
-                    <label>{{brojTelefona}}</label>
-                </div>
-            </div>
+                <form-zakazivanja v-if="this.showComp == 'zakazivanja'"></form-zakazivanja>
+             </div>
         </div>
 </template>
 
 <script>
 import FooterBar from "../appBar/FooterBar.vue"
+import SideBarProfil from "../appBar/SideBarProfil.vue"
+import FormZakazivanja from "./FormZakazivanja.vue"
 export default {
     components: {
-        FooterBar
+        FooterBar, SideBarProfil, FormZakazivanja
     },
     data() {
         return{
-            userId: '',
-            ime: 'Jovan',
-            prezime: 'Aritonovic',
-            email: 'Aritonovicjovan@gmail.com',
-            password: '*****',
-            adresa: 'Prvomajska 61 Zitkovac',
-            brojTelefona: '0614210997',
-            jmbg: '21099977131319',
+            ProfilData: [],
+            showComp: 'profil',
+             menuItems: [
+                {
+                    key: 1,
+                    label: 'Zakazivanja',
+                    index: 'zakazivanja',
+                    slika: 'zakazivanje.png'
+                },
+                 {
+                    key: 2,
+                    label: 'Profil',
+                    index: 'profil',
+                    slika: 'evidencijaclanova.png'
+                    // dodaj sliku!
+                }
+             ]
+        }
+    },
+    methods: {
+        setComponent(component){
+            this.showComp = component;
+            console.log(component)
         }
     }
     
@@ -65,9 +86,15 @@ export default {
         width: 100%;
         height: 90%;
         display: flex;
-        justify-content: center;
-        align-content: center;
+        flex-direction: row;
         background-color: rgba(224, 224, 235, 0.445);
+}
+.container{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
 }
 
 .profile-avatar {
@@ -79,7 +106,7 @@ export default {
 
 .profil-card {
     padding: 1em;
-    width: 42%;
+    width: 60%;
     height: 80%;
     margin-top: 7vh;
     background: rgba(240, 240, 255, 0.8);
@@ -104,5 +131,10 @@ export default {
 
 .profile-info-line label + label {
     color: rgba(0, 0, 0, 0.7)
+}
+@media screen and (max-width: 700px){
+    .profil-container{
+        flex-direction: column;
+    }
 }
 </style>

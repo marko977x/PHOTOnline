@@ -55,7 +55,7 @@ export default {
         zatvori: function(){
               this.$emit('editFinished','cancel')
         }
-    },
+    }
 }
 </script>
 

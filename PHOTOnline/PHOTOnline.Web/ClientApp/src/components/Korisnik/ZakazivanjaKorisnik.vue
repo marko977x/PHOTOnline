@@ -16,7 +16,7 @@
             </template>
             </el-calendar>
         </div>
-        <form-zakazi :date="datum" ></form-zakazi>
+        <form-zakazi :date="this.datum" ></form-zakazi>
         <footer-bar></footer-bar>
     </div>
 </template>
@@ -41,8 +41,7 @@ export default {
     methods: {
         radi(date){
             this.datum = date
-            // console.log(this.datum)
-            //ovde treba da se sredi jer ne vidi lepo datum!!!
+            console.log(this.datum)
         },
         vratiZahteve(data){
            this.listaZahteva.forEach(element => {

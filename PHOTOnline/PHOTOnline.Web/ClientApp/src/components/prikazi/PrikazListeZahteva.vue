@@ -2,7 +2,7 @@
     <div class="zahtev-container">
         <div class="zahtev-container-table">
              <el-table
-             :data="this.tableData">
+             :data="this.listaZahteva">
             <el-table-column
                     prop="ime"
                     label="Ime"
@@ -14,27 +14,27 @@
                     class="table-column">
             </el-table-column>
             <el-table-column 
-                    prop="lokacija"
+                    prop="Location"
                     label="Lokacija"
                     class="table-column">
             </el-table-column>
             <el-table-column 
-                     prop="datum"
+                     prop="Date"
                     label="Datum"
                     class="table-column">
             </el-table-column>
              <el-table-column 
-                     prop="zahtevi"
+                     prop="AdditionalRequests"
                     label="Dodatni zahtevi"
                     class="table-column">
             </el-table-column>
              <el-table-column 
-                     prop="tip"
+                     prop="EventType"
                     label="Tip"
                     class="table-column">
             </el-table-column>
               <el-table-column 
-                     prop="vreme"
+                     prop="Time"
                     label="Vreme"
                     class="table-column">
             </el-table-column>
@@ -42,7 +42,7 @@
                      prop="fotograf"
                     label="Fotograf"
                     class="table-column">
-                    <el-select class="inputPolje" v-model="tableData.fotograf" placeholder="Izaberite fotografa" size="medium">
+                    <el-select class="inputPolje" v-model="listaZahteva.fotograf" placeholder="Izaberite fotografa" size="medium">
                          <el-option v-for="item in options" :key="item.foto" :label="item.label" :value="item.foto"></el-option>
                     </el-select>
             </el-table-column>
@@ -59,23 +59,11 @@
 </template>
 
 <script>
+import { apiFetch, destinationUrl } from '../../services/authFetch';
 import {} from 'element-ui'
 export default {
     data(){
         return{
-            tableData: [
-                    {
-                        datum: '2019-05-12',
-                        ime: 'Jovan',
-                        prezime: 'Aritonovic',
-                        lokacija: 'Restoran',
-                        datum: '2019-05-12',
-                        zahtevi: 'Slikanje u prirodi',
-                        tip: 'Krstenje',
-                        vreme: '09:00',
-                        fotograf: ''
-                    }
-            ],
             options: [{
                     foto: 'Vladica Mladenovic',
                     label: 'Vladica Mladenovic'
@@ -87,14 +75,29 @@ export default {
                     foto: 'Dragan Aritonovic',
                     label: 'Dragan Aritonovic'
                     }
-            ]
+            ],
+            listaZahteva: [],
         }
     },
     methods: {
         poruka(){
             this.$emit('poruka');
             
+        },
+        pribaviListuZahteva: async function(){
+            apiFetch('GET', destinationUrl + "/Request/GetAllRequests")
+            .then(result => {
+                if(result.Success) {
+                    this.listaZahteva = result.Data;
+                    console.log(this.listaZahteva);
+                    this.$emit('datum',this.listaZahteva)
+                }
+                else this.$message({message: "Doslo je do greske prilikom ucitavanja zahteva!", type: 'error'})   
+                 }).catch(error => {console.log(error)});
         }
+    },
+    beforeMount(){
+        this.pribaviListuZahteva()
     }
 }
 </script>

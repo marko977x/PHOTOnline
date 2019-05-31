@@ -34,7 +34,7 @@ export default {
             menuItems: [
                 {
                     key: 1,
-                    label: 'Zakazivanja',
+                    label: 'Zakaži',
                     index: 'zakazivanja'
                     // dodaj sliku!
                 },
