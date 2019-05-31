@@ -9,7 +9,7 @@
                     <p v-if="vratiZahteve(data)"></p>
                     <div class="element" @click="radi(data.day)">
                      <p :class="data.isSelected ? 'is-active' : ''" >{{data.day.split('-').slice(2).join('-')}}</p>
-                    <el-badge v-if="data.isSelected" :value="1" class="item" type="danger" aria-setsize="big">
+                    <el-badge v-if="data.isSelected" :value="counts[data.day]" class="item" type="warning" aria-setsize="big">
                     <p :class="data.isSelected ? 'is-active' : ''"></p>
                     </el-badge>
                     </div>
@@ -27,6 +27,7 @@ import PrikazKalendaraKorisnik from "./PrikazKalendaraKorisnik.vue"
 import FormZakazi from "../forme/FormZakazi.vue"
 import FooterBar from "../appBar/FooterBar.vue"
 import { getUserInfo } from '../../services/contextManagement';
+import { apiFetch, destinationUrl } from '../../services/authFetch';
 
 export default {
     components: {PrikazKalendaraKorisnik, FormZakazi, FooterBar},
@@ -34,7 +35,9 @@ export default {
         return{
             value: new Date(),
             datum: '',
-            listaZahteva: ['2019-05-24','2019-05-25','2019-05-26','2019-05-27'],
+            listaZahteva: [],
+            datumi: [],
+            counts: {},
             userId: ''
         }
     },
@@ -44,17 +47,39 @@ export default {
             console.log(this.datum)
         },
         vratiZahteve(data){
-           this.listaZahteva.forEach(element => {
+           this.datumi.forEach(element => {
                if(data.day == element)
                     data.isSelected = true
            });
         },
-        pribaviDatume(){
-            // ovde treba fetch za listu datuma!
+        pribaviListuZahteva: async function(){
+            apiFetch('GET', destinationUrl + "/Request/GetAllRequests")
+            .then(result => {
+                if(result.Success) {
+                    this.listaZahteva = result.Data;
+                     this.pribaviDatum(this.listaZahteva);
+                }
+                else this.$message({message: "Doslo je do greske prilikom ucitavanja zahteva!", type: 'error'})   
+                 }).catch(error => {console.log(error)});
+        },
+        pribaviDatum(datumi){
+            let i =0;
+            let novidatumi = [];
+           datumi.forEach(el => {
+               novidatumi[i++] = el.Date;
+           })
+           this.datumi = novidatumi;
+           this.countDate(this.datumi)
+        },
+        countDate(datumi){
+            console.log(datumi)
+            var counts = {}
+            datumi.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+            this.counts = counts;
         }
     },
     beforeMount(){
-        this.pribaviDatume()
+        this.pribaviListuZahteva()
         this.userId = getUserInfo().userID
     }
 }

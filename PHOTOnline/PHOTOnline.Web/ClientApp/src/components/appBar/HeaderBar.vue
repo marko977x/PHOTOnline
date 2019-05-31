@@ -8,9 +8,7 @@
                          width="212"
                          trigger="hover"
                         content="Iskustvo duze od 20 godina"> 
-                      <a class="navbar-item" href="./Pocetna" style="color:#c3cfe2; 
-                        margin-top:5px; font-family:Arial Black, Gadget, sans-serif; 
-                        font-size:20px; text-decoration:none;" slot="reference">Foto Aritonović</a> 
+                      <a class="navbar-item" href="./Pocetna" slot="reference">Foto Aritonović</a> 
                    </el-popover>
                 </div>
                 <div class="navbar-right">
@@ -38,11 +36,13 @@
                         </li>
                     </ul>
                 </div>
-                <div class="navbar-right-menu" hidden>
-                    <el-button class="el-icon-menu" 
-                        style="background-color:#737982; color:white;opacity:0.9;"> </el-button>
-                    <el-button type="primary" @click="$emit('login')"> Log in </el-button>
-                    <el-button type="primary" @click="$emit('signup')">SIGN UP</el-button>
+                <div class="navbar-right-menu">
+                    <el-button  style="opacity:0.9;
+                         height: 50px; width: 50px;"> 
+                        <el-icon class="el-icon-menu"></el-icon>
+                         </el-button>
+                    <!-- <el-button type="primary" @click="$emit('login')"> Log in </el-button>
+                    <el-button type="primary" @click="$emit('signup')">SIGN UP</el-button> -->
                 </div>
             </nav>
         </div>
@@ -50,12 +50,14 @@
 
 <script>
  import popover from 'element-ui'
+ import menu from '../../assets/menu.png'
 export default {
     components: {popover},
     data(){
         return{
            itemList: this.list,
-           type: this.korisnik
+           type: this.korisnik,
+           slika: menu
         }
     },
     methods: {
@@ -71,7 +73,7 @@ export default {
 <style scoped>
   .header-container{
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: center;
       overflow: hidden;
       height: 10%;
@@ -88,6 +90,12 @@ export default {
       color: white;
       flex-direction: row;
   }
+  .navbar-item{
+      color:#c3cfe2; 
+     margin-top:5px; 
+     font-family:Arial Black, Gadget, sans-serif; 
+    font-size:20px; text-decoration:none;
+  }
   .navbar-left{
       text-transform: uppercase;
       width: 20%;
@@ -103,9 +111,7 @@ export default {
       align-items:stretch;
   }
   .navbar-right-menu{
-      display: flex;
-      justify-content: flex-end;
-      width: 80%;
+      display: none;
   }
   .items{
       display: flex;
@@ -130,6 +136,27 @@ export default {
       border-radius: 6px;
       height: 41px;
   }
+  @media screen and (max-width: 640px){
+    .navbar-right{
+        display: none;
+        width:60%;
+    }
+    .navbar-right-menu{
+        display: block;
+        display: flex;
+        flex-direction: row-reverse;
+        width: 100%;
+        margin-left: 10%;
+    }
+    .navbar-item{
+        font-size: 15px;
+        margin-left: 20px;
+    }
+    .navbar-left{
+        width: 40%;
+    }
+}
+
 </style>
 
 
