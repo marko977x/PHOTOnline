@@ -16,7 +16,7 @@
             </template>
             </el-calendar>
         </div>
-        <form-zakazi :date="this.datum" ></form-zakazi>
+        <form-zakazi :date="datum" ></form-zakazi>
         <footer-bar></footer-bar>
     </div>
 </template>

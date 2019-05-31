@@ -7,13 +7,13 @@
                     font-size:23px;">Foto Aritonovic</h3>
                     <div class="stavka">
                         <label>Username:</label>
-                        <el-input class="input" v-model="loginData.username"
+                        <el-input class="input" v-model="loginData.Email"
                         placeholder="korisnik@primer.com"></el-input>
                     </div>
                     <div class="stavka">
                         <label>Password:</label>
                         <el-input type="password"
-                        class="input" v-model="loginData.password"></el-input>
+                        class="input" v-model="loginData.Password"></el-input>
                     </div>
                     <el-button @click="onLoginSubmit()" type="primary">Prijavi se</el-button>
                 </el-form>
@@ -24,11 +24,12 @@
 
 <script>
 import { apiFetch, destinationUrl } from '../../services/authFetch';
+import {setUserInfo} from '../../services/contextManagement';
 export default {
     data() {
         return{
             loginData: {
-                Username: '',
+                Email: '',
                 Password: ''
             }
         }
@@ -37,9 +38,12 @@ export default {
         onLoginSubmit() {
             apiFetch('POST', destinationUrl + "/User/SignIn", this.loginData)
                 .then(result => {
-                    if(result.success){
-                        setUserInfo(result.data.id, result.data.userType);
-                        window.location.href = "/korisnik";
+                    if(result.Success){
+                        setUserInfo(result.Data.Id, result.Data.UserType);
+                        if(result.Data.UserType == 2) window.location.href = "/fotograf";
+
+                        
+                        //window.location.href = "/Korisnik";
                     }
                     else this.$message("Pogreska lozinka ili email adresa!");
                 }).catch(error => {
