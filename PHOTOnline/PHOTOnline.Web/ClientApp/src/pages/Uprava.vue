@@ -50,7 +50,9 @@ export default {
                     slika: 'evidencijaclanova.png'
                 }
             ],
-            showComp: 'albumuprave'
+            showComp: 'albumuprave',
+            userId: -1,
+            userType: 'uprava'
         }
         
     },
@@ -59,6 +61,17 @@ export default {
             this.showComp = index
             setPageShown(index);
          }
+    },
+    beforeMount(){
+        var userInfo = getUserInfo()
+        this.userId = userInfo.userID;
+        var index = getPageToShow().page;
+        console.log(index)
+        if(index != null){
+            this.showComp = index
+            return
+        }
+        this.showComp = ''
     }
 }
 </script>

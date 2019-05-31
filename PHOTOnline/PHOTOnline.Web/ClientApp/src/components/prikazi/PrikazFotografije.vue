@@ -26,7 +26,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .fotografija-container{
     height: 100px;
     width: 80px;

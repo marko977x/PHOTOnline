@@ -1,31 +1,29 @@
 <template>
     <div class="main-container">
-        <header-bar @signup="setSignUpForm" @login='setLoginForm'></header-bar>
+        <header-bar @signup="Signup" @login='logovanje' :list="this.menuItems" :korisnik="this.userType"></header-bar>
         <div class="main">
             <div class="information">
                 <div class="info1">
                     <h2 id="naslov1">Foto Studio Aritonović</h2>
                 </div>
                 <div class="info2">
-                    <h3  style="text-align:center;">Foto Aritonović</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut inventore,
-                         voluptas nostrum et libero quisquam nemo dolor, architecto similique rerum 
-                         eos ullam porro voluptates excepturi, placeat dicta facere a nisi? Sed
-                          perspiciatis quasi quidem sit, sequi, in animi reprehenderit maxime non tempora
-                           magnam excepturi minus quisquam corrupti veritatis aliquid laudantium? 
-                              repellendus rerum dolores magni hic harum. Dolore, veniam! Facere, ducimus
-                               iusto! Eius temporibus dignissimos commodi cupiditate ea, voluptates consequatur
-                                nulla illum!.</p>
+                    <h3  style="text-align:center;">Foto Studio Aritonović</h3>
+                    <p style="font-family:sans-serif; font-size:18px;">Fotografska radnja Foto Aritonović osnovana je 1991 godine u Zitkovcu
+                        , malom mestu blizu Aleksinca sa ciljem da zabelezi najepse trenutke života naših mušterija sa poverenjem
+                        dužim od 20 godina. Profesionalna fotografisanja i snimanja svih vrsta proslava. 
+                    </p>
+                    <narucivanje-fotografija
+                         style="height:100px; width:100%; margin:0px; margin-top:10px; font-size:10px;"></narucivanje-fotografija>
                 </div>
             </div>
             <el-carousel style=""  class="carousel">
                 <el-carousel-item v-for="photo in photos" :key="photo">
-                <img src="https://photonline.blob.core.windows.net/photonline/c8d72636-6fa1-465d-928d-8c792a9a8e04?sv=2018-03-28&sr=b&sig=a%2BWjZYGxnVb1HsgKCrQ3y7jImDri%2BZK4xeH56Ej70Uk%3D&st=2019-05-26T07%3A27%3A24Z&se=9999-12-31T22%3A59%3A59Z&sp=r" height="100%" width="100%"/>
+                <img :src="photo"/>
                 </el-carousel-item>
             </el-carousel>
         </div>
-        <login v-if="this.showComp == 'login'" @closeLoginForm="closeForm"></login>
-        <form-signup v-if="this.showComp == 'signup'" @closeSignUpForm="closeForm" ></form-signup>
+        <login v-if="this.showComp == 'login'" @closeLoginForm="signupEnd"></login>
+        <form-signup v-if="this.showComp == 'signup'" @zavrsiPrijavu="signupEnd" ></form-signup>
         <footer-bar class="footer"></footer-bar>
     </div>
 </template>
@@ -33,33 +31,60 @@
 <script>
  import HeaderBar from '../components/appBar/HeaderBar.vue'
  import FooterBar from '../components/appBar/FooterBar.vue'
- import Login from "../components/forme/Login.vue";
+ import Login from "../components/forme/Login.vue"
  import FormSignup from "../components/forme/FormSignup.vue"
- import slika1 from "../assets/pictures/1.jpg"
- import slika2 from "../assets/pictures/evidencija.jpg"
+ import slika1 from "../assets/pictures/p1.jpg"
+import slika2 from "../assets/pictures/p2.jpg"
+import slika3 from "../assets/pictures/p3.jpg"
+import slika4 from "../assets/pictures/p4.jpg"
+ import slika5 from "../assets/pictures/p5.jpg"
+ import NarucivanjeFotografija from "../components/Korisnik/NarucivanjeFotografija.vue"
 import { setPageShown } from '../services/contextManagement';
  
 export default {
-    components: { HeaderBar, FooterBar, Login, FormSignup},
+    components: { HeaderBar, FooterBar, Login, FormSignup, NarucivanjeFotografija},
     data() {
         return {
             photos:[
                 slika1,
                 slika2,
-                '../assets/pictures/h3.JPG',
+                slika3,
+                slika4,
+                slika5
             ],
             count: 0,
-            showComp:''
+            showComp:'',
+            menuItems: [
+                {
+                    key: 1,
+                    label: 'Zakazivanja',
+                    index: 'zakazivanja'
+                    // dodaj sliku!
+                },
+                {
+                    key:2,
+                    label: 'Albumi',
+                    index: 'albumi'
+                    //slika!
+                },
+                {
+                    key:3,
+                    label: 'Proizvodi',
+                    index: 'proizvodi'
+                    //slika!
+                }
+            ],
+            userType: 'pocetna'
         }
     },
     methods: {
-        setSignUpForm: function(){
+        Signup: function(){
             this.showComp = 'signup'
         },
-        setLoginForm: function(){
+        logovanje: function(){
             this.showComp = 'login'
         },
-        closeForm: function(){
+        signupEnd: function(){
             this.showComp = ''
             setPageShown('')
         }
@@ -73,17 +98,27 @@ export default {
     color: #475669;
     font-size: 18px;
     opacity: 0.75;
-    line-height: 300px;
+    line-height: 500px;
     margin: 0;
   }
-
+  img{
+      position: absolute;
+      height: 100%;
+      width:100%;
+  }
+.carousel el-carousel el-carousel--horizontal
+{
+    height: 100%;
+    width: 100%;
+}
   .el-carousel__item:nth-child(n) {
     background-color: #99a9bf;
-    height: 810px;
+    height: 890px;
   }
   .carousel{
-      height: 810px;
-      width: 100%;
+      height: 900px;
+      width: 90%;
+      margin-left: 100px;
       border-radius: 5px;
   }
   .main-container{
@@ -93,6 +128,8 @@ export default {
       position: absolute;
       flex-direction: column;
       overflow: auto;
+      margin-left: auto;
+      margin-right: auto;
     background-size: cover;
     background-position: bottom;
     background-image: linear-gradient(
@@ -111,7 +148,7 @@ export default {
   }
   .information{
       width: 100%;
-      height: 720px;
+      height: 870px;
       display: flex;
       flex-direction: row;
       padding: 50px;
@@ -121,10 +158,13 @@ export default {
       align-items: center;
       justify-content: center;
       display: flex;
+      font-family: sans-serif;
+      margin-left: 50px;
   }
   .info2{
       width: 40%;
       padding: 60px 60px 60px;
+      margin-bottom: 70px;
       margin-left: 100px;
       background-color: rgba(231, 231, 236, 0.801);
       border-radius: 8px;

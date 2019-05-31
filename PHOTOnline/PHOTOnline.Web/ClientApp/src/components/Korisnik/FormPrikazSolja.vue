@@ -1,7 +1,7 @@
 <template>
     <div class="FormPrikazContainer">
         <div class="gornjiDiv">
-            <img class="slika" src="../../assets/slikaSolje.jpg"/>
+            <img class="slika" src=""/>
             <div class="divLabela">
                 <label>Šolja za koju je Milica rekla da je predivna.</label>
             </div>          

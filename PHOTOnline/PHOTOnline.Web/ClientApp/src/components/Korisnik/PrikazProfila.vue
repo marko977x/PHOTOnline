@@ -39,18 +39,21 @@
 </template>
 
 <script>
-    
+import FooterBar from "../appBar/FooterBar.vue"
 export default {
+    components: {
+        FooterBar
+    },
     data() {
         return{
             userId: '',
-            ime: '',
-            prezime: '',
-            email: '',
-            password: '',
-            adresa: '',
-            brojTelefona: '',
-            jmbg: 0,
+            ime: 'Jovan',
+            prezime: 'Aritonovic',
+            email: 'Aritonovicjovan@gmail.com',
+            password: '*****',
+            adresa: 'Prvomajska 61 Zitkovac',
+            brojTelefona: '0614210997',
+            jmbg: '21099977131319',
         }
     }
     
@@ -60,23 +63,25 @@ export default {
 <style scoped>
 .profil-container{
         width: 100%;
-        height: 100%;
+        height: 90%;
         display: flex;
-        justify-content: center;  
+        justify-content: center;
+        align-content: center;
+        background-color: rgba(224, 224, 235, 0.445);
 }
 
 .profile-avatar {
     width: 100%;
     display: flex;
     justify-content: center;
+    padding-bottom: 20px;
  }
 
 .profil-card {
     padding: 1em;
-    width: 45%;
+    width: 42%;
     height: 80%;
     margin-top: 7vh;
-    width: 45%;
     background: rgba(240, 240, 255, 0.8);
     border-radius: 10px;
     display: flex;

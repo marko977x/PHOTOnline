@@ -25,6 +25,7 @@ import {Calendar} from 'element-ui'
 import FormZakazi from "./forme/FormZakazi.vue"
 import PrikazListeZahteva from "./prikazi/PrikazListeZahteva"
 import ObavestiKorisnika from "./ObavestiKorisnika.vue"
+import { setPageShown } from '../services/contextManagement';
 export default {
     components: {Calendar, FormZakazi, PrikazListeZahteva, ObavestiKorisnika},
     data(){
@@ -66,7 +67,7 @@ export default {
     margin: 50px;
 }
 .is-active{
-    color:rgb(235, 15, 15);
+    color:rgb(19, 121, 204);
     margin-bottom: 8px;
     align-items: center;
 }

@@ -1,17 +1,18 @@
 <template>
-    <div class="FormZakaziContainer">
-        <el-form class="ZakaziForma"> 
+    <div class="form-zakazi-container">
+        <el-form class="zakazi-forma"> 
             <div class="divOpcija">
                 <label>Lokacija:</label>
                 <el-input type="text" class="inputPolje" v-model="podaciZakazi.lokacija"></el-input>
             </div>
             <div class="divOpcija">
                 <label>Datum:</label>
-                <el-date-picker class="inputPolje" v-bind="izabraniDatum" v-model="podaciZakazi.datum" type="date" placeholder="Izaberite datum iz kalendara" :disabled="true"></el-date-picker>
+                <el-input class="inputPolje" :disabled="false" v-model="this.date" placeholder="Izaberite datum iz kalendara"></el-input>
             </div>
             <div class="divOpcija">
                 <label>Dodatni zahtevi:</label>
-                <el-input type="textarea" autosize class="inputPolje" v-model="podaciZakazi.dodatniZahtevi"></el-input>
+                <el-input type="textarea"
+                 :autosize="{ minRows: 4, maxRows: 4}"  class="inputPolje" v-model="podaciZakazi.dodatniZahtevi"></el-input>
             </div>
             <div class="divOpcija">
                 <label>Tip fotografisanja:</label>
@@ -24,7 +25,7 @@
                 <el-time-select class="inputPolje" v-model="podaciZakazi.vreme" :picker-options="{ start: '08:00', step: '00:15', end: '23:00' }" placeholder="Select time"></el-time-select>
             </div>
             <div class="divDugmeZakazi">
-                <el-button id="dugmeZakazi" v-on:click="proslediZahtev">Zakazi</el-button>
+                <el-button id="dugmeZakazi" type="primary" @click="proslediZahtev">Zakaži</el-button>
             </div>
         </el-form>
     </div>
@@ -36,11 +37,11 @@ export default {
     data(){
         return{
             podaciZakazi: {
-                lokacija: "",
-                datum: this.izabraniDatum,
-                dodatniZahtevi: "",  
+                lokacija: '',
+                datum: this.date,
+                dodatniZahtevi: '',  
                 tip: '',
-                vreme: ""
+                vreme: ''
             },
             options: [{
                     tip: 'Svadba',
@@ -63,10 +64,22 @@ export default {
             }],
         }
     },
-    props: ['izabraniDatum'],
+    props: [ 'date'],
     methods: {
+        validacija(){
+            if(this.podaciZakazi.lokacija === '' || this.podaciZakazi.date === '' || this.podaciZakazi.tip === ''
+                 || this.podaciZakazi.vreme === ''){
+                this.$message({message: "Morate popuniti sva polja!", type:'warning' })
+                return false
+            }
+            return true
+        },
         proslediZahtev() {
-            
+            if(!this.validacija())
+                return
+            console.log(this.validacija())
+            console.log(123);
+            console.log(this.podaciZakazi)
         }
     }
 }
@@ -74,20 +87,22 @@ export default {
 
 <style scoped>
 
-.FormZakaziContainer{
+.form-zakazi-container{
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
     justify-content: center;
-    width: 50%;
-    padding: 2% 5%;
+    align-items: center;
+    width: 100%;
+    padding:50px;
+    padding-top: 0px;
 }
 
-.ZakaziForma{
+.zakazi-forma{
+    height: 500px;
+    width: 450px;
     display: flex;
     flex-direction: column;
-    width: 70%;
-    height: 90%;
+    justify-content: flex-end;
 }
 
 .divOpcija{
@@ -106,6 +121,6 @@ export default {
     flex-direction: row-reverse;
     margin: 5px;
     width: 100%;
-}
+} 
 
 </style>

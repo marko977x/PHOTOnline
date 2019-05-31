@@ -73,7 +73,7 @@ export default {
         align-items: center;
         height: 80%;
         width: 80%;
-        background-color:  rgba(204, 204, 211, 0.897);
+        background-color:  #ccccd3e5;
         opacity: 1;
         padding: 1em;
     }

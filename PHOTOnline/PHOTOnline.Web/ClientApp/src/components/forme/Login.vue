@@ -57,6 +57,9 @@ export default {
         width: 100%;
         justify-content: center;
     }
+    .stavka{
+        margin-bottom: 10px;
+    }
     @media screen and (max-width: 600px){
         .el-dialog{
             display: flex;
@@ -65,6 +68,9 @@ export default {
             position: absolute;
             padding: 0;
             margin: 0px 0px 0px;
+        }
+        el-dialog{
+            width: 100%;
         }
     }
 </style>
