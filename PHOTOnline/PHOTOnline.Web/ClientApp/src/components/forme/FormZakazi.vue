@@ -7,7 +7,7 @@
             </div>
             <div class="divOpcija">
                 <label>Datum:</label>
-                <el-input class="inputPolje" :disabled="false" :value="podaciZakazi.Date" v-model="datum1" placeholder="Izaberite datum iz kalendara">{}</el-input>
+                <el-input class="inputPolje" :disabled="false" :value="this.date" v-model="this.date" placeholder="Izaberite datum iz kalendara">{}</el-input>
             </div>
             <div class="divOpcija">
                 <label>Dodatni zahtevi:</label>
@@ -33,12 +33,13 @@
 
 <script>
 import { apiFetch, destinationUrl } from '../../services/authFetch';
+import { constants } from 'fs';
 export default {
     data(){
         return{
             podaciZakazi: {
                 Location: '',
-                Date: this.date,
+                Date: '',
                 AdditionalRequests: '',  
                 EventType: '',
                 Time: ''
@@ -82,19 +83,19 @@ export default {
         },
         proslediZahtev() {
             //  if(!this.validacija())
-            //      return
+                //  return
             console.log(this.podaciZakazi);
-                // apiFetch('POST', destinationUrl + "/Request/CreateRequest", this.podaciZakazi)
-                // .then(result => {
-                //     if(result.success){
-                //        this.$message({message: "Uspesno ste zakazali termin.", type: 'success'});
-                //        console.log(result);
-                //     }
-                //     else this.$message("Doslo je do greske!");
-                //     console.log(result)
-                // }).catch(error => {
-                //     console.log(error);
-                // });
+            this.podaciZakazi.Date = this.date
+                apiFetch('POST', destinationUrl + "/Request/CreateRequest", this.podaciZakazi)
+                .then(result => {
+                    if(result.Success){
+                       this.$message({message: "Uspesno ste zakazali termin.", type: 'success'});
+                    }
+                    else this.$message("Doslo je do greske!");
+                    console.log(result)
+                }).catch(error => {
+                    console.log(error);
+                });
         }
     }
 }

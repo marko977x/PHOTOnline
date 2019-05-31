@@ -7,7 +7,7 @@
                     <el-icon class="el-icon-menu"></el-icon>
                 </el-button>
                 <el-button> <el-icon class="el-icon-user"></el-icon></el-button>
-                <el-button class="odjava" type="primary"> Odjavi se </el-button>
+                <el-button class="odjava" type="primary" @click="logout"> Odjavi se </el-button>
             </div>
         </div>
         <div class="body-container">
@@ -53,6 +53,9 @@ export default {
         },
         emitMenuSelect: function(event){
             this.$emit('changeView', event)
+        },
+        logout(){
+            this.$emit('logout')
         }
     },
     props: ['list']
