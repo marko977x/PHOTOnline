@@ -27,7 +27,9 @@ namespace PHOTOnline.Business.RequestManagement
                 EventType = input.EventType,
                 Location = input.Location,
                 UserId = input.UserId,
-                Time = input.Time
+                Time = input.Time,
+                FirstName = input.FirstName,
+                LastName = input.LastName
             };
 
             return new Result<string>()
