@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="sadrzaj-albuma-inner">
-            <prikaz-fotografije v-for="(image, index) in Album.Images" :key="index" v-bind:ImageUrl="image.Url">
+            <prikaz-fotografije v-for="(image, index) in Album.Images" :key="index" v-bind:ImageUrl="image.Small">
             </prikaz-fotografije>
         </div>
     </div>

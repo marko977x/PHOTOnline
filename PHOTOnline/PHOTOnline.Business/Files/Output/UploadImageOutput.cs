@@ -1,4 +1,5 @@
 ﻿using PHOTOnline.Domain.Entities;
+using PHOTOnline.Domain.Entities.Images;
 using System;
 using System.Collections.Generic;
 using System.Text;

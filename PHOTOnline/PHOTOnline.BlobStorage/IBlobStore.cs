@@ -9,7 +9,7 @@ namespace PHOTOnline.BlobStorage
 {
     public interface IBlobStore
     {
-        Task<Result<string>> UploadFromFileAsync(string filePath);
+        Task<Result<string>> UploadFromFileAsync(string filePath, string contentType);
         Task<Result<string>> GetReadUrlAsync(string blobId, int hours = 0);
     }
 }

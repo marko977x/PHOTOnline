@@ -32,15 +32,8 @@
 </template>
 
 <script>
-    import FileUpload from 'vue-upload-component'
-    import {Button} from 'element-ui'
-    import {apiFetch, destinationUrl} from "../../services/authFetch";
-    import objectToFormData from "object-to-formdata";
+    import {destinationUrl} from "../../services/authFetch";
 export default {
-    components: {
-        Button,
-        FileUpload
-    },
     data() {
         return {
             album: {
@@ -67,33 +60,37 @@ export default {
             formData.append("Location", this.album.Location);
             formData.append("Password", this.album.Password);
             this.album.Images.forEach((image, index) => {
-                formData.append("Images[" + index + "].BlobId", image.BlobId);
-                formData.append("Images[" + index + "].Url", image.Url);
+                formData.append("Images[" + index + "].Id", image.BlobId);
                 formData.append("Images[" + index + "].Title", image.Title);
+                formData.append("Images[" + index + "].Original", image.Original);
+                formData.append("Images[" + index + "].Thumbnail", image.Thumbnail);
+                formData.append("Images[" + index + "].Small", image.Small);
+                formData.append("Images[" + index + "].Medium", image.Medium);
+                formData.append("Images[" + index + "].Large", image.Large);
             });
             
             fetch(destinationUrl + "/Album/AddAlbum", {
                 body: formData,
                 method: 'POST'
             }).then(response => response.json()).then(result => {
-                console.log(result);
-            });
+                console.log(this.album);
+                return result;
+            }).catch(error => console.log(error));
         },
         prekiniDodavanjeAlbuma: function(){
             this.$emit('editFinished','cancel') // takodje je i ovde 'cancel' podatak koji se salje i koji 
             //ce biti ispisan!
         },
         uploadImages(event) {
-            const formData = new FormData();
-            for(let index = 0; index < event.target.files.length; index++){
-                formData.append('File', event.target.files[index]);
-                console.log("Preparing for upload!");
+            for(let index = 0; index < event.target.files.length; index++) {
+                const formData = new FormData();
+                formData.append("image", event.target.files[index]);
                 fetch(destinationUrl + "/Image/UploadImage", {method: 'POST', body: formData})
-                    .then(response => response.json())
-                    .then(result => {
+                    .then(response => {
+                        return response.ok ? response.json() : new Error();
+                    }).then(result => {
+                        console.log(result.Data);
                         this.album.Images.push(result.Data.Image);
-                        console.log(this.album);
-                        console.log("Uploading completed");
                     }).catch(error => {console.log(error)});
             }
         },
