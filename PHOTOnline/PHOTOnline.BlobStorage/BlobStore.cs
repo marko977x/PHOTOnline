@@ -53,7 +53,8 @@ namespace PHOTOnline.BlobStorage
             return _container;
         }
 
-        public async Task<Result<string>> UploadFromFileAsync(string filePath)
+        public async Task<Result<string>> UploadFromFileAsync(
+            string filePath, string contentType)
         {
             CloudBlobContainer container = await GetContainerAsync();
             if (container == null) return new Result<string>() { Success = false };
@@ -61,6 +62,7 @@ namespace PHOTOnline.BlobStorage
             string guid = Guid.NewGuid().ToString();
 
             CloudBlockBlob blockBlob = container.GetBlockBlobReference(guid);
+            blockBlob.Properties.ContentType = contentType;
 
             using (var fileStream = System.IO.File.OpenRead(filePath))
                 await blockBlob.UploadFromStreamAsync(fileStream);

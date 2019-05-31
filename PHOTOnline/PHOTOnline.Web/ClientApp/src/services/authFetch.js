@@ -14,7 +14,7 @@ export function apiFetchFactory() {
     return async function apiFetch(method, url, body) {
         const formData = new FormData();
         for (let key in body) {
-            formData.append(key, body[key]);
+            formData.append(key,body[key]);
         }
         let result = null;
         if (body == null) {

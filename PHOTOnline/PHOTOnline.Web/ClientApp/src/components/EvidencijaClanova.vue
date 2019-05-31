@@ -2,7 +2,7 @@
     <div class="evidencija-container">
         <div class="evidencija-container-inner">
             <filter-clanova hidden></filter-clanova>
-            <h5 style="text-align:center; font-family:sans-serif;"> Evidencija Članova </h5>
+            <h5 style="text-align:center; font-family:sans-serif;"> Evidencija članova </h5>
             <el-table :data="tableData.filter(data => !search || data.FirstName.toLowerCase().includes(search.toLowerCase()))">
                 <el-table-column prop="FirstName" label="Ime" class="table-column"></el-table-column>
                 <el-table-column prop="LastName" label="Prezime" class="table-column"></el-table-column>

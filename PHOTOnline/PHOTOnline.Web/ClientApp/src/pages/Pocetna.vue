@@ -22,7 +22,7 @@
                 </el-carousel-item>
             </el-carousel>
         </div>
-        <login v-if="this.showComp == 'login'" @zavrsiPrijavu="signupEnd"></login>
+        <login v-if="this.showComp == 'login'" @closeLoginForm="signupEnd"></login>
         <form-signup v-if="this.showComp == 'signup'" @zavrsiPrijavu="signupEnd" ></form-signup>
         <footer-bar class="footer"></footer-bar>
     </div>

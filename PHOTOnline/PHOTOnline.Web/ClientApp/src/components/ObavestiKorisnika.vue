@@ -1,6 +1,6 @@
 <template>
     <div class="obavestenje-container">
-        <el-dialog width="30%" @close="$emit('zatvoriPoruku')" :visible.sync="mounted" center="true">
+        <el-dialog width="30%" @close="$emit('zatvoriPoruku')" :visible.sync="dialog">
             <h5 style="text-align:center; font-family:sans-serif; font-size:15px;"> Obaveštenje korisniku </h5>
             <el-input v-model="obavestenje"
              type="textarea"
@@ -20,7 +20,7 @@ export default {
     data(){
         return{
             obavestenje: '',
-            dialog: false,
+            dialog: true,
             mounted: function() {
                 this.dialog = true
             }
