@@ -4,12 +4,12 @@
              <el-table
              :data="this.listaZahteva">
             <el-table-column
-                    prop="ime"
+                    prop="FirstName"
                     label="Ime"
                     class="table-column">
             </el-table-column>
              <el-table-column 
-                     prop="prezime"
+                     prop="LastName"
                     label="Prezime"
                     class="table-column">
             </el-table-column>

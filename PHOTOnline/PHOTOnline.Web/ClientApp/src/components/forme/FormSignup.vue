@@ -54,6 +54,7 @@
 
 <script>
     import { } from 'element-ui'
+    import {setUserInfo} from "../../services/contextManagement";
     export default {
         data() {
             return {
@@ -84,7 +85,8 @@
                         return response.json(); 
                     }) 
                     .then(result => {
-                        console.log(result);
+                        setUserInfo(result.Data.Id, result.Data.UserType);
+                        window.location.href = "/korisnik";
                     });
             }
         }

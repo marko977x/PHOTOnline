@@ -14,9 +14,6 @@
                         </el-input>
                     </template>
                     <template slot-scope="scope">
-                        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">
-                            Izmeni
-                        </el-button>
                         <el-button size="mini" type="danger" @click="deleteUser(scope.row.Id)">
                             Otpusti
                         </el-button>

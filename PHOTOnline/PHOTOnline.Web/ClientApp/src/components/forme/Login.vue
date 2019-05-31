@@ -41,7 +41,7 @@ export default {
                     if(result.Success){
                         setUserInfo(result.Data.Id, result.Data.UserType);
                         if(result.Data.UserType == 2) window.location.href = "/fotograf";
-
+                        else window.location.href = "./korisnik";
                         
                         //window.location.href = "/Korisnik";
                     }
