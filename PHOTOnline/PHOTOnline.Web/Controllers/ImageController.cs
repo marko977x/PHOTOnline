@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.Business.Files;
@@ -10,7 +11,7 @@ using PHOTOnline.Business.Files.Output;
 namespace PHOTOnline.Web.Controllers
 {
     [Route("api/[controller]/[action]")]
-	[Produces("application/json")]
+    [Produces("application/json")]
     public class ImageController : Controller
     {
         private IFileUploader _fileUploader;
@@ -21,22 +22,23 @@ namespace PHOTOnline.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadImage(ImageInput input)
+        public async Task<IActionResult> UploadImage(IFormFile image)
         {
-            if (input.File == null || input.File.Length == 0) return BadRequest("NULL / ZERO");
+            if (image == null || image.Length == 0) return BadRequest();
 
             var filePath = Path.GetTempFileName();
             using (var stream = new FileStream(filePath, FileMode.Create))
-                await input.File.CopyToAsync(stream);
+                await image.CopyToAsync(stream);
 
-            UploadImageInput uploadImageInput = new UploadImageInput()
+            UploadImageInput input = new UploadImageInput()
             {
-                OriginalFileName = input.File.FileName,
+                OriginalFileName = image.FileName,
+                ContentType = image.ContentType,
                 LocalPath = filePath
             };
 
             Result<UploadImageOutput> result =
-                await _fileUploader.UploadImageAsync(uploadImageInput);
+                await _fileUploader.UploadImageAsync(input);
 
             if (result.Success)
                 return Ok(result);
@@ -45,27 +47,20 @@ namespace PHOTOnline.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadImages(List<ImageInput> images)
+        public async Task<IActionResult> UploadImages(List<IFormFile> images)
         {
-            Result<List<UploadImageOutput>> results = new Result<List<UploadImageOutput>>();
-            foreach (ImageInput image in images)
+            Result<List<UploadImageOutput>> results = new Result<List<UploadImageOutput>>() { Success = true };
+            images.ForEach(async image =>
             {
-                var filePath = Path.GetTempFileName();
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                    await image.File.CopyToAsync(stream);
+                Result<UploadImageOutput> result = await _fileUploader.UploadImageAsync(image);
+                results.Data.Add(result.Data);
+            });
 
-                UploadImageInput uploadImageInput = new UploadImageInput()
-                {
-                    OriginalFileName = image.File.FileName,
-                    LocalPath = filePath
-                };
-
-                Result<UploadImageOutput> result =
-                    await _fileUploader.UploadImageAsync(uploadImageInput);
-                if (result.Success) results.Data.Add(result.Data);
-                else return BadRequest(new Result() { Success = false });
-            }
-            return Ok(results);
+            if (results.Success)
+                return Ok(results);
+            else
+                return BadRequest(results);
         }
+
     }
 }

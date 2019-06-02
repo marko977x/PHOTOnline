@@ -8,5 +8,6 @@ namespace PHOTOnline.Business.Files.Input
     {
         public string LocalPath { get; set; }
         public string OriginalFileName { get; set; }
+        public string ContentType { get; set; }
     }
 }
