@@ -75,16 +75,22 @@
         font-size: 15px;
         text-align: left;
         flex-basis: 30%;
+        width: 30%;
     }
 
     .stavka {
         display: flex;
         flex-direction: row;
-        margin: 10px;
+        margin: 5px;
     }
 
-    .input {
+    .el-input {
         flex-basis: 70%;
+        width: 70%;
+    }
+    .el-input.el-input--small{
+        width: 100%;
+        margin: 0px;
     }
 
     .stavka-2 {

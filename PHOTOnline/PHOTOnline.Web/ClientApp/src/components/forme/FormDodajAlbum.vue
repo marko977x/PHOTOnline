@@ -117,10 +117,16 @@ export default {
     .input-polje{
         flex-basis: 70%;
     }
+    .input-polje.el-input{
+        width: 100%;
+    }
     .dugmici{
         display: flex;
         justify-content: flex-end;
         width: 100%;
+    }
+    label{
+        width: 30%;
     }
     .dugme{
         width:30%;

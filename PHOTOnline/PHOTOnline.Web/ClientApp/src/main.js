@@ -5,6 +5,8 @@ import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import Korisnik from "../src/pages/Korisnik"
 import Uprava from "../src/pages/Uprava"
+import Fotograf from "../src/pages/Fotograf"
+import Pocetna from "../src/pages/Pocetna"
 import BootstrapVue from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -17,5 +19,5 @@ Vue.use(BootstrapVue);
 new Vue({
     router,
     render: 
-        h => h(Korisnik)
+        h => h(Uprava)
 }).$mount("#app");
