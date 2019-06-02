@@ -4,18 +4,17 @@
             <el-input 
                 v-model="password"
                 type="password" show-password size="medium"
-                style="width:300px; margin-right:50px;"
+                style="width:350px; margin-right:30px;"
                 placeholder="Unesite šifru albuma">
             </el-input>
-            <el-button type="primary" size="mini" style="height:35px;" @click="vratiAlbum">Prikaži Album</el-button>
-            <div class="potvrdi">
-                <el-button type="danger" size="medium" @click="dodajUKorpu">Poruči </el-button>
-            </div>
+            <el-button type="primary" size="mini"  @click="vratiAlbum">Prikaži Album</el-button>
+            <el-button type="danger" size="medium" @click="dodajUKorpu">Poruči </el-button>
         </div>
         <div class="album-fotografije">
             <fotografija 
                 v-for="image in album.Images" :key="image.Id"
-                :imageUrl="image.Thumbnail" @selectPhoto="selektovane($event)"></fotografija>
+                :imageUrl="image.Thumbnail" @selectPhoto="selektovane($event)">
+            </fotografija>
         </div>
         <!-- <footer-bar></footer-bar> -->
     </div>
@@ -84,12 +83,16 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
 }
-.potvrdi{
-    display: flex;
-    flex-direction: row-reverse;
-    width: 100%;
+.el-button{
+    margin-right: 10px;
     height: 35px;
-    margin-right: 15px;
+    width: 100px;
+}
+.dodavanje{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 10px;
 }
 </style>
 

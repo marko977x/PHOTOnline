@@ -4,7 +4,7 @@
             <div class="forma">
                 <el-form>
                     <h3 style="text-align:center; margin-bottom:40px;
-                    font-size:23px;">Foto Aritonovic</h3>
+                    font-size:23px;">LOG IN</h3>
                     <div class="stavka">
                         <label>Username:</label>
                         <el-input class="input" v-model="loginData.Email"
@@ -14,6 +14,9 @@
                         <label>Password:</label>
                         <el-input type="password"
                         class="input" v-model="loginData.Password"></el-input>
+                    </div>
+                    <div class="stavka2">
+                        <h6><a>Sign up</a></h6>
                     </div>
                     <el-button @click="onLoginSubmit()" type="primary">Prijavi se</el-button>
                 </el-form>
@@ -65,6 +68,11 @@ export default {
         display: flex;
         justify-content: space-between;
         margin-bottom: 10px;
+    }
+    .stavka2 {
+        display: flex;
+        justify-content: center;
+        color:dodgerblue;
     }
     .el-input{
         margin: 0;
