@@ -1,9 +1,9 @@
 <template>
     <div class="fotografija-container">
         <div class="download-delete">
-            <el-icon class="el-icon-download"></el-icon>
+            <a :href="`${Image.Original}`" download><el-icon class="el-icon-download"></el-icon></a>
             <el-icon class="el-icon-delete"></el-icon>
-            <img :src="ImageUrl" height="100%" width="100%"/>
+            <img :src="Image.Thumbnail" height="100%" width="100%"/>
         </div>
         <h6 style="font-size:10px; text-align:center; position:bottom;">{{naziv}}</h6>
     </div>
@@ -19,9 +19,9 @@ export default {
             slika: ""
         }
     },
-    props: ['ImageUrl'],
+    props: ['Image'],
     mounted: function() {
-        console.log(this.ImageUrl);
+        console.log(this.Image);
     }
 }
 </script>

@@ -57,5 +57,15 @@ namespace PHOTOnline.Web.Controllers
                 Data = await _productRepository.GetAllProductsOfTypeAsync(productType)
             });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllProducts()
+        {
+            return Ok(new Result<List<Product>>()
+            {
+                Success = true,
+                Data = await _productRepository.GetAll()
+            });
+        }
     }
 }

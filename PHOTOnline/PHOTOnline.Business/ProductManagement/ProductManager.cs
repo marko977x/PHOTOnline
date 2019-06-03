@@ -29,7 +29,7 @@ namespace PHOTOnline.Business.ProductManagement
                 Size = input.Size,
                 ProductCategory = input.ProductCategory,
                 CategoryType = input.CategoryType,
-                ImageBlobId = input.ImageBlobId
+                Image = input.Image
             };
 
             return new Result<string>()
