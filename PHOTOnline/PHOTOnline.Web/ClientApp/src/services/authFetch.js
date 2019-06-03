@@ -34,3 +34,5 @@ export function apiFetchFactory() {
 }
 
 export const apiFetch = apiFetchFactory();
+
+export const UserTypes = ["Korisnik", "Fotograf", "Uprava"];

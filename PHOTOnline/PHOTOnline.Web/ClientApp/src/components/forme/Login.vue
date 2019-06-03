@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { apiFetch, destinationUrl } from '../../services/authFetch';
+import { apiFetch, destinationUrl, UserTypes } from '../../services/authFetch';
 import {setUserInfo} from '../../services/contextManagement';
 export default {
     data() {
@@ -43,10 +43,8 @@ export default {
                 .then(result => {
                     if(result.Success){
                         setUserInfo(result.Data.Id, result.Data.UserType);
-                        if(result.Data.UserType == 2) window.location.href = "/fotograf";
-                        else window.location.href = "./korisnik";
-                        
-                        //window.location.href = "/Korisnik";
+                        console.log(result);
+                        window.location.href = "/" + UserTypes[result.Data.UserType];
                     }
                     else this.$message("Pogreska lozinka ili email adresa!");
                 }).catch(error => {
