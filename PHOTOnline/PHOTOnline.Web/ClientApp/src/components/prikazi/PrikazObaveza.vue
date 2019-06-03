@@ -1,11 +1,11 @@
 <template>
     <div class="obaveza-container" v-if="this.obaveza">
         <div class="obaveza-container-inner">
-            <div class="month-button">
+            <!-- <div class="month-button">
                 <el-button class="button-arrow" @click="decrement"> <el-icon class="el-icon-arrow-left"></el-icon> </el-button>
                 <h5>{{months[broj].name}}</h5>
                 <el-button class="button-arrow" @click="increment">  <el-icon class="el-icon-arrow-right"></el-icon> </el-button>
-            </div>
+            </div> -->
             <div class="tabela-obaveza-container">
                 <prikaz-obaveza-table></prikaz-obaveza-table>
             </div>
@@ -55,7 +55,7 @@ export default {
         zatvori: function(){
               this.$emit('editFinished','cancel')
         }
-    },
+    }
 }
 </script>
 

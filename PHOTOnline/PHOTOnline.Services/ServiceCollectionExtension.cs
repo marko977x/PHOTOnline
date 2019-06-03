@@ -2,6 +2,7 @@
 using PHOTOnline.Services.Auth;
 using PHOTOnline.Services.Files;
 using PHOTOnline.Services.Repositories.Albums;
+using PHOTOnline.Services.Repositories.Carts;
 using PHOTOnline.Services.Repositories.Orders;
 using PHOTOnline.Services.Repositories.Products;
 using PHOTOnline.Services.Repositories.Requests;
@@ -22,6 +23,7 @@ namespace PHOTOnline.Services
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
         }
     }
 }

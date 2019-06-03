@@ -31,30 +31,19 @@
 
 <script>
 
-    const FOTOGRAF_USER_TYPE = 2;
-
-    import { apiFetch, destinationUrl } from "../../services/authFetch";
+    import { apiFetch, destinationUrl, PHOTOGRAPH_USER_TYPE } from "../../services/authFetch";
     export default {
         data() {
             return {
-                zaposleni: { FirstName: '', LastName: '', Email: '', Username: '', Password: '', UserType: FOTOGRAF_USER_TYPE },
-                tip: [
-                    {
-                        value: 'Kamerman'
-                    },
-                    {
-                        value: 'Fotograf'
-                    },
-                    {
-                        value: 'Korisnik'
-                    }
-                ]
+                zaposleni: { FirstName: '', LastName: '', Email: '', Username: '', Password: '', UserType: PHOTOGRAPH_USER_TYPE },
             }
         },
         methods: {
             prihvatiUnosForme() {
+                console.log(this.zaposleni);
                 apiFetch('POST', destinationUrl + "/User/CreatePhotographAsync", this.zaposleni)
                     .then(result => {
+                        console.log(this.zaposleni);
                         this.$message("Uspesno ste dodali novog fotografa!");
                         this.$emit("zatvoriDodavanjeClana");
                     }).catch(error => {
@@ -75,16 +64,22 @@
         font-size: 15px;
         text-align: left;
         flex-basis: 30%;
+        width: 30%;
     }
 
     .stavka {
         display: flex;
         flex-direction: row;
-        margin: 10px;
+        margin: 5px;
     }
 
-    .input {
+    .el-input {
         flex-basis: 70%;
+        width: 70%;
+    }
+    .el-input.el-input--small{
+        width: 100%;
+        margin: 0px;
     }
 
     .stavka-2 {

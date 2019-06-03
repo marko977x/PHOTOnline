@@ -16,6 +16,7 @@ import DodavanjeAlbuma from "../components/DodavanjeAlbuma"
 import PrikazObaveza from "../components/prikazi/PrikazObaveza"
 import PocetnaStrana from "../components/PocetnaStrana"
 import {setPageShown, getPageToShow, getUserInfo, clearUserInfo, clearFormMode} from "../services/contextManagement";
+import { apiFetch, destinationUrl } from '../services/authFetch';
 
 export default {
     components: {

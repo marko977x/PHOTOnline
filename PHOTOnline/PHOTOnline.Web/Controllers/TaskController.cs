@@ -26,6 +26,7 @@ namespace PHOTOnline.Web.Controllers
             _taskRepository = taskRepository;
         }
 
+        [HttpPost]
         public async System.Threading.Tasks.Task<IActionResult> AddTask(AddTaskInput input)
         {
             Result<string> result = await _taskManager.AddTask(input);
@@ -34,6 +35,7 @@ namespace PHOTOnline.Web.Controllers
             else return BadRequest(result);
         }
 
+        [HttpPost]
         public async System.Threading.Tasks.Task<IActionResult> AssignTask(AssignTaskInput input)
         {
             Result result = await _taskManager.AssignTask(input);
@@ -42,6 +44,7 @@ namespace PHOTOnline.Web.Controllers
             else return BadRequest(result);
         }
 
+        [HttpGet]
         public async System.Threading.Tasks.Task<IActionResult> GetAllTasks()
         {
             return Ok(new Result<List<Task>>()
@@ -51,6 +54,7 @@ namespace PHOTOnline.Web.Controllers
             });
         }
 
+        [HttpGet]
         public async System.Threading.Tasks.Task<IActionResult> GetAllTasksByUserId(string id)
         {
             return Ok(new Result<List<Task>>()

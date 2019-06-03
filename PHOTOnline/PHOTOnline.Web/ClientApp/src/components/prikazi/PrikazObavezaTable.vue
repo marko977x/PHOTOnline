@@ -1,34 +1,30 @@
 <template>
     <div class="prikaz-obaveza">
         <el-table v-if="this.ListaObaveza.length > 0"
-            :data="tableData">
+            :data="this.ListaObaveza"
+             :default-sort = "{prop: 'Date'}">
             <el-table-column
-                    prop="datum"
+                    prop="Date"
                     label="Datum"
                     class="table-column">
             </el-table-column>
-             <el-table-column 
-                     prop="dan"
-                    label="Dan u nedelji"
-                    class="table-column">
-            </el-table-column>
             <el-table-column 
-                    prop="vreme"
+                    prop="Time"
                     label="Vreme"
                     class="table-column">
             </el-table-column>
             <el-table-column 
-                     prop="lokacija"
+                     prop="Location"
                     label="Lokacija"
                     class="table-column">
             </el-table-column>
              <el-table-column 
-                     prop="tip"
+                     prop="EventType"
                     label="Tip"
                     class="table-column">
             </el-table-column>
              <el-table-column 
-                     prop="info"
+                     prop="Note"
                     label="Dodatne informacije"
                     class="table-column">
             </el-table-column>
@@ -38,17 +34,36 @@
 </template>
 
 <script>
+import { apiFetch, destinationUrl } from '../../services/authFetch';
+import { getUserInfo } from '../../services/contextManagement';
 export default {
     data() {
         return{
-            ListaObaveza: 'lista',
-            tableData: [
-                {datum: '21.09.1997', dan: 'Utorak', vreme: '18:00h', lokacija: 'Restoran Junior', tip: 'Svadba', info: '0614210997'},
-                {datum: '21.09.1997', dan: 'Utorak', vreme: '18:00h', lokacija: 'Restoran Junior', tip: 'Svadba', info: '0614210997'},
-                {datum: '21.09.1997', dan: 'Utorak', vreme: '18:00h', lokacija: 'Restoran Junior', tip: 'Svadba', info: '0614210997'},
-                {datum: '21.09.1997', dan: 'Utorak', vreme: '18:00h', lokacija: 'Restoran Junior', tip: 'Svadba', info: '0614210997'},
-            ]
+            ListaObaveza: [],
         }
+    },
+    methods:{
+         pribaviListuZahteva:  function(){
+             let userid = getUserInfo().userID;
+             console.log(userid)
+            fetch(destinationUrl + "/Task/GetAllTasksByUserId/?id=" + userid, {method: 'GET'})
+            .then(response => response.ok ? response.json() : new Error())
+            .then(result => {
+                if(result.Success) {
+                    this.ListaObaveza = result.Data;
+                    console.log(result);
+                //    this.$notify({
+                //         title: 'Success',
+                //         message: 'Uspesno ucitavanje podataka!',
+                //         type: 'success'
+                //         });
+                }
+                else this.$message({message: "Doslo je do greske prilikom ucitavanja zahteva!", type: 'error'})   
+                 }).catch(error => {console.log(error)});
+        }
+    },
+    beforeMount(){
+        this.pribaviListuZahteva();
     }
 }
 </script>

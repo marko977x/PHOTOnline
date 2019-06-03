@@ -1,5 +1,4 @@
-﻿using PHOTOnline.Domain.Entities;
-using System;
+﻿using PHOTOnline.Domain.Entities.Images;
 using System.Collections.Generic;
 
 namespace PHOTOnline.Business.AlbumManagement.Input

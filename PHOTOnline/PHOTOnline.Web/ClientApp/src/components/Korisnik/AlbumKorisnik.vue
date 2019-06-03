@@ -1,35 +1,44 @@
 <template>
     <div class="album-korisnik-container">
-          <div class="dodavanje" >
-                 <el-input v-model="password"
-                            type="password"
-                            show-password
-                            size="medium"
-                            style="width:300px; margin-right:50px;"
-                            placeholder="Unesite šifru albuma">
-                </el-input>
-                <el-button type="primary" size="mini" style="height:35px;" @click="vratiAlbum">Prikaži Album</el-button>
-                  <div class="potvrdi">
-                     <el-button type="danger" size="medium" @click="dodajUKorpu">Poruči </el-button>
-                 </div>
+        <div class="dodavanje" >
+            <el-input 
+                v-model="password"
+                type="password" show-password size="medium"
+                style="width:350px; margin-right:30px;"
+                placeholder="Unesite šifru albuma">
+            </el-input>
+            <el-button type="primary" size="mini"  @click="vratiAlbum">Prikaži Album</el-button>
+            <el-button type="danger" size="medium" @click="dodajUKorpu">Poruči </el-button>
         </div>
-         <div class="album-fotografije">
-            <fotografije v-for="item in 10" :key="item.key" @selectPhoto="selektovane($event)"></fotografije>
+        <div class="album-fotografije">
+            <fotografija 
+                v-for="image in album.Images" :key="image.Id"
+                @selectPhoto="selektovane($event)" 
+                @showPhoto="prikazi($event)" :image="image">
+            </fotografija>
         </div>
+        <form-slika :shownPhoto="this.photo"
+            @zatvoriSliku="zatvoriSliku" v-if="this.showPicture == 'photo'"></form-slika>
         <!-- <footer-bar></footer-bar> -->
     </div>
 </template>
 
 <script>
 import FooterBar from "../appBar/FooterBar.vue"
-import Fotografije from "./Fotografije.vue"
+import Fotografija from "./Fotografija.vue"
+import FormSlika from "../forme/FormSlika.vue"
 import { constants } from 'fs';
+import { destinationUrl } from '../../services/authFetch';
 export default {
-    components: {FooterBar, Fotografije},
+    components: {FooterBar, Fotografija, FormSlika},
     data(){
         return {
             password: '',
-            select: false
+            select: false,
+            album: {},
+            photos: [],
+            photo: {},
+            showPicture: ''
         }
     },
     methods: {
@@ -43,43 +52,65 @@ export default {
         vratiAlbum(){
             if(!this.validacija())
                 return
-            /// fetch za pribavljanje albuma!
+            fetch(destinationUrl + "/Album/GetAlbumByPassword/?password=" + this.password, {method: 'GET'})
+                .then(response => response.ok ? response.json() : new Error())
+                .then(result => {
+                    result.Success ? 
+                        this.album = result.Data : 
+                        this.$message("Pogresna sifra albuma!");
+                    console.log(this.album);
+                }).catch(error => console.log(error));
         },
-        selektovane(event){
-            this.select = event;
-            console.log(event)
+        selektovane(data){
+            this.photos.push(data);
+        },
+        prikazi(photo){
+            this.photo = photo;
+            console.log(this.photo)
+            this.showPicture = 'photo'
+        },
+        zatvoriSliku(){
+            this.showPicture = '';
         },
         dodajUKorpu(){
-            if(this.select === false){
+            if(this.photos == null){
                 this.$message({message: "Morate selektovati bar jednu Fotografiju!",type: 'error'})
-                return false
+                return
             }
+             console.log(this.photos)
             // ovde treba fetch za dodavanje selektovanih slika u korpu
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
 .album-korisnik-container{
-        display: flex;
-        height: 90%;
-        width: 100%;
-        flex-direction: column;
-        overflow: auto;
-        background-color: rgba(224, 224, 235, 0.445);
+    display: flex;
+    height: 90%;
+    width: 100%;
+    flex-direction: column;
+    overflow: auto;
+    background-color: rgba(224, 224, 235, 0.445);
 }
 .album-fotografije{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
-.potvrdi{
-    display: flex;
-    flex-direction: row-reverse;
-    width: 100%;
+.el-button{
+    margin-right: 10px;
     height: 35px;
-    margin-right: 15px;
+    width: 100px;
+}
+.el-input{
+    margin-left: 20px;
+}
+.dodavanje{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 10px;
 }
 </style>
 

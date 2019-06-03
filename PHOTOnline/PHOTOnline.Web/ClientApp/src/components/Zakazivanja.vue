@@ -5,15 +5,16 @@
             <template
                 slot="dateCell"
                 slot-scope="{asdsa, data}" @click="radi">
-                <p :class="data.isSelected ? 'is-active' : ''" v-if="zahtevi(data)">
-                </p>
+                <p :class="data.isSelected ? 'is-active' : ''" v-if="zahtevi(data)"></p>
                 <p :class="data.isSelected ? 'is-active' : ''">{{data.day.split('-').slice(2).join('-')}}</p>
                 <div class="obavestenje">
-                   <img  v-if="data.isSelected" style="width:30px; height:30px;" src="../assets/bell.png"/>
+                   <img  v-if="data.isSelected && data.type == '0'" style="width:30px; height:30px;" src="../assets/bell.png"/>
+                   <img  v-if="data.isSelected && data.type == '1'" style="width:30px; height:30px;" src="../assets/check.png"/>
                 </div>
         </template>
         </el-calendar>
-        <prikaz-liste-zahteva @poruka="otvoriPoruku"></prikaz-liste-zahteva>
+        <prikaz-liste-zahteva @poruka="otvoriPoruku" @datum="pribaviDatum($event)"
+            @potvrdjeni="potvrdjeniDatum($event)"></prikaz-liste-zahteva>
         <obavesti-korisnika v-if="this.showComp == 'obavestenje'"
              @zatvoriPoruku="zatvori"
              ></obavesti-korisnika>
@@ -32,25 +33,50 @@ export default {
         return{
             value: new Date(),
             bell: '',
-            datum: ['2019-05-24','2019-05-25','2019-07-26','2019-05-27','2019-05-28'],
-            showComp: ''
+            datum: [],
+            potvrdjeni: [],
+            showComp: '',
         }
     },
     methods: {
         zahtevi: function(data){
-           this.datum.forEach(element => {
-               if(data.day == element)
-                    data.isSelected = true
-           });
+                this.datum.forEach(element => {
+                    if(data.day == element){
+                        data.isSelected = true
+                        data.type = '0'
+                    }
+                });
+
+                this.potvrdjeni.forEach(element => {
+                    if(data.day == element){
+                        data.isSelected = true
+                        data.type = '1'
+                    }                   
+                 });
         },
         zatvori(){
             this.showComp = ''
         },
         otvoriPoruku(){
             this.showComp = 'obavestenje'
+        },
+        pribaviDatum(datumi){
+            let i =0;
+            let novidatumi = [];
+           datumi.forEach(el => {
+               novidatumi[i++] = el.Date;
+           })
+           this.datum = novidatumi;
+        },
+        potvrdjeniDatum(datumi){
+            let i =0;
+            let novidatumi = [];
+           datumi.forEach(el => {
+               novidatumi[i++] = el.Date;
+           })
+           this.potvrdjeni = novidatumi;
         }
     }
-    
 }
 </script>
 

@@ -14,9 +14,6 @@
                         </el-input>
                     </template>
                     <template slot-scope="scope">
-                        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">
-                            Izmeni
-                        </el-button>
                         <el-button size="mini" type="danger" @click="deleteUser(scope.row.Id)">
                             Otpusti
                         </el-button>
@@ -38,7 +35,7 @@
     import FormDodajClana from './forme/FormDodajClana'
     import { } from 'element-ui'
     import { setPageShown } from '../services/contextManagement';
-import { apiFetch, destinationUrl } from '../services/authFetch';
+import { apiFetch, destinationUrl, UserTypes } from '../services/authFetch';
     export default {
         components: { FilterClanova, FormDodajClana },
         data() {
@@ -71,8 +68,10 @@ import { apiFetch, destinationUrl } from '../services/authFetch';
             },
             loadDataTable() {
                 apiFetch('GET', destinationUrl + "/User/GetAllUsers").then(result => {
-                    console.log(result);
                     this.tableData = result.Data;
+                    this.tableData.forEach((data, index) => {
+                        data.UserType = UserTypes[result.Data[index].UserType];
+                    });
                 });
             }
         },

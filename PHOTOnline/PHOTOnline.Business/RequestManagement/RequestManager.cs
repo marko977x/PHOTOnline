@@ -23,10 +23,13 @@ namespace PHOTOnline.Business.RequestManagement
             Request request = new Request()
             {
                 AdditionalRequests = input.AdditionalRequests,
-                DateTime = input.DateTime,
+                Date = input.Date,
                 EventType = input.EventType,
                 Location = input.Location,
-                UserId = input.UserId
+                UserId = input.UserId,
+                Time = input.Time,
+                FirstName = input.FirstName,
+                LastName = input.LastName
             };
 
             return new Result<string>()

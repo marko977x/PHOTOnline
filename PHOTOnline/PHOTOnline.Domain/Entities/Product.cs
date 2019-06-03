@@ -1,5 +1,6 @@
 ﻿using Domain.Entities.Enums;
 using MongoDB.Bson.Serialization.Attributes;
+using PHOTOnline.Domain.Entities.Images;
 
 namespace Domain.Entities
 {
@@ -12,6 +13,6 @@ namespace Domain.Entities
         public string Description { get; set; }
         public string ProductCategory { get; set; }
         public string CategoryType { get; set; }
-        public string ImageBlobId { get; set; }
+        public Image Image { get; set; }
     }
 }
