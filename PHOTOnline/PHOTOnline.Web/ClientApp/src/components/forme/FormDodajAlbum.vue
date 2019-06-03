@@ -1,16 +1,16 @@
 <template>
     <div class="formFotografAlbumContainer">
-        <el-form style="word break: false">
+        <el-form  style="word break: false">
             <div class="stavka">
                 <label>Naziv:</label>
-                <el-input class="input-polje" v-model="album.Title" align="left"></el-input>
+                <el-input class="input-polje" v-model="album.Title"></el-input>
             </div>
             <div class="stavka">
                 <label>Datum:</label>
-                <div class="datum">
-                    <el-date-picker style="width:100%;" v-model="album.Date" type="datetime" placeholder="Izaberi dan">
+                
+                    <el-date-picker class="picker" v-model="album.Date" type="datetime" placeholder="Izaberi dan">
                     </el-date-picker>
-                </div>
+              
             </div>
             <div class="stavka">
                 <label>Mesto:</label>
@@ -102,27 +102,31 @@ export default {
 </script>
 
 <style scoped>
-
-    .stavka{
+    .formFotografAlbumContainer{
+       width: 100%;
+        
+    }
+    .stavka{   
         display: flex;
         flex-direction: row;
         margin-bottom: 10px;
-        justify-content: space-between;
-        align-items: center;
-    
+        width: 100%;
     }
     label{
        font-size: 14px;
        text-align: left;
        flex-basis: 30%;
     }
+ 
     .input-polje{
+        display: flex;
         flex-basis: 70%;
+        margin: 0;
     }
     .dugmici{
         display: flex;
         justify-content: flex-end;
-        width: 100%;
+       
     }
     .dugme{
         width:30%;
@@ -136,13 +140,11 @@ export default {
         overflow: hidden;
         text-overflow: ellipsis; 
     }
-    .datum{
+    .picker{
         display: flex;
-        justify-content: flex-end;
-        margin-top: 10px;
-        margin-bottom: 10px;
         flex-basis: 70%;
-        width: 70%;
+        margin: 0;
+         
     }
     .stavka-2{
         display: flex;
@@ -150,7 +152,7 @@ export default {
         margin-bottom: 10px;
     }
 
-   @media screen and (max-width: 1111px){
+   @media screen and (max-width: 850px){
     .stavka{
         flex-direction: column;
         margin-bottom: 1%;
@@ -164,10 +166,8 @@ export default {
     label{
         margin-bottom: 1%;
     }
-    .datum{
-        margin-top: 0px;
-        margin-bottom: 0px;
-        width: 100%;
+    .picker{
+        width: 70%;
     }
     .dugmici{
         flex-direction: column;
