@@ -3,26 +3,26 @@
         <el-form class="zakazi-forma"> 
             <div class="divOpcija">
                 <label>Lokacija:</label>
-                <el-input type="text" class="inputPolje" v-model="podaciZakazi.Location"></el-input>
+                <el-input type="text" v-model="podaciZakazi.Location"></el-input>
             </div>
             <div class="divOpcija">
                 <label>Datum:</label>
-                <el-input class="inputPolje" :disabled="false" :value="this.date" v-model="this.date" placeholder="Izaberite datum iz kalendara">{}</el-input>
+                <el-input :disabled="false" :value="this.date" v-model="this.date" placeholder="Izaberite datum iz kalendara">{}</el-input>
             </div>
             <div class="divOpcija">
                 <label>Dodatni zahtevi:</label>
                 <el-input type="textarea"
-                 :autosize="{ minRows: 4, maxRows: 4}"  class="inputPolje" v-model="podaciZakazi.AdditionalRequests"></el-input>
+                 :autosize="{ minRows: 4, maxRows: 4}" v-model="podaciZakazi.AdditionalRequests"></el-input>
             </div>
             <div class="divOpcija">
                 <label>Tip fotografisanja:</label>
-                <el-select class="inputPolje" v-model="podaciZakazi.EventType" placeholder="Izaberite tip fotografisanja">
+                <el-select  v-model="podaciZakazi.EventType" placeholder="Izaberite tip fotografisanja">
                     <el-option v-for="item in options" :key="item.tip" :label="item.label" :value="item.tip"></el-option>
                 </el-select>
             </div>
             <div class="divOpcija">
                 <label>Vreme:</label>
-                <el-time-select class="inputPolje" v-model="podaciZakazi.Time" :picker-options="{ start: '08:00', step: '00:15', end: '23:00' }" placeholder="Select time"></el-time-select>
+                <el-time-select  v-model="podaciZakazi.Time" :picker-options="{ start: '08:00', step: '00:15', end: '23:00' }" placeholder="Select time"></el-time-select>
             </div>
             <div class="divDugmeZakazi">
                 <el-button id="dugmeZakazi" type="primary" @click="proslediZahtev">Zakaži</el-button>
@@ -143,14 +143,20 @@ export default {
 }
 
 .divOpcija{
+    display: flex;
     flex-direction: column;
     width: 100%;
     justify-content: center;
 }
-
-.inputPolje{
-    display: block;
+.el-select{
+    display: flex;
     width: 100%;
+    margin: 0px;
+}
+.el-input{
+    display: flex;
+    width: 100%;
+    margin: 0px;
 }
 
 .divDugmeZakazi{

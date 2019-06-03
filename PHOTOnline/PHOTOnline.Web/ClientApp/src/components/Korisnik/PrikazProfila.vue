@@ -138,7 +138,7 @@ export default {
 .profil-card {
     padding: 1em;
     width: 60%;
-    height: 90%;
+    height: 95%;
     margin-top: 3vh;
     background: rgba(240, 240, 255, 0.8);
     border-radius: 10px;
