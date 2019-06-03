@@ -55,7 +55,7 @@
 <script>
     import { } from 'element-ui'
     import {setUserInfo} from "../../services/contextManagement";
-import { apiFetch, destinationUrl, UserTypes } from '../../services/authFetch';
+import { apiFetch, destinationUrl, UserTypes, REGULAR_USER_TYPE } from '../../services/authFetch';
     export default {
         data() {
             return {
@@ -75,9 +75,8 @@ import { apiFetch, destinationUrl, UserTypes } from '../../services/authFetch';
                 apiFetch('POST', destinationUrl + "/User/CreateUserAsync", this.signupData)
                     .then(result => {
                         if(result.Success) {
-                            setUserInfo(result.Data.Id, result.Data.UserType);
-                            console.log(result);
-                            window.location.href = "/" + UserTypes[result.Data.UserType];
+                            setUserInfo(result.Data.Id, REGULAR_USER_TYPE);
+                            window.location.href = "/" + UserTypes[REGULAR_USER_TYPE];
                         }
                         else this.$message("Nevalidni e-mail, lozinka ili korisnicko ime!");
                     });
