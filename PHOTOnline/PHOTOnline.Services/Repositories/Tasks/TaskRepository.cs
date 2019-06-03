@@ -18,7 +18,7 @@ namespace PHOTOnline.Services.Repositories.Tasks
 
         public async System.Threading.Tasks.Task<List<Task>> GetAllTasksByUserId(string id)
         {
-            var filter = Builders<Task>.Filter.Eq(task => task.Id, id);
+            var filter = Builders<Task>.Filter.Eq(task => task.PhotographId, id);
             return await (await Collection.FindAsync(filter)).ToListAsync();
         }
     }

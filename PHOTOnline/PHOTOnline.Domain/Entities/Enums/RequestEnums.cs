@@ -12,6 +12,6 @@
 
     public enum EventType
     {
-        Wedding = 1, Birthday = 2
+        Wedding = 0, Christening = 1, Engagement = 2, Birthday = 3, PhotoSession = 4, Other = 5
     }
 }

@@ -9,7 +9,7 @@
     <album-korisnik v-if="this.showComp == 'albumi'"></album-korisnik>
     <korpa-korisnik v-if="this.showComp == 'korpa'" ></korpa-korisnik>
     <proizvodi v-if="this.showComp == 'proizvodi'"></proizvodi>
-    <footer-bar></footer-bar>
+    <!-- <footer-bar></footer-bar> -->
 </div>
 </template>
 

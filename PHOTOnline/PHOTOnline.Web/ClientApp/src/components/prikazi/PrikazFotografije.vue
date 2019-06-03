@@ -1,8 +1,8 @@
 <template>
     <div class="fotografija-container">
+        <el-icon class="el-icon-download"></el-icon>
+        <el-icon class="el-icon-delete"></el-icon>
         <div class="download-delete">
-            <el-icon class="el-icon-download"></el-icon>
-            <el-icon class="el-icon-delete"></el-icon>
             <img :src="ImageUrl" height="100%" width="100%"/>
         </div>
         <h6 style="font-size:10px; text-align:center; position:bottom;">{{naziv}}</h6>
@@ -29,7 +29,7 @@ export default {
 <style scoped>
 .fotografija-container{
     height: 100px;
-    width: 80px;
+    width: 90px;
    /* background: linear-gradient(0deg, #d1d356, #e6e88d );*/
     background: linear-gradient(0deg, #a6e1f0e7, #dcf1f8 );
     margin-top: 15px;
@@ -37,7 +37,7 @@ export default {
     margin-left: 10px;
 }
 .download-delete{
-    height: 87px;
+    height: 90px;
     width: 100%;
 }
 </style>

@@ -1,7 +1,8 @@
 <template>
     <div class="prikaz-obaveza">
         <el-table v-if="this.ListaObaveza.length > 0"
-            :data="this.ListaObaveza">
+            :data="this.ListaObaveza"
+             :default-sort = "{prop: 'Date'}">
             <el-table-column
                     prop="Date"
                     label="Datum"
@@ -23,7 +24,7 @@
                     class="table-column">
             </el-table-column>
              <el-table-column 
-                     prop="AdditionalRequests"
+                     prop="Note"
                     label="Dodatne informacije"
                     class="table-column">
             </el-table-column>
@@ -34,6 +35,7 @@
 
 <script>
 import { apiFetch, destinationUrl } from '../../services/authFetch';
+import { getUserInfo } from '../../services/contextManagement';
 export default {
     data() {
         return{
@@ -41,18 +43,20 @@ export default {
         }
     },
     methods:{
-         pribaviListuZahteva: async function(){
-             // ovo treba da se ispravi jer fotograf treba da dobije listu koju mu uprava dodeli kad ga izabere u select
-            apiFetch('GET', destinationUrl + "/Request/GetAllRequests")
+         pribaviListuZahteva:  function(){
+             let userid = getUserInfo().userID;
+             console.log(userid)
+            fetch(destinationUrl + "/Task/GetAllTasksByUserId/?id=" + userid, {method: 'GET'})
+            .then(response => response.ok ? response.json() : new Error())
             .then(result => {
                 if(result.Success) {
                     this.ListaObaveza = result.Data;
-                    console.log(this.ListaObaveza);
-                   this.$notify({
-                        title: 'Success',
-                        message: 'Uspesno ucitavanje podataka!',
-                        type: 'success'
-                        });
+                    console.log(result);
+                //    this.$notify({
+                //         title: 'Success',
+                //         message: 'Uspesno ucitavanje podataka!',
+                //         type: 'success'
+                //         });
                 }
                 else this.$message({message: "Doslo je do greske prilikom ucitavanja zahteva!", type: 'error'})   
                  }).catch(error => {console.log(error)});
