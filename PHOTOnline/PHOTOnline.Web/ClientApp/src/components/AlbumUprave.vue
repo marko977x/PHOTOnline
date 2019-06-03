@@ -15,8 +15,12 @@
             </prikaz-albuma>
         </div>
         <dodavanje-albuma  @zavrsenoDodavanje="zavrsiDodavanje" v-if="showComp === 'dodajalbum'"></dodavanje-albuma>
-        <prikaz-sadrzaja-albuma v-bind:Album="Albums[OpenedAlbumIndex]" v-if="showComp == 'prikazalbuma'" 
-            @zavrsipregled='zavrsiDodavanje'></prikaz-sadrzaja-albuma>
+        <prikaz-sadrzaja-albuma 
+            v-bind:Album="Albums[OpenedAlbumIndex]" 
+            v-if="showComp == 'prikazalbuma'" 
+            @zavrsipregled='zavrsiDodavanje'
+            @ImageDeleted="DeleteImage($event)">
+        </prikaz-sadrzaja-albuma>
     </div>
 </template>
 
@@ -46,6 +50,11 @@ export default {
             this.showComp = 'prikazalbuma'
             this.OpenedAlbumIndex = index;
             console.log(this.OpenedAlbumIndex);
+        },
+        DeleteImage(data) {
+            this.Albums[data.albumId].Images = 
+                this.Albums[data.albumId].Images
+                    .filter(image => image.Id != data.imageId);
         }
     },
     mounted: function() {

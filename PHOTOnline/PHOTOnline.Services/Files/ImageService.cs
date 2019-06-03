@@ -31,19 +31,19 @@ namespace PHOTOnline.Services.Files
         public async Task<PHOTOnline.Domain.Entities.Images.Image> CreateImageAsync(
             string localPath, string contentType, string originalFileName)
         {
-            string originalVariant = await StoreImageVariant(
+            ImageVariant originalVariant = await StoreImageVariant(
                 localPath, contentType, originalFileName);
 
-            string thumbnailVariant = await CreateImageVariant(
+            ImageVariant thumbnailVariant = await CreateImageVariant(
                 localPath, contentType, originalFileName, THUMBNAIL_MAX, 0, null);
 
-            string smallVariant = await CreateImageVariant(
+            ImageVariant smallVariant = await CreateImageVariant(
                 localPath, contentType, originalFileName, SMALL_MAX, THUMBNAIL_MAX, thumbnailVariant);
 
-            string mediumVariant = await CreateImageVariant(
+            ImageVariant mediumVariant = await CreateImageVariant(
                 localPath, contentType, originalFileName, MEDIUM_MAX, SMALL_MAX, smallVariant);
 
-            string largeVariant = await CreateImageVariant(
+            ImageVariant largeVariant = await CreateImageVariant(
                 localPath, contentType, originalFileName, LARGE_MAX, MEDIUM_MAX, mediumVariant);
 
             return new Domain.Entities.Images.Image()
@@ -52,14 +52,13 @@ namespace PHOTOnline.Services.Files
                 Thumbnail = thumbnailVariant,
                 Small = smallVariant,
                 Medium = mediumVariant,
-                Large = largeVariant,
-				Id = Guid.NewGuid().ToString()
+                Large = largeVariant
             };
         }
 
-        private async Task<string> CreateImageVariant(
+        private async Task<ImageVariant> CreateImageVariant(
             string localPath, string contentType, string originalFileName,
-            int maxWidth, int minWidth, string smallerVariant)
+            int maxWidth, int minWidth, ImageVariant smallerVariant)
         {
             string resizedImagePath = FitImageToSize(localPath, contentType, maxWidth, minWidth);
             if (resizedImagePath == null) return smallerVariant;
@@ -67,7 +66,7 @@ namespace PHOTOnline.Services.Files
             return await StoreImageVariant(resizedImagePath, contentType, originalFileName);
         }
 
-        private async Task<string> StoreImageVariant(
+        private async Task<ImageVariant> StoreImageVariant(
             string imagePath, string contentType, string originalFileName)
         {
             Result<string> blobResult = await _blobStore
@@ -78,7 +77,11 @@ namespace PHOTOnline.Services.Files
             Result<string> urlResult = await _blobStore.GetReadUrlAsync(blobResult.Data);
             if (!urlResult.Success) return null;
 
-            return urlResult.Data;
+            return new ImageVariant()
+            {
+                BlobId = blobResult.Data,
+                Url = urlResult.Data
+            };
         }
 
         private string FitImageToSize(string imagePath,

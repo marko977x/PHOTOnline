@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using PhotoLine.Domain.Interop;
+using PHOTOnline.Domain.Entities.Images;
 using System;
 using System.Threading.Tasks;
 
@@ -104,6 +105,25 @@ namespace PHOTOnline.BlobStorage
                 Success = true,
                 Data = url
             };
+        }
+
+        public async Task<Result> DeleteBlob(Image image)
+        {
+            CloudBlobContainer container = await GetContainerAsync();
+            if (container == null) return new Result() { Success = false };
+
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference(image.Large.BlobId);
+            await blockBlob.DeleteAsync();
+            blockBlob = container.GetBlockBlobReference(image.Medium.BlobId);
+            await blockBlob.DeleteAsync();
+            blockBlob = container.GetBlockBlobReference(image.Small.BlobId);
+            await blockBlob.DeleteAsync();
+            blockBlob = container.GetBlockBlobReference(image.Original.BlobId);
+            await blockBlob.DeleteAsync();
+            blockBlob = container.GetBlockBlobReference(image.Thumbnail.BlobId);
+            await blockBlob.DeleteAsync();
+
+            return new Result() { Success = true };
         }
     }
 }

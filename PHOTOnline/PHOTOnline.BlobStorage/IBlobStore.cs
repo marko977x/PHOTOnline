@@ -1,5 +1,6 @@
 ﻿using Microsoft.WindowsAzure.Storage;
 using PhotoLine.Domain.Interop;
+using PHOTOnline.Domain.Entities.Images;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,5 +12,6 @@ namespace PHOTOnline.BlobStorage
     {
         Task<Result<string>> UploadFromFileAsync(string filePath, string contentType);
         Task<Result<string>> GetReadUrlAsync(string blobId, int hours = 0);
+        Task<Result> DeleteBlob(Image image);
     }
 }

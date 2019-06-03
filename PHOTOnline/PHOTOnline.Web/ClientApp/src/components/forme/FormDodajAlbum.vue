@@ -60,15 +60,20 @@ export default {
             formData.append("Location", this.album.Location);
             formData.append("Password", this.album.Password);
             this.album.Images.forEach((image, index) => {
-                formData.append("Images[" + index + "].Id", image.BlobId);
+                formData.append("Images[" + index + "].Id", image.Id);
                 formData.append("Images[" + index + "].Title", image.Title);
-                formData.append("Images[" + index + "].Original", image.Original);
-                formData.append("Images[" + index + "].Thumbnail", image.Thumbnail);
-                formData.append("Images[" + index + "].Small", image.Small);
-                formData.append("Images[" + index + "].Medium", image.Medium);
-                formData.append("Images[" + index + "].Large", image.Large);
+                formData.append("Images[" + index + "].Original.BlobId", image.Original.BlobId);
+                formData.append("Images[" + index + "].Original.Url", image.Original.Url);
+                formData.append("Images[" + index + "].Thumbnail.BlobId", image.Thumbnail.BlobId);
+                formData.append("Images[" + index + "].Thumbnail.Url", image.Thumbnail.Url);
+                formData.append("Images[" + index + "].Small.BlobId", image.Small.BlobId);
+                formData.append("Images[" + index + "].Small.Url", image.Small.Url);
+                formData.append("Images[" + index + "].Medium.BlobId", image.Medium.BlobId);
+                formData.append("Images[" + index + "].Medium.Url", image.Medium.Url);
+                formData.append("Images[" + index + "].Large.BlobId", image.Large.BlobId);
+                formData.append("Images[" + index + "].Large.Url", image.Large.Url);
             });
-            
+            console.log(formData);
             fetch(destinationUrl + "/Album/AddAlbum", {
                 body: formData,
                 method: 'POST'
