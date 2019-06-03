@@ -3,13 +3,13 @@
         <div class="download-delete">
            <el-checkbox v-model="select" style="color:white;" @change="promena($event)">Odaberi
             </el-checkbox>
-            <img :src="imageUrl" height="130px" width="120px" style="border-radius:2px;"/>
+            <img :src="image.Thumbnail" height="130px" width="120px" style="border-radius:2px;"/>
         </div>
         <div class="izbor">
-            <el-input-number size="small"
-                style="width:120px;" v-model="num" :min="1" :max="20">
+            <el-input-number size="small" style="width:100%;"
+                 v-model="num" :min="1" :max="20">
             </el-input-number>
-            <el-select v-model="options[0].value" placeholder="Format Slike" size="mini">
+            <el-select v-model="options.value" placeholder="Format Slike" size="mini">
                 <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -32,14 +32,18 @@ export default {
                 {value: '15x20',label: '15x20'},
                 {value: '9x13',label: '9x13'}
             ],
-            select: false
+            select: false,
+
         }
     },
-    props: ['imageUrl'],
+    props: ['image'],
     methods: {
         promena(sel){
-            this.$emit("selectPhoto",sel);
-            console.log(sel)
+            let data = {image: null, Num: 1, Option: ''};
+            data.image = this.image;
+            data.Num = this.num;
+            data.Option = this.options.value;
+            this.$emit("selectPhoto", data);
         }
     }
 }
@@ -49,6 +53,8 @@ export default {
 .fotografije{
     height: 210px;
     width: 120px;
+    display: flex;
+    flex-direction: column;
    /* background: linear-gradient(0deg, #d1d356, #e6e88d );*/
     background: linear-gradient(0deg, #f1727228, #3a37376c );
     margin-top: 15px;
@@ -62,6 +68,25 @@ export default {
     flex-direction: column;
 }
 .el-checkbox{
+    margin: 0px;
+    padding: 0px;
+}
+.izbor{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0px;
+}
+.el-input__inner{
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+}
+.el-input.el-input--mini.el-input--suffix{
+    padding: 0px;
+    margin: 0px;
+}
+.el-input{
     margin: 0px;
     padding: 0px;
 }
