@@ -7,7 +7,7 @@
                     <el-icon class="el-icon-menu"></el-icon>
                 </el-button>
                 <el-button> <el-icon class="el-icon-user"></el-icon></el-button>
-                <el-button class="odjava" type="primary" @click="logout"> Odjavi se </el-button>
+                <el-button class="odjava" type="primary" @click="logout()"> Odjavi se </el-button>
             </div>
         </div>
         <div class="body-container">
@@ -36,6 +36,7 @@
 <script>
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import {Button,Menu, MenuItem,Icon} from 'element-ui'
+import { apiFetch, destinationUrl } from '../services/authFetch';
 export default {
     components: {Icon,Button,Menu,MenuItem},
     data() {
@@ -55,7 +56,14 @@ export default {
             this.$emit('changeView', event)
         },
         logout(){
-            this.$emit('logout')
+            apiFetch('POST', destinationUrl + "/User/SignOut")
+                .then(result => {
+                    if(result.Success) {
+                        clearUserInfo();
+                        window.location.href = "/";
+                    }
+                    else console.log(result);
+                });
         }
     },
     props: ['list']

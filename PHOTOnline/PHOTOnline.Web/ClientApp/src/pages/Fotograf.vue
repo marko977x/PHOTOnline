@@ -1,7 +1,7 @@
 <template>
     <div class="foto-container">
         <div class="foto-background"></div>
-            <custom-bar :list="this.menuItems"  @changeView="setComponent($event)" @logout="Logout">
+            <custom-bar :list="this.menuItems"  @changeView="setComponent($event)">
             <dodavanje-albuma @zavrsenoDodavanje="this.zavrsiDodavanje" v-if="showComp === 'dodajalbum'"></dodavanje-albuma>
             <prikaz-obaveza v-if="this.showComp === 'raspored'"  @editFinished="this.zavrsiDodavanje"></prikaz-obaveza>
             <pocetna-strana hidden></pocetna-strana>
@@ -16,6 +16,7 @@ import DodavanjeAlbuma from "../components/DodavanjeAlbuma"
 import PrikazObaveza from "../components/prikazi/PrikazObaveza"
 import PocetnaStrana from "../components/PocetnaStrana"
 import {setPageShown, getPageToShow, getUserInfo, clearUserInfo, clearFormMode} from "../services/contextManagement";
+import { apiFetch, destinationUrl } from '../services/authFetch';
 
 export default {
     components: {
@@ -60,11 +61,6 @@ export default {
         zavrsiDodavanje(){
             this.showComp = ''
             setPageShown('')
-        },
-        Logout(){
-            clearUserInfo();
-            //dsajkldjad
-            console.log(getUserInfo().userType)
         }
     },
     beforeMount(){
