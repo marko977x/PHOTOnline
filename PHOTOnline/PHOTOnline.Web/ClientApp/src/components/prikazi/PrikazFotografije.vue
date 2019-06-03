@@ -1,9 +1,9 @@
 <template>
     <div class="fotografija-container">
-        <el-icon class="el-icon-download"></el-icon>
-        <el-icon class="el-icon-delete"></el-icon>
         <div class="download-delete">
-            <img :src="ImageUrl" height="100%" width="100%"/>
+            <a :href="`${Image.Original}`" download><el-icon class="el-icon-download"></el-icon></a>
+            <el-icon class="el-icon-delete"></el-icon>
+            <img :src="Image.Thumbnail" height="100%" width="100%"/>
         </div>
         <h6 style="font-size:10px; text-align:center; position:bottom;">{{naziv}}</h6>
     </div>
@@ -19,9 +19,9 @@ export default {
             slika: ""
         }
     },
-    props: ['ImageUrl'],
+    props: ['Image'],
     mounted: function() {
-        console.log(this.ImageUrl);
+        console.log(this.Image);
     }
 }
 </script>
@@ -29,7 +29,7 @@ export default {
 <style scoped>
 .fotografija-container{
     height: 100px;
-    width: 90px;
+    width: 80px;
    /* background: linear-gradient(0deg, #d1d356, #e6e88d );*/
     background: linear-gradient(0deg, #a6e1f0e7, #dcf1f8 );
     margin-top: 15px;
@@ -37,7 +37,7 @@ export default {
     margin-left: 10px;
 }
 .download-delete{
-    height: 90px;
+    height: 87px;
     width: 100%;
 }
 </style>

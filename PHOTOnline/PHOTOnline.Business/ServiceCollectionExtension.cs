@@ -1,6 +1,7 @@
 ﻿using Business.UserManagement;
 using Microsoft.Extensions.DependencyInjection;
 using PHOTOnline.Business.AlbumManagement;
+using PHOTOnline.Business.CartManagement;
 using PHOTOnline.Business.Files;
 using PHOTOnline.Business.OrderManagement;
 using PHOTOnline.Business.ProductManagement;
@@ -20,6 +21,7 @@ namespace PHOTOnline.Business
             service.AddScoped<IOrderManager, OrderManager>();
             service.AddScoped<IRequestManager, RequestManager>();
             service.AddScoped<ITaskManager, TaskManager>();
+            service.AddScoped<ICartManager, CartManager>();
         }
     }
 }
