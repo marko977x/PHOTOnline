@@ -57,7 +57,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .albumuprave-container{
     display: flex;
     height: 100%;

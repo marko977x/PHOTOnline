@@ -13,7 +13,7 @@
         <div class="album-fotografije">
             <fotografija 
                 v-for="image in album.Images" :key="image.Id"
-                :imageUrl="image.Thumbnail" @selectPhoto="selektovane($event)">
+                @selectPhoto="selektovane($event)" :image="image">
             </fotografija>
         </div>
         <!-- <footer-bar></footer-bar> -->
@@ -31,7 +31,8 @@ export default {
         return {
             password: '',
             select: false,
-            album: {}
+            album: {},
+            photos: []
         }
     },
     methods: {
@@ -54,15 +55,15 @@ export default {
                     console.log(this.album);
                 }).catch(error => console.log(error));
         },
-        selektovane(event){
-            this.select = event;
-            console.log(event)
+        selektovane(data){
+            this.photos.push(data);
         },
         dodajUKorpu(){
-            if(this.select === false){
+            if(this.photos == null){
                 this.$message({message: "Morate selektovati bar jednu Fotografiju!",type: 'error'})
-                return false
+                return
             }
+             console.log(this.photos)
             // ovde treba fetch za dodavanje selektovanih slika u korpu
         }
     }
@@ -87,6 +88,9 @@ export default {
     margin-right: 10px;
     height: 35px;
     width: 100px;
+}
+.el-input{
+    margin-left: 20px;
 }
 .dodavanje{
     display: flex;
