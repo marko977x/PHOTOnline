@@ -3,7 +3,7 @@
         <div class="download-delete">
            <el-checkbox v-model="select" style="color:white;" @change="promena($event)">Odaberi
             </el-checkbox>
-            <img :src="image.Thumbnail" height="130px" width="120px" style="border-radius:2px;"/>
+            <img :src="image.Thumbnail" height="130px" width="120px" style="border-radius:2px;" @click="prosledi"/>
         </div>
         <div class="izbor">
             <el-input-number size="small" style="width:100%;"
@@ -44,6 +44,10 @@ export default {
             data.Num = this.num;
             data.Option = this.options.value;
             this.$emit("selectPhoto", data);
+        },
+        prosledi(){
+            let image = this.image;
+            this.$emit("showPhoto", image);
         }
     }
 }
