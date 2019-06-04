@@ -7,15 +7,18 @@
                 style="width:350px; margin-right:30px;"
                 placeholder="Unesite šifru albuma">
             </el-input>
-            <el-button type="primary" size="mini"  @click="vratiAlbum">Prikaži Album</el-button>
+            <el-button type="primary" size="mini"  @click="vratiAlbum">Prikaži album</el-button>
             <el-button type="danger" size="medium" @click="dodajUKorpu">Poruči </el-button>
         </div>
         <div class="album-fotografije">
             <fotografija 
-                v-for="image in album.Images" :key="image.Id"
-                @selectPhoto="selektovane($event)" :image="image">
+                v-for="image in album.Images" :key="image._id"
+                @selectPhoto="selektovane($event)" 
+                @showPhoto="prikazi($event)" :image="image">
             </fotografija>
         </div>
+        <form-slika :shownPhoto="this.photo"
+            @zatvoriSliku="zatvoriSliku" v-if="this.showPicture == 'photo'"></form-slika>
         <!-- <footer-bar></footer-bar> -->
     </div>
 </template>
@@ -23,16 +26,19 @@
 <script>
 import FooterBar from "../appBar/FooterBar.vue"
 import Fotografija from "./Fotografija.vue"
+import FormSlika from "../forme/FormSlika.vue"
 import { constants } from 'fs';
 import { destinationUrl } from '../../services/authFetch';
 export default {
-    components: {FooterBar, Fotografija},
+    components: {FooterBar, Fotografija, FormSlika},
     data(){
         return {
             password: '',
             select: false,
             album: {},
-            photos: []
+            photos: [],
+            photo: {},
+            showPicture: ''
         }
     },
     methods: {
@@ -57,6 +63,13 @@ export default {
         },
         selektovane(data){
             this.photos.push(data);
+        },
+        prikazi(photo){
+            this.photo = photo;
+            this.showPicture = 'photo'
+        },
+        zatvoriSliku(){
+            this.showPicture = '';
         },
         dodajUKorpu(){
             if(this.photos == null){

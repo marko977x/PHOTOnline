@@ -27,7 +27,8 @@ namespace PHOTOnline.Business.TaskManagement
         {
             Task task = new Task()
             {
-                DateTime = input.DateTime,
+                Date = input.Date,
+                Time = input.Time,
                 EventType = input.EventType,
                 Location = input.Location,
                 Note = input.Note,
@@ -45,7 +46,8 @@ namespace PHOTOnline.Business.TaskManagement
         {
             Task task = new Task()
             {
-                DateTime = input.DateTime,
+                Date = input.Date,
+                Time = input.Time,
                 EventType = input.EventType,
                 Location = input.Location,
                 Note = input.Note,
@@ -55,6 +57,8 @@ namespace PHOTOnline.Business.TaskManagement
             await _taskRepository.CreateAsync(task);
             await _requestRepository.UpdateRequestStatus(
                 input.RequestId, RequestStatus.Completed);
+            await _requestRepository.UpdateRequestNotification(
+                input.RequestId, input.Notification);
 
             return new Result() { Success = true };
         }

@@ -11,7 +11,7 @@
             :autosize="{ minRows: 9, maxRows: 10}"
             >
             </el-input>
-            <el-button type="primary" style="position:right;" size="small">Pošalji</el-button>
+            <el-button type="primary" style="position:right;" size="small" @click="proslediPoruku">Pošalji</el-button>
         </el-dialog>
     </div>
 </template>
@@ -24,6 +24,11 @@ export default {
             mounted: function() {
                 this.dialog = true
             }
+        }
+    },
+    methods:{
+        proslediPoruku(){
+            this.$emit("proslediPoruku",this.obavestenje);
         }
     }
 }

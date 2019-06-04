@@ -22,7 +22,7 @@
                 </el-carousel-item>
             </el-carousel>
         </div>
-        <login v-if="this.showComp == 'login'" @closeLoginForm="signupEnd"></login>
+        <login v-if="this.showComp == 'login'" @closeLoginForm="signupEnd" @goToSignUpForm="Signup"></login>
         <form-signup v-if="this.showComp == 'signup'" @zavrsiPrijavu="signupEnd" ></form-signup>
         <footer-bar class="footer"></footer-bar>
     </div>
@@ -42,7 +42,7 @@ import slika4 from "../assets/pictures/p4.jpg"
 import { setPageShown } from '../services/contextManagement';
  
 export default {
-    components: { HeaderBar, FooterBar, Login, FormSignup, NarucivanjeFotografija},
+    components: { HeaderBar, FooterBar, Login, FormSignup, NarucivanjeFotografija },
     data() {
         return {
             photos:[
@@ -88,7 +88,6 @@ export default {
             this.showComp = ''
             setPageShown('')
         }
-
     }
 }
 </script>

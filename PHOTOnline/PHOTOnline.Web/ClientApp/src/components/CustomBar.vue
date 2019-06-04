@@ -60,7 +60,7 @@ export default {
             apiFetch('POST', destinationUrl + "/User/SignOut")
                 .then(result => {
                     if(result.Success) {
-                        clearUserInfo();
+                        clearUserInfo()
                         window.location.href = "/";
                     }
                     else console.log(result);

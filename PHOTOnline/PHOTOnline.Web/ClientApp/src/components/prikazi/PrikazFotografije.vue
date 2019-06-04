@@ -3,7 +3,7 @@
         <div class="download-delete">
             <a :href="`${Image.Original.Url}`" download="image" target="target" ><el-icon class="el-icon-download"></el-icon></a>
             <a @click="deleteImage()"><el-icon class="el-icon-delete"></el-icon></a>
-            <img :src="Image.Thumbnail.Url" height="100%" width="100%"/>
+            <img :src="Image.Thumbnail.Url" height="100%" width="100%" @click="prosledi"/>
         </div>
         <h6 style="font-size:10px; text-align:center; position:bottom;">{{naziv}}</h6>
     </div>
@@ -41,7 +41,14 @@ export default {
                     }
                     else this.$message("Greska, pokusajte ponovo");
                 }).catch(error => console.log(error));
+        },
+        prosledi(){
+            let image = this.Image;
+            this.$emit("showPhoto", image);
         }
+    },
+    mounted: function() {
+        console.log(this.Image);
     }
 }
 </script>

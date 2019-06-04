@@ -88,10 +88,11 @@ export default {
                 //  return
             console.log(this.podaciZakazi);
 
-            this.podaciZakazi.Date = this.date
-            this.podaciZakazi.FirstName = this.user.FirstName
-            this.podaciZakazi.LastName = this.user.LastName
-            this.podaciZakazi.UserId = getUserInfo().userID
+            this.podaciZakazi.Date = this.date;
+            this.podaciZakazi.FirstName = this.user.FirstName;
+            this.podaciZakazi.LastName = this.user.LastName;
+            this.podaciZakazi.UserId = getUserInfo().userID;
+            console.log(this.podaciZakazi)
                 apiFetch('POST', destinationUrl + "/Request/CreateRequest", this.podaciZakazi)
                 .then(result => {
                     if(result.Success){

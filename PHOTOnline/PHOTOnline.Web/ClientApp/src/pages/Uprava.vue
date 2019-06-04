@@ -33,7 +33,7 @@ export default {
                 },
                 {
                     key: 2,
-                    label: 'Narudzbine',
+                    label: 'Narudžbine',
                     index: 'narudzbina',
                     slika: 'narudzbine.png'
                 },

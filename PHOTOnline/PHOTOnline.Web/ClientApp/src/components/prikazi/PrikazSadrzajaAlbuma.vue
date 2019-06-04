@@ -19,19 +19,34 @@
         <div class="sadrzaj-albuma-inner">
             <prikaz-fotografije 
                 v-for="(image, index) in Album.Images" :key="index" v-bind:Image="image"
-                @ImageDeleted="passDeletedImageToParent($event)">
+                @ImageDeleted="passDeletedImageToParent($event)" @showPhoto="prikazi($event)">
             </prikaz-fotografije>
         </div>
+        <form-slika :shownPhoto="this.photo"
+            @zatvoriSliku="zatvoriSliku" v-if="this.showPicture == 'photo'"></form-slika>
     </div>
 </template>
 
 <script>
 import PrikazFotografije from "./PrikazFotografije.vue"
+import FormSlika from "../forme/FormSlika.vue"
 export default {
-    components: {PrikazFotografije},
+    components: {PrikazFotografije, FormSlika},
     data(){
         return{
-            PretragaFotografije: ''
+            PretragaFotografije: '',
+            showPicture: '',
+            photo: {}
+        }
+    },
+    methods:{
+        prikazi(photo){
+            this.photo = photo;
+            this.showPicture = 'photo'
+            console.log(this.photo)
+        },
+        zatvoriSliku(){
+            this.showPicture = ''
         }
     },
     props: ['Album'],
