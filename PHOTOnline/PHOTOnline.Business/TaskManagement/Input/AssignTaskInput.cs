@@ -12,5 +12,6 @@ namespace PHOTOnline.Business.TaskManagement.Input
         public string PhotographId { get; set; }
         public EventType EventType { get; set; }
         public string RequestId { get; set; }
+        public string Notification { get; set; }
     }
 }

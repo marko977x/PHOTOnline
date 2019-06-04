@@ -57,6 +57,8 @@ namespace PHOTOnline.Business.TaskManagement
             await _taskRepository.CreateAsync(task);
             await _requestRepository.UpdateRequestStatus(
                 input.RequestId, RequestStatus.Completed);
+            await _requestRepository.UpdateRequestNotification(
+                input.RequestId, input.Notification);
 
             return new Result() { Success = true };
         }

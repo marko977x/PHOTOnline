@@ -13,11 +13,8 @@
                 </div>
         </template>
         </el-calendar>
-        <prikaz-liste-zahteva @poruka="otvoriPoruku" @datum="pribaviDatum($event)"
-            @potvrdjeni="potvrdjeniDatum($event)"></prikaz-liste-zahteva>
-        <obavesti-korisnika v-if="this.showComp == 'obavestenje'"
-             @zatvoriPoruku="zatvori"
-             ></obavesti-korisnika>
+        <prikaz-liste-zahteva :notification="obavestenje" @poruka="otvoriPoruku" @datum="pribaviDatum($event)" @potvrdjeni="potvrdjeniDatum($event)"></prikaz-liste-zahteva>
+        <obavesti-korisnika v-if="this.showComp == 'obavestenje'" @zatvoriPoruku="zatvori" @proslediPoruku="prosledi($event)"></obavesti-korisnika>
     </div>
 </template>
 
@@ -36,6 +33,7 @@ export default {
             datum: [],
             potvrdjeni: [],
             showComp: '',
+            obavestenje: ''
         }
     },
     methods: {
@@ -75,6 +73,11 @@ export default {
                novidatumi[i++] = el.Date;
            })
            this.potvrdjeni = novidatumi;
+           this.obavestenje = '';
+        },
+        prosledi(prosledjenoObavestenje){
+            this.obavestenje = prosledjenoObavestenje;
+            this.showComp = '';
         }
     }
 }

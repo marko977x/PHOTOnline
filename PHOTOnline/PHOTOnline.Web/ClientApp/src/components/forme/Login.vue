@@ -16,9 +16,9 @@
                         class="input" v-model="loginData.Password"></el-input>
                     </div>
                     <div class="stavka2">
-                        <h6><a>Sign up</a></h6>
+                        <el-button @click="onLoginSubmit()" type="primary">Prijavi se</el-button>
+                        <el-button type="text" @click="signUpForm()">Sign up</el-button>
                     </div>
-                    <el-button @click="onLoginSubmit()" type="primary">Prijavi se</el-button>
                 </el-form>
             </div>
         </el-dialog>
@@ -50,6 +50,9 @@ export default {
                 }).catch(error => {
                     console.log(error);
                 });
+        },
+        signUpForm(){
+            this.$emit("goToSignUpForm");
         }
     }
 }
@@ -69,13 +72,15 @@ export default {
     }
     .stavka2 {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
+        margin-top: 7%;
         color:dodgerblue;
     }
+
     .el-input{
         margin: 0;
         width: 60%;
-    }
+    }   
 
     @media screen and (max-width: 1250px){
         /*.el-dialog{

@@ -43,5 +43,13 @@ namespace PHOTOnline.Services.Repositories.Requests
 
             await Collection.FindOneAndUpdateAsync(filter, update);
         }
+
+        public async System.Threading.Tasks.Task UpdateRequestNotification(string requestId, string notification)
+        {
+            var filter = Builders<Request>.Filter.Eq(request => request.Id, requestId);
+            var update = Builders<Request>.Update.Set("Notification", notification);
+
+            await Collection.FindOneAndUpdateAsync(filter, update);
+        }
     }
 }

@@ -7,14 +7,14 @@
                 <el-table-column prop="Time" label="Vreme" class="table-column"></el-table-column>
                 <el-table-column prop="Location" label="Lokacija" class="table-column"></el-table-column>
                 <el-table-column prop="EventType" label="Tip" class="table-column"></el-table-column>
-                <el-table-column align="right" label="Status">
-                    <template slot-scope="" label="Status">
-                        <el-button v-if="this.status == true" type="success" 
-                            icon="el-icon-check" circle @click="obavestenje"></el-button>
-
-                         <el-button v-if="this.status == false" type="danger"
-                            icon="el-icon-close" circle  @click="obavestenje"></el-button>
-
+                <el-table-column prop="RequestStatus" align="right" label="Status">
+                    <template slot-scope="scope" label="Status">
+                        <el-button v-if="scope.row.RequestStatus == 1" type="success" 
+                            icon="el-icon-check" circle @click="obavestenje(scope.row)"></el-button>
+                        <el-button v-if="scope.row.RequestStatus == 2" type="danger"
+                            icon="el-icon-close" circle  @click="obavestenje(scope.row)"></el-button>
+                        <el-button v-if="scope.row.RequestStatus == 3" type="warning"
+                            icon="el-icon-question" circle  @click="obavestenje(scope.row)"></el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -27,21 +27,17 @@ import { getUserInfo } from '../../services/contextManagement';
 export default {
     data(){
         return{
-            status: true,
-            poruka: 'Vas zahtev se obradjuje, dobicete potvrdu mailom!',
-            tableData: [
-                {Date: '2011-05-23',Time: '08:00',Location: 'Junior', eventType: 'Svadba'},
-                {Date: '2014-05-26',Time: '08:00',Location: 'Junior', eventType: 'Svadba'},
-                {Date: '2019-05-24',Time: '08:00',Location: 'Junior', eventType: 'Svadba'},
-                {Date: '2016-05-21',Time: '08:00',Location: 'Junior', eventType: 'Svadba'},
-            ],
+            poruka1: 'Vas zahtev je prihvacen.',
+            poruka2: 'Vas zahtev je odbijen.',
+            poruka3: 'Vas zahtev se obradjuje, dobicete potvrdu mailom!',
             listaZahteva: []
         }
     },
     methods: {
-        obavestenje(){
-            if(this.status)  this.$notify({title: "OBAVEŠTENJE", message: this.poruka, type: 'success',  position: 'bottom-right' })
-            else this.$notify({title: "OBAVEŠTENJE", message: this.poruka, type: 'error', position: 'bottom-right'})
+        obavestenje(row){
+            if(row.RequestStatus == 1)  this.$notify({title: "OBAVEŠTENJE", message: row.Notification==null ? this.poruka1 : row.Notification, type: 'success',  position: 'bottom-right' })
+            else if(row.RequestStatus == 2) this.$notify({title: "OBAVEŠTENJE", message: row.Notification==null ? this.poruka2 : row.Notification, type: 'error', position: 'bottom-right'})
+            else this.$notify({title: "OBAVEŠTENJE", message: this.poruka3, type: 'warning', position: 'bottom-right'})
         },
         pribaviZahteve(){
             let userId = getUserInfo().userID;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Domain.Entities.Enums;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.Business.RequestManagement.Input;
 using PHOTOnline.Services.Repositories.Requests;
@@ -29,7 +30,8 @@ namespace PHOTOnline.Business.RequestManagement
                 UserId = input.UserId,
                 Time = input.Time,
                 FirstName = input.FirstName,
-                LastName = input.LastName
+                LastName = input.LastName,
+                RequestStatus = RequestStatus.OnHold
             };
 
             return new Result<string>()

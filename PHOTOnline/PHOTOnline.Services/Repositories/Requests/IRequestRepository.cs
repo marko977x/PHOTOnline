@@ -15,5 +15,7 @@ namespace PHOTOnline.Services.Repositories.Requests
         System.Threading.Tasks.Task DeleteResolvedRequests();
         System.Threading.Tasks.Task UpdateRequestStatus(
             string requestId, RequestStatus requestStatus);
+        System.Threading.Tasks.Task UpdateRequestNotification(
+            string requestId, string notification);
     }
 }

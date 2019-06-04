@@ -12,7 +12,7 @@
         </div>
         <div class="album-fotografije">
             <fotografija 
-                v-for="image in album.Images" :key="image.Id"
+                v-for="image in album.Images" :key="image._id"
                 @selectPhoto="selektovane($event)" 
                 @showPhoto="prikazi($event)" :image="image">
             </fotografija>
@@ -66,7 +66,6 @@ export default {
         },
         prikazi(photo){
             this.photo = photo;
-            console.log(this.photo)
             this.showPicture = 'photo'
         },
         zatvoriSliku(){

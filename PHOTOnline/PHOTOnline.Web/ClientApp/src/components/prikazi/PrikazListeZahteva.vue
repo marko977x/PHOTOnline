@@ -45,15 +45,17 @@
                     class="table-column"
                     width="200">
                     <el-select class="inputPolje" v-model="fotografId" placeholder="Izaberite fotografa" size="medium">
-                         <el-option v-for="item in fotografi" :key="item.Id" :label="item.FirstName + ' ' + item.LastName" :value="item.Id"></el-option>
+                         <el-option v-for="item in fotografi" :key="item.Id" :label="item.FirstName+' '+item.LastName" :value="item.Id"></el-option>
                     </el-select>
             </el-table-column>
             <el-table-column align="right">
                 <template slot-scope="scope">
-                      <el-button type="danger" size="mini" @click.native.prevent="potvrdiZahtev(scope.$index, scope.row)" >Potvrdi</el-button>
-                    <el-button type="info" icon="el-icon-message" circle size="mini"
-                        @click="poruka"></el-button>
-                </template>
+                    <div class="dugmici">
+                        <el-button type="success" size="mini" @click.native.prevent="potvrdiZahtev(scope.$index, scope.row)">Potvrdi</el-button>
+                        <el-button type="danger" size="mini">Odbij</el-button>
+                        <el-button type="info" icon="el-icon-message" circle size="mini" @click="poruka"></el-button>
+                    </div>
+                </template>    
             </el-table-column>
         </el-table>
         </div>
@@ -102,7 +104,7 @@
 </template>
 
 <script>
-const eventTypes = ['Svadba','Krstenje', 'Veridba', 'Rodjendan', 'PhotoSession', 'Ostalo']
+const eventTypes = ['Svadba','Krstenje', 'Veridba', 'Rodjendan', 'PhotoSession', 'Drugo']
 
 import { apiFetch, destinationUrl } from '../../services/authFetch';
 import {} from 'element-ui'
@@ -113,19 +115,18 @@ export default {
             fotografi: [],
             fotografId: '',
             listaZahteva: [],
-            listaPotvrdjenihZahteva: [],
+            listaPotvrdjenihZahteva: []
         }
     },
     methods: {
         poruka(){
-            this.$emit('poruka');
-            
+            this.$emit('poruka');   
         },
         pribaviListuZahteva() {
             apiFetch('GET', destinationUrl + "/Request/GetAllRequests")
             .then(result => {
                 if(result.Success) {
-                    this.listaZahteva = result.Data.filter(x => x.RequestStatus == 0);
+                    this.listaZahteva = result.Data.filter(x => x.RequestStatus == 3);
                     this.listaPotvrdjenihZahteva = result.Data.filter(x => x.RequestStatus == 1);
                     this.$emit('datum',this.listaZahteva);
                     this.$emit('potvrdjeni', this.listaPotvrdjenihZahteva);
@@ -143,7 +144,7 @@ export default {
                  }).catch(error => {console.log(error)});
         },
         potvrdiZahtev(index,row){
-            let Data = {Location:'',Date:'', Time: '', Note: '', PhotographId: '', EventType: 1, RequestId: '' };
+            let Data = {Location:'',Date:'', Time: '', Note: '', PhotographId: '', EventType: 1, RequestId: '', Notification: '' };
             Data.Location = row.Location;
             Data.Date = row.Date;
             Data.Time = row.Time;
@@ -151,7 +152,8 @@ export default {
             Data.PhotographId = this.fotografId;
             Data.RequestId = row.Id;
             Data.EventType = eventTypes.indexOf(row.EventType);
-
+            Data.Notification = this.notification;
+            console.log(Data.Notification);
             console.log(Data.EventType);
              apiFetch('POST', destinationUrl + "/Task/AssignTask", Data)
                 .then(result => {
@@ -172,7 +174,8 @@ export default {
     mounted: function() {
         this.pribaviFotografe();
         this.pribaviListuZahteva();
-    }
+    },
+    props: ['notification']
 }
 </script>
 
@@ -186,6 +189,12 @@ h3{
     text-align: center;
     font-family: sans-serif;
 }
+
+.dugmici{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 </style>
 
 
