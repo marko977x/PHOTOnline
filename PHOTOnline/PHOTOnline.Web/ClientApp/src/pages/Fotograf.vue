@@ -27,13 +27,13 @@ export default {
             menuItems: [
                 {
                     key: 1,
-                    label: 'Dodaj Album',
+                    label: 'Dodaj album',
                     index: 'dodajalbum',
                     slika: 'album.png'
                 },
                 {
                     key:2,
-                    label: 'Raspored Aktivnosti',
+                    label: 'Raspored aktivnosti',
                     index: 'raspored',
                     slika: 'zakazivanje.png'
                 }

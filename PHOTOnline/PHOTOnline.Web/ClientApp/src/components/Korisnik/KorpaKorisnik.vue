@@ -2,7 +2,7 @@
     <div class="korpa-container">
         <div class="korpa-table-container">
             <div class="cena">
-            <h3>Ukupna Cena: {{izracunajCenu()}} RSD</h3>
+            <h3>Ukupna cena: {{izracunajCenu()}} RSD</h3>
             </div>
                     <el-table :data="tableData"
                     style="border-radius: 3px;">
@@ -33,7 +33,7 @@
                 </template>
             </el-table-column>
         </el-table>
-         <el-button @click="Naruci()" type="primary">Naruci</el-button>
+         <el-button @click="Naruci()" type="primary">Naruči</el-button>
         </div>   
     </div>
 </template>

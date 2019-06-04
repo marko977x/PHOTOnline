@@ -7,7 +7,7 @@
                 style="width:350px; margin-right:30px;"
                 placeholder="Unesite šifru albuma">
             </el-input>
-            <el-button type="primary" size="mini"  @click="vratiAlbum">Prikaži Album</el-button>
+            <el-button type="primary" size="mini"  @click="vratiAlbum">Prikaži album</el-button>
             <el-button type="danger" size="medium" @click="dodajUKorpu">Poruči </el-button>
         </div>
         <div class="album-fotografije">
