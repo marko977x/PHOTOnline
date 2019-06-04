@@ -77,10 +77,9 @@ export default {
             fetch(destinationUrl + "/Album/AddAlbum", {
                 body: formData,
                 method: 'POST'
-            }).then(response => response.json()).then(result => {
-                console.log(this.album);
-                return result;
-            }).catch(error => console.log(error));
+            }).then(response => response.json()).then(
+                () => this.$emit('editFinished','cancel')
+            ).catch(error => console.log(error));
         },
         prekiniDodavanjeAlbuma: function(){
             this.$emit('editFinished','cancel') // takodje je i ovde 'cancel' podatak koji se salje i koji 

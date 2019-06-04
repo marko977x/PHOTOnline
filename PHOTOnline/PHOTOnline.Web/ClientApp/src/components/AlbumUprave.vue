@@ -10,16 +10,17 @@
         <div class="albumi" v-for="(album, index) in Albums" v-bind:key="index">
             <prikaz-albuma 
                 v-bind:Album="album" 
-                @otvorialbum="prikaziAlbume(index)" 
+                @otvorialbum="prikaziAlbum(index)" 
                 v-if="showComp == 'albumi'">
             </prikaz-albuma>
         </div>
-        <dodavanje-albuma  @zavrsenoDodavanje="zavrsiDodavanje" v-if="showComp === 'dodajalbum'"></dodavanje-albuma>
+        <dodavanje-albuma  @zavrsenoDodavanje="reloadPage" v-if="showComp === 'dodajalbum'"></dodavanje-albuma>
         <prikaz-sadrzaja-albuma 
             v-bind:Album="Albums[OpenedAlbumIndex]" 
             v-if="showComp == 'prikazalbuma'" 
-            @zavrsipregled='zavrsiDodavanje'
-            @ImageDeleted="DeleteImage($event)">
+            @zavrsipregled='reloadPage'
+            @ImageDeleted="DeleteImage($event)"
+            @AlbumDeleted="reloadPage">
         </prikaz-sadrzaja-albuma>
     </div>
 </template>
@@ -44,10 +45,11 @@ export default {
         dodajAlbum(){
             this.showComp = 'dodajalbum'
         },
-        zavrsiDodavanje(){
-            this.showComp = 'albumi'
+        reloadPage(){
+            this.showComp = 'albumi';
+            this.loadAlbums();
         },
-        prikaziAlbume(index){
+        prikaziAlbum(index){
             this.showComp = 'prikazalbuma'
             this.OpenedAlbumIndex = index;
             setOpenedAlbumId(this.Albums[this.OpenedAlbumIndex].Id);
@@ -56,13 +58,15 @@ export default {
             this.Albums[this.OpenedAlbumIndex].Images = 
                 this.Albums[this.OpenedAlbumIndex].Images
                     .filter(image => image.Id != imageId);
+        },
+        loadAlbums() {
+            apiFetch('GET', destinationUrl + "/Album/GetAllAlbums").then(result => {
+                if(result.Success) this.Albums = result.Data;
+            }).catch(error => {console.log(error)});
         }
     },
     mounted: function() {
-        apiFetch('GET', destinationUrl + "/Album/GetAllAlbums").then(result => {
-            if(result.Success) this.Albums = result.Data;
-            console.log(this.Albums);
-        }).catch(error => {console.log(error)});
+        this.loadAlbums();
     }
 }
 </script>

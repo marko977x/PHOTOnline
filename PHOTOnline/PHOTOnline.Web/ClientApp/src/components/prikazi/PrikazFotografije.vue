@@ -31,6 +31,7 @@ export default {
             formData.append('BlobsIds', this.Image.Large.BlobId);
             formData.append('BlobsIds', this.Image.Medium.BlobId);
             formData.append('BlobsIds', this.Image.Small.BlobId);
+            console.log(this.Image);
             
             fetch(destinationUrl + "/Image/DeleteImage", {method: 'POST', body: formData})
                 .then(response => response.ok ? response.json() : new Error())

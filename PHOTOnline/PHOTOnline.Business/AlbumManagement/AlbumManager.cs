@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Domain.Entities;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.BlobStorage;
@@ -40,7 +41,18 @@ namespace PHOTOnline.Business.AlbumManagement
 
         public async Task<Result> DeleteAlbum(string id)
         {
-            //Delete images from cloud storage
+            Album album = await _albumRepository.FindAsync(id);
+            List<string> blobsIds = new List<string>();
+            album.Images.ForEach(image =>
+            {
+                blobsIds.Add(image.Large.BlobId);
+                blobsIds.Add(image.Medium.BlobId);
+                blobsIds.Add(image.Small.BlobId);
+                blobsIds.Add(image.Original.BlobId);
+                blobsIds.Add(image.Thumbnail.BlobId);
+            });
+
+            await _blobStore.DeleteBlobs(blobsIds);
             await _albumRepository.DeleteAsync(id);
             return new Result() { Success = true };
         }

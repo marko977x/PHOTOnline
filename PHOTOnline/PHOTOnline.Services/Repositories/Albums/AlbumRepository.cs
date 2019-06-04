@@ -32,7 +32,7 @@ namespace PHOTOnline.Services.Repositories.Albums
             var filter = Builders<Album>.Filter.Eq(
                 album => album.Password, password);
 
-            return (await Collection.FindAsync(filter)).First();
+            return await (await Collection.FindAsync(filter)).FirstOrDefaultAsync();
         }
 
         public async Task<List<Album>> GetAllAlbums()
