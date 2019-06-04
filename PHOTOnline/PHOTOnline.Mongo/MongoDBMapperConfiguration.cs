@@ -1,5 +1,7 @@
 ﻿using Domain.Entities;
+using PHOTOnline.Domain.Entities.Images;
 using MongoDB.Bson.Serialization;
+using PHOTOnline.Domain.Entities;
 
 namespace PHOTOnline.Mongo
 {
@@ -32,6 +34,14 @@ namespace PHOTOnline.Mongo
                 cm.AutoMap();
             });
             BsonClassMap.RegisterClassMap<Order>(cm =>
+            {
+                cm.AutoMap();
+            });
+            BsonClassMap.RegisterClassMap<Image>(cm =>
+            {
+                cm.AutoMap();
+            });
+            BsonClassMap.RegisterClassMap<Cart>(cm =>
             {
                 cm.AutoMap();
             });

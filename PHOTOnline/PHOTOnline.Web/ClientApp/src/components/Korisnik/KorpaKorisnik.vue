@@ -1,8 +1,11 @@
 <template>
     <div class="korpa-container">
         <div class="korpa-table-container">
+            <div class="cena">
+            <h3>Ukupna cena: {{izracunajCenu()}} RSD</h3>
+            </div>
                     <el-table :data="tableData"
-                    style="border-radius: 5px;">
+                    style="border-radius: 3px;">
             <el-table-column
                     prop="tip"
                     label="Tip"
@@ -18,6 +21,11 @@
                     label="Format"
                     class="table-column">
             </el-table-column>
+            <el-table-column 
+                    prop="cena"
+                    label="Cena"
+                    class="table-column">
+            </el-table-column>
             <el-table-column align="right">
                 <template slot="">
                     <el-button type="danger" icon="el-icon-delete" circle size="mini"
@@ -25,7 +33,7 @@
                 </template>
             </el-table-column>
         </el-table>
-         <el-button @click="Naruci()" type="primary">Naruci</el-button>
+         <el-button @click="Naruci()" type="primary">Naruči</el-button>
         </div>   
     </div>
 </template>
@@ -41,20 +49,29 @@ export default {
                 {
                     tip: 'Fotografija',
                     kolicina: 4,
-                    format: '13x18'
+                    format: '13x18',
+                    cena: 90
                 },
                  {
                     tip: 'Kalendar',
                     kolicina: 1,
-                    format: 'Srednji'
+                    format: 'Srednji',
+                    cena: 450
                 }
-            ]
+            ],
         }
     },
     methods: {
         Naruci: function()
         {   
 
+        },
+        izracunajCenu(){
+            let novacena = 0;
+            this.tableData.forEach(element => {
+                novacena += element.cena;
+            });
+            return novacena
         }
     }
 }
@@ -72,13 +89,19 @@ export default {
 .korpa-table-container{
     display: flex;
     padding: 5px;
-    height: 40%;
+    height: 80%;
     width: 60%;
     flex-direction: column;
     align-items: center;
 }
 
 .footer-bar{
+    justify-content: flex-end;
+}
+.cena {
+    display: flex;
+    width: 100%;
+    height: 50px;
     justify-content: flex-end;
 }
 

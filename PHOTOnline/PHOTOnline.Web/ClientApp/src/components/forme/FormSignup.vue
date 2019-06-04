@@ -23,7 +23,7 @@
                                   placeholder="Ulica bb"></el-input>
                     </div>
                     <div class="stavka">
-                        <label>Broj Telefona:</label>
+                        <label>Broj telefona:</label>
                         <el-input class="input" v-model="signupData.PhoneNumber"
                                   placeholder="06X xxx xxx"></el-input>
                     </div>
@@ -54,6 +54,8 @@
 
 <script>
     import { } from 'element-ui'
+    import {setUserInfo} from "../../services/contextManagement";
+import { apiFetch, destinationUrl, UserTypes, REGULAR_USER_TYPE } from '../../services/authFetch';
     export default {
         data() {
             return {
@@ -70,21 +72,13 @@
         },
         methods: {
             onSignUpClick() {
-                const formData = new FormData();
-                for(let key in this.signupData){
-					formData.append(key, this.signupData[key]);
-				}
-                const fetchData = { 
-                    body: formData,
-                    method: "POST"
-                }
-                fetch("https://localhost:5001/api/User/CreateUserAsync", fetchData)
-                    .then(response => {
-                        console.log(response);
-                        return response.json(); 
-                    }) 
+                apiFetch('POST', destinationUrl + "/User/CreateUserAsync", this.signupData)
                     .then(result => {
-                        console.log(result);
+                        if(result.Success) {
+                            setUserInfo(result.Data.Id, REGULAR_USER_TYPE);
+                            window.location.href = "/" + UserTypes[REGULAR_USER_TYPE];
+                        }
+                        else this.$message("Nevalidni e-mail, lozinka ili korisnicko ime!");
                     });
             }
         }
@@ -96,11 +90,13 @@
     .stavka {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
         padding: 5px;
     }
 
     .input {
         flex-basis: 70%;
+        margin: 0;
     }
 
     label {
@@ -111,6 +107,19 @@
     .dugme {
         display: flex;
         justify-content: flex-end;
+        padding: 5px;
+    }
+    @media screen and (max-width: 1250px){
+        .stavka{
+            flex-direction: column;
+            padding: 0;
+        }
+        .dugme{
+            margin-top: 5px;
+        }
+        label{
+            margin-bottom: 0;
+        }
     }
 </style>
 

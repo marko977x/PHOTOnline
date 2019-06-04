@@ -8,10 +8,10 @@ namespace PHOTOnline.Domain.Entities.Images
     {
         public string Id { get; set; }
         public string Title { get; set; }
-        public string Original { get; set; }
-        public string Thumbnail { get; set; }
-        public string Small { get; set; }
-        public string Medium { get; set; }
-        public string Large { get; set; }
+        public ImageVariant Original { get; set; }
+        public ImageVariant Thumbnail { get; set; }
+        public ImageVariant Small { get; set; }
+        public ImageVariant Medium { get; set; }
+        public ImageVariant Large { get; set; }
     }
 }

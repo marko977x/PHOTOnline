@@ -4,18 +4,21 @@
             <div class="forma">
                 <el-form>
                     <h3 style="text-align:center; margin-bottom:40px;
-                    font-size:23px;">Foto Aritonovic</h3>
+                    font-size:23px;">LOG IN</h3>
                     <div class="stavka">
                         <label>Username:</label>
-                        <el-input class="input" v-model="loginData.username"
+                        <el-input class="input" v-model="loginData.Email"
                         placeholder="korisnik@primer.com"></el-input>
                     </div>
                     <div class="stavka">
                         <label>Password:</label>
                         <el-input type="password"
-                        class="input" v-model="loginData.password"></el-input>
+                        class="input" v-model="loginData.Password"></el-input>
                     </div>
-                    <el-button @click="onLoginSubmit()" type="primary">Prijavi se</el-button>
+                    <div class="stavka2">
+                        <el-button @click="onLoginSubmit()" type="primary">Prijavi se</el-button>
+                        <el-button type="text" @click="signUpForm()">Sign up</el-button>
+                    </div>
                 </el-form>
             </div>
         </el-dialog>
@@ -23,12 +26,13 @@
 </template>
 
 <script>
-import { apiFetch, destinationUrl } from '../../services/authFetch';
+import { apiFetch, destinationUrl, UserTypes } from '../../services/authFetch';
+import {setUserInfo} from '../../services/contextManagement';
 export default {
     data() {
         return{
             loginData: {
-                Username: '',
+                Email: '',
                 Password: ''
             }
         }
@@ -37,20 +41,24 @@ export default {
         onLoginSubmit() {
             apiFetch('POST', destinationUrl + "/User/SignIn", this.loginData)
                 .then(result => {
-                    if(result.success){
-                        setUserInfo(result.data.id, result.data.userType);
-                        window.location.href = "/korisnik";
+                    if(result.Success){
+                        setUserInfo(result.Data.Id, result.Data.UserType);
+                        console.log(result);
+                        window.location.href = "/" + UserTypes[result.Data.UserType];
                     }
                     else this.$message("Pogreska lozinka ili email adresa!");
                 }).catch(error => {
                     console.log(error);
                 });
+        },
+        signUpForm(){
+            this.$emit("goToSignUpForm");
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
     .login-container{
         display: flex;
         height: 100%;
@@ -58,10 +66,24 @@ export default {
         justify-content: center;
     }
     .stavka{
+        display: flex;
+        justify-content: space-between;
         margin-bottom: 10px;
     }
-    @media screen and (max-width: 600px){
-        .el-dialog{
+    .stavka2 {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 7%;
+        color:dodgerblue;
+    }
+
+    .el-input{
+        margin: 0;
+        width: 60%;
+    }   
+
+    @media screen and (max-width: 1250px){
+        /*.el-dialog{
             display: flex;
             justify-content: center;
             width: 70%;
@@ -71,6 +93,9 @@ export default {
         }
         el-dialog{
             width: 100%;
+        }*/
+        .stavka{
+            flex-direction: column;
         }
     }
 </style>

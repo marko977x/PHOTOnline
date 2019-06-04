@@ -10,13 +10,10 @@
                 <el-table-column prop="UserName" label="Username" class="table-column"></el-table-column>
                 <el-table-column align="right">
                     <template slot="header" slot-scope="scope">
-                        <el-input v-model="search" size="big" placeholder="Ime za pretragu" :focus="scope.search">
+                        <el-input v-model="search" style="margin: 0;" size="big" placeholder="Ime za pretragu" :focus="scope.search">
                         </el-input>
                     </template>
                     <template slot-scope="scope">
-                        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">
-                            Izmeni
-                        </el-button>
                         <el-button size="mini" type="danger" @click="deleteUser(scope.row.Id)">
                             Otpusti
                         </el-button>
@@ -25,7 +22,7 @@
             </el-table>
             <div class="dodaj-button">
                 <el-button type="primary" size="mini" style="height:40px;width:95px;" @click="dodajClana">
-                    Dodaj Člana
+                    Dodaj člana
                 </el-button>
             </div>
         </div>
@@ -38,7 +35,7 @@
     import FormDodajClana from './forme/FormDodajClana'
     import { } from 'element-ui'
     import { setPageShown } from '../services/contextManagement';
-import { apiFetch, destinationUrl } from '../services/authFetch';
+import { apiFetch, destinationUrl, UserTypes } from '../services/authFetch';
     export default {
         components: { FilterClanova, FormDodajClana },
         data() {
@@ -71,8 +68,10 @@ import { apiFetch, destinationUrl } from '../services/authFetch';
             },
             loadDataTable() {
                 apiFetch('GET', destinationUrl + "/User/GetAllUsers").then(result => {
-                    console.log(result);
                     this.tableData = result.Data;
+                    this.tableData.forEach((data, index) => {
+                        data.UserType = UserTypes[result.Data[index].UserType];
+                    });
                 });
             }
         },

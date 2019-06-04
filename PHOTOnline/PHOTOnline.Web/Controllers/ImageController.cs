@@ -4,9 +4,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PhotoLine.Domain.Interop;
+using PHOTOnline.BlobStorage;
+using PHOTOnline.Business.AlbumManagement;
+using PHOTOnline.Business.AlbumManagement.Input;
 using PHOTOnline.Business.Files;
 using PHOTOnline.Business.Files.Input;
 using PHOTOnline.Business.Files.Output;
+using PHOTOnline.Domain.Entities.Images;
 
 namespace PHOTOnline.Web.Controllers
 {
@@ -15,10 +19,17 @@ namespace PHOTOnline.Web.Controllers
     public class ImageController : Controller
     {
         private IFileUploader _fileUploader;
+        private IBlobStore _blobStore;
+        private IAlbumManager _albumManager;
 
-        public ImageController(IFileUploader fileUploader)
+        public ImageController(
+            IFileUploader fileUploader,
+            IBlobStore blobStore,
+            IAlbumManager albumManager)
         {
             _fileUploader = fileUploader;
+            _blobStore = blobStore;
+            _albumManager = albumManager;
         }
 
         [HttpPost]
@@ -47,19 +58,11 @@ namespace PHOTOnline.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadImages(List<IFormFile> images)
+        public async Task<IActionResult> DeleteImage([FromForm]DeleteImageInput input)
         {
-            Result<List<UploadImageOutput>> results = new Result<List<UploadImageOutput>>() { Success = true };
-            images.ForEach(async image =>
-            {
-                Result<UploadImageOutput> result = await _fileUploader.UploadImageAsync(image);
-                results.Data.Add(result.Data);
-            });
-
-            if (results.Success)
-                return Ok(results);
-            else
-                return BadRequest(results);
+            Result result = await _albumManager.DeleteImage(input);
+            if (result.Success) return Ok(result);
+            else return BadRequest(result);
         }
 
     }

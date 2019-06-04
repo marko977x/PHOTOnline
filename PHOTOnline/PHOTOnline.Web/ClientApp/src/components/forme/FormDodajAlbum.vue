@@ -1,16 +1,16 @@
 <template>
     <div class="formFotografAlbumContainer">
-        <el-form>
+        <el-form  style="word break: false">
             <div class="stavka">
                 <label>Naziv:</label>
-                <el-input class="input-polje" v-model="album.Title" align="left"></el-input>
+                <el-input class="input-polje" v-model="album.Title"></el-input>
             </div>
             <div class="stavka">
                 <label>Datum:</label>
-                <div class="datum">
-                    <el-date-picker v-model="album.Date" type="datetime" placeholder="Izaberi dan">
+                
+                    <el-date-picker class="picker" v-model="album.Date" type="datetime" placeholder="Izaberi dan">
                     </el-date-picker>
-                </div>
+              
             </div>
             <div class="stavka">
                 <label>Mesto:</label>
@@ -24,8 +24,8 @@
                 <el-input type="password" class="input-polje" v-model="album.Password"></el-input> 
             </div>
             <div class="dugmici">
-            <el-button @click="dodajAlbum()" type="primary">Sačuvaj</el-button>
-            <el-button @click="prekiniDodavanjeAlbuma">Odustani</el-button>
+            <el-button class="dugme" @click="dodajAlbum()" type="primary">Sačuvaj</el-button>
+            <el-button class="dugme1" @click="prekiniDodavanjeAlbuma">Zatvori</el-button>
             </div>
         </el-form>
     </div>
@@ -60,22 +60,26 @@ export default {
             formData.append("Location", this.album.Location);
             formData.append("Password", this.album.Password);
             this.album.Images.forEach((image, index) => {
-                formData.append("Images[" + index + "].Id", image.BlobId);
+                formData.append("Images[" + index + "].Id", image.Id);
                 formData.append("Images[" + index + "].Title", image.Title);
-                formData.append("Images[" + index + "].Original", image.Original);
-                formData.append("Images[" + index + "].Thumbnail", image.Thumbnail);
-                formData.append("Images[" + index + "].Small", image.Small);
-                formData.append("Images[" + index + "].Medium", image.Medium);
-                formData.append("Images[" + index + "].Large", image.Large);
+                formData.append("Images[" + index + "].Original.BlobId", image.Original.BlobId);
+                formData.append("Images[" + index + "].Original.Url", image.Original.Url);
+                formData.append("Images[" + index + "].Thumbnail.BlobId", image.Thumbnail.BlobId);
+                formData.append("Images[" + index + "].Thumbnail.Url", image.Thumbnail.Url);
+                formData.append("Images[" + index + "].Small.BlobId", image.Small.BlobId);
+                formData.append("Images[" + index + "].Small.Url", image.Small.Url);
+                formData.append("Images[" + index + "].Medium.BlobId", image.Medium.BlobId);
+                formData.append("Images[" + index + "].Medium.Url", image.Medium.Url);
+                formData.append("Images[" + index + "].Large.BlobId", image.Large.BlobId);
+                formData.append("Images[" + index + "].Large.Url", image.Large.Url);
             });
-            
+            console.log(formData);
             fetch(destinationUrl + "/Album/AddAlbum", {
                 body: formData,
                 method: 'POST'
-            }).then(response => response.json()).then(result => {
-                console.log(this.album);
-                return result;
-            }).catch(error => console.log(error));
+            }).then(response => response.json()).then(
+                () => this.$emit('editFinished','cancel')
+            ).catch(error => console.log(error));
         },
         prekiniDodavanjeAlbuma: function(){
             this.$emit('editFinished','cancel') // takodje je i ovde 'cancel' podatak koji se salje i koji 
@@ -100,36 +104,93 @@ export default {
 </script>
 
 <style scoped>
-    .stavka{
+    .formFotografAlbumContainer{
+       width: 100%;
+        
+    }
+    .stavka{   
         display: flex;
         flex-direction: row;
         margin-bottom: 10px;
-        justify-content: space-between;
-        align-items: center;
+        width: 100%;
     }
     label{
-       font-size: 15px;
-        text-align: left;
-        flex-basis: 30%;
+       font-size: 14px;
+       text-align: left;
+       flex-basis: 30%;
     }
+ 
     .input-polje{
-        flex-basis: 70%
+        display: flex;
+        flex-basis: 70%;
+        margin: 0;
+    }
+    .input-polje.el-input{
+        width: 100%;
     }
     .dugmici{
         display: flex;
         justify-content: flex-end;
+       
     }
-    .datum{
+    label{
+        width: 30%;
+    }
+    .dugme{
+        width:30%;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+    }
+    .dugme1{
+        width:30%;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+    }
+    .picker{
         display: flex;
-        justify-content: flex-end;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        flex-basis: 70%;
+        margin: 0;
+         
     }
     .stavka-2{
         display: flex;
         justify-content: flex-start;
         margin-bottom: 10px;
     }
+
+   @media screen and (max-width: 850px){
+    .stavka{
+        flex-direction: column;
+        margin-bottom: 1%;
+    }
+    .stavka-2{
+        flex-direction: column;
+        margin-bottom: 1%;
+        margin-top: 1%;
+    }
+    
+    label{
+        margin-bottom: 1%;
+    }
+    .picker{
+        width: 70%;
+    }
+    .dugmici{
+        flex-direction: column;
+
+    }
+    .dugme{
+        width: 60%;
+         margin-left: 6%;
+    }
+    .dugme1{
+        width: 60%;  
+    }
+    }
+
+
 </style>
 
 

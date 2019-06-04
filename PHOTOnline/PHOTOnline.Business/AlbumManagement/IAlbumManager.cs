@@ -11,5 +11,6 @@ namespace PHOTOnline.Business.AlbumManagement
     {
         Task<Result> DeleteAlbum(string id);
         Task<Result<string>> AddAlbum(AddAlbumInput input);
+        Task<Result> DeleteImage(DeleteImageInput input);
     }
 }

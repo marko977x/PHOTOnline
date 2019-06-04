@@ -1,15 +1,14 @@
 <template>
 <div class="user-container">
-    <!-- <custom-bar :list="this.menuItems"> -->
-            <!-- <header-bar></header-bar> -->
-            <header-bar :list="this.menuItems" :korisnik="this.userType"
-                    @changeView="setComponent($event)"></header-bar>
-            <zakazivanja-korisnik v-if="this.showComp == 'zakazivanja'" ></zakazivanja-korisnik>
-            <prikaz-profila v-if="this.showComp == 'profil'" ></prikaz-profila>
-            <album-korisnik v-if="this.showComp == 'albumi'"></album-korisnik>
-            <korpa-korisnik v-if="this.showComp == 'korpa'" ></korpa-korisnik>
-            <proizvodi v-if="this.showComp == 'proizvodi'"></proizvodi>
-    <!-- </custom-bar> -->
+    <header-bar 
+        :list="this.menuItems" :korisnik="this.userType"
+        @changeView="setComponent($event)">
+    </header-bar>
+    <zakazivanja-korisnik v-if="this.showComp == 'zakazivanja'" ></zakazivanja-korisnik>
+    <prikaz-profila v-if="this.showComp == 'profil'" ></prikaz-profila>
+    <album-korisnik v-if="this.showComp == 'albumi'"></album-korisnik>
+    <korpa-korisnik v-if="this.showComp == 'korpa'" ></korpa-korisnik>
+    <proizvodi v-if="this.showComp == 'proizvodi'"></proizvodi>
     <!-- <footer-bar></footer-bar> -->
 </div>
 </template>
@@ -27,28 +26,25 @@ import { setPageShown } from '../services/contextManagement';
 
 export default {
     components: {CustomBar, ZakazivanjaKorisnik,
-     PrikazProfila, AlbumKorisnik, KorpaKorisnik, 
-     HeaderBar, Proizvodi, FooterBar},
+    PrikazProfila, AlbumKorisnik, KorpaKorisnik, 
+    HeaderBar, Proizvodi, FooterBar},
     data() {
         return {
             menuItems: [
                 {
                     key: 1,
-                    label: 'Zakazivanja',
+                    label: 'Zakaži',
                     index: 'zakazivanja'
-                    // dodaj sliku!
                 },
                 {
                     key:2,
                     label: 'Albumi',
                     index: 'albumi'
-                    //slika!
                 },
                 {
                     key:3,
                     label: 'Proizvodi',
                     index: 'proizvodi'
-                    //slika!
                 }
             ],
             showComp: 'zakazivanja',

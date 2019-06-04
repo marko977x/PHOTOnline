@@ -13,23 +13,52 @@
             </div>
             <div class="right">
                 <el-button type="danger" size="mini" class="el-icon-delete"
-                    style="margin-right: 50px; height:35px; font-family:sans-serif;"> Obriši Album</el-button>
+                    style="margin-right: 50px; height:35px; font-family:sans-serif;"
+                    @click="deleteAlbum"> Obriši Album
+                </el-button>
             </div>
         </div>
         <div class="sadrzaj-albuma-inner">
-            <prikaz-fotografije v-for="(image, index) in Album.Images" :key="index" v-bind:ImageUrl="image.Small">
+            <prikaz-fotografije 
+                v-for="(image, index) in Album.Images" :key="index" v-bind:Image="image"
+                @ImageDeleted="passDeletedImageToParent($event)" @showPhoto="prikazi($event)">
             </prikaz-fotografije>
         </div>
+        <form-slika :shownPhoto="this.photo"
+            @zatvoriSliku="zatvoriSliku" v-if="this.showPicture == 'photo'">
+        </form-slika>
     </div>
 </template>
 
 <script>
 import PrikazFotografije from "./PrikazFotografije.vue"
+import FormSlika from "../forme/FormSlika.vue"
+import { destinationUrl } from '../../services/authFetch';
 export default {
-    components: {PrikazFotografije},
+    components: {PrikazFotografije, FormSlika},
     data(){
         return{
-            PretragaFotografije: ''
+            PretragaFotografije: '',
+            showPicture: '',
+            photo: {}
+        }
+    },
+    methods:{
+        prikazi(photo){
+            this.photo = photo;
+            this.showPicture = 'photo';
+        },
+        zatvoriSliku(){
+            this.showPicture = '';
+        },
+        passDeletedImageToParent(imageId) {
+            this.$emit('ImageDeleted', imageId);
+        },
+        deleteAlbum() {
+            fetch(destinationUrl + "/Album/DeleteAlbum/?id=" + this.Album.Id, {method: 'POST'})
+                .then(response => response.ok ? response.json() : new Error())
+                .then(() => this.$emit('AlbumDeleted'))
+                .catch(error => console.log(error));
         }
     },
     props: ['Album'],

@@ -4,20 +4,24 @@
             <el-button type="primary" size="mini" style="height:35px;" @click="dodajAlbum">Dodaj Album</el-button>
             <el-input
                 v-model="Pretraga" size="medium"
-                style="width:600px; margin-left:220px; margin-right:205px;"
                 placeholder="Unesite naziv albuma za pretragu">
             </el-input>
         </div>
         <div class="albumi" v-for="(album, index) in Albums" v-bind:key="index">
             <prikaz-albuma 
                 v-bind:Album="album" 
-                @otvorialbum="prikaziAlbume(index)" 
+                @otvorialbum="prikaziAlbum(index)" 
                 v-if="showComp == 'albumi'">
             </prikaz-albuma>
         </div>
-        <dodavanje-albuma  @zavrsenoDodavanje="zavrsiDodavanje" v-if="showComp === 'dodajalbum'"></dodavanje-albuma>
-        <prikaz-sadrzaja-albuma v-bind:Album="Albums[OpenedAlbumIndex]" v-if="showComp == 'prikazalbuma'" 
-            @zavrsipregled='zavrsiDodavanje'></prikaz-sadrzaja-albuma>
+        <dodavanje-albuma  @zavrsenoDodavanje="reloadPage" v-if="showComp === 'dodajalbum'"></dodavanje-albuma>
+        <prikaz-sadrzaja-albuma 
+            v-bind:Album="Albums[OpenedAlbumIndex]" 
+            v-if="showComp == 'prikazalbuma'" 
+            @zavrsipregled='reloadPage'
+            @ImageDeleted="DeleteImage($event)"
+            @AlbumDeleted="reloadPage">
+        </prikaz-sadrzaja-albuma>
     </div>
 </template>
 
@@ -25,6 +29,7 @@
     import PrikazAlbuma from "./prikazi/PrikazAlbuma"
     import DodavanjeAlbuma from "./DodavanjeAlbuma.vue"
     import PrikazSadrzajaAlbuma from "./prikazi/PrikazSadrzajaAlbuma"
+    import {setOpenedAlbumId} from "../services/contextManagement";
 import { apiFetch, destinationUrl } from '../services/authFetch';
 export default {
     components: {PrikazAlbuma, DodavanjeAlbuma, PrikazSadrzajaAlbuma},
@@ -40,25 +45,33 @@ export default {
         dodajAlbum(){
             this.showComp = 'dodajalbum'
         },
-        zavrsiDodavanje(){
-            this.showComp = 'albumi'
+        reloadPage(){
+            this.showComp = 'albumi';
+            this.loadAlbums();
         },
-        prikaziAlbume(index){
+        prikaziAlbum(index){
             this.showComp = 'prikazalbuma'
             this.OpenedAlbumIndex = index;
-            console.log(this.OpenedAlbumIndex);
+            setOpenedAlbumId(this.Albums[this.OpenedAlbumIndex].Id);
+        },
+        DeleteImage(imageId) {
+            this.Albums[this.OpenedAlbumIndex].Images = 
+                this.Albums[this.OpenedAlbumIndex].Images
+                    .filter(image => image.Id != imageId);
+        },
+        loadAlbums() {
+            apiFetch('GET', destinationUrl + "/Album/GetAllAlbums").then(result => {
+                if(result.Success) this.Albums = result.Data;
+            }).catch(error => {console.log(error)});
         }
     },
     mounted: function() {
-        apiFetch('GET', destinationUrl + "/Album/GetAllAlbums").then(result => {
-            if(result.Success) this.Albums = result.Data;
-            console.log(this.Albums);
-        }).catch(error => {console.log(error)});
+        this.loadAlbums();
     }
 }
 </script>
 
-<style>
+<style scoped>
 .albumuprave-container{
     display: flex;
     height: 100%;
@@ -72,6 +85,7 @@ export default {
     height: 7%;
     margin-top: 15px;
     margin-left: 21px;
+    margin-right: 21px;
     display: flex;
 
 }
@@ -79,6 +93,26 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+}
+
+.el-input{
+    width:50%; 
+    margin-left:25%; 
+    margin-right:25%;
+}
+
+@media screen and (max-width: 700px){
+    .dodavanje{
+        flex-direction: column;
+        justify-content: space-between;
+        height: 14%;
+        width: auto;
+    }
+
+    .el-input{
+        width: auto;
+        margin: 0 0;
+    }    
 }
 </style>
 

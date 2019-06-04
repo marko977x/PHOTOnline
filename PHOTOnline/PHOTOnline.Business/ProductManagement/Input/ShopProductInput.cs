@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Enums;
+using PHOTOnline.Domain.Entities.Images;
 
 namespace PHOTOnline.Business.ProductManagement.Input
 {
@@ -10,6 +11,6 @@ namespace PHOTOnline.Business.ProductManagement.Input
         public string Description { get; set; }
         public string ProductCategory { get; set; }
         public string CategoryType { get; set; }
-        public string ImageBlobId { get; set; }
+        public Image Image { get; set; }
     }
 }

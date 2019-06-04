@@ -34,3 +34,7 @@ export function getFormMode(){
 export function clearFormMode(){
   sessionStorage.removeItem('formMode')
 }
+
+export function setOpenedAlbumId(albumId) {
+  sessionStorage.setItem('AlbumId', albumId);
+}

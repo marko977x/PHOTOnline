@@ -25,7 +25,7 @@ namespace PHOTOnline.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRequest(CreateRequestInput input)
+        public async Task<IActionResult> CreateRequest([FromForm]CreateRequestInput input)
         {
             Result<string> result = await _requestManager.CreateRequest(input);
             if (result.Success) return Ok(result);

@@ -16,6 +16,7 @@ import DodavanjeAlbuma from "../components/DodavanjeAlbuma"
 import PrikazObaveza from "../components/prikazi/PrikazObaveza"
 import PocetnaStrana from "../components/PocetnaStrana"
 import {setPageShown, getPageToShow, getUserInfo, clearUserInfo, clearFormMode} from "../services/contextManagement";
+import { apiFetch, destinationUrl } from '../services/authFetch';
 
 export default {
     components: {
@@ -26,13 +27,13 @@ export default {
             menuItems: [
                 {
                     key: 1,
-                    label: 'Dodaj Album',
+                    label: 'Dodaj album',
                     index: 'dodajalbum',
                     slika: 'album.png'
                 },
                 {
                     key:2,
-                    label: 'Raspored Aktivnosti',
+                    label: 'Raspored aktivnosti',
                     index: 'raspored',
                     slika: 'zakazivanje.png'
                 }

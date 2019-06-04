@@ -2,6 +2,6 @@
 {
     public enum UserType
     {
-        Regular = 1, Photograph = 2, Admin = 3
+        Regular = 0, Photograph = 1, Admin = 2
     }
 }
