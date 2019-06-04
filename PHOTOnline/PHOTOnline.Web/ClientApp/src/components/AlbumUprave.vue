@@ -28,6 +28,7 @@
     import PrikazAlbuma from "./prikazi/PrikazAlbuma"
     import DodavanjeAlbuma from "./DodavanjeAlbuma.vue"
     import PrikazSadrzajaAlbuma from "./prikazi/PrikazSadrzajaAlbuma"
+    import {setOpenedAlbumId} from "../services/contextManagement";
 import { apiFetch, destinationUrl } from '../services/authFetch';
 export default {
     components: {PrikazAlbuma, DodavanjeAlbuma, PrikazSadrzajaAlbuma},
@@ -49,12 +50,12 @@ export default {
         prikaziAlbume(index){
             this.showComp = 'prikazalbuma'
             this.OpenedAlbumIndex = index;
-            console.log(this.OpenedAlbumIndex);
+            setOpenedAlbumId(this.Albums[this.OpenedAlbumIndex].Id);
         },
-        DeleteImage(data) {
-            this.Albums[data.albumId].Images = 
-                this.Albums[data.albumId].Images
-                    .filter(image => image.Id != data.imageId);
+        DeleteImage(imageId) {
+            this.Albums[this.OpenedAlbumIndex].Images = 
+                this.Albums[this.OpenedAlbumIndex].Images
+                    .filter(image => image.Id != imageId);
         }
     },
     mounted: function() {

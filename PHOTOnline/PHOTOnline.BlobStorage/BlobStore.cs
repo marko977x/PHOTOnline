@@ -5,6 +5,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.Domain.Entities.Images;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PHOTOnline.BlobStorage
@@ -107,21 +108,15 @@ namespace PHOTOnline.BlobStorage
             };
         }
 
-        public async Task<Result> DeleteBlob(Image image)
+        public async Task<Result> DeleteBlobs(List<string> blobsIds)
         {
             CloudBlobContainer container = await GetContainerAsync();
             if (container == null) return new Result() { Success = false };
 
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference(image.Large.BlobId);
-            await blockBlob.DeleteAsync();
-            blockBlob = container.GetBlockBlobReference(image.Medium.BlobId);
-            await blockBlob.DeleteAsync();
-            blockBlob = container.GetBlockBlobReference(image.Small.BlobId);
-            await blockBlob.DeleteAsync();
-            blockBlob = container.GetBlockBlobReference(image.Original.BlobId);
-            await blockBlob.DeleteAsync();
-            blockBlob = container.GetBlockBlobReference(image.Thumbnail.BlobId);
-            await blockBlob.DeleteAsync();
+            blobsIds.ForEach(async blobId =>
+            {
+                await container.GetBlockBlobReference(blobId).DeleteIfExistsAsync();
+            });
 
             return new Result() { Success = true };
         }

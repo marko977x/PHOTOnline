@@ -24,19 +24,14 @@ export default {
     methods: {
         deleteImage() {
             const formData = new FormData();
-            formData.append('Id', this.Image.Id);
-            formData.append('Title', this.Image.Title);
-            formData.append('Original.BlobId', this.Image.Original.BlobId);
-            formData.append('Original.Url', this.Image.Original.Url);
-            formData.append('Large.BlobId', this.Image.Large.BlobId);
-            formData.append('Large.Url', this.Image.Large.Url);
-            formData.append('Medium.BlobId', this.Image.Medium.BlobId);
-            formData.append('Medium.Url', this.Image.Medium.Url);
-            formData.append('Small.BlobId', this.Image.Small.BlobId);
-            formData.append('Small.Url', this.Image.Small.Url);
-            formData.append('Thumbnail.BlobId', this.Image.Thumbnail.BlobId);
-            formData.append('Thumbnail.Url', this.Image.Thumbnail.Url);
-
+            formData.append('AlbumId', sessionStorage.AlbumId);
+            formData.append('ImageId', this.Image.Id);
+            formData.append('BlobsIds', this.Image.Original.BlobId);
+            formData.append('BlobsIds', this.Image.Thumbnail.BlobId);
+            formData.append('BlobsIds', this.Image.Large.BlobId);
+            formData.append('BlobsIds', this.Image.Medium.BlobId);
+            formData.append('BlobsIds', this.Image.Small.BlobId);
+            
             fetch(destinationUrl + "/Image/DeleteImage", {method: 'POST', body: formData})
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {

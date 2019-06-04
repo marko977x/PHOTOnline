@@ -19,7 +19,7 @@
         <div class="sadrzaj-albuma-inner">
             <prikaz-fotografije 
                 v-for="(image, index) in Album.Images" :key="index" v-bind:Image="image"
-                @ImageDeleted="passDeletedImageToParent($event, index)">
+                @ImageDeleted="passDeletedImageToParent($event)">
             </prikaz-fotografije>
         </div>
     </div>
@@ -39,8 +39,8 @@ export default {
         console.log(this.Album.Images);
     },
     methods: {
-        passDeletedImageToParent(imageId, albumIndex) {
-            this.$emit('ImageDeleted', {imageId, albumIndex});
+        passDeletedImageToParent(imageId) {
+            this.$emit('ImageDeleted', imageId);
         }
     }
 }

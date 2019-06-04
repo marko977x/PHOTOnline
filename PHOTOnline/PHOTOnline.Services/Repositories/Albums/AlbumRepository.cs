@@ -17,6 +17,16 @@ namespace PHOTOnline.Services.Repositories.Albums
 
         public override string CollectionName => "Album";
 
+        public async System.Threading.Tasks.Task DeleteImage(string albumId, string imageId)
+        {
+            Album album = await FindAsync(albumId);
+            if (album != null)
+            {
+                album.Images.Remove(album.Images.Find(image => image.Id == imageId));
+                await UpdateAsync(album);
+            }
+        }
+
         public async Task<Album> GetAlbumByPassword(string password)
         {
             var filter = Builders<Album>.Filter.Eq(

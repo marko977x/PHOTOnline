@@ -12,6 +12,6 @@ namespace PHOTOnline.BlobStorage
     {
         Task<Result<string>> UploadFromFileAsync(string filePath, string contentType);
         Task<Result<string>> GetReadUrlAsync(string blobId, int hours = 0);
-        Task<Result> DeleteBlob(Image image);
+        Task<Result> DeleteBlobs(List<string> blobsIds);
     }
 }
