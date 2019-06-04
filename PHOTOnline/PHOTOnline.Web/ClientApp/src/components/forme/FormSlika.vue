@@ -1,11 +1,9 @@
 <template>
-    <div class="slika-prikaz">
-        <el-dialog visible width="60%" center
-            @close="$emit('zatvoriSliku')"
-            :modalAppendToBody="false">
-            <img class="slika" :src="photo.Original"/>
-        </el-dialog>
-    </div>
+    <el-dialog visible center
+        @close="$emit('zatvoriSliku')"
+        :modalAppendToBody="false">
+        <div class="photoContainer"><img :src="photo.Thumbnail.Url"/></div>
+    </el-dialog>
 </template>
 
 <script>
@@ -20,14 +18,16 @@ export default {
 </script>
 
 <style scoped>
+
 .el-dialog{
-    height: 70%;
-}
-.slika{
-    display: flex;
     height: 100%;
-    width: 100%;
 }
+
+.photoContainer {
+    display: flex;
+    justify-content: center;
+}
+
 </style>
 
 

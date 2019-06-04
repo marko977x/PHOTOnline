@@ -18,7 +18,8 @@
             </fotografija>
         </div>
         <form-slika :shownPhoto="this.photo"
-            @zatvoriSliku="zatvoriSliku" v-if="this.showPicture == 'photo'"></form-slika>
+            @zatvoriSliku="zatvoriSliku" v-if="this.showPicture == 'photo'">
+        </form-slika>
         <!-- <footer-bar></footer-bar> -->
     </div>
 </template>
@@ -58,7 +59,6 @@ export default {
                     result.Success ? 
                         this.album = result.Data : 
                         this.$message("Pogresna sifra albuma!");
-                    console.log(this.album);
                 }).catch(error => console.log(error));
         },
         selektovane(data){

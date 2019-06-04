@@ -3,7 +3,7 @@
         <div class="download-delete">
            <el-checkbox v-model="select" style="color:white;" @change="promena($event)">Odaberi
             </el-checkbox>
-            <img :src="image.Thumbnail" height="130px" width="120px" style="border-radius:2px;" @click="prosledi"/>
+            <img :src="image.Thumbnail.Url" height="130px" width="120px" style="border-radius:2px;" @click="prosledi"/>
         </div>
         <div class="izbor">
             <el-input-number size="small" style="width:100%;"
