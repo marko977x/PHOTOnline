@@ -13,7 +13,8 @@
         <div class="album-fotografije">
             <fotografija 
                 v-for="image in album.Images" :key="image._id"
-                @selectPhoto="selektovane($event)" 
+                @selectImage="addImageToSelected($event)"
+                @unselectImage="removeImageFromSelected($event)"
                 @showPhoto="prikazi($event)" :image="image">
             </fotografija>
         </div>
@@ -37,7 +38,7 @@ export default {
             password: '',
             select: false,
             album: {},
-            photos: [],
+            selectedImages: [],
             photo: {},
             showPicture: ''
         }
@@ -61,8 +62,12 @@ export default {
                         this.$message("Pogresna sifra albuma!");
                 }).catch(error => console.log(error));
         },
-        selektovane(data){
-            this.photos.push(data);
+        addImageToSelected(data){
+            this.selectedImages.push(data);
+        },
+        removeImageFromSelected(image) {
+            this.selectedImages = this.selectImages
+                .filter(item => item.image.Id != image.Id);
         },
         prikazi(photo){
             this.photo = photo;
@@ -72,12 +77,12 @@ export default {
             this.showPicture = '';
         },
         dodajUKorpu(){
-            if(this.photos == null){
-                this.$message({message: "Morate selektovati bar jednu Fotografiju!",type: 'error'})
+            if(this.selectedImages == null){
+                this.$message({message: "Morate selektovati bar jednu fotografiju!",type: 'error'})
                 return
             }
-             console.log(this.photos)
-            // ovde treba fetch za dodavanje selektovanih slika u korpu
+            console.log(this.selectedImages)
+            
         }
     }
 }

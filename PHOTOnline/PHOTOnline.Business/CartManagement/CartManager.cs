@@ -4,6 +4,7 @@ using PHOTOnline.Business.CartManagement.Input;
 using PHOTOnline.Domain.Entities;
 using PHOTOnline.Domain.Entities.Images;
 using PHOTOnline.Services.Repositories.Carts;
+using PHOTOnline.Services.Repositories.UploadedFiles;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,10 +15,14 @@ namespace PHOTOnline.Business.CartManagement
     public class CartManager : ICartManager
     {
         private ICartRepository _cartRepository;
+        private IUploadedFilesRepository _uploadedFilesRepository;
 
-        public CartManager(ICartRepository cartRepository)
+        public CartManager(
+            ICartRepository cartRepository,
+            IUploadedFilesRepository uploadedFilesRepository)
         {
             _cartRepository = cartRepository;
+            _uploadedFilesRepository = uploadedFilesRepository;
         }
 
         public async Task<Result<string>> AddToCart(CreateCartInput input)
@@ -28,9 +33,8 @@ namespace PHOTOnline.Business.CartManagement
             {
                 cart = new Cart()
                 {
-                    Images = input.Images,
-                    Products = input.Products,
-                    UserId = input.UserId
+                    UserId = input.UserId,
+                    CartItems = input.CartItems
                 };
 
                 return new Result<string>()
@@ -41,8 +45,7 @@ namespace PHOTOnline.Business.CartManagement
             }
             else
             {
-                input.Images.ForEach(image => cart.Images.Add(image));
-                input.Products.ForEach(product => cart.Products.Add(product));
+                input.CartItems.ForEach(item => cart.CartItems.Add(item));
 
                 await _cartRepository.UpdateAsync(cart);
 
@@ -54,7 +57,7 @@ namespace PHOTOnline.Business.CartManagement
             }
         }
 
-        public async Task<Result> DeleteItem(string cartId, string itemId)
+        public async Task<Result> DeleteItem(string cartId, string cartItemId)
         {
             Cart cart = await _cartRepository.FindAsync(cartId);
             if (cart == null)
@@ -65,26 +68,12 @@ namespace PHOTOnline.Business.CartManagement
                 };
             }
 
-            Image image = cart.Images.Find(item => item.Id == itemId);
+            CartItem cartItem = cart.CartItems.Find(item => item.Id == cartItemId);
 
-            if (image == null)
+            if (cartItem != null)
             {
-                Product product = cart.Products.Find(item => item.Id == itemId);
-                if (product == null)
-                {
-                    return new Result()
-                    {
-                        Success = false
-                    };
-                }
-                else
-                {
-                    cart.Products.Remove(product);
-                }
-            }
-            else
-            {
-                cart.Images.Remove(image);
+                await _uploadedFilesRepository.DeleteAsync(cartItem.Image.Id);
+                cart.CartItems.Remove(cartItem);
             }
 
             return new Result()

@@ -11,21 +11,25 @@ using SixLabors.ImageSharp.Processing;
 using System.IO;
 using System;
 using System.Threading.Tasks;
+using PHOTOnline.Services.Repositories.UploadedFiles;
 
 namespace PHOTOnline.Services.Files
 {
     public class ImageService : IImageService
     {
         private IBlobStore _blobStore;
+        private IUploadedFilesRepository _uploadedFilesRepository;
 
         private const int THUMBNAIL_MAX = 200;
         private const int SMALL_MAX = 600;
         private const int MEDIUM_MAX = 1000;
         private const int LARGE_MAX = 1400;
 
-        public ImageService(IBlobStore blobStore)
+        public ImageService(IBlobStore blobStore,
+            IUploadedFilesRepository uploadedFilesRepository)
         {
             _blobStore = blobStore;
+            _uploadedFilesRepository = uploadedFilesRepository;
         }
 
         public async Task<PHOTOnline.Domain.Entities.Images.Image> CreateImageAsync(
@@ -74,12 +78,19 @@ namespace PHOTOnline.Services.Files
 
             if (!blobResult.Success) return null;
 
+            string fileId = await _uploadedFilesRepository.CreateAsync(new UploadedFile()
+            {
+                BlobId = blobResult.Data,
+                ContentType = contentType,
+                OriginalFileName = originalFileName
+            });
+
             Result<string> urlResult = await _blobStore.GetReadUrlAsync(blobResult.Data);
             if (!urlResult.Success) return null;
 
             return new ImageVariant()
             {
-                BlobId = blobResult.Data,
+                FileId = fileId,
                 Url = urlResult.Data
             };
         }

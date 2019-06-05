@@ -35,14 +35,16 @@
         </el-table>
          <el-button @click="Naruci()" type="primary">Naruči</el-button>
         </div>   
+        <form-slika :hidden="false" />
     </div>
 </template>
 
 <script>
 import FormPrikazSolja from "./FormPrikazSolja.vue"
 import FooterBar from "../appBar/FooterBar.vue"
+import FormSlika from "../forme/FormSlika.vue";
 export default {
-    components: {FormPrikazSolja, FooterBar},
+    components: {FormPrikazSolja, FooterBar, FormSlika},
     data(){
         return{
              tableData: [

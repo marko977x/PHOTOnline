@@ -26,11 +26,6 @@ export default {
             const formData = new FormData();
             formData.append('AlbumId', sessionStorage.AlbumId);
             formData.append('ImageId', this.Image.Id);
-            formData.append('BlobsIds', this.Image.Original.BlobId);
-            formData.append('BlobsIds', this.Image.Thumbnail.BlobId);
-            formData.append('BlobsIds', this.Image.Large.BlobId);
-            formData.append('BlobsIds', this.Image.Medium.BlobId);
-            formData.append('BlobsIds', this.Image.Small.BlobId);
             console.log(this.Image);
             
             fetch(destinationUrl + "/Image/DeleteImage", {method: 'POST', body: formData})

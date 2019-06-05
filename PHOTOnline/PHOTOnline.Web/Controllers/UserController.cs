@@ -14,7 +14,6 @@ using PHOTOnline.Services.Repositories.Users;
 namespace PHOTOnline.Web.Controllers
 {
     [Route("/api/[controller]/[action]")]
-    // [Produces("application/json")]
     //[Authorize]
     public class UserController : Controller
     {

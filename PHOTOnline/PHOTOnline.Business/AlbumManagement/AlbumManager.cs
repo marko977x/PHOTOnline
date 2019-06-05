@@ -43,13 +43,14 @@ namespace PHOTOnline.Business.AlbumManagement
         {
             Album album = await _albumRepository.FindAsync(id);
             List<string> blobsIds = new List<string>();
+
             album.Images.ForEach(image =>
             {
-                blobsIds.Add(image.Large.BlobId);
-                blobsIds.Add(image.Medium.BlobId);
-                blobsIds.Add(image.Small.BlobId);
-                blobsIds.Add(image.Original.BlobId);
-                blobsIds.Add(image.Thumbnail.BlobId);
+                blobsIds.Add(image.Large.FileId);
+                blobsIds.Add(image.Medium.FileId);
+                blobsIds.Add(image.Small.FileId);
+                blobsIds.Add(image.Original.FileId);
+                blobsIds.Add(image.Thumbnail.FileId);
             });
 
             await _blobStore.DeleteBlobs(blobsIds);
@@ -59,9 +60,26 @@ namespace PHOTOnline.Business.AlbumManagement
 
         public async Task<Result> DeleteImage(DeleteImageInput input)
         {
-            await _blobStore.DeleteBlobs(input.BlobsIds);
+            Album album = await _albumRepository.FindAsync(input.AlbumId);
+
+            Image result = album.Images.Find(image => image.Id.Equals(input.ImageId));
+
+            await _blobStore.DeleteBlobs(GetBlobsIdsFromImage(result));
             await _albumRepository.DeleteImage(input.AlbumId, input.ImageId);
             return new Result() { Success = true };
+        }
+
+        private List<string> GetBlobsIdsFromImage(Image image)
+        {
+            List<string> blobsIds = new List<string>
+            {
+                image.Large.FileId,
+                image.Medium.FileId,
+                image.Small.FileId,
+                image.Original.FileId,
+                image.Thumbnail.FileId
+            };
+            return blobsIds;
         }
     }
 }

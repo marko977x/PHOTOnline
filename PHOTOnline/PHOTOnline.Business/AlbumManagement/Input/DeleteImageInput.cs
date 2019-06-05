@@ -8,6 +8,5 @@ namespace PHOTOnline.Business.AlbumManagement.Input
     {
         public string AlbumId { get; set; }
         public string ImageId { get; set; }
-        public List<string> BlobsIds { get; set; }
     }
 }

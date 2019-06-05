@@ -7,6 +7,6 @@ namespace PHOTOnline.Domain.Entities.Images
     public class ImageVariant
     {
         public string Url { get; set; }
-        public string BlobId { get; set; }
+        public string FileId { get; set; }
     }
 }

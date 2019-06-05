@@ -1,7 +1,7 @@
 <template>
     <div class="fotografije">
         <div class="download-delete">
-           <el-checkbox v-model="select" style="color:white;" @change="promena($event)">Odaberi
+           <el-checkbox v-model="select" style="color:white;" @change="onImageSelectionChange($event)">Odaberi
             </el-checkbox>
             <img :src="image.Thumbnail.Url" height="130px" width="120px" style="border-radius:2px;" @click="prosledi"/>
         </div>
@@ -38,12 +38,19 @@ export default {
     },
     props: ['image'],
     methods: {
-        promena(sel){
-            let data = {image: null, Num: 1, Option: ''};
-            data.image = this.image;
-            data.Num = this.num;
-            data.Option = this.options.value;
-            this.$emit("selectPhoto", data);
+        onImageSelectionChange(selected){
+            if(selected = true) {
+                let data = {
+                    image: this.image,
+                    Num: this.num,
+                    Option: this.options.value
+                };
+
+                this.$emit("selectImage", data);
+            }
+            else {
+                this.$emit("unselectImage", this.image);
+            }
         },
         prosledi(){
             let image = this.image;
