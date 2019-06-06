@@ -10,5 +10,6 @@ namespace PHOTOnline.Business.RequestManagement
     public interface IRequestManager
     {
         Task<Result<string>> CreateRequest(CreateRequestInput input);
+        Task<Result> RejectRequest(RejectRequestInput input);
     }
 }

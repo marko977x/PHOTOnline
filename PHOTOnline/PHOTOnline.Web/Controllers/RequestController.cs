@@ -65,5 +65,13 @@ namespace PHOTOnline.Web.Controllers
             await _requestRepository.DeleteResolvedRequests();
             return Ok(new Result() { Success = true });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> RejectRequest([FromForm]RejectRequestInput input)
+        {
+            Result result = await _requestManager.RejectRequest(input);
+            if (result.Success) return Ok(result);
+            else return BadRequest(result);
+        }
     }
 }

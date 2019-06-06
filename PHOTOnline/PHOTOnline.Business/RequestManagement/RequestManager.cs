@@ -40,5 +40,16 @@ namespace PHOTOnline.Business.RequestManagement
                 Data = await _requestRepository.CreateAsync(request)
             };
         }
+
+        public async Task<Result> RejectRequest(RejectRequestInput input)
+        {
+            await _requestRepository.UpdateRequestStatus(
+                input.Id, RequestStatus.Rejected);
+
+            await _requestRepository.UpdateRequestNotification(
+                input.Id, input.Notification);
+
+            return new Result() { Success = true };
+        }
     }
 }
