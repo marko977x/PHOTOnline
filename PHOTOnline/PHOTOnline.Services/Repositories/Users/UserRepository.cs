@@ -26,7 +26,8 @@ namespace PHOTOnline.Services.Repositories.Users
 
         public async Task<List<PHOTOnlineUser>> GetAllUsers()
         {
-            var filter = Builders<PHOTOnlineUser>.Filter.Empty;
+            var filter = Builders<PHOTOnlineUser>.Filter.Ne(
+                user => user.UserType, UserType.Admin);
             return await (await Collection.FindAsync(filter)).ToListAsync();
         }
     }
