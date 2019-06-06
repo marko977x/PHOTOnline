@@ -21,7 +21,7 @@ namespace PHOTOnline.Services.Repositories.Orders
         public async System.Threading.Tasks.Task DeleteCompleted()
         {
             var completed = Builders<Order>.Filter.Eq(
-                order => order.RequestStatus, RequestStatus.Completed);
+                order => order.RequestStatus, RequestStatus.Approved);
             await Collection.DeleteManyAsync(completed);
         }
 
