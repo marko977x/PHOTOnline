@@ -1,7 +1,7 @@
 <template>
     <div class="dodavanje-albuma-container">
         <el-dialog 
-            @close="$emit('zavrsenoDodavanje')" 
+            @close="$emit('zavrsenoDodavanje')" :modalAppendToBody="false"
             :visible.sync="dialogVisible" title="Dodavanje albuma" width="28%">
             <form-dodaj-album  @editFinished="potvrdiFormu($event)" :dodavanje-albuma="true"></form-dodaj-album>
        </el-dialog>
