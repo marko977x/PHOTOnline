@@ -1,8 +1,8 @@
 <template>
     <div class="fotografija-container">
         <div class="download-delete">
-            <a :href="`${Image.Original.Url}`" download="image" target="target" ><el-icon class="el-icon-download"></el-icon></a>
-            <a @click="deleteImage()"><el-icon class="el-icon-delete"></el-icon></a>
+            <a :href="downloadLink" download ><el-icon class="el-icon-download"></el-icon></a>
+            <a @click="downloadImage()"><el-icon class="el-icon-delete"></el-icon></a>
             <img :src="Image.Thumbnail.Url" height="100%" width="100%" @click="prosledi"/>
         </div>
         <h6 style="font-size:10px; text-align:center; position:bottom;">{{naziv}}</h6>
@@ -17,7 +17,8 @@ export default {
     data(){
         return{
             naziv: 'DSC_1567',
-            slika: ""
+            slika: "",
+            downloadLink: ""
         }
     },
     props: ['Image'],
@@ -44,7 +45,11 @@ export default {
         }
     },
     mounted: function() {
-        console.log(this.Image);
+        fetch(this.Image.Original.Url, {method: 'GET'}).then(response => {
+            return response.blob();
+        }).then(blob => {
+            this.downloadLink = URL.createObjectURL(blob);
+        });
     }
 }
 </script>
