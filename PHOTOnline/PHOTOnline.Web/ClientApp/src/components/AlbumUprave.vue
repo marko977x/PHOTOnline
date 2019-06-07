@@ -1,18 +1,18 @@
 <template>
     <div class="albumuprave-container">
         <div class="dodavanje"  v-if="showComp == 'albumi'" >
-            <el-button type="primary" size="mini" style="height:35px;" @click="dodajAlbum">Dodaj Album</el-button>
-            <el-input
-                v-model="Pretraga" size="medium"
-                placeholder="Unesite naziv albuma za pretragu">
+            <el-button type="primary" size="mini" style="height:35px;" @click="dodajAlbum">Dodaj album</el-button>
+            <el-input v-model="Pretraga" size="medium" placeholder="Unesite naziv albuma za pretragu" @input="filtriraj()">
             </el-input>
         </div>
-        <div class="albumi" v-for="(album, index) in Albums" v-bind:key="index">
-            <prikaz-albuma 
-                v-bind:Album="album" 
-                @otvorialbum="prikaziAlbum(index)" 
-                v-if="showComp == 'albumi'">
-            </prikaz-albuma>
+        <div class="albumi">
+            <div v-for="(album, index) in FiltriraniAlbumi" v-bind:key="index">
+                <prikaz-albuma 
+                    v-bind:Album="album" 
+                    @otvorialbum="prikaziAlbum(index)" 
+                    v-if="showComp == 'albumi'">
+                </prikaz-albuma>
+            </div>
         </div>
         <dodavanje-albuma  @zavrsenoDodavanje="reloadPage" v-if="showComp === 'dodajalbum'"></dodavanje-albuma>
         <prikaz-sadrzaja-albuma 
@@ -38,6 +38,7 @@ export default {
             Pretraga: '',
             showComp: 'albumi',
             Albums: [],
+            FiltriraniAlbumi: [],
             OpenedAlbumIndex: 0
         }
     },
@@ -61,8 +62,24 @@ export default {
         },
         loadAlbums() {
             apiFetch('GET', destinationUrl + "/Album/GetAllAlbums").then(result => {
-                if(result.Success) this.Albums = result.Data;
+                if(result.Success) {
+                    this.Albums = result.Data;
+                    this.FiltriraniAlbumi = this.Albums.slice();
+                }
             }).catch(error => {console.log(error)});
+        },
+        filtriraj(){
+            if(this.Pretraga == ''){
+                this.FiltriraniAlbumi = this.Albums.slice();
+            }
+            else{
+                this.FiltriraniAlbumi.splice(0,this.FiltriraniAlbumi.length);
+                this.Albums.forEach(element => {
+                    if(element.Title.includes(this.Pretraga)){
+                        this.FiltriraniAlbumi.push(Object.assign({},element));
+                    }
+                });
+            }
         }
     },
     mounted: function() {
@@ -105,7 +122,7 @@ export default {
     .dodavanje{
         flex-direction: column;
         justify-content: space-between;
-        height: 14%;
+        height: 8%;
         width: auto;
     }
 

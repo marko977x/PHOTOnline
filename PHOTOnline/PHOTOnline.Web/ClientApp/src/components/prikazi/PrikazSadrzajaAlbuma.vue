@@ -1,19 +1,22 @@
 <template>
     <div class="sadrzaj-albuma">
-         <div class="dodavanje" style="margin:none;">
-             <div class="left">
+        <div class="dodavanje" style="margin:none;">
+            <div class="left">
                 <el-button class="el-icon-arrow-left" type="success" size="mini" 
                     style="size:10px;" @click="$emit('zavrsipregled')"></el-button>
-                <el-button type="primary" size="mini" style="height:35px; font-family:sans-serif;" class="el-icon-download"> Download Album</el-button>
-                 <el-input v-model="PretragaFotografije"
-                    size="medium" style="width:300px; margin-left:50px;"
-                    placeholder="Unesite naziv fotografije za pretragu">
-                </el-input>
-                <h6 style="text-align:center; margin-left:20px; margin-top:7px; font-size:14px;">{{Album.Password}}</h6>
+                <div class="naslovi">
+                    <h4 style="text-align:center; margin-left:20px; margin-top:7px; font-family: sans-serif;">Naslov:</h4>
+                    <h4 style="text-align:center; margin-left:20px; margin-top:7px; font-family: Arial Black, Gadget, sans-serif;">{{Album.Title}}</h4>
+                </div>
+                <div class="naslovi">
+                    <h4 style="text-align:center; margin-left:20px; margin-top:7px; font-family: sans-serif;">Šifra:</h4>
+                    <h4 style="text-align:center; margin-left:20px; margin-top:7px; font-family: Arial Black, Gadget, sans-serif;">{{Album.Password}}</h4>
+                </div>
             </div>
             <div class="right">
+                <el-button type="primary" size="mini" style="height:35px; font-family:sans-serif;" class="el-icon-download"> Download album</el-button>
                 <el-button type="danger" size="mini" class="el-icon-delete"
-                    style="margin-right: 50px; height:35px; font-family:sans-serif;"
+                    style="margin-right: 5%; margin-left: 5%; height:35px; font-family:sans-serif;"
                     @click="deleteAlbum"> Obriši Album
                 </el-button>
             </div>
@@ -68,7 +71,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .sadrzaj-albuma{
     display: flex;
     height: 100%;
@@ -76,23 +79,49 @@ export default {
     flex-direction: column;
     overflow: auto;
 }
+.dodavanje{
+    display: flex;
+    flex-direction: row;
+    margin: 2%;
+}
 .right{
     width: 50%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 }
+.naslovi{
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: wrap;
+}
 .left{
     width: 50%;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 .sadrzaj-albuma-inner{
-    height: 100%;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+}
+@media screen and (max-width: 900px){
+    .dodavanje{
+        flex-direction: column;
+        justify-content: space-between;
+        height: 15%;
+        width: auto;
+    } 
+
+    .left{
+        width: 90%;
+    }
+
+    .right{
+        width: 90%;
+    }
 }
 </style>
 

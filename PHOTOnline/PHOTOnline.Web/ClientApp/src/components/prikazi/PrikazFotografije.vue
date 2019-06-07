@@ -52,9 +52,10 @@ export default {
 <style scoped>
 .fotografija-container{
     height: 100px;
-    width: 80px;
+    width: 100px;
     background: linear-gradient(0deg, #a6e1f0e7, #dcf1f8 );
     margin-top: 15px;
+    margin-bottom: 15px;
     border-radius: 3px;
     margin-left: 10px;
 }

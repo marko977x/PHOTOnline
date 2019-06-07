@@ -1,6 +1,6 @@
 <template>
     <div class="signup-container">
-        <el-dialog visible width="30%"  @close="$emit('zavrsiPrijavu')">
+        <el-dialog visible width="30%" @close="$emit('zavrsiPrijavu')">
             <div class="forma">
                 <el-form>
                     <h3 style="text-align:center; margin-bottom:40px;

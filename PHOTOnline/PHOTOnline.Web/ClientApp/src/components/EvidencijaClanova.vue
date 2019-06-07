@@ -55,9 +55,10 @@ import { apiFetch, destinationUrl, UserTypes } from '../services/authFetch';
                 console.log(row);
             },
             deleteUser(id) {
-                apiFetch('POST', destinationUrl + "/User/DeleteUserById?id=" + id).then(result => {
+                apiFetch('POST', destinationUrl + "/User/DeleteUserById?id=" + id)
+                .then(result => {
                     if(result.Success) {
-                        this.$message("Korisnik je uspesno obrisan!");
+                        this.$message("Korisnik je uspešno obrisan!");
                         this.$emit("loadDataTable");
                     }
                 }).catch(error => {console.log(error)});

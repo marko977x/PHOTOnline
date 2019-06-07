@@ -1,12 +1,12 @@
 <template>
     <div class="login-container">
-        <el-dialog visible width="28%"  @close="$emit('closeLoginForm')" >
+        <el-dialog visible width="28%" @close="$emit('closeLoginForm')" >
             <div class="forma">
                 <el-form>
                     <h3 style="text-align:center; margin-bottom:40px;
                     font-size:23px;">LOG IN</h3>
                     <div class="stavka">
-                        <label>Username:</label>
+                        <label>E-mail:</label>
                         <el-input class="input" v-model="loginData.Email"
                         placeholder="korisnik@primer.com"></el-input>
                     </div>

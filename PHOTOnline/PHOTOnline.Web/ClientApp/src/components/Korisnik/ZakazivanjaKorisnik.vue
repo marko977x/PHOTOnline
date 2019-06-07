@@ -10,7 +10,7 @@
                     <div class="element" @click="radi(data.day)">
                      <p :class="data.isSelected ? 'is-active' : ''" >{{data.day.split('-').slice(2).join('-')}}</p>
                     <el-badge v-if="data.isSelected" :value="counts[data.day]" class="item" type="warning" aria-setsize="big">
-                    <p :class="data.isSelected ? 'is-active' : ''"></p>
+                        <p :class="data.isSelected ? 'is-active' : ''"></p>
                     </el-badge>
                     </div>
             </template>
@@ -99,8 +99,8 @@ export default {
     width: 100%;
 }
 .item{
-    height: 30px;
-    width: 30px;
+    height: 60px;
+    width: 60px;
     font: 20px;
 }
 .kalendar{
@@ -108,6 +108,12 @@ export default {
 }
 footer-bar{
     justify-content: flex-end;
+}
+/*ovo treba da se postavi za kruic da bude veci, ali mu se iz nekog razloga ne moze pristupiti???*/
+.el-badge__content {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
 }
 </style>
 

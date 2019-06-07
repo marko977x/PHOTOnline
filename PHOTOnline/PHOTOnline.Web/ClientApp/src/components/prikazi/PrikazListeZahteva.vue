@@ -2,8 +2,10 @@
     <div class="zahtev-container">
         <h3>Neobrađeni zahtevi</h3>
         <div class="zahtev-container-table">
-             <el-table
-             :data="this.listaZahteva">
+            <el-table
+                :data="this.listaZahteva"
+                highlight-current-row
+                @current-change="handleCurrentChange">
             <el-table-column
                     prop="FirstName"
                     label="Ime"
@@ -39,25 +41,17 @@
                     label="Vreme"
                     class="table-column">
             </el-table-column>
-            <el-table-column 
-                     prop="fotograf"
-                    label="Fotograf"
-                    class="table-column"
-                    width="200">
-                    <el-select class="inputPolje" v-model="fotografId" placeholder="Izaberite fotografa" size="medium">
-                         <el-option v-for="item in fotografi" :key="item.Id" :label="item.FirstName+' '+item.LastName" :value="item.Id"></el-option>
-                    </el-select>
-            </el-table-column>
-            <el-table-column align="right">
-                <template slot-scope="scope">
-                    <div class="dugmici">
-                        <el-button type="success" size="mini" @click.native.prevent="potvrdiZahtev(scope.$index, scope.row)">Potvrdi</el-button>
-                        <el-button type="danger" size="mini">Odbij</el-button>
-                        <el-button type="info" icon="el-icon-message" circle size="mini" @click="poruka"></el-button>
-                    </div>
-                </template>    
-            </el-table-column>
-        </el-table>
+            </el-table>
+            <div class="zahtevDugmici">
+                <el-select class="inputPolje" v-model="fotografId" placeholder="Izaberite fotografa" size="medium">
+                    <el-option v-for="item in fotografi" :key="item.Id" :label="item.FirstName+' '+item.LastName" :value="item.Id"></el-option>
+                </el-select>
+                <div class="dugmici">
+                        <el-button type="success" size="mini" style="margin-left: 20%;" @click="potvrdiZahtev()">Potvrdi</el-button>
+                        <el-button type="danger" size="mini" style="margin-left: 20%;" @click="odbijZahtev()">Odbij</el-button>
+                        <el-button type="info" icon="el-icon-message" style="padding: 12px; margin-left: 20%;" circle size="mini" @click="poruka"></el-button>
+                </div>
+            </div>
         </div>
         <h3>Potvrđeni zahtevi</h3>
          <div class="zahtev-container-table">
@@ -115,7 +109,8 @@ export default {
             fotografi: [],
             fotografId: '',
             listaZahteva: [],
-            listaPotvrdjenihZahteva: []
+            listaPotvrdjenihZahteva: [],
+            currentRow: null,
         }
     },
     methods: {
@@ -143,32 +138,65 @@ export default {
                 else this.$message({message: "Doslo je do greske prilikom ucitavanja fotografa!", type: 'error'})   
                  }).catch(error => {console.log(error)});
         },
-        potvrdiZahtev(index,row){
-            let Data = {Location:'',Date:'', Time: '', Note: '', PhotographId: '', EventType: 1, RequestId: '', Notification: '' };
-            Data.Location = row.Location;
-            Data.Date = row.Date;
-            Data.Time = row.Time;
-            Data.Note = row.AdditionalRequests;
-            Data.PhotographId = this.fotografId;
-            Data.RequestId = row.Id;
-            Data.EventType = eventTypes.indexOf(row.EventType);
-            Data.Notification = this.notification;
-            console.log(Data.Notification);
-            console.log(Data.EventType);
-             apiFetch('POST', destinationUrl + "/Task/AssignTask", Data)
-                .then(result => {
-                    if(result.Success){
-                       this.$message({message: "Uspesno dodeljivanje obaveze fotografu.", type: 'success'})
-                       this.listaZahteva.splice(index,1);
-                        this.listaPotvrdjenihZahteva.push(row);
-                        this.$emit('datum',this.listaZahteva);
-                        this.$emit('potvrdjeni', this.listaPotvrdjenihZahteva);
-                    }
-                    else this.$message("Doslo je do greske!");
-                    console.log(result)
-                }).catch(error => {
-                    console.log(error);
-                });
+        potvrdiZahtev(){
+            if(this.currentRow != null && this.fotografId != ''){
+                let Data = {Location:'',Date:'', Time: '', Note: '', PhotographId: '', EventType: 1, RequestId: '', Notification: '' };
+                Data.Location = this.currentRow.Location;
+                Data.Date = this.currentRow.Date;
+                Data.Time = this.currentRow.Time;
+                Data.Note = this.currentRow.AdditionalRequests;
+                Data.PhotographId = this.fotografId;
+                Data.RequestId = this.currentRow.Id;
+                Data.EventType = eventTypes.indexOf(this.currentRow.EventType);
+                Data.Notification = this.notification;
+                apiFetch('POST', destinationUrl + "/Task/AssignTask", Data)
+                    .then(result => {
+                        if(result.Success){
+                        this.$message({message: "Uspesno dodeljivanje obaveze fotografu.", type: 'success'})
+                            this.listaZahteva.splice(this.listaZahteva.indexOf(this.currentRow),1);
+                            this.listaPotvrdjenihZahteva.push(this.currentRow);
+                            this.$emit('datum',this.listaZahteva);
+                            this.$emit('potvrdjeni', this.listaPotvrdjenihZahteva);
+                            this.fotografId = '';
+                        }
+                        else this.$message("Doslo je do greske!");
+                        console.log(result)
+                    }).catch(error => {
+                        console.log(error);
+                    });
+            }
+            else if(this.currentRow == null){
+                this.$message({message: "Morate selektovati zahtev pre potvrde.", type: 'error'})
+            }
+            else if(this.fotografId == ''){
+                this.$message({message: "Morate angažovati fotografa pre potvrde.", type: 'error'})
+            }
+        },
+        odbijZahtev(){
+            if(this.currentRow != null){
+                let Data = {Id: '', Notification: '' };
+                Data.Id = this.currentRow.Id;
+                Data.Notification = this.notification;
+                apiFetch('POST', destinationUrl + "/Request/RejectRequest", Data)
+                    .then(result => {
+                        if(result.Success){
+                        this.$message({message: "Uspesno ste odbili zahtev za fotografisanje.", type: 'success'})
+                            this.listaZahteva.splice(this.listaZahteva.indexOf(this.currentRow),1);
+                            this.$emit('datum',this.listaZahteva);
+                            this.fotografId = '';
+                        }
+                        else this.$message("Doslo je do greske!");
+                        console.log(result)
+                    }).catch(error => {
+                        console.log(error);
+                    });
+            }
+            else {
+                this.$message({message: "Morate selektovati zahtev pre odbijanja.", type: 'error'})
+            }
+        },
+        handleCurrentChange(val) {
+            this.currentRow = val;
         }
     },
     mounted: function() {
@@ -182,7 +210,15 @@ export default {
 <style scoped>
 .zahtev-container-table{
     display: flex;
+    flex-direction: column;
     padding: 20px;
+}
+
+.zahtevDugmici{
+    display: flex;
+    justify-content: center;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 
 h3{
@@ -192,9 +228,8 @@ h3{
 
 .dugmici{
     display: flex;
-    flex-wrap: wrap;
+    margin-left: 1%;
 }
-
 </style>
 
 
