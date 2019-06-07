@@ -20,7 +20,7 @@ namespace PHOTOnline.Services.Repositories.Requests
         public async System.Threading.Tasks.Task DeleteResolvedRequests()
         {
             var query = Builders<Request>.Filter.Eq(
-                request => request.RequestStatus, RequestStatus.Completed);
+                request => request.RequestStatus, RequestStatus.Approved);
             await Collection.DeleteManyAsync(query);
         }
 

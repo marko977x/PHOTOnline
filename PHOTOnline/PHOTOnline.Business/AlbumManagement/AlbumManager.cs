@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
 using PhotoLine.Domain.Interop;
@@ -6,6 +7,8 @@ using PHOTOnline.BlobStorage;
 using PHOTOnline.Business.AlbumManagement.Input;
 using PHOTOnline.Domain.Entities.Images;
 using PHOTOnline.Services.Repositories.Albums;
+using PHOTOnline.Services.Repositories.UploadedFiles;
+using Task = System.Threading.Tasks.Task;
 
 namespace PHOTOnline.Business.AlbumManagement
 {
@@ -13,13 +16,16 @@ namespace PHOTOnline.Business.AlbumManagement
     {
         private IAlbumRepository _albumRepository;
         private IBlobStore _blobStore;
+        private IUploadedFilesRepository _uploadedFilesRepository;
 
         public AlbumManager(
             IAlbumRepository albumRepository,
-            IBlobStore blobStore)
+            IBlobStore blobStore,
+            IUploadedFilesRepository uploadedFilesRepository)
         {
             _albumRepository = albumRepository;
             _blobStore = blobStore;
+            _uploadedFilesRepository = uploadedFilesRepository;
         }
 
         public async Task<Result<string>> AddAlbum(AddAlbumInput input)
@@ -42,18 +48,18 @@ namespace PHOTOnline.Business.AlbumManagement
         public async Task<Result> DeleteAlbum(string id)
         {
             Album album = await _albumRepository.FindAsync(id);
-            List<string> blobsIds = new List<string>();
+            List<string> imageVariantsIds = new List<string>();
+            List<UploadedFile> uploadedFiles = new List<UploadedFile>();
 
             album.Images.ForEach(image =>
             {
-                blobsIds.Add(image.Large.FileId);
-                blobsIds.Add(image.Medium.FileId);
-                blobsIds.Add(image.Small.FileId);
-                blobsIds.Add(image.Original.FileId);
-                blobsIds.Add(image.Thumbnail.FileId);
+                imageVariantsIds.AddRange(GetImageVariantsIds(image));
             });
 
-            await _blobStore.DeleteBlobs(blobsIds);
+            uploadedFiles = await _uploadedFilesRepository.
+                DeleteUploadedFiles(imageVariantsIds);
+
+            await _blobStore.DeleteBlobs(GetBlobsIds(uploadedFiles));
             await _albumRepository.DeleteAsync(id);
             return new Result() { Success = true };
         }
@@ -61,25 +67,34 @@ namespace PHOTOnline.Business.AlbumManagement
         public async Task<Result> DeleteImage(DeleteImageInput input)
         {
             Album album = await _albumRepository.FindAsync(input.AlbumId);
-
             Image result = album.Images.Find(image => image.Id.Equals(input.ImageId));
 
-            await _blobStore.DeleteBlobs(GetBlobsIdsFromImage(result));
+            List<UploadedFile> uploadedFiles = await _uploadedFilesRepository
+                .DeleteUploadedFiles(GetImageVariantsIds(result));
+
+            await _blobStore.DeleteBlobs(GetBlobsIds(uploadedFiles));
             await _albumRepository.DeleteImage(input.AlbumId, input.ImageId);
             return new Result() { Success = true };
         }
 
-        private List<string> GetBlobsIdsFromImage(Image image)
+        private List<string> GetBlobsIds(List<UploadedFile> files)
         {
-            List<string> blobsIds = new List<string>
+            List<string> blobsIds = new List<string>();
+            files.ForEach(file => blobsIds.Add(file.BlobId));
+            return blobsIds;
+        }
+
+        public List<string> GetImageVariantsIds(Image image)
+        {
+            List<string> result = new List<string>
             {
                 image.Large.FileId,
                 image.Medium.FileId,
                 image.Small.FileId,
                 image.Original.FileId,
-                image.Thumbnail.FileId
+                image.Thumbnail.FileId,
             };
-            return blobsIds;
+            return result;
         }
     }
 }

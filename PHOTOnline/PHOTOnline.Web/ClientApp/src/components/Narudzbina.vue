@@ -29,6 +29,7 @@
 import {} from 'element-ui'
 import PrikazKorpe from "./prikazi/PrikazKorpe"
 import ObavestiKorisnika from "./ObavestiKorisnika.vue"
+import { apiFetch, destinationUrl } from '../services/authFetch';
 export default {
     components: {PrikazKorpe,ObavestiKorisnika},
     data(){
@@ -86,6 +87,9 @@ export default {
             }
             console.log(this.task);
         }
+    },
+    mounted: function() {
+        
     },
     props:['endTask']
 }

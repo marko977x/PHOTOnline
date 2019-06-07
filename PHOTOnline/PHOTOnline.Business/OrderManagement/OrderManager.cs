@@ -1,26 +1,74 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Domain.Entities;
+using Domain.Entities.Enums;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.Business.OrderManagement.Input;
+using PHOTOnline.Business.OrderManagement.Output;
 using PHOTOnline.Services.Repositories.Orders;
+using PHOTOnline.Services.Repositories.Users;
 
 namespace PHOTOnline.Business.OrderManagement
 {
     public class OrderManager : IOrderManager
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly IUserRepository _userRepository;
 
-        public OrderManager(IOrderRepository orderRepository)
+        public OrderManager(
+            IOrderRepository orderRepository,
+            IUserRepository userRepository)
         {
             _orderRepository = orderRepository;
+            _userRepository = userRepository;
         }
 
-        public async Task<Result<Order>> GetOrderById(string orderId)
+        public async Task<Result<List<OrderOutput>>> GetAllOrdersByUserIdAsync(string userId)
+        {
+            List<Order> orders = await _orderRepository.GetOrdersByUserId(userId);
+
+            if (orders.Count == 0)
+                return new Result<List<OrderOutput>>() { Success = true };
+
+            PHOTOnlineUser user = await _userRepository.FindAsync(userId);
+
+            List<OrderOutput> result = new List<OrderOutput>();
+            orders.ForEach(order =>
+            {
+                result.Add(new OrderOutput()
+                {
+                    Order = order,
+                    Address = user.Address,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    PhoneNumber = user.PhoneNumber
+                });
+            });
+
+            return new Result<List<OrderOutput>>()
+            {
+                Success = true,
+                Data = result
+            };
+        }
+
+        public async Task<Result<OrderOutput>> GetOrderById(string orderId)
         {
             Order order = await _orderRepository.FindAsync(orderId);
+            if (order == null) return new Result<OrderOutput>() { Success = false };
 
-            if (order == null) return new Result<Order>() { Success = false };
-            else return new Result<Order>() { Success = true, Data = order };
+            PHOTOnlineUser user = await _userRepository.FindAsync(order.UserId);
+
+            OrderOutput result = new OrderOutput()
+            {
+                Order = order,
+                Address = user.Address,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber
+            };
+
+            return new Result<OrderOutput>() { Success = true, Data = result };
         }
 
         public async Task<Result<string>> PerformOrderAsync(PerformOrderInput input)
@@ -28,8 +76,10 @@ namespace PHOTOnline.Business.OrderManagement
             Order order = new Order()
             {
                 DeliveryAddress = input.DeliveryAddress,
-                Products = input.Products,
-                UserId = input.UserId
+                UserId = input.UserId,
+                CartId = input.CartId,
+                Date = input.Date,
+                RequestStatus = RequestStatus.OnHold
             };
 
             return new Result<string>()

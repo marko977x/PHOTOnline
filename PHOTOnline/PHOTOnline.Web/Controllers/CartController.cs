@@ -36,9 +36,11 @@ namespace PHOTOnline.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteItem(string cartId, string cartItemId)
+        public async Task<IActionResult> DeleteItem([FromForm]DeleteItemInput input)
         {
-            Result result = await _cartManager.DeleteItem(cartId, cartItemId);
+            Result result = await _cartManager.DeleteItem(
+                input.CartId, input.CartItemId);
+
             if (result.Success) return Ok(result);
             else return BadRequest(result);
         }
@@ -47,6 +49,24 @@ namespace PHOTOnline.Web.Controllers
         public async Task<IActionResult> GetCart(string id)
         {
             Cart cart = await _cartRepository.FindAsync(id);
+            if (cart == null)
+            {
+                return BadRequest(new Result() { Success = false });
+            }
+            else
+            {
+                return Ok(new Result<Cart>()
+                {
+                    Success = true,
+                    Data = cart
+                });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCartByUserId(string userId)
+        {
+            Cart cart = await _cartRepository.GetCartByUserId(userId);
             if (cart == null)
             {
                 return BadRequest(new Result() { Success = false });

@@ -1,8 +1,5 @@
-﻿using Domain.Entities;
-using Domain.Entities.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Domain.Entities.Enums;
+using PHOTOnline.Domain.Entities;
 
 namespace Domain.Entities
 {
@@ -13,6 +10,7 @@ namespace Domain.Entities
         public RequestStatus RequestStatus { get; set; }
         public string DeliveryAddress { get; set; }
         public string UserId { get; set; }
-        public List<Product> Products { get; set; }
+        public string Date { get; set; }
+        public string CartId { get; set; }
     }
 }

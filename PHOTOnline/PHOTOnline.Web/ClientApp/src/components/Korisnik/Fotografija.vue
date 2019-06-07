@@ -9,12 +9,12 @@
             <el-input-number size="small" style="width:100%;"
                  v-model="num" :min="1" :max="20">
             </el-input-number>
-            <el-select v-model="options.value" placeholder="Format Slike" size="mini">
+            <el-select :value="format" @input="setFormat" placeholder="Format Slike" size="mini">
                 <el-option
                     v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+                    :key="item"
+                    :label="item"
+                    :value="item">
                 </el-option>
              </el-select>
         </div>
@@ -22,29 +22,27 @@
 </template>
 
 <script>
-import { constants } from 'fs';
+import {IMAGE_FORMAT} from "../../services/productPriceCalculator.js";
 export default {
     data(){
         return{
             num: 1,
-            options: [
-                {value: '13x18',label: '13x18'},
-                {value: '15x20',label: '15x20'},
-                {value: '9x13',label: '9x13'}
-            ],
+            format: '',
+            options: IMAGE_FORMAT,
             select: false,
-
+            dummy: ''
         }
     },
     props: ['image'],
     methods: {
         onImageSelectionChange(selected){
-            if(selected = true) {
+            if(selected == true) {
                 let data = {
-                    image: this.image,
-                    Num: this.num,
-                    Option: this.options.value
+                    Image: this.image,
+                    Quantity: this.num,
+                    Format: this.format
                 };
+                console.log(data);
 
                 this.$emit("selectImage", data);
             }
@@ -55,6 +53,10 @@ export default {
         prosledi(){
             let image = this.image;
             this.$emit("showPhoto", image);
+        },
+        setFormat(event) {
+            this.format = event;
+            console.log(event);
         }
     }
 }

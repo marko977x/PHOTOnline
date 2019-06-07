@@ -61,15 +61,15 @@ export default {
             this.album.Images.forEach((image, index) => {
                 formData.append("Images[" + index + "].Id", image.Id);
                 formData.append("Images[" + index + "].Title", image.Title);
-                formData.append("Images[" + index + "].Original.FileId", image.Original.BlobId);
+                formData.append("Images[" + index + "].Original.FileId", image.Original.FileId);
                 formData.append("Images[" + index + "].Original.Url", image.Original.Url);
-                formData.append("Images[" + index + "].Thumbnail.FileId", image.Thumbnail.BlobId);
+                formData.append("Images[" + index + "].Thumbnail.FileId", image.Thumbnail.FileId);
                 formData.append("Images[" + index + "].Thumbnail.Url", image.Thumbnail.Url);
-                formData.append("Images[" + index + "].Small.FileId", image.Small.BlobId);
+                formData.append("Images[" + index + "].Small.FileId", image.Small.FileId);
                 formData.append("Images[" + index + "].Small.Url", image.Small.Url);
-                formData.append("Images[" + index + "].Medium.FileId", image.Medium.BlobId);
+                formData.append("Images[" + index + "].Medium.FileId", image.Medium.FileId);
                 formData.append("Images[" + index + "].Medium.Url", image.Medium.Url);
-                formData.append("Images[" + index + "].Large.FileId", image.Large.BlobId);
+                formData.append("Images[" + index + "].Large.FileId", image.Large.FileId);
                 formData.append("Images[" + index + "].Large.Url", image.Large.Url);
             });
             console.log(formData);
