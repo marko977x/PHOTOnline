@@ -103,7 +103,6 @@ export default {
     width: 100%;
     padding: 1em;
     height: 95%;
-    margin-top: 3vh;
     background: rgba(240, 240, 255, 0.8);
     border-radius: 10px;
     display: flex;

@@ -34,6 +34,8 @@
 </template>
 
 <script>
+const eventTypes = ['Svadba','Krstenje', 'Veridba', 'Rodjendan', 'PhotoSession', 'Drugo'];
+
 import { apiFetch, destinationUrl } from '../../services/authFetch';
 import { getUserInfo } from '../../services/contextManagement';
 export default {
@@ -51,15 +53,15 @@ export default {
             .then(result => {
                 if(result.Success) {
                     this.ListaObaveza = result.Data;
-                    console.log(result);
-                //    this.$notify({
-                //         title: 'Success',
-                //         message: 'Uspesno ucitavanje podataka!',
-                //         type: 'success'
-                //         });
+                    this.odrediTipDogadjaja();
                 }
                 else this.$message({message: "Doslo je do greske prilikom ucitavanja zahteva!", type: 'error'})   
                  }).catch(error => {console.log(error)});
+        },
+        odrediTipDogadjaja(){
+            this.ListaObaveza.forEach(element => {
+                element.EventType = eventTypes[element.EventType];
+            })
         }
     },
     beforeMount(){

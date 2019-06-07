@@ -17,14 +17,14 @@
                            style="text-decoration:none; color:white;" href="#">{{item.label}}</a></li>
                         <li v-if="this.type == 'pocetna'"> <el-button type="primary" @click="$emit('login')"> Log in </el-button> </li>
                         <li v-if="this.type == 'korisnik'"> <el-button type="primary" @click="signOut()">Log out </el-button> </li>
-                        <li v-if="this.type == 'pocetna'"> <el-button type="primary" style="margin-left:10px;" @click="$emit('signup')" plain >SIGN UP</el-button></li>
+                        <li v-if="this.type == 'pocetna'"> <el-button type="primary" class="dugme" @click="$emit('signup')" plain >SIGN UP</el-button></li>
                         <li v-if="this.type == 'korisnik'" @click="emitMenuSelect('korpa')">
-                            <el-button type="primary" style="margin-left:10px;" @click="$emit('signup')" plain >
+                            <el-button type="primary" class="dugme" @click="$emit('signup')" plain >
                                 <el-icon class="el-icon-shopping-cart-2"></el-icon>
                             </el-button> 
                         </li>
-                        <li v-if="this.type == 'korisnik'"  @click="emitMenuSelect('profil')"> 
-                            <el-button type="primary" style="margin-left:10px;" @click="$emit('signup')" plain >
+                        <li v-if="this.type == 'korisnik'" @click="emitMenuSelect('profil')"> 
+                            <el-button type="primary" class="dugme" @click="$emit('signup')" plain >
                                 <el-icon class="el-icon-user-solid"></el-icon>
                             </el-button> 
                         </li>
@@ -82,7 +82,7 @@ export default {
         flex-direction: column;
         justify-content: center;
         overflow: hidden;
-        height: 10%;
+        height: 7%;
         background-color: rgba(26, 104, 168, 0.678);
         flex: 0 0 70px;
     }
@@ -115,7 +115,10 @@ export default {
         display: flex;
         width: 80%;
         justify-content: flex-end;
-        align-items:stretch;
+        align-items: stretch;
+    }
+    .dugme{
+        margin-left: 15px;
     }
     .navbar-right-menu{
         display: none;
@@ -145,26 +148,40 @@ export default {
         border-radius: 6px;
     }
 
-    @media screen and (max-width: 640px){
-    .navbar-right{
-        display: none;
-        width:60%;
+    @media screen and (max-width: 995px){
+        .header-container{
+            height: auto;
+        }
+        .container{
+            flex-direction: column;
+            height: 100%;
+        }
+        .navbar-left{
+            width: 100%;
+        }
+        .navbar-right{
+            width: 100%;
+            justify-content: center;
+        }
+        .navbar-right-menu{
+            display: none;
+            flex-direction: row-reverse;
+            width: 100%;
+            margin-left: 10%;
+        }
+        .items{
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0%;
+        }
+        .items > li{
+            margin: 5px 0;
+        }
+        .navbar-item{
+            font-size: 15px;
+            margin-left: 20px;
+        }  
     }
-    .navbar-right-menu{
-        display: block;
-        display: flex;
-        flex-direction: row-reverse;
-        width: 100%;
-        margin-left: 10%;
-    }
-    .navbar-item{
-        font-size: 15px;
-        margin-left: 20px;
-    }
-    .navbar-left{
-        width: 40%;
-    }
-}
 
 </style>
 

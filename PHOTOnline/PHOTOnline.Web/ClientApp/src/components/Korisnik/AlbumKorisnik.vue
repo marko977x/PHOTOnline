@@ -8,7 +8,7 @@
                 placeholder="Unesite šifru albuma">
             </el-input>
             <el-button type="primary" size="mini"  @click="vratiAlbum">Prikaži album</el-button>
-            <el-button type="danger" size="large" @click="dodajUKorpu">Dodaj u korpu </el-button>
+            <el-button type="danger" size="mini" @click="dodajUKorpu">Dodaj u korpu </el-button>
         </div>
         <div class="album-fotografije">
             <fotografija 
@@ -79,37 +79,43 @@ export default {
             this.showPicture = '';
         },
         dodajUKorpu(){
-            if(this.selectedImages == null){
-                this.$message({message: "Morate selektovati bar jednu fotografiju!",type: 'error'})
-                return
-            }
-            console.log(this.selectedImages)
+             if(getUserInfo().userID != null){
+                if(this.selectedImages.length == 0){
+                    this.$message({message: "Morate selektovati bar jednu fotografiju!",type: 'error'})
+                    return
+                }
+                console.log(this.selectedImages)
             
-            const formData = new FormData();
-            formData.append("UserId", getUserInfo().userID);
-            this.selectedImages.forEach((image, index) => {
-                formData.append("CartItems[" + index + "].ProductType", "Fotografija");
-                formData.append("CartItems[" + index + "].Format", image.Format);
-                formData.append("CartItems[" + index + "].Quantity", image.Quantity);
-                formData.append("CartItems[" + index + "].Image.Id", image.Image.Id);
-                formData.append("CartItems[" + index + "].Image.Title", image.Image.Title);
-                formData.append("CartItems[" + index + "].Image.Original.FileId", image.Image.Original.FileId);
-                formData.append("CartItems[" + index + "].Image.Original.Url", image.Image.Original.Url);
-                formData.append("CartItems[" + index + "].Image.Thumbnail.FileId", image.Image.Thumbnail.FileId);
-                formData.append("CartItems[" + index + "].Image.Thumbnail.Url", image.Image.Thumbnail.Url);
-                formData.append("CartItems[" + index + "].Image.Large.FileId", image.Image.Large.FileId);
-                formData.append("CartItems[" + index + "].Image.Large.Url", image.Image.Large.Url);
-                formData.append("CartItems[" + index + "].Image.Medium.FileId", image.Image.Medium.FileId);
-                formData.append("CartItems[" + index + "].Image.Medium.Url", image.Image.Medium.Url);
-                formData.append("CartItems[" + index + "].Image.Small.FileId", image.Image.Small.FileId);
-                formData.append("CartItems[" + index + "].Image.Small.Url", image.Image.Small.Url);
-                formData.append("CartItems[" + index + "].Price", 100);
-            });
+                const formData = new FormData();
+                formData.append("UserId", getUserInfo().userID);
+                this.selectedImages.forEach((image, index) => {
+                    formData.append("CartItems[" + index + "].ProductType", "Fotografija");
+                    formData.append("CartItems[" + index + "].Format", image.Format);
+                    formData.append("CartItems[" + index + "].Quantity", image.Quantity);
+                    formData.append("CartItems[" + index + "].Image.Id", image.Image.Id);
+                    formData.append("CartItems[" + index + "].Image.Title", image.Image.Title);
+                    formData.append("CartItems[" + index + "].Image.Original.FileId", image.Image.Original.FileId);
+                    formData.append("CartItems[" + index + "].Image.Original.Url", image.Image.Original.Url);
+                    formData.append("CartItems[" + index + "].Image.Thumbnail.FileId", image.Image.Thumbnail.FileId);
+                    formData.append("CartItems[" + index + "].Image.Thumbnail.Url", image.Image.Thumbnail.Url);
+                    formData.append("CartItems[" + index + "].Image.Large.FileId", image.Image.Large.FileId);
+                    formData.append("CartItems[" + index + "].Image.Large.Url", image.Image.Large.Url);
+                    formData.append("CartItems[" + index + "].Image.Medium.FileId", image.Image.Medium.FileId);
+                    formData.append("CartItems[" + index + "].Image.Medium.Url", image.Image.Medium.Url);
+                    formData.append("CartItems[" + index + "].Image.Small.FileId", image.Image.Small.FileId);
+                    formData.append("CartItems[" + index + "].Image.Small.Url", image.Image.Small.Url);
+                    formData.append("CartItems[" + index + "].Price", 100);
+                });
 
-            fetch(destinationUrl + "/Cart/AddToCart", {method: 'POST', body: formData})
-                .then(response => response.ok ? response.json() : new Error())
-                .then(result => console.log(result))
-                .catch(error => console.log(error));
+                fetch(destinationUrl + "/Cart/AddToCart", {method: 'POST', body: formData})
+                    .then(response => response.ok ? response.json() : new Error())
+                    .then(result => console.log(result))
+                    .catch(error => console.log(error));
+            }
+            else{
+                this.$message("Da biste naručili fotografije morate se prijaviti ili registrovati.");
+                this.$emit("gotoLogin");
+            }
         }
     }
 }
@@ -132,7 +138,6 @@ export default {
 .el-button{
     margin-right: 10px;
     height: 35px;
-    width: 100px;
 }
 .el-input{
     margin-left: 20px;
@@ -140,8 +145,8 @@ export default {
 .dodavanje{
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    margin-top: 10px;
+    justify-content: center;
+    margin-top: 2%;
 }
 </style>
 

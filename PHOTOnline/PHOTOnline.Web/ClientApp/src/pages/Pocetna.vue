@@ -29,11 +29,11 @@
                 </el-carousel-item>
             </el-carousel> -->
         </div>
-        <album-korisnik v-if="this.showComp == 'albumi'"></album-korisnik>
+        <album-korisnik v-if="this.showComp == 'albumi'" @gotoLogin='logovanje'></album-korisnik>
         <proizvodi v-if="this.showComp == 'proizvodi'"></proizvodi>
         <login v-if="this.showComp == 'login'" @closeLoginForm="signupEnd" @goToSignUpForm="Signup"></login>
         <form-signup v-if="this.showComp == 'signup'" @zavrsiPrijavu="signupEnd" ></form-signup>
-        <footer-bar class="footer" v-if="this.showComp != 'proizvodi'"></footer-bar>
+        <footer-bar></footer-bar>
     </div>
 </template>
 
@@ -139,6 +139,7 @@ export default {
       height: 100%;
       position: absolute;
       flex-direction: column;
+      justify-content: space-between;
       overflow: auto;
       margin-left: auto;
       margin-right: auto;
@@ -196,6 +197,12 @@ export default {
        margin-left:30px;
        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva;
   }
+    @media screen and (max-width: 995px){
+        .main-container{
+            display: -webkit-box;
+        }
+    }
+
   @media screen and (max-width: 800px) {
       .information{
           flex-direction: column;
