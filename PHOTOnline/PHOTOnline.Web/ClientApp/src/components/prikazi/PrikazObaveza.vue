@@ -9,7 +9,7 @@
             <div class="tabela-obaveza-container">
                 <prikaz-obaveza-table></prikaz-obaveza-table>
             </div>
-            <el-button @click="zatvori" type="primary">Zatvori</el-button>
+            <!-- <el-button @click="zatvori" type="primary">Zatvori</el-button> -->
         </div>
     </div>
 </template>
@@ -19,20 +19,6 @@ import PrikazObavezaTable from './PrikazObavezaTable'
 export default {
     data() {
         return{
-            months: [
-                {name: 'Januar'},
-                {name: 'Februar'},
-                {name: 'Mart'},
-                {name: 'April'},
-                {name: 'Maj'},
-                {name: 'Jun'},
-                {name: 'Jul'},
-                {name: 'Avgust'},
-                {name: 'Septembar'},
-                {name: 'Oktobar'},
-                {name: 'Novembar'},
-                {name: 'Decembar'},
-            ],
             broj: 0,
             obaveza: true
         }

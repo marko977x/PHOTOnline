@@ -1,30 +1,39 @@
 <template>
     <div class="main-container">
-        <header-bar @signup="Signup" @login='logovanje' :list="this.menuItems" :korisnik="this.userType"></header-bar>
-        <div class="main">
+        <header-bar @signup="Signup" @login='logovanje' :list="this.menuItems" 
+             @changeView="setComponent($event)" :korisnik="this.userType"></header-bar>
+        <div class="main" v-if="this.showComp == ''">
             <div class="information">
                 <div class="info1">
-                    <h2 id="naslov1">Foto Studio Aritonović</h2>
+                    <!-- <h2 id="naslov1">Foto Studio Aritonović</h2> -->
+                    <el-carousel style=""  class="carousel">
+                        <el-carousel-item v-for="photo in photos" :key="photo">
+                        <img :src="photo"/>
+                        </el-carousel-item>
+                    </el-carousel>
                 </div>
                 <div class="info2">
                     <h3  style="text-align:center;">Foto Studio Aritonović</h3>
-                    <p style="font-family:sans-serif; font-size:18px;">Fotografska radnja Foto Aritonović osnovana je 1991 godine u Zitkovcu
+                    <p style="font-family:sans-serif; font-size:16px;">Fotografska radnja Foto Aritonović osnovana je 1991 godine u Zitkovcu
                         , malom mestu blizu Aleksinca sa ciljem da zabelezi najepse trenutke života naših mušterija sa poverenjem
                         dužim od 20 godina. Profesionalna fotografisanja i snimanja svih vrsta proslava. 
                     </p>
                     <narucivanje-fotografija
-                         style="height:100px; width:100%; margin:0px; margin-top:10px; font-size:10px;"></narucivanje-fotografija>
+                         style="height:100px; width:100%; margin:0px; margin-top:10px; font-size:10px;">
+                    </narucivanje-fotografija>
                 </div>
             </div>
-            <el-carousel style=""  class="carousel">
+            <!-- <el-carousel style=""  class="carousel">
                 <el-carousel-item v-for="photo in photos" :key="photo">
                 <img :src="photo"/>
                 </el-carousel-item>
-            </el-carousel>
+            </el-carousel> -->
         </div>
+        <album-korisnik v-if="this.showComp == 'albumi'"></album-korisnik>
+        <proizvodi v-if="this.showComp == 'proizvodi'"></proizvodi>
         <login v-if="this.showComp == 'login'" @closeLoginForm="signupEnd" @goToSignUpForm="Signup"></login>
         <form-signup v-if="this.showComp == 'signup'" @zavrsiPrijavu="signupEnd" ></form-signup>
-        <footer-bar class="footer"></footer-bar>
+        <footer-bar class="footer" v-if="this.showComp != 'proizvodi'"></footer-bar>
     </div>
 </template>
 
@@ -33,6 +42,8 @@
  import FooterBar from '../components/appBar/FooterBar.vue'
  import Login from "../components/forme/Login.vue"
  import FormSignup from "../components/forme/FormSignup.vue"
+ import AlbumKorisnik from "../components/Korisnik/AlbumKorisnik.vue"
+ import Proizvodi from "../components/Korisnik/Proizvodi.vue"
  import slika1 from "../assets/pictures/p1.jpg"
 import slika2 from "../assets/pictures/p2.jpg"
 import slika3 from "../assets/pictures/p3.jpg"
@@ -42,7 +53,8 @@ import slika4 from "../assets/pictures/p4.jpg"
 import { setPageShown } from '../services/contextManagement';
  
 export default {
-    components: { HeaderBar, FooterBar, Login, FormSignup, NarucivanjeFotografija },
+    components: { HeaderBar, FooterBar, Login, FormSignup, NarucivanjeFotografija,
+                AlbumKorisnik, Proizvodi },
     data() {
         return {
             photos:[
@@ -59,22 +71,20 @@ export default {
                     key: 1,
                     label: 'Zakazivanja',
                     index: 'zakazivanja'
-                    // dodaj sliku!
                 },
                 {
                     key:2,
                     label: 'Albumi',
                     index: 'albumi'
-                    //slika!
                 },
                 {
                     key:3,
                     label: 'Proizvodi',
                     index: 'proizvodi'
-                    //slika!
                 }
             ],
-            userType: 'pocetna'
+            userType: 'pocetna',
+            showComp: ''
         }
     },
     methods: {
@@ -87,6 +97,10 @@ export default {
         signupEnd: function(){
             this.showComp = ''
             setPageShown('')
+        },
+         setComponent(component){
+             if(component == 'zakazivanja') this.showComp = 'login'
+             else  this.showComp = component;
         }
     }
 }
@@ -94,7 +108,6 @@ export default {
 
 <style scoped>
     .el-carousel__item h3 {
-    color: #475669;
     font-size: 18px;
     opacity: 0.75;
     line-height: 500px;
@@ -112,12 +125,12 @@ export default {
 }
   .el-carousel__item:nth-child(n) {
     background-color: #99a9bf;
-    height: 890px;
+    height: 620px;
   }
   .carousel{
-      height: 900px;
-      width: 90%;
-      margin-left: 100px;
+      height: 630px;
+      width: 100%;
+      margin-left: 50px;
       border-radius: 5px;
   }
   .main-container{
@@ -150,24 +163,29 @@ export default {
       height: 870px;
       display: flex;
       flex-direction: row;
-      padding: 50px;
+      padding-right: 30px;
+      padding-top: 20px;
   }
   .info1{
-      width: 50%;
+      width: 80%;
       align-items: center;
       justify-content: center;
       display: flex;
       font-family: sans-serif;
-      margin-left: 50px;
+      margin-left: 20px;
   }
   .info2{
       width: 40%;
+      height: 73%;
       padding: 60px 60px 60px;
+      padding-top: 80px;
+      margin-top: 110px;
+      justify-content: center;
       margin-bottom: 70px;
       margin-left: 100px;
       background-color: rgba(231, 231, 236, 0.801);
       border-radius: 8px;
-      transition-duration: 1000ms;
+      transition-duration: 500ms;
   }
   .info2:hover{
        background-color: rgb(231, 231, 236);
@@ -178,7 +196,7 @@ export default {
        margin-left:30px;
        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva;
   }
-  @media screen and (max-width: 1100px) {
+  @media screen and (max-width: 800px) {
       .information{
           flex-direction: column;
           height: 800px;
@@ -206,9 +224,16 @@ export default {
           justify-content: center;
       }
       .carousel{
-          width: 100%;
-          margin: 0;
+        height: 350px;
+        width: 100%;
+        margin-left: 0px;
+        margin-bottom: 20px;
+        border-radius: 5px;
       }
+      .el-carousel__item:nth-child(n) {
+            background-color: #99a9bf;
+            height: 340px;
+        }
       @media screen and (max-width: 390px){
           #naslov1{
               font-size: 50px;

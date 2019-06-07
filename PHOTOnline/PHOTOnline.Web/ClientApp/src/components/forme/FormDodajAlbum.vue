@@ -7,8 +7,7 @@
             </div>
             <div class="stavka">
                 <label>Datum:</label>
-                
-                    <el-date-picker class="picker" v-model="album.Date" type="datetime" placeholder="Izaberi dan">
+                    <el-date-picker class="picker" v-model="album.Date" type="date" placeholder="Izaberi dan">
                     </el-date-picker>
               
             </div>
