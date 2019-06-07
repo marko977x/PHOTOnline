@@ -14,7 +14,6 @@
                 </div>
             </div>
             <div class="right">
-                <el-button type="primary" size="mini" style="height:35px; font-family:sans-serif;" class="el-icon-download"> Download album</el-button>
                 <el-button type="danger" size="mini" class="el-icon-delete"
                     style="margin-right: 5%; margin-left: 5%; height:35px; font-family:sans-serif;"
                     @click="deleteAlbum"> Obriši Album
