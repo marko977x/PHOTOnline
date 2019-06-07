@@ -5,11 +5,10 @@
         @changeView="setComponent($event)">
     </header-bar>
     <zakazivanja-korisnik v-if="this.showComp == 'zakazivanja'" ></zakazivanja-korisnik>
-    <prikaz-profila v-if="this.showComp == 'profil'" ></prikaz-profila>
+    <user-sidebar v-if="this.showComp == 'profil'" ></user-sidebar>
     <album-korisnik v-if="this.showComp == 'albumi'"></album-korisnik>
     <korpa-korisnik v-if="this.showComp == 'korpa'" ></korpa-korisnik>
     <proizvodi v-if="this.showComp == 'proizvodi'"></proizvodi>
-    <!-- <footer-bar></footer-bar> -->
 </div>
 </template>
 
@@ -18,7 +17,7 @@ import CustomBar from "../components/CustomBar.vue"
 import HeaderBar from "../components/appBar/HeaderBar.vue"
 import FooterBar from "../components/appBar/FooterBar.vue"
 import ZakazivanjaKorisnik  from "../components/Korisnik/ZakazivanjaKorisnik.vue"
-import PrikazProfila from "../components/Korisnik/PrikazProfila.vue"
+import UserSidebar from "../components/Korisnik/sidebar/UserSidebar.vue"
 import AlbumKorisnik from "../components/Korisnik/AlbumKorisnik.vue"
 import KorpaKorisnik from "../components/Korisnik/KorpaKorisnik.vue"
 import Proizvodi from "../components/Korisnik/Proizvodi.vue"
@@ -26,7 +25,7 @@ import { setPageShown } from '../services/contextManagement';
 
 export default {
     components: {CustomBar, ZakazivanjaKorisnik,
-    PrikazProfila, AlbumKorisnik, KorpaKorisnik, 
+    UserSidebar, AlbumKorisnik, KorpaKorisnik, 
     HeaderBar, Proizvodi, FooterBar},
     data() {
         return {
