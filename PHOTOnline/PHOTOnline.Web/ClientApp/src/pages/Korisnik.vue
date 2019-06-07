@@ -47,7 +47,7 @@ export default {
                     index: 'proizvodi'
                 }
             ],
-            showComp: 'zakazivanja',
+            showComp: 'profil',
             userType: 'korisnik'
         }
     },
