@@ -2,9 +2,9 @@
     <div class="foto-container">
         <div class="foto-background"></div>
             <custom-bar :list="this.menuItems"  @changeView="setComponent($event)">
-            <dodavanje-albuma @zavrsenoDodavanje="this.zavrsiDodavanje" v-if="showComp === 'dodajalbum'"></dodavanje-albuma>
-            <prikaz-obaveza v-if="this.showComp === 'raspored'"  @editFinished="this.zavrsiDodavanje"></prikaz-obaveza>
-            <pocetna-strana hidden></pocetna-strana>
+            <dodavanje-albuma @zavrsenoDodavanje="this.zavrsiDodavanje" v-if="showComp == 'dodajalbum'"></dodavanje-albuma>
+            <prikaz-obaveza v-if="this.showComp == 'raspored'"  @editFinished="this.zavrsiDodavanje"></prikaz-obaveza>
+            <pocetna-strana v-if="this.showComp == 'pocetna'"></pocetna-strana>
             </custom-bar>
     </div>
 </template>
@@ -38,8 +38,7 @@ export default {
                     slika: 'zakazivanje.png'
                 }
             ],
-            showComp: 'raspored',
-            userID: -1,
+            showComp: 'pocetna',
             userType: 'fotograf'
         }
     },
@@ -59,18 +58,12 @@ export default {
                 setPageShown(this.showComp)
         },
         zavrsiDodavanje(){
-            this.showComp = ''
+            this.showComp = 'raspored'
             setPageShown('')
         }
     },
     beforeMount(){
-       var index = getPageToShow().page
-       this.userID = getUserInfo().userID
-       if(index != null){
-           this.showComp = index;
-           return;
-       }
-       this.showComp = ''
+       this.showComp = 'raspored'
     }
 }
 </script>

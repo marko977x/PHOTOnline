@@ -4,10 +4,10 @@
             <filter-clanova hidden></filter-clanova>
             <h5 style="text-align:center; font-family:sans-serif;"> Evidencija članova </h5>
             <el-table :data="tableData.filter(data => !search || data.FirstName.toLowerCase().includes(search.toLowerCase()))">
-                <el-table-column prop="FirstName" label="Ime" class="table-column"></el-table-column>
-                <el-table-column prop="LastName" label="Prezime" class="table-column"></el-table-column>
-                <el-table-column prop="UserType" label="Tip" class="table-column"></el-table-column>
-                <el-table-column prop="UserName" label="Username" class="table-column"></el-table-column>
+                <el-table-column prop="FirstName" label="Ime" class="table-column" width="250px"></el-table-column>
+                <el-table-column prop="LastName" label="Prezime" class="table-column"  width="250px"></el-table-column>
+                <el-table-column prop="UserType" label="Tip" class="table-column"  width="250px"></el-table-column>
+                <el-table-column prop="UserName" label="Username" class="table-column"  width="200px"></el-table-column>
                 <el-table-column align="right">
                     <template slot="header" slot-scope="scope">
                         <el-input v-model="search" style="margin: 0;" size="big" placeholder="Ime za pretragu" :focus="scope.search">
@@ -15,7 +15,7 @@
                     </template>
                     <template slot-scope="scope">
                         <el-button size="mini" type="danger" @click="deleteUser(scope.row.Id)">
-                            Otpusti
+                            Obriši
                         </el-button>
                     </template>
                 </el-table-column>
@@ -49,6 +49,7 @@ import { apiFetch, destinationUrl, UserTypes } from '../services/authFetch';
             dodajClana: function () {
                 this.showComp = 'album';
                 setPageShown('album');
+                console.log(this.tableData);
             },
             handleEdit(index, row) {
                 console.log(index);
