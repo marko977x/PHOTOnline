@@ -2,13 +2,12 @@
     <div class="album-container">
         <div class="info">
             <label style="font-size:12px;">{{Album.Date}}</label>
-            <label style="font-size:12px;">{{Album.Location}}</label>
-            <h5 style="font-family:sans-serif; font-size:16px; text-align:center; margin-top:30px;">
-                {{Album.Title}}</h5>
+            <label style="font-size:12px; margin-left: 7%;">{{Album.Location}}</label>
+            <h5 style="font-family:sans-serif; font-size:16px; text-align:center; margin-top:30px; font-family: Arial,Gadget, sans-serif; font-weight: bold;">{{Album.Title}}</h5>
         </div>
         <el-button 
             type="primary" size="mini" 
-            style="width:140px; position:bottom; border-radius:10px;" 
+            style="width:130px; margin-left:5.5px; position:bottom; border-radius:10px;" 
             @click="$emit('otvorialbum')"> Otvori </el-button>
     </div>
 </template>

@@ -27,7 +27,7 @@
                     class="table-column">
             </el-table-column>
             <el-table-column align="right">
-                <template slot="">
+                <template slot-scope="">
                     <el-button type="danger" icon="el-icon-delete" circle size="mini"
                         @click="$event('obrisiNarudzbinu')"></el-button>
                 </template>
