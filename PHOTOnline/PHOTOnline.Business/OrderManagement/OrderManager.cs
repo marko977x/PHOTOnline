@@ -23,6 +23,39 @@ namespace PHOTOnline.Business.OrderManagement
             _userRepository = userRepository;
         }
 
+        public async Task<Result<List<OrderOutput>>> GetAllOrders()
+        {
+            List<Order> orders = await _orderRepository.GetAllOrders();
+            if (orders.Count == 0)
+                return new Result<List<OrderOutput>>()
+                {
+                    Success = true,
+                    Data = new List<OrderOutput>()
+                };
+
+            List<PHOTOnlineUser> users = await _userRepository.GetAllUsers();
+            List<OrderOutput> result = new List<OrderOutput>();
+
+            orders.ForEach(order =>
+            {
+                PHOTOnlineUser user = users.Find(element => element.Id == order.UserId);
+                result.Add(new OrderOutput()
+                {
+                    Order = order,
+                    Address = user.Address,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    PhoneNumber = user.PhoneNumber
+                });
+            });
+
+            return new Result<List<OrderOutput>>()
+            {
+                Success = true,
+                Data = result
+            };
+        }
+
         public async Task<Result<List<OrderOutput>>> GetAllOrdersByUserIdAsync(string userId)
         {
             List<Order> orders = await _orderRepository.GetOrdersByUserId(userId);

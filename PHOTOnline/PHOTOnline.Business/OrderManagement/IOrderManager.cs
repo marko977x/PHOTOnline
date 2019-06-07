@@ -1,10 +1,7 @@
-﻿using Domain.Entities;
-using PhotoLine.Domain.Interop;
+﻿using PhotoLine.Domain.Interop;
 using PHOTOnline.Business.OrderManagement.Input;
 using PHOTOnline.Business.OrderManagement.Output;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PHOTOnline.Business.OrderManagement
@@ -15,5 +12,6 @@ namespace PHOTOnline.Business.OrderManagement
         Task<Result<OrderOutput>> GetOrderById(string orderId);
         Task<Result> UpdateOrderState(UpdateOrderStateInput input);
         Task<Result<List<OrderOutput>>> GetAllOrdersByUserIdAsync(string userId);
+        Task<Result<List<OrderOutput>>> GetAllOrders();
     }
 }

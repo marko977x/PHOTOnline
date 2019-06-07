@@ -48,11 +48,9 @@ namespace PHOTOnline.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllOrders()
         {
-            return Ok(new Result<List<Order>>()
-            {
-                Success = true,
-                Data = await _orderRepository.GetAllOrders()
-            });
+            Result<List<OrderOutput>> result = await _orderManager.GetAllOrders();
+            if (result.Success) return Ok(result);
+            else return BadRequest(result);
         }
 
         [HttpPost]
