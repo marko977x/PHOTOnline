@@ -18,7 +18,7 @@ namespace PHOTOnline.Services.Repositories.Products
         public async Task<List<Product>> GetAllProductsOfTypeAsync(string type)
         {
             var filter = Builders<Product>.Filter.Eq(
-                product => product.ProductCategory, type);
+                product => product.ProductType, type);
             return await (await Collection.FindAsync(filter)).ToListAsync();
         }
     }
