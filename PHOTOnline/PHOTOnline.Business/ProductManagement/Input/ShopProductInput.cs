@@ -10,5 +10,6 @@ namespace PHOTOnline.Business.ProductManagement.Input
         public string Size { get; set; }
         public string Description { get; set; }
         public string ProductType { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

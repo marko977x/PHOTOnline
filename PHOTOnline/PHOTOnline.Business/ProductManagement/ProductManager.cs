@@ -27,7 +27,8 @@ namespace PHOTOnline.Business.ProductManagement
                 Price = input.Price,
                 Description = input.Description,
                 Size = input.Size,
-                ProductType = input.ProductType
+                ProductType = input.ProductType,
+                ImageUrl = input.ImageUrl
             };
 
             return new Result<string>()
