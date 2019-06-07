@@ -2,7 +2,8 @@
 {
     public enum ErrorCode
     {
-        EmailTaken = 1,
-        UnacceptableContentType
+        EmailTaken = 0,
+        UnacceptableContentType = 1,
+        WrongOldPassword = 2
     }
 }

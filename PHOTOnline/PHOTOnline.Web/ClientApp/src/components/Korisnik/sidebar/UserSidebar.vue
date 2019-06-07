@@ -2,8 +2,8 @@
          <div class="profil-container">
              <side-bar-profil @changeView="setComponent($event)" :list="this.menuItems" />
              <div class="container">
-                <user-profile-info v-if="this.showComp == 'profil'" />
-                <!-- <form-zakazivanja v-if="this.showComp == 'zakazivanja'" /> -->
+                <user-profile-info-page v-if="this.showComp == 'profil'" />
+                <user-requests v-if="this.showComp == 'zakazivanja'" />
              </div>
         </div>
 </template>
@@ -11,14 +11,14 @@
 <script>
 import FooterBar from "../../appBar/FooterBar.vue";
 import SideBarProfil from "../../appBar/SideBarProfil.vue";
-import FormZakazivanja from "../FormZakazivanja.vue";
 import PromenaLozinke from "../../forme/PromenaLozinke.vue";
 import {getUserInfo} from "../../../services/contextManagement.js";
 import {destinationUrl} from "../../../services/authFetch.js";
-import UserProfileInfo from "./containers/UserProfileInfo.vue";
+import UserProfileInfoPage from "./containers/UserProfileInfo/UserProfileInfoPage.vue";
+import UserRequests from "./containers/UserRequests.vue";
 export default {
     components: {
-        FooterBar, SideBarProfil, FormZakazivanja, PromenaLozinke, UserProfileInfo
+        FooterBar, SideBarProfil, UserRequests, PromenaLozinke, UserProfileInfoPage
     },
     data() {
         return{

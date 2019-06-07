@@ -69,6 +69,10 @@ namespace Business.UserManagement
                 input.NewAddress, input.NewPhoneNumber);
         }
 
-
+        public async Task<Result> UpdatePassword(UpdatePasswordInput input)
+        {
+            return await _authService.UpdatePassword(input.UserId,
+                input.OldPassword, input.NewPassword);
+        }
     }
 }

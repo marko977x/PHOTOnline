@@ -13,5 +13,6 @@ namespace Business.UserManagement
         Task<Result<string>> CreateUserAsync(CreateUserInput input);
         Task<Result<string>> CreatePhotographAsync(CreatePhotographInput input);
         Task<Result> UpdateCredentials(UpdateCredentialsInput input);
+        Task<Result> UpdatePassword(UpdatePasswordInput input);
     }
 }

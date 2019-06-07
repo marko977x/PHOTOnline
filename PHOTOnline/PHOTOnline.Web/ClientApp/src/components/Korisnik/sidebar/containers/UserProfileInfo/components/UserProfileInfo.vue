@@ -29,16 +29,21 @@
             <label>{{user.PhoneNumber}}</label>
         </div>
         <div class="dugme">
-            <el-button class="dugme-lozinka" type="primary"> Promeni Lozinku</el-button>
+            <el-button
+                class="dugme-lozinka" 
+                type="primary"
+                @click="() => $emit('openChangePasswordForm')"> 
+                Promeni Lozinku
+            </el-button>
         </div>
     </div>
 </template>
 
 <script>
 
-import profileAvatar from "../../../../assets/profile_avatar.png";
-import { getUserInfo } from '../../../../services/contextManagement';
-import { destinationUrl } from '../../../../services/authFetch';
+import profileAvatar from "../../../../../../assets/profile_avatar.png";
+import { getUserInfo } from '../../../../../../services/contextManagement';
+import { destinationUrl } from '../../../../../../services/authFetch';
 
 export default {
     data() {
@@ -62,12 +67,12 @@ export default {
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {
                     console.log(result)
-                    this.user.FirstName = result.Data.FirstName
-                    this.user.LastName = result.Data.LastName
-                    this.user.Email = result.Data.Email
-                    this.user.Password = "*****"
-                    this.user.Adress = result.Data.Address
-                    this.user.PhoneNumber = result.Data.PhoneNumber
+                    this.user.FirstName = result.Data.FirstName;
+                    this.user.LastName = result.Data.LastName;
+                    this.user.Email = result.Data.Email;
+                    this.user.Password = "*****";
+                    this.user.Adress = result.Data.Address;
+                    this.user.PhoneNumber = result.Data.PhoneNumber;
                 })
         }
     },
@@ -95,8 +100,8 @@ export default {
 }
 
 .profil-card {
+    width: 100%;
     padding: 1em;
-    width: 60%;
     height: 95%;
     margin-top: 3vh;
     background: rgba(240, 240, 255, 0.8);

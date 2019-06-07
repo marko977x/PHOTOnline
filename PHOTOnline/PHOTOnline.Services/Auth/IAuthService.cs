@@ -16,5 +16,6 @@ namespace PHOTOnline.Services.Auth
         Task<Result> AddUserToRoleByEmail(string email, string roleName);
         Task<Result<SignInOutput>> SignInAsync(string email, string password);
         Task<Result> SignOutAsync();
+        Task<Result> UpdatePassword(string userId, string oldPassword, string newPassword);
     }
 }

@@ -64,6 +64,31 @@ namespace PHOTOnline.Services.Auth
             return new Result() { Success = passwordResult.Succeeded };
         }
 
+        public async Task<Result> UpdatePassword(
+            string userId, string oldPassword, string newPassword)
+        {
+            PHOTOnlineUser user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null) return new Result() { Success = false };
+
+            bool checkPassword = await _userManager
+                .CheckPasswordAsync(user, oldPassword);
+
+            if (!checkPassword) return new Result()
+            {
+                Success = false,
+                Errors = new List<Error>() { new Error(ErrorCode.WrongOldPassword) }
+            };
+
+            string passwordToken = await _userManager
+                .GeneratePasswordResetTokenAsync(user);
+
+            IdentityResult passwordResult = await _userManager.ResetPasswordAsync(
+                user, passwordToken, newPassword);
+
+            return new Result() { Success = passwordResult.Succeeded };
+        }
+
         public async Task<Result> AddUserToRoleAsync(PHOTOnlineUser user, string roleName)
         {
             IdentityRole role = await _roleManager.FindByNameAsync(roleName);

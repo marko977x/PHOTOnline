@@ -58,6 +58,14 @@ namespace PHOTOnline.Web.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> ResetPassword([FromForm]UpdatePasswordInput input)
+        {
+            Result result = await _userAccount.UpdatePassword(input);
+            if (result.Success) return Ok(result);
+            else return BadRequest(result);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> DeleteUserById(string id)
         {
             Result result = await _authService.DeleteUser(id);
