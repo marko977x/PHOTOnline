@@ -7,7 +7,9 @@
             </div>
             <div class="divOpcija">
                 <label>Datum:</label>
-                <el-input :disabled="false" :value="this.date" v-model="this.date" placeholder="Izaberite datum iz kalendara">{}</el-input>
+                <el-input 
+                    :disabled="false" :value="this.date" readonly
+                    v-model="this.date" placeholder="Izaberite datum iz kalendara">{}</el-input>
             </div>
             <div class="divOpcija">
                 <label>Dodatni zahtevi:</label>
@@ -35,6 +37,7 @@
 import { apiFetch, destinationUrl } from '../../services/authFetch';
 import { constants } from 'fs';
 import { getUserInfo } from '../../services/contextManagement';
+import { ERRORS } from '../../data/errorsCode';
 export default {
     data(){
         return{
@@ -71,38 +74,39 @@ export default {
     props: {date:String},
     watch:{
         date: function(pom){
-            this.Date = pom
+            this.podaciZakazi.Date = pom
         }
     },
     methods: {
         validacija(){
-            if(this.podaciZakazi.Location === '' || this.podaciZakazi.Date === '' || this.podaciZakazi.EventType === ''
-                 || this.podaciZakazi.Time === ''){
+            if(this.podaciZakazi.Location == '' || this.podaciZakazi.Date == '' || this.podaciZakazi.EventType == ''
+                 || this.podaciZakazi.Time == ''){
                 this.$message({message: "Morate popuniti sva polja!", type:'warning' })
                 return false
             }
             return true
         },
         proslediZahtev() {
-            //  if(!this.validacija())
-                //  return
-            console.log(this.podaciZakazi);
+             if(!this.validacija())
+                 return
 
             this.podaciZakazi.Date = this.date;
             this.podaciZakazi.FirstName = this.user.FirstName;
             this.podaciZakazi.LastName = this.user.LastName;
             this.podaciZakazi.UserId = getUserInfo().userID;
-            console.log(this.podaciZakazi)
-                apiFetch('POST', destinationUrl + "/Request/CreateRequest", this.podaciZakazi)
-                .then(result => {
-                    if(result.Success){
-                       this.$message({message: "Uspesno ste zakazali termin.", type: 'success'});
-                    }
-                    else this.$message("Doslo je do greske!");
-                    console.log(result)
-                }).catch(error => {
-                    console.log(error);
-                });
+            apiFetch('POST', destinationUrl + "/Request/CreateRequest", this.podaciZakazi)
+            .then(result => {
+                if(result.Success){
+                    this.$message({message: "Uspesno ste zakazali termin.", type: 'success'});
+                }
+                else if(result.Errors != null) {
+                    result.Errors.forEach(error => {
+                        this.$message({message: ERRORS[error.Code], type: "warning"});
+                    })
+                }
+            }).catch(error => {
+                console.log(error);
+            });
 
 
         },

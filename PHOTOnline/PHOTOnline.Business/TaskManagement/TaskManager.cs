@@ -7,6 +7,8 @@ using PhotoLine.Domain.Interop;
 using PHOTOnline.Business.TaskManagement.Input;
 using PHOTOnline.Services.Repositories.Requests;
 using PHOTOnline.Services.Repositories.Tasks;
+using System.Linq;
+using PhotoLine.Domain.Errors;
 
 namespace PHOTOnline.Business.TaskManagement
 {
@@ -44,6 +46,15 @@ namespace PHOTOnline.Business.TaskManagement
 
         public async System.Threading.Tasks.Task<Result> AssignTask(AssignTaskInput input)
         {
+            List<Task> tasks = await _taskRepository.GetAllTasksByUserId(input.PhotographId);
+            if (tasks.Find(item => item.Date == input.Date) != null)
+            {
+                return new Result()
+                {
+                    Success = false,
+                    Errors = new List<Error>() { new Error(ErrorCode.PhotographIsNotAvailable) }
+                };
+            }
             Task task = new Task()
             {
                 Date = input.Date,

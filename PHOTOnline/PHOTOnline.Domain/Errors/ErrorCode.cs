@@ -4,6 +4,7 @@
     {
         EmailTaken = 0,
         UnacceptableContentType = 1,
-        WrongOldPassword = 2
+        WrongOldPassword = 2,
+        PhotographIsNotAvailable = 3
     }
 }
