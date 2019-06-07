@@ -1,4 +1,5 @@
 ﻿using PhotoLine.Domain.Errors;
+using System;
 using System.Collections.Generic;
 
 namespace PhotoLine.Domain.Interop

@@ -16,7 +16,7 @@ namespace PHOTOnline.Services.Repositories.Orders
             MongoDatabase database,
             ILogger<MongoRepository<Order>> logger) : base(database, logger) { }
 
-        public override string CollectionName => "Product";
+        public override string CollectionName => "Order";
 
         public async System.Threading.Tasks.Task DeleteCompleted()
         {

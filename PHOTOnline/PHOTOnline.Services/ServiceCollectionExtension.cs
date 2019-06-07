@@ -18,7 +18,7 @@ namespace PHOTOnline.Services
         {
             services.AddSingleton<IProductRepository, ProductRepository>();
             services.AddSingleton<IAlbumRepository, AlbumRepository>();
-            services.AddSingleton<OrderRepository, OrderRepository>();
+            services.AddSingleton<IOrderRepository, OrderRepository>();
             services.AddSingleton<IRequestRepository, RequestRepository>();
             services.AddSingleton<ITaskRepository, TaskRepository>();
             services.AddSingleton<IUploadedFilesRepository, UploadedFilesRepository>();

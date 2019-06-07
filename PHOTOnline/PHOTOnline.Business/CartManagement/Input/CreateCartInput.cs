@@ -10,6 +10,17 @@ namespace PHOTOnline.Business.CartManagement.Input
     public class CreateCartInput
     {
         public string UserId { get; set; }
-        public List<CartItem> CartItems { get; set; }
+        public List<CartItemInput> CartItems { get; set; }
+    }
+
+    public class CartItemInput
+    {
+        public string ProductType { get; set; }
+        public Image Image { get; set; }
+        public int Quantity { get; set; }
+        public string Format { get; set; }
+        public float Price { get; set; }
     }
 }
+
+

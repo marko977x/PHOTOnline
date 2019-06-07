@@ -69,7 +69,7 @@ export default {
         },
         removeImageFromSelected(image) {
             this.selectedImages = this.selectedImages
-                .filter(item => item.image.Id != image.Id);
+                .filter(item => item.Image.Id != image.Id);
         },
         prikazi(photo){
             this.photo = photo;
@@ -103,6 +103,7 @@ export default {
                 formData.append("CartItems[" + index + "].Image.Medium.Url", image.Image.Medium.Url);
                 formData.append("CartItems[" + index + "].Image.Small.FileId", image.Image.Small.FileId);
                 formData.append("CartItems[" + index + "].Image.Small.Url", image.Image.Small.Url);
+                formData.append("CartItems[" + index + "].Price", 100);
             });
 
             fetch(destinationUrl + "/Cart/AddToCart", {method: 'POST', body: formData})

@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.Business.OrderManagement;
 using PHOTOnline.Business.OrderManagement.Input;
+using PHOTOnline.Business.OrderManagement.Output;
 using PHOTOnline.Services.Repositories.Orders;
 
 namespace PHOTOnline.Web.Controllers
 {
     [Route("api/[controller]/[action]")]
-    [ApiController]
     public class OrderController : Controller
     {
         private IOrderManager _orderManager;
@@ -28,7 +28,7 @@ namespace PHOTOnline.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PerformOrder([FromBody]PerformOrderInput input)
+        public async Task<IActionResult> PerformOrder([FromForm]PerformOrderInput input)
         {
             Result<string> result = await _orderManager.PerformOrderAsync(input);
 
@@ -39,7 +39,7 @@ namespace PHOTOnline.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrderById(string orderId)
         {
-            Result<Order> result = await _orderManager.GetOrderById(orderId);
+            Result<OrderOutput> result = await _orderManager.GetOrderById(orderId);
 
             if (result.Success) return Ok(result);
             else return BadRequest(result);
@@ -65,11 +65,11 @@ namespace PHOTOnline.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrdersByUserId(string userId)
         {
-            return Ok(new Result<List<Order>>()
-            {
-                Data = await _orderRepository.GetOrdersByUserId(userId),
-                Success = true
-            });
+            Result<List<OrderOutput>> result =
+                await _orderManager.GetAllOrdersByUserIdAsync(userId);
+
+            if (result.Success) return Ok(result);
+            else return BadRequest(result);
         }
 
         [HttpPost]

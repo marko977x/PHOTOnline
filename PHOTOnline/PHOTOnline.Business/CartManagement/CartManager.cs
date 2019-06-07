@@ -31,10 +31,25 @@ namespace PHOTOnline.Business.CartManagement
 
             if (cart == null)
             {
+                List<CartItem> cartItems = new List<CartItem>();
+                input.CartItems.ForEach(item =>
+                {
+                    cartItems.Add(new CartItem()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        Image = item.Image,
+                        ProductType = item.ProductType,
+                        Format = item.Format,
+                        Quantity = item.Quantity,
+                        Price = item.Price
+                    });
+                });
+
                 cart = new Cart()
                 {
                     UserId = input.UserId,
-                    CartItems = input.CartItems
+                    CartItems = cartItems,
+                    Price = CalculateCartPrice(cartItems)
                 };
 
                 return new Result<string>()
@@ -45,7 +60,17 @@ namespace PHOTOnline.Business.CartManagement
             }
             else
             {
-                input.CartItems.ForEach(item => cart.CartItems.Add(item));
+                input.CartItems.ForEach(item => cart.CartItems.Add(new CartItem()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Image = item.Image,
+                    ProductType = item.ProductType,
+                    Format = item.Format,
+                    Quantity = item.Quantity,
+                    Price = item.Price
+                }));
+
+                cart.Price = CalculateCartPrice(cart.CartItems);
 
                 await _cartRepository.UpdateAsync(cart);
 
@@ -74,12 +99,23 @@ namespace PHOTOnline.Business.CartManagement
             {
                 await _uploadedFilesRepository.DeleteAsync(cartItem.Image.Id);
                 cart.CartItems.Remove(cartItem);
+                await _cartRepository.UpdateAsync(cart);
             }
 
             return new Result()
             {
                 Success = true
             };
+        }
+
+        private float CalculateCartPrice(List<CartItem> cartItems)
+        {
+            float result = 0;
+            cartItems.ForEach(item =>
+            {
+                result += item.Price;
+            });
+            return result;
         }
     }
 }

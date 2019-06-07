@@ -9,5 +9,6 @@ namespace PHOTOnline.Domain.Entities
         public string Id { get; set; }
         public string UserId { get; set; }
         public List<CartItem> CartItems { get; set; }
+        public float Price { get; set; }
     }
 }
