@@ -40,47 +40,25 @@
             }
         },
         methods: {
-            prihvatiUnosForme: async function() {
-                console.log(this.proizvod);
-                const formData = new FormData();
-                formData.append("Title", this.proizvod.Title);
-                formData.append("Price", this.proizvod.Price);
-                formData.append("Size", this.proizvod.Size);
-                formData.append("Description", this.proizvod.Description);
-                formData.append("ProductType", this.proizvod.ProductType);
-                formData.append("ImageUrl", this.proizvod.ImageUrl);
-                console.log(formData);
-                fetch(destinationUrl + "/Product/AddShopProduct", {
-                    body: formData,
-                    method: 'POST'
-                })
-                .then(response => response.json())
-                .then(
-                    () => this.$emit("zatvoriDodavanjeProizvoda")
-                )
-                .catch(error => console.log(error));
-
-                /*
+            prihvatiUnosForme() {
                 apiFetch('POST', destinationUrl + "/Product/AddShopProduct", this.proizvod)
                     .then(result => {
                         this.$message("Uspesno ste dodali novi proizvod!");
                         this.$emit("zatvoriDodavanjeProizvoda");
                     }).catch(error => {
                         console.log(error);
-                    });*/
+                    });
             },
             uploadImages(event) {
-                /*for(let index = 0; index < event.target.files.length; index++) {
-                    const formData = new FormData();
-                    formData.append("image", event.target.files[index]);
-                    fetch(destinationUrl + "/Image/UploadImage", {method: 'POST', body: formData})
-                        .then(response => {
-                            return response.ok ? response.json() : new Error();
-                        }).then(result => {
-                            console.log(result.Data);
-                            this.album.Images.push(result.Data.Image);
-                        }).catch(error => {console.log(error)});
-                }*/
+                const formData = new FormData();
+                formData.append("image", event.target.files[0]);
+                fetch(destinationUrl + "/Image/UploadImage", {method: 'POST', body: formData})
+                    .then(response => {
+                        return response.ok ? response.json() : new Error();
+                    }).then(result => {
+                        console.log(result.Data);
+                        this.proizvod.ImageUrl = result.Data.Image.Small.Url;
+                    }).catch(error => {console.log(error)});
             }
         }
     }

@@ -3,10 +3,10 @@
         <div class="proizvodi-container-inner">
             <h5 style="text-align:center; font-family:sans-serif;"> Lista proizvoda </h5>
             <el-table :data="this.listaProizvoda">
-                <el-table-column prop="Title" label="Naziv" class="table-column" width="250px"></el-table-column>
-                <el-table-column prop="Price" label="Cena" class="table-column"  width="250px"></el-table-column>
-                <el-table-column prop="ProductType" label="Tip" class="table-column"  width="250px"></el-table-column>
-                <el-table-column align="right">
+                <el-table-column prop="Title" label="Naziv" class="table-column"></el-table-column>
+                <el-table-column prop="Price" label="Cena" class="table-column"></el-table-column>
+                <el-table-column prop="ProductType" label="Tip" class="table-column"></el-table-column>
+                <el-table-column align="center">
                     <template slot-scope="scope">
                         <el-button type="danger" icon="el-icon-delete" circle size="mini"
                             @click="deleteProductItem(scope.row.Id)">
@@ -39,13 +39,13 @@
         },
         methods: {
             deleteProductItem(id){
-                /*apiFetch('POST', destinationUrl + "/User/DeleteUserById?id=" + id)
+                apiFetch('POST', destinationUrl + "/Product/RemoveShopProduct?productId=" + id)
                 .then(result => {
                     if(result.Success) {
                         this.$message("Korisnik je uspešno obrisan!");
                         this.$emit("loadDataTable");
                     }
-                }).catch(error => {console.log(error)});*/
+                }).catch(error => {console.log(error)});
             },
             dodajProizvod: function () {
                 this.showComp = 'dodaj';
@@ -53,7 +53,7 @@
             },
             zavrsiDodavanje() {
                 this.showComp = '';
-                //this.loadDataTable();
+                this.loadDataTable();
             },
             loadDataTable() {
                 apiFetch('GET', destinationUrl + "/Product/GetAllProducts")

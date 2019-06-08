@@ -27,7 +27,7 @@ namespace PHOTOnline.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddShopProduct([FromBody]ShopProductInput input)
+        public async Task<IActionResult> AddShopProduct([FromForm]ShopProductInput input)
         {
             Result<string> result = await _productManager.AddShopProduct(input);
             if (result.Success) return Ok(result);
