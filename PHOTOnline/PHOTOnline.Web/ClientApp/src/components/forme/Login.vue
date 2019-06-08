@@ -27,7 +27,7 @@
 
 <script>
 import { apiFetch, destinationUrl, UserTypes } from '../../services/authFetch';
-import {setUserInfo} from '../../services/contextManagement';
+import {setUserInfo, getPageToShow} from '../../services/contextManagement';
 export default {
     data() {
         return{
@@ -44,7 +44,8 @@ export default {
                     if(result.Success){
                         setUserInfo(result.Data.Id, result.Data.UserType);
                         console.log(result);
-                        window.location.href = "/" + UserTypes[result.Data.UserType];
+                        if(getPageToShow().page == "Pocetna")
+                            window.location.href = "/" + UserTypes[result.Data.UserType];
                     }
                     else this.$message("Pogreska lozinka ili email adresa!");
                 }).catch(error => {

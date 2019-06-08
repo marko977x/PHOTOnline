@@ -8,7 +8,7 @@
                 <el-table-column prop="LastName" label="Prezime" class="table-column"  width="250px"></el-table-column>
                 <el-table-column prop="UserType" label="Tip" class="table-column"  width="250px"></el-table-column>
                 <el-table-column prop="UserName" label="Username" class="table-column"  width="200px"></el-table-column>
-                <el-table-column align="right">
+                <el-table-column align="right" width="200px">
                     <template slot="header" slot-scope="scope">
                         <el-input v-model="search" style="margin: 0;" size="big" placeholder="Ime za pretragu" :focus="scope.search">
                         </el-input>
