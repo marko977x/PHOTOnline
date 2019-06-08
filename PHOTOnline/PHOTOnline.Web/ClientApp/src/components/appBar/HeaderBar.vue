@@ -46,7 +46,7 @@
  import popover from 'element-ui'
  import menu from '../../assets/menu.png'
 import { apiFetch, destinationUrl } from '../../services/authFetch';
-import { clearUserInfo } from '../../services/contextManagement';
+import { clearUserInfo, clearSessionStorage, clearLocalStorage } from '../../services/contextManagement';
 export default {
     components: {popover},
     data(){
@@ -66,6 +66,8 @@ export default {
                 .then(result => {
                     if(result.Success) {
                         clearUserInfo();
+                        clearLocalStorage();
+                        clearSessionStorage();
                         window.location.href = "/";
                     }
                     else console.log(result);

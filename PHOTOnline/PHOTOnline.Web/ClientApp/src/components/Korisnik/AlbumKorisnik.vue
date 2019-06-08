@@ -31,7 +31,7 @@ import Fotografija from "./Fotografija.vue"
 import FormSlika from "../forme/FormSlika.vue"
 import { constants } from 'fs';
 import { destinationUrl } from '../../services/authFetch';
-import { getUserInfo } from '../../services/contextManagement';
+import { getUserInfo, setAlbumKorisnikState, getAlbumKorisnikState } from '../../services/contextManagement';
 export default {
     components: {FooterBar, Fotografija, FormSlika},
     data(){
@@ -78,14 +78,14 @@ export default {
         zatvoriSliku(){
             this.showPicture = '';
         },
-        dodajUKorpu(){
-             if(getUserInfo().userID != null){
-                if(this.selectedImages.length == 0){
+        dodajUKorpu() {
+            setAlbumKorisnikState({album: this.album, selectedImages: this.selectedImages});
+            if(getUserInfo().userID != null) {
+                if(this.selectedImages.length == 0) {
                     this.$message({message: "Morate selektovati bar jednu fotografiju!",type: 'error'})
                     return
                 }
-                console.log(this.selectedImages)
-            
+                console.log(this.selectedImages);
                 const formData = new FormData();
                 formData.append("UserId", getUserInfo().userID);
                 this.selectedImages.forEach((image, index) => {
@@ -112,11 +112,19 @@ export default {
                     .then(result => console.log(result))
                     .catch(error => console.log(error));
             }
-            else{
+            else {
                 this.$message("Da biste naručili fotografije morate se prijaviti ili registrovati.");
                 this.$emit("gotoLogin");
             }
         }
+    },
+    mounted: function() {
+        const state = getAlbumKorisnikState();
+        if(state != null) {
+            this.selectedImages = state.selectedImages;
+            this.album = state.album;
+        }
+        console.log(state);
     }
 }
 </script>

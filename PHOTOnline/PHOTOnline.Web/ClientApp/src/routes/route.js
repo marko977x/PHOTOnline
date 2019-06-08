@@ -39,15 +39,15 @@ const router = new VueRouter({
     ]
 })
 
-router.beforeEach((to, from, next) => {
-    if (getUserInfo().userID == null && (to.path != '/pocetna' || to.path == '/'))
-        next("/pocetna");
-    else {
-        let userType = getUserInfo().userType;
-        if (userType != null && to.path != ("/" + UserTypes[userType]))
-            next("/" + UserTypes[userType]);
-    }
-    next();
-});
+// router.beforeEach((to, from, next) => {
+//     if (getUserInfo().userID == null && (to.path != '/pocetna' || to.path == '/'))
+//         next("/pocetna");
+//     else {
+//         let userType = getUserInfo().userType;
+//         if (userType != null && to.path != ("/" + UserTypes[userType]))
+//             next("/" + UserTypes[userType]);
+//     }
+//     next();
+// });
 
 export default router

@@ -38,3 +38,21 @@ export function clearFormMode(){
 export function setOpenedAlbumId(albumId) {
   sessionStorage.setItem('AlbumId', albumId);
 }
+
+export function setAlbumKorisnikState(state) {
+  console.log(state);
+  localStorage.setItem('AlbumKorisnikState', JSON.stringify(state));
+}
+
+export function getAlbumKorisnikState() {
+  console.log(localStorage);
+  return JSON.parse(localStorage.getItem('AlbumKorisnikState'));
+}
+
+export function clearSessionStorage() {
+  sessionStorage.clear();
+}
+
+export function clearLocalStorage() {
+  localStorage.clear();
+}

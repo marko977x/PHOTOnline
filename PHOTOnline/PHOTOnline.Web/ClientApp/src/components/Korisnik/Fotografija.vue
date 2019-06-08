@@ -23,14 +23,14 @@
 
 <script>
 import {IMAGE_FORMAT} from "../../services/productPriceCalculator.js";
+import { getAlbumKorisnikState } from '../../services/contextManagement';
 export default {
     data(){
         return{
             num: 1,
             format: '',
             options: IMAGE_FORMAT,
-            select: false,
-            dummy: ''
+            select: false
         }
     },
     props: ['image'],
@@ -57,6 +57,20 @@ export default {
         setFormat(event) {
             this.format = event;
             console.log(event);
+        }
+    },
+    mounted: function() {
+        const state = getAlbumKorisnikState();
+        if(state != null) {
+            this.selectedImages = state.selectedImages;
+            console.log(this.selectedImages);
+            const image = this.selectedImages.find(item => item.Image.Id == this.image.Id);
+            console.log(image);
+            if(image != null) {
+                this.format = image.Format;
+                this.num = image.Quantity;
+                this.select = true;
+            }
         }
     }
 }

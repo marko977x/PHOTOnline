@@ -40,7 +40,7 @@ import slika3 from "../assets/pictures/p3.jpg"
 import slika4 from "../assets/pictures/p4.jpg"
  import slika5 from "../assets/pictures/p5.jpg"
  import NarucivanjeFotografija from "../components/Korisnik/NarucivanjeFotografija.vue"
-import { setPageShown } from '../services/contextManagement';
+import { setPageShown, getPageToShow } from '../services/contextManagement';
  
 export default {
     components: { HeaderBar, FooterBar, Login, FormSignup, NarucivanjeFotografija,
@@ -85,7 +85,7 @@ export default {
             this.showComp = 'login';
         },
         signupEnd: function(){
-            this.showComp = '';
+            this.showComp = getPageToShow().page;
         },
         setComponent(component){
             if(component == 'zakazivanja') this.showComp = 'login';

@@ -22,7 +22,7 @@ import UserSidebar from "../components/Korisnik/sidebar/UserSidebar.vue"
 import AlbumKorisnik from "../components/Korisnik/AlbumKorisnik.vue"
 import KorpaKorisnik from "../components/Korisnik/KorpaKorisnik.vue"
 import Proizvodi from "../components/Korisnik/Proizvodi.vue"
-import { setPageShown } from '../services/contextManagement';
+import { setPageShown, getPageToShow } from '../services/contextManagement';
 
 export default {
     components: {CustomBar, ZakazivanjaKorisnik,
@@ -51,11 +51,14 @@ export default {
             userType: 'korisnik'
         }
     },
-     methods: {
+    methods: {
         setComponent(component){
             this.showComp = component;
             setPageShown(component);
         },
+    },
+    mounted: function() {
+        this.showComp = getPageToShow().page;
     }
 }
 </script>
