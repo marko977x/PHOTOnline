@@ -58,7 +58,10 @@ export default {
         },
     },
     mounted: function() {
-        this.showComp = getPageToShow().page;
+        let nextPage = getPageToShow().page;
+        if(nextPage != "Pocetna")
+            this.showComp = getPageToShow().page;
+        else this.showComp = "profil";
     }
 }
 </script>
