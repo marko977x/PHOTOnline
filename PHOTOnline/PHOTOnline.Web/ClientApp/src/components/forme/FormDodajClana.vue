@@ -1,6 +1,6 @@
 <template>
     <div class="dodaj-clana-container">
-        <el-dialog visible width="28%" heigth="30%" title="Dodavanje Zaposlenog" @close="$emit('zatvoriDodavanjeClana')" :modal-append-to-body="false">
+        <el-dialog visible width="28%" heigth="30%" title="Dodavanje zaposlenog" @close="$emit('zatvoriDodavanjeClana')" :modal-append-to-body="false">
             <el-form>
                 <!-- <h3 style="text-align:center; font-family:sans-serif; font-size:20px;">Dodavanje Zaposlenog </h3> -->
                 <div class="stavka">

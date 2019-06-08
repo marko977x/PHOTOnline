@@ -1,11 +1,12 @@
 <template>
     <div class="uprava-container">
        <custom-bar :list="menuItems" @changeView="setComponent($event)">
-           <evidencija-clanova v-if="this.showComp == 'evidencijaclanova'"></evidencija-clanova>
-           <narudzbina v-if="this.showComp == 'narudzbina'"></narudzbina>
-           <pocetna-strana hidden></pocetna-strana>
-           <album-uprave v-if="this.showComp == 'albumuprave'"></album-uprave>
-           <zakazivanja v-if="this.showComp == 'zakazivanja'" ></zakazivanja>
+            <evidencija-clanova v-if="this.showComp == 'evidencijaclanova'"></evidencija-clanova>
+            <narudzbina v-if="this.showComp == 'narudzbina'"></narudzbina>
+            <pocetna-strana hidden></pocetna-strana>
+            <album-uprave v-if="this.showComp == 'albumuprave'"></album-uprave>
+            <zakazivanja v-if="this.showComp == 'zakazivanja'" ></zakazivanja>
+            <proizvodi-uprave v-if="this.showComp == 'proizvodiuprave'"></proizvodi-uprave>
        </custom-bar>
     </div>
 </template>
@@ -19,9 +20,10 @@
     import Narudzbina from "../components/Narudzbina.vue"
     import AlbumUprave from "../components/AlbumUprave.vue"
     import Zakazivanja from "../components/Zakazivanja.vue"
+    import ProizvodiUprave from "../components/ProizvodiUprave.vue"
     import {setPageShown, getPageToShow, getUserInfo, clearUserInfo, clearFormMode} from "../services/contextManagement"
 export default {
-    components: { CustomBar, PrikazObaveza, EvidencijaClanova, Narudzbina, PocetnaStrana, AlbumUprave, Zakazivanja },
+    components: { CustomBar, PrikazObaveza, EvidencijaClanova, Narudzbina, PocetnaStrana, AlbumUprave, Zakazivanja, ProizvodiUprave },
     data(){
         return{
             menuItems: [
@@ -45,6 +47,12 @@ export default {
                 },
                 {
                     key: 4,
+                    label: 'Proizvodi',
+                    index: 'proizvodiuprave',
+                    slika: 'mug.png'
+                },
+                {
+                    key: 5,
                     label: 'Evidencija članova',
                     index: 'evidencijaclanova',
                     slika: 'evidencijaclanova.png'
