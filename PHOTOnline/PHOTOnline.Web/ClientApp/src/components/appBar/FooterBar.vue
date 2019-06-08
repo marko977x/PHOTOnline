@@ -7,7 +7,7 @@
             </div>
             <div class="grid-one-half-last">
                 <ul id="social-links" style="list-style-type: none; color:white; margin:0">
-                    <li style="font-size:18px;"> <a href="https://www.facebook.com/foto.aritonovic/">Facebook</a> </li>
+                    <li style="font-size:18px;"> <a href="https://www.facebook.com/foto.aritonovic/"><img style="height: 35px; width: 35px;" src='../../assets/facebook_logo.png'/></a> </li>
                 </ul>
             </div>
         </div>
