@@ -38,7 +38,7 @@ export default {
 
 .profile-info-page {
     width: 60%;
-    height: 50%;
+    /* height: 50%; */
     margin-top: 10%;
 }
 </style>

@@ -43,9 +43,7 @@ export default {
                 .then(result => {
                     if(result.Success){
                         setUserInfo(result.Data.Id, result.Data.UserType);
-                        console.log(result);
-                        if(getPageToShow().page == "Pocetna")
-                            window.location.href = "/" + UserTypes[result.Data.UserType];
+                        window.location.href = "/" + UserTypes[result.Data.UserType];
                     }
                     else this.$message("Pogreska lozinka ili email adresa!");
                 }).catch(error => {

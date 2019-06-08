@@ -82,7 +82,7 @@ export default {
         flex-direction: column;
         justify-content: center;
         overflow: hidden;
-        height: 7%;
+        height: 10%;
         background-color: rgba(26, 104, 168, 0.678);
         flex: 0 0 70px;
     }
