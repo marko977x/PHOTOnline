@@ -80,5 +80,14 @@ namespace PHOTOnline.Web.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddImagesToAlbum(
+            [FromForm]AddImagesToAlbumInput input)
+        {
+            Result result = await _albumManager.AddImagesToAlbum(input);
+            if (result.Success) return Ok(result);
+            else return BadRequest(result);
+        }
     }
 }

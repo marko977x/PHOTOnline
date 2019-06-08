@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
+using PhotoLine.Domain.Errors;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.BlobStorage;
 using PHOTOnline.Business.AlbumManagement.Input;
@@ -95,6 +96,22 @@ namespace PHOTOnline.Business.AlbumManagement
                 image.Thumbnail.FileId,
             };
             return result;
+        }
+
+        public async Task<Result> AddImagesToAlbum(AddImagesToAlbumInput input)
+        {
+            Album album = await _albumRepository.FindAsync(input.AlbumId);
+            if (album == null)
+            {
+                return new Result()
+                {
+                    Success = false,
+                    Errors = new List<Error>() { new Error(ErrorCode.AlbumNotFound) }
+                };
+            }
+
+            album.Images.AddRange(input.Images);
+            return new Result() { Success = true };
         }
     }
 }
