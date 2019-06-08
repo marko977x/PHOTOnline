@@ -3,12 +3,12 @@
         <div class="evidencija-container-inner">
             <filter-clanova hidden></filter-clanova>
             <h5 style="text-align:center; font-family:sans-serif;"> Evidencija članova </h5>
-            <el-table :data="tableData.filter(data => !search || data.FirstName.toLowerCase().includes(search.toLowerCase()))">
-                <el-table-column prop="FirstName" label="Ime" class="table-column" width="250px"></el-table-column>
-                <el-table-column prop="LastName" label="Prezime" class="table-column"  width="250px"></el-table-column>
-                <el-table-column prop="UserType" label="Tip" class="table-column"  width="250px"></el-table-column>
-                <el-table-column prop="UserName" label="Username" class="table-column"  width="200px"></el-table-column>
-                <el-table-column align="right" width="200px">
+            <el-table style="width: 100%" :data="tableData.filter(data => !search || data.FirstName.toLowerCase().includes(search.toLowerCase()))">
+                <el-table-column prop="FirstName" label="Ime" class="table-column"></el-table-column>
+                <el-table-column prop="LastName" label="Prezime" class="table-column"></el-table-column>
+                <el-table-column prop="UserType" label="Tip" class="table-column"></el-table-column>
+                <el-table-column prop="UserName" label="Username" class="table-column"></el-table-column>
+                <el-table-column align="right">
                     <template slot="header" slot-scope="scope">
                         <el-input v-model="search" style="margin: 0;" size="big" placeholder="Ime za pretragu" :focus="scope.search">
                         </el-input>
@@ -117,7 +117,7 @@ import { apiFetch, destinationUrl, UserTypes } from '../services/authFetch';
         margin-bottom: 15px;
         width: 100%;
     }
-
+    
     @media screen and (max-width: 700px) {
         .evidencija-container-inner {
             height: 100%;
