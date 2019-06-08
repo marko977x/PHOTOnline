@@ -1,15 +1,16 @@
 <template>
-<div class="user-container">
-    <header-bar 
-        :list="this.menuItems" :korisnik="this.userType"
-        @changeView="setComponent($event)">
-    </header-bar>
-    <zakazivanja-korisnik v-if="this.showComp == 'zakazivanja'" ></zakazivanja-korisnik>
-    <user-sidebar v-if="this.showComp == 'profil'" ></user-sidebar>
-    <album-korisnik v-if="this.showComp == 'albumi'"></album-korisnik>
-    <korpa-korisnik v-if="this.showComp == 'korpa'" ></korpa-korisnik>
-    <proizvodi v-if="this.showComp == 'proizvodi'"></proizvodi>
-</div>
+    <div class="user-container">
+        <header-bar 
+            :list="this.menuItems" :korisnik="this.userType"
+            @changeView="setComponent($event)">
+        </header-bar>
+        <zakazivanja-korisnik v-if="this.showComp == 'zakazivanja'" ></zakazivanja-korisnik>
+        <user-sidebar v-if="this.showComp == 'profil'" ></user-sidebar>
+        <album-korisnik v-if="this.showComp == 'albumi'"></album-korisnik>
+        <korpa-korisnik v-if="this.showComp == 'korpa'" ></korpa-korisnik>
+        <proizvodi v-if="this.showComp == 'proizvodi'"></proizvodi>
+        <footer-bar></footer-bar>
+    </div>
 </template>
 
 <script>
@@ -60,9 +61,12 @@ export default {
 </script>
 
 <style scoped>
-.user-container{
+    .user-container{
         height: 100%;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         position: absolute;
         top: 0;
         left:0;
@@ -73,6 +77,6 @@ export default {
             rgba(26, 111, 168, 0.171),
             rgba(57, 63, 61, 0.205)
         ),url("../assets/pictures/ho.jpg");
-  }
+    }
 
 </style>

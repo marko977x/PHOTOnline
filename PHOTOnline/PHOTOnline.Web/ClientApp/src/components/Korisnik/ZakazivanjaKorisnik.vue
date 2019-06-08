@@ -17,7 +17,6 @@
             </el-calendar>
         </div>
         <form-zakazi :date="datum" ></form-zakazi>
-        <footer-bar></footer-bar>
     </div>
 </template>
 
@@ -25,12 +24,11 @@
 
 import PrikazKalendaraKorisnik from "./PrikazKalendaraKorisnik.vue"
 import FormZakazi from "../forme/FormZakazi.vue"
-import FooterBar from "../appBar/FooterBar.vue"
 import { getUserInfo } from '../../services/contextManagement';
 import { apiFetch, destinationUrl } from '../../services/authFetch';
 
 export default {
-    components: {PrikazKalendaraKorisnik, FormZakazi, FooterBar},
+    components: {PrikazKalendaraKorisnik, FormZakazi},
     data(){
         return{
             value: new Date(),

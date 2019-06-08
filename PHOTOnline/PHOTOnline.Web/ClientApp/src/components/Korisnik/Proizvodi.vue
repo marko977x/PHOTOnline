@@ -25,16 +25,14 @@
             </div>
             <narucivanje-fotografija></narucivanje-fotografija>
         </div>
-        <footer-bar></footer-bar>
     </div>
 </template>
 
 <script>
 import PrikazProizvoda from "./PrikazProizvoda.vue"
-import FooterBar from "../appBar/FooterBar.vue"
 import NarucivanjeFotografija from "./NarucivanjeFotografija.vue"
 export default {
-    components: {PrikazProizvoda, NarucivanjeFotografija, FooterBar},
+    components: {PrikazProizvoda, NarucivanjeFotografija},
     data(){
         return{
             proizvodi: [
