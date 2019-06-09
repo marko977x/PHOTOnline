@@ -3,14 +3,14 @@
         <div class="dodavanje" style="margin:none;">
             <div class="left">
                 <el-button class="el-icon-arrow-left" type="success" size="mini" 
-                    style="size:10px;" @click="$emit('zavrsipregled')"></el-button>
+                    style="size:10px;" @click="onClickBack()"></el-button>
                 <div class="naslovi">
                     <h4 style="text-align:center; margin-left:20px; margin-top:7px; font-family: sans-serif;">Naslov:</h4>
-                    <h4 style="text-align:center; margin-left:20px; margin-top:7px; font-family: Arial Black, Gadget, sans-serif;">{{Album.Title}}</h4>
+                    <h4 style="text-align:center; margin-left:20px; margin-top:7px; font-family: Arial Black, Gadget, sans-serif;">{{album.Title}}</h4>
                 </div>
                 <div class="naslovi">
                     <h4 style="text-align:center; margin-left:20px; margin-top:7px; font-family: sans-serif;">Šifra:</h4>
-                    <h4 style="text-align:center; margin-left:20px; margin-top:7px; font-family: Arial Black, Gadget, sans-serif;">{{Album.Password}}</h4>
+                    <h4 style="text-align:center; margin-left:20px; margin-top:7px; font-family: Arial Black, Gadget, sans-serif;">{{album.Password}}</h4>
                 </div>
             </div>
             <div class="right">
@@ -22,7 +22,7 @@
         </div>
         <div class="sadrzaj-albuma-inner">
             <prikaz-fotografije 
-                v-for="(image, index) in Album.Images" :key="index" v-bind:Image="image"
+                v-for="(image, index) in album.Images" :key="index" v-bind:Image="image"
                 @ImageDeleted="passDeletedImageToParent($event)" @showPhoto="prikazi($event)">
             </prikaz-fotografije>
         </div>
@@ -42,7 +42,8 @@ export default {
         return{
             PretragaFotografije: '',
             showPicture: '',
-            photo: {}
+            photo: {},
+            album: this.Album
         }
     },
     methods:{
@@ -61,12 +62,12 @@ export default {
                 .then(response => response.ok ? response.json() : new Error())
                 .then(() => this.$emit('AlbumDeleted'))
                 .catch(error => console.log(error));
+        },
+        onClickBack() {
+            this.$emit('zavrsipregled', this.Album);
         }
     },
-    props: ['Album'],
-    mounted: function() {
-        console.log(this.Album.Images);
-    }
+    props: ['Album']
 }
 </script>
 

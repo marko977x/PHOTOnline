@@ -18,9 +18,9 @@
         <prikaz-sadrzaja-albuma 
             v-bind:Album="Albums[OpenedAlbumIndex]" 
             v-if="showComp == 'prikazalbuma'" 
-            @zavrsipregled='reloadPage'
+            @zavrsipregled='pregledAlbumaZavrsen($event)'
             @ImageDeleted="DeleteImage($event)"
-            @AlbumDeleted="reloadPage">
+            @AlbumDeleted="deleteAlbum()">
         </prikaz-sadrzaja-albuma>
     </div>
 </template>
@@ -31,6 +31,7 @@ import DodavanjeAlbuma from "./DodavanjeAlbuma.vue"
 import PrikazSadrzajaAlbuma from "./prikazi/PrikazSadrzajaAlbuma"
 import {setOpenedAlbumId} from "../services/contextManagement";
 import { apiFetch, destinationUrl } from '../services/authFetch';
+import {openSpinner, closeSpinner} from "../data/spinner.js";
 export default {
     components: {PrikazAlbuma, DodavanjeAlbuma, PrikazSadrzajaAlbuma},
     data(){
@@ -62,13 +63,13 @@ export default {
                     .filter(image => image.Id != imageId);
         },
         loadAlbums() {
-            this.openSpinner();
+            openSpinner();
             apiFetch('GET', destinationUrl + "/Album/GetAllAlbums").then(result => {
                 if(result.Success) {
                     this.Albums = result.Data;
                     this.FiltriraniAlbumi = this.Albums.slice();
                 }
-                this.closeSpinner();
+                closeSpinner();
             }).catch(error => {console.log(error)});
         },
         filtriraj(){
@@ -84,15 +85,14 @@ export default {
                 });
             }
         },
-        openSpinner() {
-            this.spinner = this.$loading({
-                text: 'Loading',
-                spinner: 'el-icon-loading',
-                background: 'rgba(0, 0, 0, 0.75)'
-            });
+        pregledAlbumaZavrsen(album) {
+            this.showComp = 'albumi';
+            this.Albums[this.OpenedAlbumIndex] = album;
         },
-        closeSpinner() {
-            this.spinner.close();
+        deleteAlbum() {
+            this.showComp = 'albumi';
+            this.Albums.splice(this.OpenedAlbumIndex, 1);
+            this.FiltriraniAlbumi = this.Albums;
         }
     },
     mounted: function() {

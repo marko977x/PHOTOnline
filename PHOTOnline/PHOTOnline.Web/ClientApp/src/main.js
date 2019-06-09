@@ -12,9 +12,10 @@ Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 
-
-new Vue({
+export const vue = new Vue({
         router,
         render:
                 h => h(App)
-}).$mount("#app");
+});
+
+vue.$mount("#app");

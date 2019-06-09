@@ -32,6 +32,7 @@
 <script>
 import {destinationUrl} from "../../services/authFetch";
 import { async, Promise } from 'q';
+import { closeSpinner, openSpinner } from '../../data/spinner';
 export default {
     data() {
         return {
@@ -43,8 +44,7 @@ export default {
                 Images: []
             },
             isSpinnerActive: false,
-            isUploadingDone: false,
-            spinner: {}
+            isUploadingDone: false
         }
     },
     methods: {
@@ -56,8 +56,8 @@ export default {
             this.dodajAlbum()
         },
         dodajAlbum: async function(){
-            if(this.isUploadingDone) {
-                this.closeSpinner();
+            if(this.isUploadingDone && !this.isSpinnerActive) {
+                closeSpinner();
                 const formData = new FormData();
                 formData.append("Title", this.album.Title);
                 formData.append("Date", this.album.Date);
@@ -87,7 +87,7 @@ export default {
             }
             else {
                 this.isSpinnerActive = true;
-                this.openSpinner();
+                openSpinner();
             }
         },
         prekiniDodavanjeAlbuma: function(){
@@ -108,19 +108,9 @@ export default {
             }
             await Promise.all(promises);
             this.isUploadingDone = true;
-            if(this.isSpinnerActive = true) {
+            if(this.isSpinnerActive) {
                 this.dodajAlbum();
             }
-        },
-        openSpinner() {
-            this.spinner = this.$loading({
-                text: 'Loading',
-                spinner: 'el-icon-loading',
-                background: 'rgba(0, 0, 0, 0.75)'
-            });
-        },
-        closeSpinner() {
-            this.spinner.close();
         }
     }
 }

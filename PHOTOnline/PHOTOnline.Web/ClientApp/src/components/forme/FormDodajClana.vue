@@ -41,11 +41,8 @@
         },
         methods: {
             prihvatiUnosForme() {
-                console.log(this.zaposleni);
-                // openSpinner();
                 apiFetch('POST', destinationUrl + "/User/CreatePhotographAsync", this.zaposleni)
                     .then(result => {
-                        console.log(this.zaposleni);
                         this.$message("Uspesno ste dodali novog fotografa!");
                         this.$emit("zatvoriDodavanjeClana");
                     }).catch(error => {
