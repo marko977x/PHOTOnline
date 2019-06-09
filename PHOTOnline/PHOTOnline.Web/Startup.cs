@@ -30,7 +30,7 @@ namespace PHOTOnline.Web
             services.AddPHOTOnlineBusinessServices();
             services.AddPHOTOnlineServices();
             services.AddBlobStore(Configuration);
-            //services.AddAuthorization();
+
             services.AddCors(options =>
             {
                 options.AddPolicy("MyCorsPolicy",
