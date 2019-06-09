@@ -5,6 +5,8 @@ using Domain.Entities.Enums;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.Business.OrderManagement.Input;
 using PHOTOnline.Business.OrderManagement.Output;
+using PHOTOnline.Domain.Entities;
+using PHOTOnline.Services.Repositories.Carts;
 using PHOTOnline.Services.Repositories.Orders;
 using PHOTOnline.Services.Repositories.Users;
 
@@ -14,13 +16,16 @@ namespace PHOTOnline.Business.OrderManagement
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ICartRepository _cartRepository;
 
         public OrderManager(
             IOrderRepository orderRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            ICartRepository cartRepository)
         {
             _orderRepository = orderRepository;
             _userRepository = userRepository;
+            _cartRepository = cartRepository;
         }
 
         public async Task<Result<List<OrderOutput>>> GetAllOrders()
@@ -35,17 +40,20 @@ namespace PHOTOnline.Business.OrderManagement
 
             List<PHOTOnlineUser> users = await _userRepository.GetAllUsers();
             List<OrderOutput> result = new List<OrderOutput>();
+            List<Cart> carts = await _cartRepository.GetAll();
 
             orders.ForEach(order =>
             {
                 PHOTOnlineUser user = users.Find(element => element.Id == order.UserId);
+                Cart cart = carts.Find(element => element.UserId == user.Id);
                 result.Add(new OrderOutput()
                 {
                     Order = order,
                     Address = user.Address,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    PhoneNumber = user.PhoneNumber
+                    PhoneNumber = user.PhoneNumber,
+                    Cart = cart
                 });
             });
 
@@ -64,17 +72,20 @@ namespace PHOTOnline.Business.OrderManagement
                 return new Result<List<OrderOutput>>() { Success = true };
 
             PHOTOnlineUser user = await _userRepository.FindAsync(userId);
-
             List<OrderOutput> result = new List<OrderOutput>();
+            List<Cart> carts = await _cartRepository.GetAll();
+
             orders.ForEach(order =>
             {
+                Cart cart = carts.Find(element => element.UserId == user.Id);
                 result.Add(new OrderOutput()
                 {
                     Order = order,
                     Address = user.Address,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    PhoneNumber = user.PhoneNumber
+                    PhoneNumber = user.PhoneNumber,
+                    Cart = cart
                 });
             });
 
@@ -91,6 +102,7 @@ namespace PHOTOnline.Business.OrderManagement
             if (order == null) return new Result<OrderOutput>() { Success = false };
 
             PHOTOnlineUser user = await _userRepository.FindAsync(order.UserId);
+            Cart cart = await _cartRepository.GetCartByUserId(user.Id);
 
             OrderOutput result = new OrderOutput()
             {
@@ -98,7 +110,8 @@ namespace PHOTOnline.Business.OrderManagement
                 Address = user.Address,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                PhoneNumber = user.PhoneNumber
+                PhoneNumber = user.PhoneNumber,
+                Cart = cart
             };
 
             return new Result<OrderOutput>() { Success = true, Data = result };
