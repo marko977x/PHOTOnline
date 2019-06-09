@@ -40,20 +40,17 @@ namespace PHOTOnline.Business.OrderManagement
 
             List<PHOTOnlineUser> users = await _userRepository.GetAllUsers();
             List<OrderOutput> result = new List<OrderOutput>();
-            List<Cart> carts = await _cartRepository.GetAll();
 
             orders.ForEach(order =>
             {
                 PHOTOnlineUser user = users.Find(element => element.Id == order.UserId);
-                Cart cart = carts.Find(element => element.UserId == user.Id);
                 result.Add(new OrderOutput()
                 {
                     Order = order,
                     Address = user.Address,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    PhoneNumber = user.PhoneNumber,
-                    Cart = cart
+                    PhoneNumber = user.PhoneNumber
                 });
             });
 
@@ -84,8 +81,7 @@ namespace PHOTOnline.Business.OrderManagement
                     Address = user.Address,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    PhoneNumber = user.PhoneNumber,
-                    Cart = cart
+                    PhoneNumber = user.PhoneNumber
                 });
             });
 
@@ -102,7 +98,6 @@ namespace PHOTOnline.Business.OrderManagement
             if (order == null) return new Result<OrderOutput>() { Success = false };
 
             PHOTOnlineUser user = await _userRepository.FindAsync(order.UserId);
-            Cart cart = await _cartRepository.GetCartByUserId(user.Id);
 
             OrderOutput result = new OrderOutput()
             {
@@ -110,8 +105,7 @@ namespace PHOTOnline.Business.OrderManagement
                 Address = user.Address,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                PhoneNumber = user.PhoneNumber,
-                Cart = cart
+                PhoneNumber = user.PhoneNumber
             };
 
             return new Result<OrderOutput>() { Success = true, Data = result };
@@ -121,9 +115,10 @@ namespace PHOTOnline.Business.OrderManagement
         {
             Order order = new Order()
             {
+                CartItems = input.CartItems,
+                Price = input.Price,
                 DeliveryAddress = input.DeliveryAddress,
                 UserId = input.UserId,
-                CartId = input.CartId,
                 Date = input.Date,
                 RequestStatus = RequestStatus.OnHold
             };
