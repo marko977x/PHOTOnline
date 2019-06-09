@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using PHOTOnline.Domain.Entities;
 
 namespace PHOTOnline.Business.OrderManagement.Output
 {
@@ -10,6 +9,5 @@ namespace PHOTOnline.Business.OrderManagement.Output
         public string LastName { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
-        public Cart Cart { get; set; }
     }
 }
