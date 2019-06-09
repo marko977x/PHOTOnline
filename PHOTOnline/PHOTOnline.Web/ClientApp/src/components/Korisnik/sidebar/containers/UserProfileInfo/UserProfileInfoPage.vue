@@ -38,7 +38,6 @@ export default {
 
 .profile-info-page {
     width: 60%;
-    display: flex;
-    align-items: center;
+    margin-top: 10%;
 }
 </style>

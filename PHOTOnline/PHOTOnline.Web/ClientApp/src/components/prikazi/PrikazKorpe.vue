@@ -1,64 +1,72 @@
 <template>
-    <div class="korpa-container">
+    <div class="korpa-container">   
         <el-table 
-        :data="tableData"
+        :data="this.korpa"
         style="width:80%; border:1px solid black;">
             <el-table-column
-                prop="tip"
+                prop="ProductType"
                 label="Tip"
                 class="table-column">
             </el-table-column>
              <el-table-column
-                prop="kolicina"
+                prop="Quantity"
                 label="Kolicina"
                 class="table-column">
             </el-table-column>
-             <el-table-column
-                prop="format"
+            <el-table-column
+                prop="Format"
                 label="Format"
                 class="table-column">
             </el-table-column>
-            <el-table-column>
-                <template slot="header">
-                    <el-checkbox  border size="small" label="Obradjeno"></el-checkbox>
-                </template>
-                <template slot="">
-                    <el-button class="el-icon-download" size="small"></el-button>
+            <el-table-column
+                prop="Price"
+                label="Cena"
+                class="table-column">
+            </el-table-column>
+            <el-table-column label="Slika">
+                <template slot-scope="cartItem" >
+                    <el-button type="secondary" icon="el-icon-picture" circle size="mini" @click="openImage(cartItem.row)">
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
+        <form-slika :visible="this.isImageHidden" :shownPhoto="this.shownImage" :hidden="isImageHidden" @zatvoriSliku="closeImage"/>
     </div>
 </template>
 
 <script>
+import FormSlika from "../forme/FormSlika.vue";
 export default {
+    components: { FormSlika },
     data(){
         return{
-            tableData: [
-                {
-                    tip: 'Fotografija',
-                    kolicina: 4,
-                    format: '13x18'
-                },
-                {
-                    tip: 'Kalendar',
-                    kolicina: 1,
-                    format: 'Srednji'
-                }
-            ],
             endTask: false,
+            isImageHidden: true,
+            shownImage: {
+                Small: {
+                    Url: ""
+                }
+            },
         }
     },
     methods: {
-          zavrsi: function(){
-              this.endTask = !this.endTask;
-          }
+            zavrsi: function(){
+                this.endTask = !this.endTask;
+            },
+            openImage(cartItem) {
+                this.shownImage = cartItem.Image;
+                this.isImageHidden = false;
+            },
+            closeImage() {
+                this.isImageHidden = true;
+            },
 
-    }
+    },
+    props: ['korpa']
 }
 </script>
 
-<style>
+<style scoped>
 .korpa-container{
         height: 47%;
         width: 90%;

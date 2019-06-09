@@ -86,7 +86,7 @@ import { apiFetch, destinationUrl, UserTypes } from '../services/authFetch';
     }
 </script>
 
-<style>
+<style scoped>
 
     .evidencija-container {
         display: flex;

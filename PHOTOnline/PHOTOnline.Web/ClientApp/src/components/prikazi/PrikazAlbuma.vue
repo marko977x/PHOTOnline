@@ -1,9 +1,10 @@
 <template>
     <div class="album-container">
         <div class="info">
-            <label style="font-size:12px;">{{Album.Date}}</label>
+            <label style="font-size:12px; margin-left: 7%;">{{Album.Date}}</label>
             <label style="font-size:12px; margin-left: 7%;">{{Album.Location}}</label>
-            <h5 style="font-family:sans-serif; font-size:16px; text-align:center; margin-top:30px; font-family: Arial,Gadget, sans-serif; font-weight: bold;">{{Album.Title}}</h5>
+            <h5 style="font-family:sans-serif; font-size:16px; text-align:center; margin-top:30px; 
+                font-family: Arial,Gadget, sans-serif; font-weight: bold;">{{Album.Title}}</h5>
         </div>
         <el-button 
             type="primary" size="mini" 
@@ -24,7 +25,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .album-container{
     height: 180px;
     width: 140px;
@@ -39,6 +40,10 @@ export default {
     width: 100%;
     height: 145px;
     flex-direction: column;
+    justify-content: flex-start;
+}
+label{
+    margin-bottom: 0%;
 }
 </style>
 

@@ -5,6 +5,8 @@ using Domain.Entities.Enums;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.Business.OrderManagement.Input;
 using PHOTOnline.Business.OrderManagement.Output;
+using PHOTOnline.Domain.Entities;
+using PHOTOnline.Services.Repositories.Carts;
 using PHOTOnline.Services.Repositories.Orders;
 using PHOTOnline.Services.Repositories.Users;
 
@@ -14,13 +16,16 @@ namespace PHOTOnline.Business.OrderManagement
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ICartRepository _cartRepository;
 
         public OrderManager(
             IOrderRepository orderRepository,
-            IUserRepository userRepository)
+            IUserRepository userRepository,
+            ICartRepository cartRepository)
         {
             _orderRepository = orderRepository;
             _userRepository = userRepository;
+            _cartRepository = cartRepository;
         }
 
         public async Task<Result<List<OrderOutput>>> GetAllOrders()
@@ -64,10 +69,12 @@ namespace PHOTOnline.Business.OrderManagement
                 return new Result<List<OrderOutput>>() { Success = true };
 
             PHOTOnlineUser user = await _userRepository.FindAsync(userId);
-
             List<OrderOutput> result = new List<OrderOutput>();
+            //List<Cart> carts = await _cartRepository.GetAll();
+
             orders.ForEach(order =>
             {
+                //Cart cart = carts.Find(element => element.UserId == user.Id);
                 result.Add(new OrderOutput()
                 {
                     Order = order,
@@ -108,9 +115,10 @@ namespace PHOTOnline.Business.OrderManagement
         {
             Order order = new Order()
             {
+                CartItems = input.CartItems,
+                Price = input.Price,
                 DeliveryAddress = input.DeliveryAddress,
                 UserId = input.UserId,
-                CartId = input.CartId,
                 Date = input.Date,
                 RequestStatus = RequestStatus.OnHold
             };

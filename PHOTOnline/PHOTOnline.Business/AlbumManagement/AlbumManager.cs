@@ -36,7 +36,8 @@ namespace PHOTOnline.Business.AlbumManagement
                 Images = input.Images,
                 Location = input.Location,
                 Password = input.Password,
-                Title = input.Title
+                Title = input.Title,
+                Date = input.Date
             };
 
             return new Result<string>()
@@ -52,15 +53,19 @@ namespace PHOTOnline.Business.AlbumManagement
             List<string> imageVariantsIds = new List<string>();
             List<UploadedFile> uploadedFiles = new List<UploadedFile>();
 
-            album.Images.ForEach(image =>
+            if(album.Images != null)
             {
-                imageVariantsIds.AddRange(GetImageVariantsIds(image));
-            });
+                album.Images.ForEach(image =>
+                {
+                    imageVariantsIds.AddRange(GetImageVariantsIds(image));
+                });
 
-            uploadedFiles = await _uploadedFilesRepository.
+                uploadedFiles = await _uploadedFilesRepository.
                 DeleteUploadedFiles(imageVariantsIds);
 
-            await _blobStore.DeleteBlobs(GetBlobsIds(uploadedFiles));
+                await _blobStore.DeleteBlobs(GetBlobsIds(uploadedFiles));
+            }
+
             await _albumRepository.DeleteAsync(id);
             return new Result() { Success = true };
         }

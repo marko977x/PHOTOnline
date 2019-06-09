@@ -95,7 +95,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .narudzbina-container{
         display: flex;
         height: 100%;
