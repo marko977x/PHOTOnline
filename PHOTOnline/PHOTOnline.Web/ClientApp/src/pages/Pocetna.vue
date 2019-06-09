@@ -30,7 +30,7 @@
             </el-carousel> -->
         </div>
         <album-korisnik v-if="this.showComp == 'albumi'" @gotoLogin='logovanje'></album-korisnik>
-        <proizvodi v-if="this.showComp == 'proizvodi'"></proizvodi>
+        <proizvodi v-if="this.showComp == 'proizvodi'" @gotoLogin='logovanje'></proizvodi>
         <login v-if="this.showComp == 'login'" @closeLoginForm="signupEnd" @goToSignUpForm="Signup"></login>
         <form-signup v-if="this.showComp == 'signup'" @zavrsiPrijavu="signupEnd" ></form-signup>
         <footer-bar></footer-bar>

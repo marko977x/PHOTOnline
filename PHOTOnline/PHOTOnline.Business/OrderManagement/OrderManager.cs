@@ -70,11 +70,11 @@ namespace PHOTOnline.Business.OrderManagement
 
             PHOTOnlineUser user = await _userRepository.FindAsync(userId);
             List<OrderOutput> result = new List<OrderOutput>();
-            List<Cart> carts = await _cartRepository.GetAll();
+            //List<Cart> carts = await _cartRepository.GetAll();
 
             orders.ForEach(order =>
             {
-                Cart cart = carts.Find(element => element.UserId == user.Id);
+                //Cart cart = carts.Find(element => element.UserId == user.Id);
                 result.Add(new OrderOutput()
                 {
                     Order = order,

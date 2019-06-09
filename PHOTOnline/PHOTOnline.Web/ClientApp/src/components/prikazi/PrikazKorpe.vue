@@ -30,7 +30,7 @@
                 </template>
             </el-table-column>
         </el-table>
-        <form-slika :shownPhoto="this.shownImage" :hidden="isImageHidden" @zatvoriSliku="closeImage"/>
+        <form-slika :visible="this.isImageHidden" :shownPhoto="this.shownImage" :hidden="isImageHidden" @zatvoriSliku="closeImage"/>
     </div>
 </template>
 

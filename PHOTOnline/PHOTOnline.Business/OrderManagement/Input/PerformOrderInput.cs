@@ -9,6 +9,6 @@ namespace PHOTOnline.Business.OrderManagement.Input
         public string UserId { get; set; }
         public string Date { get; set; }
         public List<CartItem> CartItems { get; set; }
-        public string Price { get; set; }
+        public float Price { get; set; }
     }
 }
