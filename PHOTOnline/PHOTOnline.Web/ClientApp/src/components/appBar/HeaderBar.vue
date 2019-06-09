@@ -1,80 +1,105 @@
 <template>
      <div class="header-container">
-            <nav class="container">
-                <div class="navbar-left"> 
-                   <el-popover
-                        placement="top-start"
-                        title="Foto-Aritonovic"
-                        width="212"
-                        trigger="hover"
-                        content="Iskustvo duze od 20 godina"> 
-                      <a class="navbar-item" href="./Pocetna" slot="reference">Foto Aritonović</a> 
-                   </el-popover>
-                </div>
-                <div class="navbar-right">
-                    <ul class="items">
-                        <li class="list-item" v-for="item in itemList" :key="item.value" @click="emitMenuSelect(item.index)"><a 
-                           style="text-decoration:none; color:white;" href="#">{{item.label}}</a></li>
-                        <li v-if="this.type == 'pocetna'"> <el-button type="primary" @click="$emit('login')"> Log in </el-button> </li>
-                        <li v-if="this.type == 'korisnik'"> <el-button type="primary" @click="signOut()">Log out </el-button> </li>
-                        <li v-if="this.type == 'pocetna'"> <el-button type="primary" class="dugme" @click="$emit('signup')" plain >SIGN UP</el-button></li>
-                        <li v-if="this.type == 'korisnik'" @click="emitMenuSelect('korpa')">
-                            <el-button type="primary" class="dugme" @click="$emit('signup')" plain >
-                                <el-icon class="el-icon-shopping-cart-2"></el-icon>
-                            </el-button> 
-                        </li>
-                        <li v-if="this.type == 'korisnik'" @click="emitMenuSelect('profil')"> 
-                            <el-button type="primary" class="dugme" @click="$emit('signup')" plain >
-                                <el-icon class="el-icon-user-solid"></el-icon>
-                            </el-button> 
-                        </li>
-                    </ul>
-                </div>
-                <div class="navbar-right-menu">
-                    <el-button  style="opacity:0.9;
-                         height: 50px; width: 50px;"> 
-                        <el-icon class="el-icon-menu"></el-icon>
-                         </el-button>
-                    <!-- <el-button type="primary" @click="$emit('login')"> Log in </el-button>
-                    <el-button type="primary" @click="$emit('signup')">SIGN UP</el-button> -->
-                </div>
-            </nav>
-        </div>
+        <nav class="container">
+            <div class="navbar-left"> 
+                <el-popover
+                    placement="top-start"
+                    title="Foto-Aritonovic"
+                    width="212"
+                    trigger="hover"
+                    content="Iskustvo duze od 20 godina"> 
+                    <a class="navbar-item" href="./Pocetna" slot="reference">Foto Aritonović</a> 
+                </el-popover>
+            </div>
+            <div class="navbar-right">
+                <ul class="items">
+                    <li class="list-item" v-for="item in itemList" :key="item.value" @click="emitMenuSelect(item.index)">
+                        <a style="text-decoration:none; color:white;">{{item.label}}</a>
+                    </li>
+                    <li v-if="this.type == ANONYMOUS_USER_TYPE">
+                        <el-button type="primary" @click="logovanje()"> Log in 
+                    </el-button> </li>
+                    <li v-if="this.type == REGULAR_USER_TYPE">
+                        <el-button type="primary" @click="signOut()">Log out 
+                    </el-button> </li>
+                    <li v-if="this.type == ANONYMOUS_USER_TYPE"> 
+                        <el-button type="primary" class="dugme" @click="Signup()" plain >SIGN UP
+                    </el-button></li>
+                    <li v-if="this.type == REGULAR_USER_TYPE" @click="emitMenuSelect('korpa')">
+                        <el-button type="primary" class="dugme" @click="$emit('signup')" plain >
+                            <el-icon class="el-icon-shopping-cart-2"></el-icon>
+                        </el-button> 
+                    </li>
+                    <li v-if="this.type == REGULAR_USER_TYPE" @click="emitMenuSelect('profil')"> 
+                        <el-button type="primary" class="dugme" @click="$emit('signup')" plain >
+                            <el-icon class="el-icon-user-solid"></el-icon>
+                        </el-button> 
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-right-menu">
+                <el-button  style="opacity:0.9; height: 50px; width: 50px;"> 
+                    <el-icon class="el-icon-menu"></el-icon>
+                </el-button>
+            </div>
+        </nav>
+        <login v-if="this.showComp == 'login'" @closeLoginForm="signupEnd" @goToSignUpForm="Signup"></login>
+        <form-signup v-if="this.showComp == 'signup'" @zavrsiPrijavu="signupEnd" ></form-signup>
+    </div>
 </template>
 
 <script>
- import popover from 'element-ui'
- import menu from '../../assets/menu.png'
-import { apiFetch, destinationUrl } from '../../services/authFetch';
-import { clearUserInfo, clearSessionStorage, clearLocalStorage } from '../../services/contextManagement';
+import popover from 'element-ui'
+import menu from '../../assets/menu.png'
+import { apiFetch, destinationUrl, ANONYMOUS_USER_TYPE, REGULAR_USER_TYPE } from '../../services/authFetch';
+import { clearUserInfo, clearSessionStorage, clearLocalStorage, getPageToShow, setUserInfo, getUserInfo } from '../../services/contextManagement';
+import Login from "../forme/Login.vue";
+import FormSignup from "../forme/FormSignup.vue";
 export default {
-    components: {popover},
+    components: {popover, Login, FormSignup},
     data(){
         return{
            itemList: this.list,
-           type: this.korisnik,
-           slika: menu
+           slika: menu,
+           showComp: '',
+           ANONYMOUS_USER_TYPE: ANONYMOUS_USER_TYPE,
+           REGULAR_USER_TYPE: REGULAR_USER_TYPE
         }
     },
     methods: {
         emitMenuSelect: function(event){
-            this.$emit('changeView', event)
-            console.log(event);
+            console.log()
+            if(getUserInfo().userType == ANONYMOUS_USER_TYPE && event == "zakazivanja")
+                this.showComp = "login";
+            else this.$emit('changeView', event)
         },
         signOut() {
             apiFetch('POST', destinationUrl + "/User/SignOut")
                 .then(result => {
                     if(result.Success) {
-                        clearUserInfo();
                         clearLocalStorage();
                         clearSessionStorage();
+                        setUserInfo("", ANONYMOUS_USER_TYPE);
                         window.location.href = "/";
                     }
                     else console.log(result);
                 });
+        },
+        signupEnd: function(){
+            this.showComp = getPageToShow().page;
+        },
+        Signup: function(){
+            this.showComp = 'signup';
+        },
+        logovanje: function(){
+            this.showComp = 'login';
         }
     },
-    props: ['list','korisnik']
+    props: ['list','type'],
+    mounted() {
+        console.log(this.korisnik);
+
+    }
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
     <div class="user-container">
         <header-bar 
-            :list="this.menuItems" :korisnik="this.userType"
+            :list="this.menuItems" :type="this.userType"
             @changeView="setComponent($event)">
         </header-bar>
         <zakazivanja-korisnik v-if="this.showComp == 'zakazivanja'" ></zakazivanja-korisnik>
@@ -22,7 +22,7 @@ import UserSidebar from "../components/Korisnik/sidebar/UserSidebar.vue"
 import AlbumKorisnik from "../components/Korisnik/AlbumKorisnik.vue"
 import KorpaKorisnik from "../components/Korisnik/KorpaKorisnik.vue"
 import Proizvodi from "../components/Korisnik/Proizvodi.vue"
-import { setPageShown, getPageToShow } from '../services/contextManagement';
+import { setPageShown, getPageToShow, getUserInfo } from '../services/contextManagement';
 
 export default {
     components: {CustomBar, ZakazivanjaKorisnik,
@@ -48,7 +48,7 @@ export default {
                 }
             ],
             showComp: 'profil',
-            userType: 'korisnik'
+            userType: ''
         }
     },
     methods: {
@@ -62,6 +62,7 @@ export default {
         if(nextPage != "Pocetna")
             this.showComp = getPageToShow().page;
         else this.showComp = "profil";
+        this.userType = getUserInfo().userType;
     }
 }
 </script>

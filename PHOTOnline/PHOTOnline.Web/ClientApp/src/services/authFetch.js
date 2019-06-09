@@ -37,5 +37,6 @@ export const apiFetch = apiFetchFactory();
 export const REGULAR_USER_TYPE = 0;
 export const PHOTOGRAPH_USER_TYPE = 1;
 export const ADMIN_USER_TYPE = 2;
+export const ANONYMOUS_USER_TYPE = 3;
 
-export const UserTypes = ["Korisnik", "Fotograf", "Uprava"];
+export const UserTypes = ["Korisnik", "Fotograf", "Uprava", "Anonimni"];

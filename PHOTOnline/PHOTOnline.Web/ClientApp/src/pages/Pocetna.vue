@@ -1,7 +1,7 @@
 <template>
     <div class="main-container">
-        <header-bar @signup="Signup" @login='logovanje' :list="this.menuItems" 
-             @changeView="setComponent($event)" :korisnik="this.userType">
+        <header-bar :list="this.menuItems" 
+             @changeView="setComponent($event)" :type="this.userType">
         </header-bar>
         <div class="main" v-if="this.showComp == ''">
             <el-carousel height="100%" class="slideshow">
@@ -21,30 +21,33 @@
         </div>
         <album-korisnik v-if="this.showComp == 'albumi'"></album-korisnik>
         <proizvodi v-if="this.showComp == 'proizvodi'"></proizvodi>
-        <login v-if="this.showComp == 'login'" @closeLoginForm="signupEnd" @goToSignUpForm="Signup"></login>
-        <form-signup v-if="this.showComp == 'signup'" @zavrsiPrijavu="signupEnd" ></form-signup>
+        <korpa-korisnik v-if="this.showComp == 'korpa'" ></korpa-korisnik>
+        <zakazivanja-korisnik v-if="this.showComp == 'zakazivanja'" ></zakazivanja-korisnik>
+        <user-sidebar v-if="this.showComp == 'profil'" ></user-sidebar>
         <footer-bar class="footer" v-if="this.showComp != 'proizvodi'"></footer-bar> 
     </div>
 </template>
 
 <script>
  import HeaderBar from '../components/appBar/HeaderBar.vue'
- import FooterBar from '../components/appBar/FooterBar.vue'
- import Login from "../components/forme/Login.vue"
- import FormSignup from "../components/forme/FormSignup.vue"
- import AlbumKorisnik from "../components/Korisnik/AlbumKorisnik.vue"
- import Proizvodi from "../components/Korisnik/Proizvodi.vue"
- import slika1 from "../assets/pictures/p1.jpg"
+import FooterBar from '../components/appBar/FooterBar.vue'
+import AlbumKorisnik from "../components/Korisnik/AlbumKorisnik.vue"
+import Proizvodi from "../components/Korisnik/Proizvodi.vue"
+import slika1 from "../assets/pictures/p1.jpg"
 import slika2 from "../assets/pictures/p2.jpg"
 import slika3 from "../assets/pictures/p3.jpg"
 import slika4 from "../assets/pictures/p4.jpg"
- import slika5 from "../assets/pictures/p5.jpg"
- import NarucivanjeFotografija from "../components/Korisnik/NarucivanjeFotografija.vue"
-import { setPageShown, getPageToShow } from '../services/contextManagement';
+import slika5 from "../assets/pictures/p5.jpg"
+import NarucivanjeFotografija from "../components/Korisnik/NarucivanjeFotografija.vue"
+import { setPageShown, getPageToShow, getUserInfo, setUserInfo } from '../services/contextManagement';
+import UserSidebar from "../components/Korisnik/sidebar/UserSidebar.vue";
+import KorpaKorisnik from "../components/Korisnik/KorpaKorisnik.vue";
+import ZakazivanjaKorisnik from "../components/Korisnik/ZakazivanjaKorisnik.vue";
+import { ANONYMOUS_USER_TYPE } from '../services/authFetch';
  
 export default {
-    components: { HeaderBar, FooterBar, Login, FormSignup, NarucivanjeFotografija,
-                AlbumKorisnik, Proizvodi },
+    components: { HeaderBar, FooterBar, NarucivanjeFotografija, AlbumKorisnik, Proizvodi, 
+        UserSidebar, Proizvodi, KorpaKorisnik, ZakazivanjaKorisnik },
     data() {
         return {
             photos:[
@@ -73,28 +76,20 @@ export default {
                     index: 'proizvodi'
                 }
             ],
-            userType: 'pocetna',
+            userType: '',
             showComp: ''
         }
     },
     methods: {
-        Signup: function(){
-            this.showComp = 'signup';
-        },
-        logovanje: function(){
-            this.showComp = 'login';
-        },
-        signupEnd: function(){
-            this.showComp = getPageToShow().page;
-        },
         setComponent(component){
-            if(component == 'zakazivanja') this.showComp = 'login';
-            else  this.showComp = component;
+            this.showComp = component;
             setPageShown(this.showComp);
         }
     },
     mounted: function() {
         setPageShown("Pocetna");
+        this.userType = getUserInfo().userType;
+        console.log(this.userType);
     }
 }
 </script>
