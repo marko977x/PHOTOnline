@@ -7,9 +7,8 @@
             </div>
             <div class="stavka">
                 <label>Datum:</label>
-                    <el-date-picker class="picker" v-model="album.Date" type="date" placeholder="Izaberi dan">
-                    </el-date-picker>
-              
+                <el-date-picker class="picker" v-model="album.Date" type="date" placeholder="Izaberi dan">
+                </el-date-picker>
             </div>
             <div class="stavka">
                 <label>Mesto:</label>
@@ -31,7 +30,8 @@
 </template>
 
 <script>
-    import {destinationUrl} from "../../services/authFetch";
+import {destinationUrl} from "../../services/authFetch";
+import { async, Promise } from 'q';
 export default {
     data() {
         return {
@@ -41,7 +41,10 @@ export default {
                 Location: '',
                 Password: '',
                 Images: []
-            }
+            },
+            isSpinnerActive: false,
+            isUploadingDone: false,
+            spinner: {}
         }
     },
     methods: {
@@ -53,52 +56,73 @@ export default {
             this.dodajAlbum()
         },
         dodajAlbum: async function(){
-            const formData = new FormData();
-            formData.append("Title", this.album.Title);
-            formData.append("Date", this.album.Date);
-            formData.append("Location", this.album.Location);
-            formData.append("Password", this.album.Password);
-            this.album.Images.forEach((image, index) => {
-                formData.append("Images[" + index + "].Id", image.Id);
-                formData.append("Images[" + index + "].Title", image.Title);
-                formData.append("Images[" + index + "].Original.FileId", image.Original.FileId);
-                formData.append("Images[" + index + "].Original.Url", image.Original.Url);
-                formData.append("Images[" + index + "].Thumbnail.FileId", image.Thumbnail.FileId);
-                formData.append("Images[" + index + "].Thumbnail.Url", image.Thumbnail.Url);
-                formData.append("Images[" + index + "].Small.FileId", image.Small.FileId);
-                formData.append("Images[" + index + "].Small.Url", image.Small.Url);
-                formData.append("Images[" + index + "].Medium.FileId", image.Medium.FileId);
-                formData.append("Images[" + index + "].Medium.Url", image.Medium.Url);
-                formData.append("Images[" + index + "].Large.FileId", image.Large.FileId);
-                formData.append("Images[" + index + "].Large.Url", image.Large.Url);
-            });
-            console.log(formData);
-            fetch(destinationUrl + "/Album/AddAlbum", {
-                body: formData,
-                method: 'POST'
-            }).then(response => response.json()).then(
-                () => this.$emit('editFinished','cancel')
-            ).catch(error => console.log(error));
+            if(this.isUploadingDone) {
+                this.closeSpinner();
+                const formData = new FormData();
+                formData.append("Title", this.album.Title);
+                formData.append("Date", this.album.Date);
+                formData.append("Location", this.album.Location);
+                formData.append("Password", this.album.Password);
+                this.album.Images.forEach((image, index) => {
+                    formData.append("Images[" + index + "].Id", image.Id);
+                    formData.append("Images[" + index + "].Title", image.Title);
+                    formData.append("Images[" + index + "].Original.FileId", image.Original.FileId);
+                    formData.append("Images[" + index + "].Original.Url", image.Original.Url);
+                    formData.append("Images[" + index + "].Thumbnail.FileId", image.Thumbnail.FileId);
+                    formData.append("Images[" + index + "].Thumbnail.Url", image.Thumbnail.Url);
+                    formData.append("Images[" + index + "].Small.FileId", image.Small.FileId);
+                    formData.append("Images[" + index + "].Small.Url", image.Small.Url);
+                    formData.append("Images[" + index + "].Medium.FileId", image.Medium.FileId);
+                    formData.append("Images[" + index + "].Medium.Url", image.Medium.Url);
+                    formData.append("Images[" + index + "].Large.FileId", image.Large.FileId);
+                    formData.append("Images[" + index + "].Large.Url", image.Large.Url);
+                });
+                console.log(formData);
+                fetch(destinationUrl + "/Album/AddAlbum", {
+                    body: formData,
+                    method: 'POST'
+                }).then(response => response.json()).then(
+                    () => this.$emit('editFinished','cancel')
+                ).catch(error => console.log(error));
+            }
+            else {
+                this.isSpinnerActive = true;
+                this.openSpinner();
+            }
         },
         prekiniDodavanjeAlbuma: function(){
-            this.$emit('editFinished','cancel') // takodje je i ovde 'cancel' podatak koji se salje i koji 
-            //ce biti ispisan!
+            this.$emit('editFinished','cancel');
         },
-        uploadImages(event) {
+        async uploadImages(event) {
+            const promises = [];
             for(let index = 0; index < event.target.files.length; index++) {
                 const formData = new FormData();
                 formData.append("image", event.target.files[index]);
-                fetch(destinationUrl + "/Image/UploadImage", {method: 'POST', body: formData})
+                promises.push(fetch(destinationUrl + "/Image/UploadImage", {method: 'POST', body: formData})
                     .then(response => {
                         return response.ok ? response.json() : new Error();
                     }).then(result => {
                         console.log(result.Data);
                         this.album.Images.push(result.Data.Image);
-                    }).catch(error => {console.log(error)});
+                    }).catch(error => {console.log(error)}));
+            }
+            await Promise.all(promises);
+            this.isUploadingDone = true;
+            if(this.isSpinnerActive = true) {
+                this.dodajAlbum();
             }
         },
-    },
-    mounted: function() {console.log(this.album)}
+        openSpinner() {
+            this.spinner = this.$loading({
+                text: 'Loading',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.75)'
+            });
+        },
+        closeSpinner() {
+            this.spinner.close();
+        }
+    }
 }
 </script>
 

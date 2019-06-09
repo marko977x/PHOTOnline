@@ -32,6 +32,7 @@
 <script>
 
     import { apiFetch, destinationUrl, PHOTOGRAPH_USER_TYPE } from "../../services/authFetch";
+    import openSpinner from "./FormDodajAlbum.vue";
     export default {
         data() {
             return {
@@ -41,6 +42,7 @@
         methods: {
             prihvatiUnosForme() {
                 console.log(this.zaposleni);
+                // openSpinner();
                 apiFetch('POST', destinationUrl + "/User/CreatePhotographAsync", this.zaposleni)
                     .then(result => {
                         console.log(this.zaposleni);

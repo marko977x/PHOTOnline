@@ -26,10 +26,10 @@
 </template>
 
 <script>
-    import PrikazAlbuma from "./prikazi/PrikazAlbuma"
-    import DodavanjeAlbuma from "./DodavanjeAlbuma.vue"
-    import PrikazSadrzajaAlbuma from "./prikazi/PrikazSadrzajaAlbuma"
-    import {setOpenedAlbumId} from "../services/contextManagement";
+import PrikazAlbuma from "./prikazi/PrikazAlbuma"
+import DodavanjeAlbuma from "./DodavanjeAlbuma.vue"
+import PrikazSadrzajaAlbuma from "./prikazi/PrikazSadrzajaAlbuma"
+import {setOpenedAlbumId} from "../services/contextManagement";
 import { apiFetch, destinationUrl } from '../services/authFetch';
 export default {
     components: {PrikazAlbuma, DodavanjeAlbuma, PrikazSadrzajaAlbuma},
@@ -39,7 +39,8 @@ export default {
             showComp: 'albumi',
             Albums: [],
             FiltriraniAlbumi: [],
-            OpenedAlbumIndex: 0
+            OpenedAlbumIndex: 0,
+            spinner: {}
         }
     },
     methods:{
@@ -61,11 +62,13 @@ export default {
                     .filter(image => image.Id != imageId);
         },
         loadAlbums() {
+            this.openSpinner();
             apiFetch('GET', destinationUrl + "/Album/GetAllAlbums").then(result => {
                 if(result.Success) {
                     this.Albums = result.Data;
                     this.FiltriraniAlbumi = this.Albums.slice();
                 }
+                this.closeSpinner();
             }).catch(error => {console.log(error)});
         },
         filtriraj(){
@@ -80,6 +83,16 @@ export default {
                     }
                 });
             }
+        },
+        openSpinner() {
+            this.spinner = this.$loading({
+                text: 'Loading',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.75)'
+            });
+        },
+        closeSpinner() {
+            this.spinner.close();
         }
     },
     mounted: function() {

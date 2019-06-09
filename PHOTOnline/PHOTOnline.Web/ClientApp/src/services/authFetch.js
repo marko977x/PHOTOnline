@@ -27,7 +27,7 @@ export function apiFetchFactory() {
                 body: formData
             });
         }
-
+        console.log(result);
         return result.json();
     }
 }
