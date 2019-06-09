@@ -59,7 +59,8 @@ export default {
         deleteAlbum() {
             fetch(destinationUrl + "/Album/DeleteAlbum/?id=" + this.Album.Id, {method: 'POST'})
                 .then(response => response.ok ? response.json() : new Error())
-                .then(() => this.$emit('AlbumDeleted'))
+                .then(() => {this.$message({message: "Uspešno ste obrisali album "+this.Album.Title, type: "success"});
+                             this.$emit('AlbumDeleted')})
                 .catch(error => console.log(error));
         }
     },

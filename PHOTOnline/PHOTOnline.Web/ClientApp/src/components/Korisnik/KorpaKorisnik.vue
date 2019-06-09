@@ -115,6 +115,8 @@ export default {
         height: 90%;
         width: 100%;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
         overflow: auto;
         background-color: rgba(224, 224, 235, 0.5);  
 }

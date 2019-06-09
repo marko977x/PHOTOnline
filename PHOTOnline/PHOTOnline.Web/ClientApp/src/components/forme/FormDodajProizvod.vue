@@ -23,7 +23,7 @@
                     <input type="file" accept="image/*" @change="uploadImages($event)" id="file-input" >
                 </div>
                 <div class="stavka-2">
-                    <el-button  type="primary" size="mini" @click="prihvatiUnosForme()">Potvrdi</el-button>
+                    <el-button  type="primary" size="mini" @click="validacija()">Potvrdi</el-button>
                 </div>
             </el-form>
         </el-dialog>
@@ -40,10 +40,16 @@
             }
         },
         methods: {
+            validacija(){
+                if(this.proizvod.Title != '' && this.proizvod.Price != '' && this.proizvod.ProductType != '' && this.proizvod.ImageUrl != '')
+                     this.prihvatiUnosForme();
+                else
+                    this.$message({message : "Morate uneti polja za naziv, cenu i tip proizvoda, kao i upload-ovati sliku.", type: "warning"});
+            },
             prihvatiUnosForme() {
                 apiFetch('POST', destinationUrl + "/Product/AddShopProduct", this.proizvod)
                     .then(result => {
-                        this.$message("Uspesno ste dodali novi proizvod!");
+                        this.$message("Uspešno ste dodali novi proizvod!");
                         this.$emit("zatvoriDodavanjeProizvoda");
                     }).catch(error => {
                         console.log(error);

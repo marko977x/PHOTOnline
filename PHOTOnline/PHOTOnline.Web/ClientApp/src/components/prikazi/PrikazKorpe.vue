@@ -1,21 +1,26 @@
 <template>
     <div class="korpa-container">
         <el-table 
-        :data="tableData"
+        :data="this.korpa"
         style="width:80%; border:1px solid black;">
             <el-table-column
-                prop="tip"
+                prop="ProductType"
                 label="Tip"
                 class="table-column">
             </el-table-column>
              <el-table-column
-                prop="kolicina"
+                prop="Quantity"
                 label="Kolicina"
                 class="table-column">
             </el-table-column>
-             <el-table-column
-                prop="format"
+            <el-table-column
+                prop="Format"
                 label="Format"
+                class="table-column">
+            </el-table-column>
+            <el-table-column
+                prop="Price"
+                label="Cena"
                 class="table-column">
             </el-table-column>
             <el-table-column>
@@ -34,18 +39,6 @@
 export default {
     data(){
         return{
-            tableData: [
-                {
-                    tip: 'Fotografija',
-                    kolicina: 4,
-                    format: '13x18'
-                },
-                {
-                    tip: 'Kalendar',
-                    kolicina: 1,
-                    format: 'Srednji'
-                }
-            ],
             endTask: false,
         }
     },
@@ -54,11 +47,12 @@ export default {
               this.endTask = !this.endTask;
           }
 
-    }
+    },
+    props: ['korpa']
 }
 </script>
 
-<style>
+<style scoped>
 .korpa-container{
         height: 47%;
         width: 90%;

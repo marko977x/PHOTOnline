@@ -10,7 +10,7 @@
                     <el-menu-item v-for="item in itemList" :key="item.key" class="side-menu-item" :index="item.index"
                         style=" background: linear-gradient(0deg, rgba(39, 114, 175, 0.938), rgba(10, 102, 177, 0.979) );">
                        <img v-if="item.slika != undefined" style="height:30%; margin-right: 1em; margin-left:0.1em; position:left;
-                       margin-top:20px;" :src="getImgUrl(item.slika)"/>{{item.label}}
+                       margin-top:0px;" :src="getImgUrl(item.slika)"/>{{item.label}}
                     </el-menu-item>
                 </el-menu>
     </div>

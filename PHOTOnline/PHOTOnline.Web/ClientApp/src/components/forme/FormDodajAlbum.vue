@@ -7,7 +7,8 @@
             </div>
             <div class="stavka">
                 <label>Datum:</label>
-                    <el-date-picker class="picker" v-model="album.Date" type="date" placeholder="Izaberi dan">
+                    <el-date-picker class="picker" v-model="album.Date" type="date" placeholder="Izaberi dan" 
+                    :picker-options="pickerOptions" format="yyyy/MM/dd" value-format="yyyy-MM-dd">
                     </el-date-picker>
               
             </div>
@@ -23,7 +24,7 @@
                 <el-input type="password" class="input-polje" v-model="album.Password"></el-input> 
             </div>
             <div class="dugmici">
-            <el-button class="dugme" @click="dodajAlbum()" type="primary">Sačuvaj</el-button>
+            <el-button class="dugme" @click="validacija()" type="primary">Sačuvaj</el-button>
             <el-button class="dugme1" @click="prekiniDodavanjeAlbuma">Zatvori</el-button>
             </div>
         </el-form>
@@ -35,22 +36,30 @@
 export default {
     data() {
         return {
+            pickerOptions: {
+                disabledDate(time) {
+                    return time.getTime() > Date.now();
+                },
+            },
             album: {
                 Title: '',
                 Date: '',
                 Location: '',
                 Password: '',
                 Images: []
-            }
+            },
         }
     },
     methods: {
         validacija: function(){
-            if(this.album.Title === '' || this.album.Location === '' || this.album.Date === ''){
+            if(this.album.Title != '' && this.album.Location != '' && this.album.Date != '' && this.album.Password != ''){
+                this.dodajAlbum()
+            }
+            else{
                 this.$message({message : 'Sva polja moraju biti popunjena', type: 'warning'})
                 return
             }
-            this.dodajAlbum()
+            
         },
         dodajAlbum: async function(){
             const formData = new FormData();

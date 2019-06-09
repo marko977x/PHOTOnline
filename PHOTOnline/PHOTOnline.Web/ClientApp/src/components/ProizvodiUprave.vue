@@ -42,7 +42,7 @@
                 apiFetch('POST', destinationUrl + "/Product/RemoveShopProduct?productId=" + id)
                 .then(result => {
                     if(result.Success) {
-                        this.$message("Korisnik je uspešno obrisan!");
+                        this.$message("Proizvod je uspešno obrisan!");
                         this.$emit("loadDataTable");
                     }
                 }).catch(error => {console.log(error)});

@@ -4,6 +4,7 @@
              <div class="container">
                 <user-profile-info-page v-if="this.showComp == 'profil'" />
                 <user-requests v-if="this.showComp == 'zakazivanja'" />
+                <narudzbine-korisnik v-if="this.showComp == 'narudzbine'"/>
              </div>
         </div>
 </template>
@@ -16,9 +17,10 @@ import {getUserInfo} from "../../../services/contextManagement.js";
 import {destinationUrl} from "../../../services/authFetch.js";
 import UserProfileInfoPage from "./containers/UserProfileInfo/UserProfileInfoPage.vue";
 import UserRequests from "./containers/UserRequests.vue";
+import NarudzbineKorisnik from "./containers/NarudzbineKorisnik.vue";
 export default {
     components: {
-        FooterBar, SideBarProfil, UserRequests, PromenaLozinke, UserProfileInfoPage
+        FooterBar, SideBarProfil, UserRequests, PromenaLozinke, UserProfileInfoPage, NarudzbineKorisnik
     },
     data() {
         return{
@@ -33,6 +35,12 @@ export default {
                 },
                 {
                     key: 2,
+                    label: 'Narudžbine',
+                    index: 'narudzbine',
+                    slika: 'narudzbine.png'
+                },
+                {
+                    key: 3,
                     label: 'Profil',
                     index: 'profil',
                     slika: 'evidencijaclanova.png'
