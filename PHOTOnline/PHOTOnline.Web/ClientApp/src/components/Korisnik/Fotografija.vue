@@ -1,13 +1,13 @@
 <template>
     <div class="fotografije">
         <div class="download-delete">
-           <el-checkbox v-model="select" style="color:white;" @change="onImageSelectionChange($event)">Odaberi
+            <el-checkbox v-model="select" style="color:white;" @change="onImageSelectionChange($event)">Odaberi
             </el-checkbox>
-            <img :src="image.Thumbnail.Url" height="130px" width="120px" style="border-radius:2px;" @click="prosledi"/>
+            <img :src="item.image.Thumbnail.Url" height="130px" width="120px" style="border-radius:2px;" @click="prosledi"/>
         </div>
         <div class="izbor">
             <el-input-number size="small" style="width:100%;"
-                 v-model="num" :min="1" :max="20">
+                 v-model="num" @input="setQuantity" :min="1" :max="20">
             </el-input-number>
             <el-select :value="format" @input="setFormat" placeholder="Format Slike" size="mini">
                 <el-option
@@ -33,45 +33,33 @@ export default {
             select: false
         }
     },
-    props: ['image'],
+    props: ['item'],
     methods: {
         onImageSelectionChange(selected){
             if(selected == true) {
-                let data = {
-                    Image: this.image,
-                    Quantity: this.num,
-                    Format: this.format
-                };
-                console.log(data);
-
-                this.$emit("selectImage", data);
+                this.$emit("selectImage", {quantity: this.num, format: this.format});
             }
             else {
                 this.$emit("unselectImage", this.image);
             }
         },
         prosledi(){
-            let image = this.image;
-            this.$emit("showPhoto", image);
+            this.$emit("showPhoto", this.item.image);
         },
-        setFormat(event) {
-            this.format = event;
-            console.log(event);
+        setFormat(format) {
+            this.$emit("formatChange", format);
+        },
+        setQuantity(quantity) {
+            this.$emit('quantityChange', quantity);
         }
     },
     mounted: function() {
-        const state = getAlbumKorisnikState();
-        if(state != null) {
-            this.selectedImages = state.selectedImages;
-            console.log(this.selectedImages);
-            const image = this.selectedImages.find(item => item.Image.Id == this.image.Id);
-            console.log(image);
-            if(image != null) {
-                this.format = image.Format;
-                this.num = image.Quantity;
-                this.select = true;
-            }
-        }
+        console.log(this.select);
+    },
+    updated() {
+        this.select = this.item.selected;
+        this.num = this.item.quantity;
+        this.format = this.item.format;
     }
 }
 </script>

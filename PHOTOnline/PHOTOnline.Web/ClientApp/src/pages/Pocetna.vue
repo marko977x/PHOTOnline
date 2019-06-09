@@ -1,9 +1,9 @@
 <template>
     <div class="main-container">
-        <header-bar :list="this.menuItems" 
+        <header-bar :list="this.menuItems" @showHomePage="setComponent($event)"
              @changeView="setComponent($event)" :type="this.userType">
         </header-bar>
-        <div class="main" v-if="this.showComp == ''">
+        <div class="main" v-if="this.showComp == 'pocetna'">
             <el-carousel height="100%" class="slideshow">
                 <el-carousel-item v-for="photo in photos" :key="photo">
                     <img :src="photo"/>
@@ -77,7 +77,7 @@ export default {
                 }
             ],
             userType: '',
-            showComp: ''
+            showComp: 'pocetna'
         }
     },
     methods: {
@@ -89,7 +89,7 @@ export default {
     mounted: function() {
         setPageShown("Pocetna");
         this.userType = getUserInfo().userType;
-        console.log(this.userType);
+        this.showComp = "pocetna";
     }
 }
 </script>

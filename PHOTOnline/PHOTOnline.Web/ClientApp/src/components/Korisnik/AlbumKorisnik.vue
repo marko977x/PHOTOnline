@@ -12,16 +12,17 @@
         </div>
         <div class="album-fotografije">
             <fotografija 
-                v-for="image in album.Images" :key="image._id"
-                @selectImage="addImageToSelected($event)"
-                @unselectImage="removeImageFromSelected($event)"
-                @showPhoto="prikazi($event)" :image="image">
+                v-for="(item, index) in items" :key="item._id"
+                @selectImage="addImageToSelected($event, index)"
+                @unselectImage="removeImageFromSelected($event, index)"
+                @showPhoto="prikazi($event)" :item="item"
+                @formatChange="onFormatChange($event, index)"
+                @quantityChange="onQuantityChange($event, index)">
             </fotografija>
         </div>
         <form-slika :shownPhoto="this.photo"
             @zatvoriSliku="zatvoriSliku" v-if="this.showPicture == 'photo'">
         </form-slika>
-        <!-- <footer-bar></footer-bar> -->
     </div>
 </template>
 
@@ -30,16 +31,21 @@ import FooterBar from "../appBar/FooterBar.vue"
 import Fotografija from "./Fotografija.vue"
 import FormSlika from "../forme/FormSlika.vue"
 import { constants } from 'fs';
-import { destinationUrl } from '../../services/authFetch';
-import { getUserInfo, setAlbumKorisnikState, getAlbumKorisnikState } from '../../services/contextManagement';
+import { destinationUrl, ANONYMOUS_USER_TYPE, REGULAR_USER_TYPE } from '../../services/authFetch';
+import { getUserInfo, setAlbumKorisnikState, getAlbumKorisnikState, clearAlbumKorisnikState } from '../../services/contextManagement';
 export default {
     components: {FooterBar, Fotografija, FormSlika},
     data(){
         return {
             password: '',
             select: false,
-            album: {},
-            selectedImages: [],
+            items: [],
+            itemData: {
+                image: {},
+                selected: false,
+                format: "",
+                quantity: 1
+            },
             photo: {},
             showPicture: ''
         }
@@ -59,17 +65,20 @@ export default {
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {
                     result.Success ? 
-                        this.album = result.Data : 
+                        result.Data.Images.forEach((image, index) => {
+                            this.itemData.image = image;
+                            this.items.push(this.itemData);
+                        }) : 
                         this.$message("Pogresna sifra albuma!");
                 }).catch(error => console.log(error));
         },
-        addImageToSelected(data){
-            this.selectedImages.push(data);
-            console.log(this.selectedImages);
+        addImageToSelected(data, index){
+            this.$set(this.items, index, {
+                ... this.items[index], selected: true, quantity: data.quantity, format: data.format
+            });
         },
-        removeImageFromSelected(image) {
-            this.selectedImages = this.selectedImages
-                .filter(item => item.Image.Id != image.Id);
+        removeImageFromSelected(image, index) {
+            this.items[index].selected = false;
         },
         prikazi(photo){
             this.photo = photo;
@@ -79,52 +88,67 @@ export default {
             this.showPicture = '';
         },
         dodajUKorpu() {
-            setAlbumKorisnikState({album: this.album, selectedImages: this.selectedImages});
-            if(getUserInfo().userID != null) {
-                if(this.selectedImages.length == 0) {
+            setAlbumKorisnikState({items: this.items});
+            if(getUserInfo().userType == REGULAR_USER_TYPE) {
+                clearAlbumKorisnikState();
+                if(this.items.length == 0) {
                     this.$message({message: "Morate selektovati bar jednu fotografiju!",type: 'error'})
                     return
                 }
-                console.log(this.selectedImages);
                 const formData = new FormData();
                 formData.append("UserId", getUserInfo().userID);
-                this.selectedImages.forEach((image, index) => {
+                this.items.filter(item => item.selected == true).forEach((item, index) => {
                     formData.append("CartItems[" + index + "].ProductType", "Fotografija");
-                    formData.append("CartItems[" + index + "].Format", image.Format);
-                    formData.append("CartItems[" + index + "].Quantity", image.Quantity);
-                    formData.append("CartItems[" + index + "].Image.Id", image.Image.Id);
-                    formData.append("CartItems[" + index + "].Image.Title", image.Image.Title);
-                    formData.append("CartItems[" + index + "].Image.Original.FileId", image.Image.Original.FileId);
-                    formData.append("CartItems[" + index + "].Image.Original.Url", image.Image.Original.Url);
-                    formData.append("CartItems[" + index + "].Image.Thumbnail.FileId", image.Image.Thumbnail.FileId);
-                    formData.append("CartItems[" + index + "].Image.Thumbnail.Url", image.Image.Thumbnail.Url);
-                    formData.append("CartItems[" + index + "].Image.Large.FileId", image.Image.Large.FileId);
-                    formData.append("CartItems[" + index + "].Image.Large.Url", image.Image.Large.Url);
-                    formData.append("CartItems[" + index + "].Image.Medium.FileId", image.Image.Medium.FileId);
-                    formData.append("CartItems[" + index + "].Image.Medium.Url", image.Image.Medium.Url);
-                    formData.append("CartItems[" + index + "].Image.Small.FileId", image.Image.Small.FileId);
-                    formData.append("CartItems[" + index + "].Image.Small.Url", image.Image.Small.Url);
+                    formData.append("CartItems[" + index + "].Format", item.format);
+                    formData.append("CartItems[" + index + "].Quantity", item.quantity);
+                    formData.append("CartItems[" + index + "].Image.Id", item.image.Id);
+                    formData.append("CartItems[" + index + "].Image.Title", item.image.Title);
+                    formData.append("CartItems[" + index + "].Image.Original.FileId", item.image.Original.FileId);
+                    formData.append("CartItems[" + index + "].Image.Original.Url", item.image.Original.Url);
+                    formData.append("CartItems[" + index + "].Image.Thumbnail.FileId", item.image.Thumbnail.FileId);
+                    formData.append("CartItems[" + index + "].Image.Thumbnail.Url", item.image.Thumbnail.Url);
+                    formData.append("CartItems[" + index + "].Image.Large.FileId", item.image.Large.FileId);
+                    formData.append("CartItems[" + index + "].Image.Large.Url", item.image.Large.Url);
+                    formData.append("CartItems[" + index + "].Image.Medium.FileId", item.image.Medium.FileId);
+                    formData.append("CartItems[" + index + "].Image.Medium.Url", item.image.Medium.Url);
+                    formData.append("CartItems[" + index + "].Image.Small.FileId", item.image.Small.FileId);
+                    formData.append("CartItems[" + index + "].Image.Small.Url", item.image.Small.Url);
                     formData.append("CartItems[" + index + "].Price", 100);
                 });
 
+                for(let index = 0; index < this.items.length; index++) {
+                    this.$set(this.items, index, {
+                        ...this.items[index], 
+                        selected: false,
+                        quantity: 1,
+                        format: ""
+                    });
+                }
+                
+                
                 fetch(destinationUrl + "/Cart/AddToCart", {method: 'POST', body: formData})
                     .then(response => response.ok ? response.json() : new Error())
-                    .then(result => console.log(result))
+                    .then(() => this.$message({message: "Uspesno ste dodali fotografije u korpu", type: "success"}))
                     .catch(error => console.log(error));
             }
             else {
                 this.$message("Da biste naručili fotografije morate se prijaviti ili registrovati.");
                 this.$emit("gotoLogin");
             }
+        },
+        onFormatChange(format, index) {
+            console.log(this.items[index]);
+            this.$set(this.items, index, {...this.items[index], format: format});
+        },
+        onQuantityChange(quantity, index) {
+            this.$set(this.items, index, {...this.items[index], quantity: quantity});
         }
     },
     mounted: function() {
         const state = getAlbumKorisnikState();
         if(state != null) {
-            this.selectedImages = state.selectedImages;
-            this.album = state.album;
+            this.items = state.items;
         }
-        console.log(state);
     }
 }
 </script>

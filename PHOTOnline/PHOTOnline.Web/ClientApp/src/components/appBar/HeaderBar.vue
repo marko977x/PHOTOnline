@@ -8,7 +8,7 @@
                     width="212"
                     trigger="hover"
                     content="Iskustvo duze od 20 godina"> 
-                    <a class="navbar-item" href="./Pocetna" slot="reference">Foto Aritonović</a> 
+                    <a class="navbar-item" @click="showHomePage()" slot="reference">Foto Aritonović</a> 
                 </el-popover>
             </div>
             <div class="navbar-right">
@@ -73,13 +73,16 @@ export default {
                 this.showComp = "login";
             else this.$emit('changeView', event)
         },
+        showHomePage() {
+            this.$emit('showHomePage', "pocetna");
+        },
         signOut() {
             apiFetch('POST', destinationUrl + "/User/SignOut")
                 .then(result => {
                     if(result.Success) {
                         clearLocalStorage();
                         clearSessionStorage();
-                        setUserInfo("", ANONYMOUS_USER_TYPE);
+                        setUserInfo(null, ANONYMOUS_USER_TYPE);
                         window.location.href = "/";
                     }
                     else console.log(result);
