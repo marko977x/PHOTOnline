@@ -37,7 +37,7 @@
                     </template>
                 </el-table-column>
             </el-table>
-        <el-button @click="Naruci()" type="primary">Naruči</el-button>
+        <el-button style="margin-top: 10px;" @click="Naruci()" type="primary">Naruči</el-button>
         </div>   
         <form-slika :shownPhoto="this.shownImage" :hidden="isImageHidden" @zatvoriSliku="closeImage"/>
     </div>
@@ -65,11 +65,18 @@ export default {
         }
     },
     methods: {
-        Naruci() {      
+        Naruci() {   
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+            var yyyy = today.getFullYear();
+
+            today = yyyy + '-' + mm + '-' + dd  ;
+               
             apiFetch('POST', destinationUrl + "/Order/PerformOrder", {
                 DeliveryAddress: "",
                 UserId: getUserInfo().userID,
-                Date: Date.now(),
+                Date: today,
                 CartId: this.cartId
             }).then(result => console.log(result))
             .catch(error => console.log(error));
@@ -104,6 +111,7 @@ export default {
                 if(result.Success)
                     this.cartItems = result.Data.CartItems;
                     this.cartId = result.Data.Id;
+                    console.log(this.cartItems);
             }).catch(error => console.log(error));
     }
 }

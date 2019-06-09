@@ -3,19 +3,16 @@
         <div class="narudzbina-container-table">
             <el-table
                 :data="listaNarudzbina"
-                :default-sort = "{prop:'Date', order: 'descending'}"
+                :default-sort = "{prop:'Order.Date', order: 'descending'}"
                 height="1000"
                 style="width:100%"
                 :row-class-name="tableColumn"
                 highlight-current-row
                 @current-change="handleCurrentChange">
-                <el-table-column min-width="20%" prop="Date" label="Datum" sortable="true"></el-table-column>
-                <el-table-column min-width="20%" prop="DeliveryAddress" label="Adresa"></el-table-column>
-                <el-table-column min-width="20%" prop="RequestStatus" label="Status"></el-table-column>
+                <el-table-column min-width="20%" prop="Order.Date" label="Datum" sortable="true"></el-table-column>
+                <el-table-column min-width="20%" prop="Order.DeliveryAddress" label="Adresa"></el-table-column>
+                <el-table-column min-width="20%" prop="Cart.Price" label="Ukupna cena"></el-table-column>
                 <el-table-column min-width="20%" prop="PhoneNumber" label="Telefon"></el-table-column>
-                <el-table-column fixed="right" width="100" align="right">
-                    <el-button type="warning" size="mini">Korpa</el-button>
-                </el-table-column>
                 <el-table-column fixed="right" width="50">
                     <el-button type="info" icon="el-icon-message" circle size="mini" @click="prikaziPoruku"></el-button>
                 </el-table-column>
@@ -48,19 +45,20 @@ export default {
         loadOrders() {
             let userId = getUserInfo().userID;
             console.log(userId)
-            fetch(destinationUrl + '/Order/GetOrdersByUserId/?id=' + userId, {method: "GET"})
+            fetch(destinationUrl + '/Order/GetOrdersByUserId/?userId=' + userId, {method: "GET"})
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {
                     this.listaNarudzbina = result.Data;
+                    console.log(this.listaNarudzbina);
             })
         },
         handleCurrentChange(val) {
             this.currentRow = val;
-            this.itemsinCart = this.currentRow.CartItems;
+            this.itemsinCart = this.currentRow.Cart.CartItems;
         },
         prikaziPoruku(){
-            if(this.currentRow.RequestStatus == 1)  this.$notify({title: "OBAVEŠTENJE", message: this.currentRow.Notification==null ? this.poruka1 : this.currentRow.Notification, type: 'success',  position: 'bottom-right' })
-            else if(row.RequestStatus == 2) this.$notify({title: "OBAVEŠTENJE", message: this.currentRow.Notification==null ? this.poruka2 : this.currentRow.Notification, type: 'error', position: 'bottom-right'})
+            if(this.currentRow.Order.RequestStatus == 1)  this.$notify({title: "OBAVEŠTENJE", message: this.currentRow.Order.Notification==null ? this.poruka1 : this.currentRow.Order.Notification, type: 'success',  position: 'bottom-right' })
+            else if(this.currentRow.Order.RequestStatus == 2) this.$notify({title: "OBAVEŠTENJE", message: this.currentRow.Order.Notification==null ? this.poruka2 : this.currentRow.Order.Notification, type: 'error', position: 'bottom-right'})
             else this.$notify({title: "OBAVEŠTENJE", message: this.poruka3, type: 'warning', position: 'bottom-right'})
         },
         tableColumn({row, rowIndex}) {
