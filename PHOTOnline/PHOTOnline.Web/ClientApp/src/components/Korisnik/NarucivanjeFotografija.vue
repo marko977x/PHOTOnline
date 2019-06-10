@@ -44,7 +44,7 @@ export default {
             this.showPhotos();
         },
         showPhotos(){
-            console.log(this.Images)
+            this.$emit("showPhotos",this.Images);
         }
     },
     props: ['list']
