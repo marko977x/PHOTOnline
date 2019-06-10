@@ -1,5 +1,5 @@
 <template>
-    <div class="proizvodi-container">
+    <div class="proizvodi-container" v-loading="isSpinnerActive">
         <div class="lista-proizvoda">
             <div v-for="(item, index) in proizvodi" :key="item.value" :list="proizvodi">
             <template>
@@ -31,7 +31,6 @@ import NarucivanjeFotografija from "./NarucivanjeFotografija.vue"
 import { apiFetch, destinationUrl, UserTypes, REGULAR_USER_TYPE } from '../../services/authFetch';
 import { getUserInfo } from '../../services/contextManagement';
 import { Promise } from 'q';
-import { closeSpinner, openSpinner } from '../../data/spinner';
 export default {
     components: { NarucivanjeFotografija },
     data(){
@@ -85,16 +84,15 @@ export default {
                     .then(response => response.ok ? response.json() : new Error())
                     .then(result => { 
                         this.$message({message: "Uspešno ste dodali proizvod u online korpu.", type: "success"});
-                        closeSpinner();
+                        this.isSpinnerActive = false;
                     })
                     .catch(error => { 
                         this.$message({message: "Greška pri dodavanju proizvoda u online korpu.", type: "error"})
-                        closeSpinner();
+                        this.isSpinnerActive = false;
                     });
             }
             else {
                 this.isSpinnerActive = true;
-                openSpinner();
             }
         },
         async uploadImage(event) {

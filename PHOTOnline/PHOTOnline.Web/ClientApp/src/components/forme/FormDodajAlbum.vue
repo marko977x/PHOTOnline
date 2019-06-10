@@ -24,7 +24,7 @@
                 <el-input type="password" class="input-polje" v-model="album.Password"></el-input> 
             </div>
             <div class="dugmici">
-            <el-button class="dugme" @click="dodajAlbum()" type="primary">Sačuvaj</el-button>
+            <el-button v-loading="isSpinnerActive" class="dugme" @click="dodajAlbum()" type="primary">Sačuvaj</el-button>
             <el-button class="dugme1" @click="prekiniDodavanjeAlbuma">Zatvori</el-button>
             </div>
         </el-form>
@@ -93,13 +93,11 @@ export default {
                 }).then(response => response.json()).then(
                     () => {
                         this.$emit('editFinished','cancel');
-                        closeSpinner();
                     }
                 ).catch(error => console.log(error));
             }
             else {
                 this.isSpinnerActive = true;
-                openSpinner();
             }
         },
         prekiniDodavanjeAlbuma: function(){

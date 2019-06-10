@@ -41,7 +41,8 @@ export default {
             Albums: [],
             FiltriraniAlbumi: [],
             OpenedAlbumIndex: 0,
-            spinner: {}
+            isSpinnerActive: false,
+
         }
     },
     methods:{
@@ -63,13 +64,13 @@ export default {
                     .filter(image => image.Id != imageId);
         },
         loadAlbums() {
-            openSpinner();
+            this.isSpinnerActive = true;
             apiFetch('GET', destinationUrl + "/Album/GetAllAlbums").then(result => {
                 if(result.Success) {
                     this.Albums = result.Data;
                     this.FiltriraniAlbumi = this.Albums.slice();
                 }
-                closeSpinner();
+                this.isSpinnerActive = false;
             }).catch(error => {console.log(error)});
         },
         filtriraj(){
