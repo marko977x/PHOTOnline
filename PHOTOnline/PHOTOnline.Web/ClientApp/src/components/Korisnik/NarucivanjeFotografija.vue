@@ -1,25 +1,23 @@
 <template>
     <div class="prikaz-proizvoda-container">
         <label>Online Naručivanje Fotografija</label>
-         <input type="file" :disabled="omoguciDugme" accept="image/*" @click="uploadImage($event)" id="file-input" >
+         <input  multiple type="file" :disabled="omoguciDugme" accept="image/*" @change="uploadImages($event)" id="file-input" >
     </div>
 </template>
 
 <script>
 import { getUserInfo } from '../../services/contextManagement';
 import { apiFetch, destinationUrl, UserTypes, REGULAR_USER_TYPE } from '../../services/authFetch';
+import { closeSpinner, openSpinner } from '../../data/spinner';
 export default {
     data(){
         return{
             proiz: this.list,
-            omoguciDugme: false
+            omoguciDugme: false,
+            Images: [],
         }
     },
     methods:{
-        uploadImage(data){
-            this.proveraPrijavljen();
-            console.log(data);
-        },
          proveraPrijavljen(){
              console.log(getUserInfo().userType)
             if(getUserInfo().userType == REGULAR_USER_TYPE){
@@ -28,6 +26,25 @@ export default {
             else{
                 this.omoguciDugme = true;
             }
+        },
+          async uploadImages(event) {
+            const promises = [];
+            for(let index = 0; index < event.target.files.length; index++) {
+                const formData = new FormData();
+                formData.append("image", event.target.files[index]);
+                promises.push(fetch(destinationUrl + "/Image/UploadImage", {method: 'POST', body: formData})
+                    .then(response => {
+                        return response.ok ? response.json() : new Error();
+                    }).then(result => {
+                        console.log(result.Data);
+                        this.Images.push(result.Data.Image);
+                    }).catch(error => {console.log(error)}));
+            }
+            await Promise.all(promises);
+            this.showPhotos();
+        },
+        showPhotos(){
+            console.log(this.Images)
         }
     },
     props: ['list']
