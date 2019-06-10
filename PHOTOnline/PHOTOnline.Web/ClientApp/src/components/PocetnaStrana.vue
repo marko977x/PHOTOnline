@@ -17,8 +17,8 @@ export default {
         justify-content: center;
         align-items: center;
         width: 100%;
-          background-size: cover;
-    background-image: linear-gradient(
+        background-size: cover;
+        background-image: linear-gradient(
             rgba(26, 111, 168, 0.171),
             rgba(57, 63, 61, 0.205)
         ),url("../assets/pictures/1.jpg");

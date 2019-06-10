@@ -111,14 +111,14 @@ export default {
 
     .main-container {
         width: 100%;
-        height: 100vh;
+        height: 100%;
         position: absolute;
         background-size: cover;
         background-position: bottom;
-        background-image: linear-gradient(
-                rgba(26, 111, 168, 0.171),
-                rgba(57, 63, 61, 0.205)
-            ),url("../assets/pictures/ho.jpg");
+        /* background-image: linear-gradient(
+            rgba(26, 111, 168, 0.171),
+            rgba(57, 63, 61, 0.205)
+        ),url("../assets/pictures/ho.jpg"); */
     }
 
     .main {

@@ -61,7 +61,6 @@ export default {
                     Url: ""
                 }
             },
-            dummy: {}
         }
     },
     methods: {
@@ -73,13 +72,38 @@ export default {
 
             today = yyyy + '-' + mm + '-' + dd  ;
                
-            apiFetch('POST', destinationUrl + "/Order/PerformOrder", {
-                DeliveryAddress: "",
-                UserId: getUserInfo().userID,
-                Date: today,
-                CartId: this.cartId
-            }).then(result => console.log(result))
-            .catch(error => console.log(error));
+            const formData = new FormData();
+            formData.append('DeliveryAddress', '');
+            formData.append('UserId', getUserInfo().userID);
+            formData.append('Date', today);
+            formData.append('Price', this.izracunajCenu());
+            this.cartItems.forEach((item, index) => {
+                formData.append("CartItems[" + index + "].ProductType", item.ProductType);
+                formData.append("CartItems[" + index + "].Format", item.Format);
+                formData.append("CartItems[" + index + "].Quantity", item.Quantity);
+                formData.append("CartItems[" + index + "].Image.Id", item.Image.Id);
+                formData.append("CartItems[" + index + "].Image.Title", item.Image.Title);
+                formData.append("CartItems[" + index + "].Image.Original.FileId", item.Image.Original.FileId);
+                formData.append("CartItems[" + index + "].Image.Original.Url", item.Image.Original.Url);
+                formData.append("CartItems[" + index + "].Image.Thumbnail.FileId", item.Image.Thumbnail.FileId);
+                formData.append("CartItems[" + index + "].Image.Thumbnail.Url", item.Image.Thumbnail.Url);
+                formData.append("CartItems[" + index + "].Image.Large.FileId", item.Image.Large.FileId);
+                formData.append("CartItems[" + index + "].Image.Large.Url", item.Image.Large.Url);
+                formData.append("CartItems[" + index + "].Image.Medium.FileId", item.Image.Medium.FileId);
+                formData.append("CartItems[" + index + "].Image.Medium.Url", item.Image.Medium.Url);
+                formData.append("CartItems[" + index + "].Image.Small.FileId", item.Image.Small.FileId);
+                formData.append("CartItems[" + index + "].Image.Small.Url", item.Image.Small.Url);
+                formData.append("CartItems[" + index + "].Price", item.Price);
+            });
+
+            fetch(destinationUrl + "/Order/PerformOrder", {
+                method: 'POST',
+                body: formData
+            }).then(response => response.ok ? response.json() : new Error())
+            .then(result => {
+                if(result.Success) this.$message({message: "Uspesno odradjena narudzbina", type: "success"});
+                else this.$message({message: "Neuspesno odradjena narudzbina", type: "error"});
+            }).catch(error => console.log(error));
         },
         izracunajCenu(){
             let result = 0;
