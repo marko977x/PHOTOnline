@@ -39,7 +39,7 @@
             </el-table>
         <el-button style="margin-top: 10px;" @click="Naruci()" type="primary">Naruči</el-button>
         </div>   
-        <form-slika :shownPhoto="this.shownImage" :hidden="isImageHidden" @zatvoriSliku="closeImage"/>
+        <form-slika :isVisible="!isImageHidden" :shownPhoto="shownImage" :hidden="isImageHidden" @zatvoriSliku="closeImage"/>
     </div>
 </template>
 
@@ -111,7 +111,6 @@ export default {
                 if(result.Success)
                     this.cartItems = result.Data.CartItems;
                     this.cartId = result.Data.Id;
-                    console.log(this.cartItems);
             }).catch(error => console.log(error));
     }
 }

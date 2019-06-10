@@ -53,7 +53,7 @@ namespace PHOTOnline.Business.AlbumManagement
             List<string> imageVariantsIds = new List<string>();
             List<UploadedFile> uploadedFiles = new List<UploadedFile>();
 
-            if(album.Images != null)
+            if (album.Images != null)
             {
                 album.Images.ForEach(image =>
                 {
@@ -82,6 +82,7 @@ namespace PHOTOnline.Business.AlbumManagement
             await _albumRepository.DeleteImage(input.AlbumId, input.ImageId);
             return new Result() { Success = true };
         }
+
 
         private List<string> GetBlobsIds(List<UploadedFile> files)
         {
@@ -116,6 +117,15 @@ namespace PHOTOnline.Business.AlbumManagement
             }
 
             album.Images.AddRange(input.Images);
+            return new Result() { Success = true };
+        }
+
+        public async Task<Result> DeleteImage(Image image)
+        {
+            List<UploadedFile> uploadedFiles = await _uploadedFilesRepository
+                .DeleteUploadedFiles(GetImageVariantsIds(image));
+
+            await _blobStore.DeleteBlobs(GetBlobsIds(uploadedFiles));
             return new Result() { Success = true };
         }
     }

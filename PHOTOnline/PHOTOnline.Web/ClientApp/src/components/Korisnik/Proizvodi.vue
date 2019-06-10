@@ -11,11 +11,11 @@
                         <div class="part2">
                             <h4>{{item.Title}}</h4>
                             <p id="opis">{{item.Description}}</p>
-                            <input type="file" accept="image/*" @change="uploadImages($event)" id="file-input" >
+                            <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" >
                         </div>
                         <div class="part3">
                             <h6 id="cena">Cena: {{item.Price}}din</h6>
-                            <el-button id="dugmeDodaj" type="success" size="medium" @click="dodajUKorpu(index)"> Dodaj u korpu </el-button>
+                            <el-button id="dugmeDodaj" type="success" size="medium" @click="onClickDodajUKorpu(index)"> Dodaj u korpu </el-button>
                         </div>
                     </div>
                 </div>
@@ -28,66 +28,99 @@
 
 <script>
 import NarucivanjeFotografija from "./NarucivanjeFotografija.vue"
-import { apiFetch, destinationUrl, UserTypes } from '../../services/authFetch';
+import { apiFetch, destinationUrl, UserTypes, REGULAR_USER_TYPE } from '../../services/authFetch';
 import { getUserInfo } from '../../services/contextManagement';
+import { Promise } from 'q';
+import { closeSpinner, openSpinner } from '../../data/spinner';
 export default {
     components: { NarucivanjeFotografija },
     data(){
         return{
-            proizvodi: []
+            proizvodi: [],
+            uploadedImage: {},
+            isSpinnerActive: false,
+            isUploadingDone: false,
+            indeksIzabranogProizvoda: null
         }
     },
     methods: {
         loadDataTable() {
-                apiFetch('GET', destinationUrl + "/Product/GetAllProducts")
+            apiFetch('GET', destinationUrl + "/Product/GetAllProducts")
                 .then(result => {
                     this.proizvodi = result.Data;
                 });
         },
-        dodajUKorpu(index){
-            if(getUserInfo().userID != null){            
-                const formData = new FormData();
-                formData.append("UserId", getUserInfo().userID);
-                    formData.append("CartItems[" + 0 + "].ProductType", this.proizvodi[index].ProductType);
-                    formData.append("CartItems[" + 0 + "].Format", this.proizvodi[index].Size);
-                    formData.append("CartItems[" + 0 + "].Quantity", 1);
-                   /* formData.append("CartItems[" + 0 + "].Image.Id", image.Image.Id);
-                    formData.append("CartItems[" + 0 + "].Image.Title", image.Image.Title);
-                    formData.append("CartItems[" + 0 + "].Image.Original.FileId", image.Image.Original.FileId);
-                    formData.append("CartItems[" + 0 + "].Image.Original.Url", image.Image.Original.Url);
-                    formData.append("CartItems[" + 0 + "].Image.Thumbnail.FileId", image.Image.Thumbnail.FileId);
-                    formData.append("CartItems[" + 0 + "].Image.Thumbnail.Url", image.Image.Thumbnail.Url);
-                    formData.append("CartItems[" + 0 + "].Image.Large.FileId", image.Image.Large.FileId);
-                    formData.append("CartItems[" + 0 + "].Image.Large.Url", image.Image.Large.Url);
-                    formData.append("CartItems[" + 0 + "].Image.Medium.FileId", image.Image.Medium.FileId);
-                    formData.append("CartItems[" + 0 + "].Image.Medium.Url", image.Image.Medium.Url);
-                    formData.append("CartItems[" + 0 + "].Image.Small.FileId", image.Image.Small.FileId);
-                    formData.append("CartItems[" + 0 + "].Image.Small.Url", image.Image.Small.Url);*/
-                    formData.append("CartItems[" + 0 + "].Price", this.proizvodi[index].Price);
-                    formData.append("CartItems[" + 0 + "].Image", null);
-
-                fetch(destinationUrl + "/Cart/AddToCart", {method: 'POST', body: formData})
-                    .then(response => response.ok ? response.json() : new Error())
-                    .then(result => { 
-                        console.log(result); 
-                        this.$message({message: "Uspešno ste dodali proizvod u online korpu.", type: "success"})
-                    })
-                    .catch(error => { 
-                        console.log(error);
-                        this.$message({message: "Greška pri dodavanju proizvoda u online korpu.", type: "error"})
-                    });
+        onClickDodajUKorpu(index) {
+            if(getUserInfo().userType == REGULAR_USER_TYPE){
+                this.indeksIzabranogProizvoda = index;
+                this.dodajUKorpu(); 
             }
             else{
                 this.$message("Da biste naručili proizvod morate se prijaviti ili registrovati.");
                 this.$emit("gotoLogin");
             }
+        },
+        dodajUKorpu(){
+            if(this.isUploadingDone && !this.isSpinnerActive) {    
+                const formData = new FormData();
+                formData.append("UserId", getUserInfo().userID);
+                formData.append("CartItems[" + 0 + "].ProductType", this.proizvodi[this.indeksIzabranogProizvoda].ProductType);
+                formData.append("CartItems[" + 0 + "].Format", this.proizvodi[this.indeksIzabranogProizvoda].Size);
+                formData.append("CartItems[" + 0 + "].Quantity", 1);
+                formData.append("CartItems[" + 0 + "].Image.Id", this.uploadedImage.Id);
+                formData.append("CartItems[" + 0 + "].Image.Title", this.uploadedImage.Title);
+                formData.append("CartItems[" + 0 + "].Image.Original.FileId", this.uploadedImage.Original.FileId);
+                formData.append("CartItems[" + 0 + "].Image.Original.Url", this.uploadedImage.Original.Url);
+                formData.append("CartItems[" + 0 + "].Image.Thumbnail.FileId", this.uploadedImage.Thumbnail.FileId);
+                formData.append("CartItems[" + 0 + "].Image.Thumbnail.Url", this.uploadedImage.Thumbnail.Url);
+                formData.append("CartItems[" + 0 + "].Image.Large.FileId",this.uploadedImage.Large.FileId);
+                formData.append("CartItems[" + 0 + "].Image.Large.Url", this.uploadedImage.Large.Url);
+                formData.append("CartItems[" + 0 + "].Image.Medium.FileId", this.uploadedImage.Medium.FileId);
+                formData.append("CartItems[" + 0 + "].Image.Medium.Url", this.uploadedImage.Medium.Url);
+                formData.append("CartItems[" + 0 + "].Image.Small.FileId", this.uploadedImage.Small.FileId);
+                formData.append("CartItems[" + 0 + "].Image.Small.Url", this.uploadedImage.Small.Url);
+                formData.append("CartItems[" + 0 + "].Price", this.proizvodi[this.indeksIzabranogProizvoda].Price);
+
+                fetch(destinationUrl + "/Cart/AddToCart", {method: 'POST', body: formData})
+                    .then(response => response.ok ? response.json() : new Error())
+                    .then(result => { 
+                        this.$message({message: "Uspešno ste dodali proizvod u online korpu.", type: "success"});
+                        closeSpinner();
+                    })
+                    .catch(error => { 
+                        this.$message({message: "Greška pri dodavanju proizvoda u online korpu.", type: "error"})
+                        closeSpinner();
+                    });
+            }
+            else {
+                this.isSpinnerActive = true;
+                openSpinner();
+            }
+        },
+        async uploadImage(event) {
+            const promises = [];
+            const formData = new FormData();
+            formData.append("image", event.target.files[0]);
+            promises.push(fetch(destinationUrl + "/Image/UploadImage", {method: 'POST', body: formData})
+                .then(response => {
+                    return response.ok ? response.json() : new Error();
+                }).then(result => {
+                    this.uploadedImage = result.Data.Image;
+                    console.log(this.uploadedImage);
+                }).catch(error => {console.log(error)}));
+            await Promise.all(promises);
+            this.isUploadingDone = true;
+            if(this.isSpinnerActive) {
+                this.isSpinnerActive = false;  
+                this.dodajUKorpu();
+            }
         }
     },
     mounted: function() {
-            this.$emit('loadDataTable');
+        this.$emit('loadDataTable');
     },
     created() {
-            this.$on('loadDataTable', this.loadDataTable);
+        this.$on('loadDataTable', this.loadDataTable);
     }
 }
 </script>
@@ -110,7 +143,6 @@ export default {
 .prikaz-proizvoda-container{
     height: 290px;
     width: 75%;
-   /* background: linear-gradient(0deg, #d1d356, #e6e88d );*/
     background: linear-gradient(0deg, #bccecfc7, #fcfcfcab );
     margin-top: 15px;
     border-radius: 3px;

@@ -67,8 +67,6 @@ export default {
         },
         dodajAlbum: async function(){
             if(this.isUploadingDone && !this.isSpinnerActive && this.validacija()) {
-                console.log("Dodaj album");
-                closeSpinner();
                 const formData = new FormData();
                 formData.append("Title", this.album.Title);
                 formData.append("Date", this.album.Date);
@@ -93,7 +91,10 @@ export default {
                     body: formData,
                     method: 'POST'
                 }).then(response => response.json()).then(
-                    () => this.$emit('editFinished','cancel')
+                    () => {
+                        this.$emit('editFinished','cancel');
+                        closeSpinner();
+                    }
                 ).catch(error => console.log(error));
             }
             else {

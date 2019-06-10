@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using PhotoLine.Domain.Interop;
+using PHOTOnline.Business.AlbumManagement;
 using PHOTOnline.Business.CartManagement.Input;
 using PHOTOnline.Domain.Entities;
 using PHOTOnline.Domain.Entities.Images;
@@ -16,13 +17,16 @@ namespace PHOTOnline.Business.CartManagement
     {
         private ICartRepository _cartRepository;
         private IUploadedFilesRepository _uploadedFilesRepository;
+        private IAlbumManager _albumManager;
 
         public CartManager(
             ICartRepository cartRepository,
-            IUploadedFilesRepository uploadedFilesRepository)
+            IUploadedFilesRepository uploadedFilesRepository,
+            IAlbumManager albumManager)
         {
             _cartRepository = cartRepository;
             _uploadedFilesRepository = uploadedFilesRepository;
+            _albumManager = albumManager;
         }
 
         public async Task<Result<string>> AddToCart(CreateCartInput input)
@@ -98,7 +102,7 @@ namespace PHOTOnline.Business.CartManagement
             if (cartItem != null)
             {
                 cart.Price -= cartItem.Price;
-                await _uploadedFilesRepository.DeleteAsync(cartItem.Image.Id);
+                await _albumManager.DeleteImage(cartItem.Image);
                 cart.CartItems.Remove(cartItem);
                 await _cartRepository.UpdateAsync(cart);
             }

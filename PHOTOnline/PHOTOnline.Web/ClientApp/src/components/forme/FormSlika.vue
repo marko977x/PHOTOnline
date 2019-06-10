@@ -1,26 +1,30 @@
 <template>
-    <el-dialog :visible.sync="this.d" center
-        @close="$emit('zatvoriSliku')" :modal-append-to-body="false">
+    <el-dialog center @close="$emit('zatvoriSliku')" :visible="isVisible" :modal-append-to-body="false">
         <div class="photoContainer"><img :src="shownPhoto.Small.Url"/></div>
     </el-dialog>
 </template>
 
 <script>
 export default {
-    props: ['shownPhoto', 'visible'],
-    data() {
-        return {
-            d: false
-        }
+    props: ['shownPhoto', 'isVisible'],
+    mounted: function() {
+        console.log(this.shownPhoto);
     }
 }
 </script>
 
 <style scoped>
 
+.el-dialog {
+    height: 100%;
+    width: 100%;
+}
+
 .photoContainer {
     display: flex;
     justify-content: center;
+    height: 100%;
+    width: 100%;
 }
 
 img {

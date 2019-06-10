@@ -35,8 +35,8 @@
 <script>
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import {Button,Menu, MenuItem,Icon} from 'element-ui'
-import { apiFetch, destinationUrl } from '../services/authFetch';
-import { clearUserInfo } from '../services/contextManagement';
+import { apiFetch, destinationUrl, ANONYMOUS_USER_TYPE } from '../services/authFetch';
+import { clearUserInfo, clearLocalStorage, clearSessionStorage, setUserInfo } from '../services/contextManagement';
 export default {
     components: {Icon,Button,Menu,MenuItem},
     data() {
