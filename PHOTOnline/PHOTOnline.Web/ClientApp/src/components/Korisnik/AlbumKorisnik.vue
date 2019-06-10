@@ -89,6 +89,10 @@ export default {
         },
         dodajUKorpu() {
             setAlbumKorisnikState({items: this.items});
+            if(this.items.filter(item => item.selected == true).length == 0) {
+                this.$message({message: "Morate izabrati bar jednu fotografiju", type: "warning"});
+                return;
+            }
             if(getUserInfo().userType == REGULAR_USER_TYPE) {
                 clearAlbumKorisnikState();
                 if(this.items.length == 0) {
@@ -124,7 +128,6 @@ export default {
                         format: ""
                     });
                 }
-                
                 
                 fetch(destinationUrl + "/Cart/AddToCart", {method: 'POST', body: formData})
                     .then(response => response.ok ? response.json() : new Error())
