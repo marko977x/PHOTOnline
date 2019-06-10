@@ -2,12 +2,13 @@
     <div class="profile-info-page">
         <user-profile-info 
             @openChangePasswordForm="openChangePasswordForm" />
-        <el-dialog 
-            title="Promena lozinke" center
+        <el-dialog
+            title="Promena lozinke" center class="changePasswordForm"
             @close="closeChangePasswordForm" 
             :visible="isChangePasswordFormVisible" 
             :modal-append-to-body="false">
-                <change-password-form @closeChangePasswordForm="closeChangePasswordForm" />
+                <change-password-form 
+                    @closeChangePasswordForm="closeChangePasswordForm" />
         </el-dialog>
     </div>
 </template>
@@ -39,5 +40,13 @@ export default {
 .profile-info-page {
     width: 60%;
     margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
 }
+
+.changePasswordForm {
+    width: 80%;
+}
+
 </style>
