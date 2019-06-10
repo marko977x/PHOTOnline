@@ -1,6 +1,6 @@
 <template>
     <el-dialog center @close="$emit('zatvoriSliku')" :visible="isVisible" :modal-append-to-body="false">
-        <div class="photoContainer"><img :src="shownPhoto.Small.Url"/></div>
+        <div class="photoContainer"><img id="image" :src="shownPhoto.Small.Url"/></div>
     </el-dialog>
 </template>
 

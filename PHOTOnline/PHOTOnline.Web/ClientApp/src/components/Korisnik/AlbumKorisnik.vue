@@ -20,7 +20,7 @@
                 @quantityChange="onQuantityChange($event, index)">
             </fotografija>
         </div>
-        <form-slika :shownPhoto="this.photo"
+        <form-slika :shownPhoto="this.photo" :isVisible="this.showPicture == 'photo'"
             @zatvoriSliku="zatvoriSliku" v-if="this.showPicture == 'photo'">
         </form-slika>
     </div>

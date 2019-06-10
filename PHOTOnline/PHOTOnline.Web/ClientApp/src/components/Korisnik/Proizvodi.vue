@@ -1,5 +1,5 @@
 <template>
-    <div class="proizvodi-container" v-loading="isSpinnerActive">
+    <div class="proizvodi-container" v-loading="isSpinnerActive" :loading-options="{text: 'text', background: 'rgb(0, 0, 0, 0.6)'}">
         <div class="lista-proizvoda">
             <div v-for="(item, index) in proizvodi" :key="item.value" :list="proizvodi">
             <template>
@@ -84,11 +84,11 @@ export default {
                     .then(response => response.ok ? response.json() : new Error())
                     .then(result => { 
                         this.$message({message: "Uspešno ste dodali proizvod u online korpu.", type: "success"});
-                        this.isSpinnerActive = false;
+                        this.resetSpinner();
                     })
                     .catch(error => { 
                         this.$message({message: "Greška pri dodavanju proizvoda u online korpu.", type: "error"})
-                        this.isSpinnerActive = false;
+                        this.resetSpinner();
                     });
             }
             else {
@@ -112,6 +112,10 @@ export default {
                 this.isSpinnerActive = false;  
                 this.dodajUKorpu();
             }
+        },
+        resetSpinner() {
+            this.isUploadingDone = false;
+            this.isSpinnerActive = false;
         }
     },
     mounted: function() {
