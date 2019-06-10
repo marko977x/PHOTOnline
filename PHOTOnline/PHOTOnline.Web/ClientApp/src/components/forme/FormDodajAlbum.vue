@@ -1,5 +1,5 @@
 <template>
-    <div class="formFotografAlbumContainer">
+    <div class="formFotografAlbumContainer" v-loading="isSpinnerActive">
         <el-form  style="word break: false">
             <div class="stavka">
                 <label>Naziv:</label>
@@ -24,7 +24,7 @@
                 <el-input type="password" class="input-polje" v-model="album.Password"></el-input> 
             </div>
             <div class="dugmici">
-            <el-button v-loading="isSpinnerActive" class="dugme" @click="dodajAlbum()" type="primary">Sačuvaj</el-button>
+            <el-button class="dugme" @click="dodajAlbum()" type="primary">Sačuvaj</el-button>
             <el-button class="dugme1" @click="prekiniDodavanjeAlbuma">Zatvori</el-button>
             </div>
         </el-form>
@@ -51,22 +51,25 @@ export default {
                 Images: []
             },
             isSpinnerActive: false,
-            isUploadingDone: false
+            isUploadingDone: false,
+            uploadingImagesInProgress: false
         }
     },
     methods: {
         validacija: function(){
-            if(this.album.Title != '' && this.album.Location != '' && this.album.Date != '' && this.album.Password != ''){
-                return true;
-            }
-            else{
-                this.$message({message : 'Sva polja moraju biti popunjena', type: 'warning'})
+            if(this.album.Title == '' || this.album.Location == '' || this.album.Date == '' || this.album.Password == '') {
+                this.$message({message : 'Sva polja moraju biti popunjena', type: 'warning'});
                 return false;
             }
-            
+            else if(this.album.Images.length == 0 && !this.uploadingImagesInProgress) {
+                this.$message({message : 'Morate ucitati bar jednu sliku', type: 'warning'});
+                return false;
+            }
+            else { return true; }
         },
         dodajAlbum: async function(){
-            if(this.isUploadingDone && !this.isSpinnerActive && this.validacija()) {
+            if(!this.validacija()) return;
+            if(this.isUploadingDone && !this.isSpinnerActive) {
                 const formData = new FormData();
                 formData.append("Title", this.album.Title);
                 formData.append("Date", this.album.Date);
@@ -105,6 +108,7 @@ export default {
         },
         async uploadImages(event) {
             const promises = [];
+            this.uploadingImagesInProgress = true;
             for(let index = 0; index < event.target.files.length; index++) {
                 const formData = new FormData();
                 formData.append("image", event.target.files[index]);
@@ -112,11 +116,11 @@ export default {
                     .then(response => {
                         return response.ok ? response.json() : new Error();
                     }).then(result => {
-                        console.log(result.Data);
                         this.album.Images.push(result.Data.Image);
                     }).catch(error => {console.log(error)}));
             }
             await Promise.all(promises);
+            this.uploadingImagesInProgress = false;
             this.isUploadingDone = true;
             if(this.isSpinnerActive) {
                 this.isSpinnerActive = false;  
