@@ -27,7 +27,7 @@
             </prikaz-fotografije>
         </div>
         <form-slika :shownPhoto="this.photo"
-            @zatvoriSliku="zatvoriSliku" v-if="this.showPicture == 'photo'">
+            @zatvoriSliku="zatvoriSliku" :isVisible="this.showPicture == 'photo'" v-if="this.showPicture == 'photo'">
         </form-slika>
     </div>
 </template>

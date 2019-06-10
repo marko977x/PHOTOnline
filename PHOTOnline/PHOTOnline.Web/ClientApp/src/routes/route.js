@@ -5,7 +5,7 @@ import Uprava from '../pages/Uprava.vue'
 import Pocetna from '../pages/Pocetna'
 import Korisnik from '../pages/Korisnik.vue'
 import { getUserInfo } from '../services/contextManagement'
-import { UserTypes } from '../services/authFetch';
+import { UserTypes, ANONYMOUS_USER_TYPE, PHOTOGRAPH_USER_TYPE, ADMIN_USER_TYPE } from '../services/authFetch';
 
 Vue.use(VueRouter)
 
@@ -39,15 +39,16 @@ const router = new VueRouter({
     ]
 })
 
-// router.beforeEach((to, from, next) => {
-//     if (getUserInfo().userID == null && (to.path != '/pocetna' || to.path == '/'))
-//         next("/pocetna");
-//     else {
-//         let userType = getUserInfo().userType;
-//         if (userType != null && to.path != ("/" + UserTypes[userType]))
-//             next("/" + UserTypes[userType]);
-//     }
-//     next();
-// });
+router.beforeEach((to, from, next) => {
+    if (getUserInfo().userType == ANONYMOUS_USER_TYPE && (to.path != '/pocetna' || to.path == '/'))
+        next("/pocetna");
+    else if (getUserInfo().userType == PHOTOGRAPH_USER_TYPE || getUserInfo().userType == ADMIN_USER_TYPE) {
+        let userType = getUserInfo().userType;
+        console.log(userType);
+        if (userType != null && to.path != ("/" + UserTypes[userType]))
+            next("/" + UserTypes[userType]);
+    }
+    next();
+});
 
 export default router
