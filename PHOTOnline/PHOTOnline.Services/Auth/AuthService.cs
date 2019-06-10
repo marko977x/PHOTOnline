@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.MongoDB;
 using PhotoLine.Domain.Errors;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.Services.Auth.Output;
+using System.Linq;
 
 namespace PHOTOnline.Services.Auth
 {
@@ -27,13 +28,51 @@ namespace PHOTOnline.Services.Auth
 
         public async Task<Result<string>> CreateUserAsync(PHOTOnlineUser user, string password)
         {
-            var operationResult = await _userManager.CreateAsync(user, password);
-            if (!operationResult.Succeeded)
+            var operationResult = default(IdentityResult);
+            operationResult = await _userManager.CreateAsync(user, password);
+
+            if (IsDuplicateEmail(operationResult))
             {
                 return new Result<string>()
                 {
                     Success = false,
-                    Errors = new List<Error>()
+                    Errors = new List<Error>() { new Error(ErrorCode.DuplicateEmail) }
+                };
+            }
+
+            if (IsDuplicateUserName(operationResult))
+            {
+                return new Result<string>()
+                {
+                    Success = false,
+                    Errors = new List<Error>() { new Error(ErrorCode.DuplicateUserName) }
+                };
+            }
+
+            if (IsDuplicateEmail(operationResult))
+            {
+                return new Result<string>()
+                {
+                    Success = false,
+                    Errors = new List<Error>() { new Error(ErrorCode.DuplicateEmail) }
+                };
+            }
+
+            if (IsPasswordToShort(operationResult))
+            {
+                return new Result<string>()
+                {
+                    Success = false,
+                    Errors = new List<Error>() { new Error(ErrorCode.PasswordTooShort) }
+                };
+            }
+
+            if (IsInvalidEmail(operationResult))
+            {
+                return new Result<string>()
+                {
+                    Success = false,
+                    Errors = new List<Error>() { new Error(ErrorCode.InvalidEmail) }
                 };
             }
 
@@ -86,6 +125,15 @@ namespace PHOTOnline.Services.Auth
             IdentityResult passwordResult = await _userManager.ResetPasswordAsync(
                 user, passwordToken, newPassword);
 
+            if (IsPasswordToShort(passwordResult))
+            {
+                return new Result()
+                {
+                    Success = false,
+                    Errors = new List<Error>() { new Error(ErrorCode.PasswordTooShort) }
+                };
+            }
+
             return new Result() { Success = passwordResult.Succeeded };
         }
 
@@ -129,14 +177,35 @@ namespace PHOTOnline.Services.Auth
         public async Task<Result<SignInOutput>> SignInAsync(string email, string password)
         {
             PHOTOnlineUser user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return new Result<SignInOutput>()
+                {
+                    Success = false,
+                    Errors = new List<Error>() { new Error(ErrorCode.WrongEmail) }
+                };
+            }
+
             SignInResult signInResult = await _signInManager.PasswordSignInAsync(
                 user, password, false, false);
 
-            return new Result<SignInOutput>()
+            if (signInResult.Succeeded)
             {
-                Success = signInResult.Succeeded,
-                Data = new SignInOutput() { Id = user.Id, UserType = user.UserType }
-            };
+                return new Result<SignInOutput>()
+                {
+                    Success = true,
+                    Data = new SignInOutput() { Id = user.Id, UserType = user.UserType }
+                };
+            }
+            else
+            {
+                return new Result<SignInOutput>()
+                {
+                    Success = false,
+                    Errors = new List<Error>() { new Error(ErrorCode.WrongPassword) }
+                };
+            }
+
         }
 
         public async Task<Result> SignOutAsync()
@@ -154,6 +223,26 @@ namespace PHOTOnline.Services.Auth
                 Success = user == null ? false : true,
                 Data = user
             };
+        }
+
+        private bool IsDuplicateEmail(IdentityResult result)
+        {
+            return result.Errors.Any(error => error.Code == "DuplicateEmail");
+        }
+
+        private bool IsDuplicateUserName(IdentityResult result)
+        {
+            return result.Errors.Any(error => error.Code == "DuplicateUserName");
+        }
+
+        private bool IsInvalidEmail(IdentityResult result)
+        {
+            return result.Errors.Any(error => error.Code == "InvalidEmail");
+        }
+
+        private bool IsPasswordToShort(IdentityResult result)
+        {
+            return result.Errors.Any(error => error.Code == "PasswordTooShort");
         }
     }
 }

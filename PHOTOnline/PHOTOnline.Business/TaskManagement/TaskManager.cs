@@ -9,6 +9,7 @@ using PHOTOnline.Services.Repositories.Requests;
 using PHOTOnline.Services.Repositories.Tasks;
 using System.Linq;
 using PhotoLine.Domain.Errors;
+using PHOTOnline.Services.Repositories.Users;
 
 namespace PHOTOnline.Business.TaskManagement
 {
@@ -16,13 +17,16 @@ namespace PHOTOnline.Business.TaskManagement
     {
         private ITaskRepository _taskRepository;
         private IRequestRepository _requestRepository;
+        private IUserRepository _userRepository;
 
         public TaskManager(
             ITaskRepository taskRepository,
-            IRequestRepository requestRepository)
+            IRequestRepository requestRepository,
+            IUserRepository userRepository)
         {
             _taskRepository = taskRepository;
             _requestRepository = requestRepository;
+            _userRepository = userRepository;
         }
 
         public async System.Threading.Tasks.Task<Result<string>> AddTask(AddTaskInput input)
@@ -55,6 +59,9 @@ namespace PHOTOnline.Business.TaskManagement
                     Errors = new List<Error>() { new Error(ErrorCode.PhotographIsNotAvailable) }
                 };
             }
+
+            PHOTOnlineUser user = await _userRepository.FindAsync(input.CustomerId);
+
             Task task = new Task()
             {
                 Date = input.Date,
@@ -62,7 +69,10 @@ namespace PHOTOnline.Business.TaskManagement
                 EventType = input.EventType,
                 Location = input.Location,
                 Note = input.Note,
-                PhotographId = input.PhotographId
+                PhotographId = input.PhotographId,
+                CustomerFirstName = user.FirstName,
+                CustomerLastName = user.LastName,
+                CustomerPhoneNumber = user.PhoneNumber
             };
 
             await _taskRepository.CreateAsync(task);

@@ -108,7 +108,7 @@ export default {
         izracunajCenu(){
             let result = 0;
             this.cartItems.forEach(element => {
-                result += element.Price;
+                result += element.Price * element.Quantity;
             });
             return result.toFixed(2)
         },

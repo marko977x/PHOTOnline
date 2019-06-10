@@ -56,6 +56,7 @@
     import { } from 'element-ui'
     import {setUserInfo} from "../../services/contextManagement";
 import { apiFetch, destinationUrl, UserTypes, REGULAR_USER_TYPE } from '../../services/authFetch';
+import { ERRORS } from '../../data/errorsCode';
     export default {
         data() {
             return {
@@ -72,14 +73,33 @@ import { apiFetch, destinationUrl, UserTypes, REGULAR_USER_TYPE } from '../../se
         },
         methods: {
             onSignUpClick() {
-                apiFetch('POST', destinationUrl + "/User/CreateUserAsync", this.signupData)
-                    .then(result => {
-                        if(result.Success) {
-                            setUserInfo(result.Data.Id, REGULAR_USER_TYPE);
-                            window.location.href = "/" + UserTypes[REGULAR_USER_TYPE];
-                        }
-                        else this.$message("Nevalidni e-mail, lozinka ili korisnicko ime!");
-                    });
+                if(!this.isDataValid()) this.$message({message: "Morate popuniti sva polja", type: "warning"});
+                else if(!this.isPhoneNumberValid()) this.$message({message: "Broj telefona nije validan", type: "warning"});
+                else {
+                    apiFetch('POST', destinationUrl + "/User/CreateUserAsync", this.signupData)
+                        .then(result => {
+                            console.log(result);
+                            if(result.Success) {
+                                setUserInfo(result.Data, REGULAR_USER_TYPE);
+                                window.location.href = "/" + UserTypes[REGULAR_USER_TYPE];
+                            }
+                            else if(result.Errors != null && result.Errors.length != 0) {
+                                console.log("Error");
+                                this.$message({message: ERRORS[result.Errors[0].Code], type: "error"});
+                            }
+                        });
+                }
+            },
+            isDataValid() {
+                const {FirstName, LastName, Address, PhoneNumber, Email, Username, Password} = this.signupData;
+                return !FirstName || !LastName || !Address || !PhoneNumber || !Email || !Username || !Password ? 
+                    false : true;
+            },
+            isPhoneNumberValid() {
+                console.log(parseInt(this.signupData.PhoneNumber));
+                if(isNaN(parseInt(this.signupData.PhoneNumber)) || this.signupData.PhoneNumber == "")
+                    return false;
+                return true;
             }
         }
     }

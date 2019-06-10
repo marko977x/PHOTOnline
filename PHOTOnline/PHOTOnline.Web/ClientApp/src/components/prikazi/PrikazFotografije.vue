@@ -33,7 +33,7 @@ export default {
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {
                     if(result.Success) {
-                        this.$message("Uspesno obrisana slika!");
+                        this.$message({message: "Uspesno obrisana slika!", type: "success"});
                         this.$emit('ImageDeleted', this.Image.Id);
                     }
                     else this.$message("Greska, pokusajte ponovo");

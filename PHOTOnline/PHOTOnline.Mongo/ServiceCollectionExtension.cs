@@ -16,6 +16,15 @@ namespace PHOTOnline.Mongo
             services.Configure<MongoOptions>(configuration.GetSection(MONGO_SECTION));
             services.AddIdentityWithMongoStoresUsingCustomTypes<PHOTOnlineUser, IdentityRole>(
                 "mongodb://localhost/PHOTOnlineDB").AddRoles<IdentityRole>().AddDefaultTokenProviders();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.User.RequireUniqueEmail = true;
+            });
         }
     }
 }

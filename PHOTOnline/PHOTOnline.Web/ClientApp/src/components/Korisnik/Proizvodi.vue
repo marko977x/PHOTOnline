@@ -1,6 +1,6 @@
 <template>
     <div class="proizvodi-container" v-loading="isSpinnerActive" :loading-options="{text: 'text', background: 'rgb(0, 0, 0, 0.6)'}">
-        <div class="lista-proizvoda">
+        <div class="lista-proizvoda" v-if="this.Images == ''" >
             <div v-for="(item, index) in proizvodi" :key="item.value" :list="proizvodi">
             <template>
                 <div class="prikaz-proizvoda-container">
@@ -8,7 +8,7 @@
                         <img class="slika" v-bind:src="item.ImageUrl" />
                     </div>
                     <div class="part2part3">
-                        <div class="part2">
+                        <div class="part2" >
                             <h4>{{item.Title}}</h4>
                             <p id="opis">{{item.Description}}</p>
                             <input type="file" :disabled="omoguciDugme" accept="image/*" @change="uploadImage($event)" id="file-input" >
@@ -21,18 +21,37 @@
                 </div>
             </template>
             </div>
-            <narucivanje-fotografija></narucivanje-fotografija>
+            <narucivanje-fotografija v-loading="isSpinnerActive"
+                :loading-options="{text: 'text', background: 'rgb(0, 0, 0, 0.6)'}"
+                 @showPhotos="pribaviSlike($event)">
+            </narucivanje-fotografija>
+        </div>
+         <div class="album-fotografije" v-if="this.Images != ''">
+             <div id="dugme">
+                <el-button type="danger" size="mini" @click="dodajUKorpuPhoto">Dodaj u korpu</el-button>
+             </div>
+             <div id="photo">
+            <fotografija 
+                    v-for="(item, index) in Images" :key="item.Id"
+                    @selectImage="addImageToSelected($event, index)"
+                    @unselectImage="removeImageFromSelected($event, index)"
+                    @showPhoto="prikazi($event)" :item="item"
+                    @formatChange="onFormatChange($event, index)"
+                    @quantityChange="onQuantityChange($event, index)">
+            </fotografija>
+             </div>
         </div>
     </div>
 </template>
 
 <script>
 import NarucivanjeFotografija from "./NarucivanjeFotografija.vue"
+import Fotografija from "./Fotografija.vue"
 import { apiFetch, destinationUrl, UserTypes, REGULAR_USER_TYPE } from '../../services/authFetch';
-import { getUserInfo } from '../../services/contextManagement';
 import { Promise } from 'q';
+import { getUserInfo, setAlbumKorisnikState, getAlbumKorisnikState, clearAlbumKorisnikState } from '../../services/contextManagement';
 export default {
-    components: { NarucivanjeFotografija },
+    components: { NarucivanjeFotografija, Fotografija },
     data(){
         return{
             proizvodi: [],
@@ -40,7 +59,9 @@ export default {
             isSpinnerActive: false,
             isUploadingDone: false,
             indeksIzabranogProizvoda: null,
-            omoguciDugme: ''
+            omoguciDugme: '',
+            Images: [],
+            photo: {}
         }
     },
     methods: {
@@ -59,6 +80,17 @@ export default {
                 this.$message("Da biste naručili proizvod morate se prijaviti ili registrovati.");
                 this.$emit("gotoLogin");
             }
+        },
+        pribaviSlike(data){
+            data.forEach(image => {
+                            this.Images.push({
+                                selected: false,
+                                format: '',
+                                quantity: 1,
+                                image: image
+                            });
+            })
+            console.log(this.Images)
         },
         dodajUKorpu(){
             if(this.isUploadingDone && !this.isSpinnerActive) {    
@@ -125,6 +157,78 @@ export default {
             else{
                 this.omoguciDugme = true;
             }
+        },
+        addImageToSelected(data, index){
+            this.$set(this.Images, index, {
+                ... this.Images[index], selected: true, quantity: data.quantity, format: data.format
+            });
+        },
+        removeImageFromSelected(image, index) {
+            this.Image[index].selected = false;
+        },
+        prikazi(photo){
+            this.photo = photo;
+            this.showPicture = 'photo'
+        },
+        onFormatChange(format, index) {
+            console.log(this.Images[index]);
+            this.$set(this.Images, index, {...this.Images[index], format: format});
+        },
+        onQuantityChange(quantity, index) {
+            this.$set(this.Images, index, {...this.Images[index], quantity: quantity});
+        },
+         dodajUKorpuPhoto() {
+            setAlbumKorisnikState({Images: this.Images});
+            if(this.Images.filter(item => item.selected == true).length == 0) {
+                this.$message({message: "Morate izabrati bar jednu fotografiju", type: "warning"});
+                return;
+            }
+            if(getUserInfo().userType == REGULAR_USER_TYPE) {
+                clearAlbumKorisnikState();
+                if(this.Images.length == 0) {
+                    this.$message({message: "Morate selektovati bar jednu fotografiju!",type: 'error'})
+                    return
+                }
+                
+                const formData = new FormData();
+                formData.append("UserId", getUserInfo().userID);
+                this.Images.filter(item => item.selected == true).forEach((item, index) => {
+                    formData.append("CartItems[" + index + "].ProductType", "Fotografija");
+                    formData.append("CartItems[" + index + "].Format", item.format);
+                    formData.append("CartItems[" + index + "].Quantity", item.quantity);
+                    formData.append("CartItems[" + index + "].Image.Id", item.image.Id);
+                    formData.append("CartItems[" + index + "].Image.Title", item.image.Title);
+                    formData.append("CartItems[" + index + "].Image.Original.FileId", item.image.Original.FileId);
+                    formData.append("CartItems[" + index + "].Image.Original.Url", item.image.Original.Url);
+                    formData.append("CartItems[" + index + "].Image.Thumbnail.FileId", item.image.Thumbnail.FileId);
+                    formData.append("CartItems[" + index + "].Image.Thumbnail.Url", item.image.Thumbnail.Url);
+                    formData.append("CartItems[" + index + "].Image.Large.FileId", item.image.Large.FileId);
+                    formData.append("CartItems[" + index + "].Image.Large.Url", item.image.Large.Url);
+                    formData.append("CartItems[" + index + "].Image.Medium.FileId", item.image.Medium.FileId);
+                    formData.append("CartItems[" + index + "].Image.Medium.Url", item.image.Medium.Url);
+                    formData.append("CartItems[" + index + "].Image.Small.FileId", item.image.Small.FileId);
+                    formData.append("CartItems[" + index + "].Image.Small.Url", item.image.Small.Url);
+                    formData.append("CartItems[" + index + "].Price", 100);
+                });
+
+                for(let index = 0; index < this.Images.length; index++) {
+                    this.$set(this.Images, index, {
+                        ...this.Images[index], 
+                        selected: false,
+                        quantity: 1,
+                        format: ""
+                    });
+                }
+                
+                fetch(destinationUrl + "/Cart/AddToCart", {method: 'POST', body: formData})
+                    .then(response => response.ok ? response.json() : new Error())
+                    .then(() => this.$message({message: "Uspesno ste dodali fotografije u korpu", type: "success"}))
+                    .catch(error => console.log(error));
+            }
+            else {
+                this.$message("Da biste naručili fotografije morate se prijaviti ili registrovati.");
+                this.$emit("gotoLogin");
+            }
         }
     },
     mounted: function() {
@@ -138,6 +242,22 @@ export default {
 </script>
 
 <style  scoped>
+.album-fotografije{
+    display: flex;
+    flex-direction: column;
+}
+#photo{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+#dugme{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-top: 2%;
+    margin-right: 2%;
+}
 .lista-proizvoda{
   display: flex;
     flex-direction: column;
