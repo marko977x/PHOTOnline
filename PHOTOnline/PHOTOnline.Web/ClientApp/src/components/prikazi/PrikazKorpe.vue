@@ -40,7 +40,6 @@ export default {
     components: { FormSlika },
     data(){
         return{
-            endTask: false,
             isImageHidden: true,
             shownImage: {
                 Small: {
@@ -50,9 +49,6 @@ export default {
         }
     },
     methods: {
-            zavrsi: function(){
-                this.endTask = !this.endTask;
-            },
             openImage(cartItem) {
                 this.shownImage = cartItem.Image;
                 this.isImageHidden = false;

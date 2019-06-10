@@ -16,7 +16,7 @@
             </template>
             </el-calendar>
         </div>
-        <form-zakazi :date="datum" ></form-zakazi>
+        <form-zakazi :date="datum" @zakazano="osveziPrikaz"></form-zakazi>
     </div>
 </template>
 
@@ -74,6 +74,10 @@ export default {
             var counts = {}
             datumi.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
             this.counts = counts;
+        },
+        osveziPrikaz(zahtev){
+            this.listaZahteva.push(zahtev);
+            this.pribaviDatum(this.listaZahteva);
         }
     },
     beforeMount(){

@@ -11,7 +11,7 @@
                         <div class="part2">
                             <h4>{{item.Title}}</h4>
                             <p id="opis">{{item.Description}}</p>
-                            <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" >
+                            <input type="file" :disabled="omoguciDugme" accept="image/*" @change="uploadImage($event)" id="file-input" >
                         </div>
                         <div class="part3">
                             <h6 id="cena">Cena: {{item.Price}}din</h6>
@@ -39,7 +39,8 @@ export default {
             uploadedImage: {},
             isSpinnerActive: false,
             isUploadingDone: false,
-            indeksIzabranogProizvoda: null
+            indeksIzabranogProizvoda: null,
+            omoguciDugme: ''
         }
     },
     methods: {
@@ -116,6 +117,14 @@ export default {
         resetSpinner() {
             this.isUploadingDone = false;
             this.isSpinnerActive = false;
+        },
+        proveraPrijavljen(){
+            if(getUserInfo().userType == REGULAR_USER_TYPE){
+                this.omoguciDugme = false;
+            }
+            else{
+                this.omoguciDugme = true;
+            }
         }
     },
     mounted: function() {
@@ -123,6 +132,7 @@ export default {
     },
     created() {
         this.$on('loadDataTable', this.loadDataTable);
+        this.proveraPrijavljen();
     }
 }
 </script>
