@@ -14,10 +14,12 @@
                 </div>
             </div>
             <div class="right">
-                <el-button type="danger" size="mini" class="el-icon-delete"
+                <input multiple v-if="this.album.Password == 'home'" type="file" accept="image/*" @change="uploadImages($event)" id="file-input" >
+                <el-button v-else type="danger" size="mini" class="el-icon-delete"
                     style="margin-right: 5%; margin-left: 5%; height:35px; font-family:sans-serif;"
                     @click="deleteAlbum"> Obriši album
                 </el-button>
+                
             </div>
         </div>
         <div class="sadrzaj-albuma-inner">
@@ -36,6 +38,7 @@
 import PrikazFotografije from "./PrikazFotografije.vue"
 import FormSlika from "../forme/FormSlika.vue"
 import { destinationUrl } from '../../services/authFetch';
+import { closeSpinner, openSpinner } from '../../data/spinner';
 export default {
     components: {PrikazFotografije, FormSlika},
     data(){
@@ -43,7 +46,8 @@ export default {
             PretragaFotografije: '',
             showPicture: '',
             photo: {},
-            album: this.Album
+            album: this.Album,
+            Images: []
         }
     },
     methods:{
@@ -58,6 +62,10 @@ export default {
             this.$emit('ImageDeleted', imageId);
         },
         deleteAlbum() {
+            if(this.Album.Password == 'home'){
+                this.$message({message: "Nije moguce obrisati album!", type: 'warning'});
+                return
+            }
             fetch(destinationUrl + "/Album/DeleteAlbum/?id=" + this.Album.Id, {method: 'POST'})
                 .then(response => response.ok ? response.json() : new Error())
                 .then(() => {
@@ -67,9 +75,58 @@ export default {
         },
         onClickBack() {
             this.$emit('zavrsipregled', this.Album);
+        },
+         async uploadImages(event) {
+            const promises = [];
+            for(let index = 0; index < event.target.files.length; index++) {
+                const formData = new FormData();
+                formData.append("image", event.target.files[index]);
+                promises.push(fetch(destinationUrl + "/Image/UploadImage", {method: 'POST', body: formData})
+                    .then(response => {
+                        return response.ok ? response.json() : new Error();
+                    }).then(result => {
+                        console.log(result.Data);
+                        this.Images.push(result.Data.Image);
+                    }).catch(error => {console.log(error)}));
+            }
+            await Promise.all(promises);
+            this.isUploadingDone = true;
+            console.log(this.Images)
+            this.dodajSlike();
+        },
+        dodajSlike(){
+                const formData = new FormData();
+                console.log(this.Images)
+                formData.append("AlbumId", this.album.Id);
+                this.Images.forEach((image, index) => {
+                    formData.append("Images[" + index + "].Id", image.Id);
+                    formData.append("Images[" + index + "].Title", image.Title);
+                    formData.append("Images[" + index + "].Original.FileId", image.Original.FileId);
+                    formData.append("Images[" + index + "].Original.Url", image.Original.Url);
+                    formData.append("Images[" + index + "].Thumbnail.FileId", image.Thumbnail.FileId);
+                    formData.append("Images[" + index + "].Thumbnail.Url", image.Thumbnail.Url);
+                    formData.append("Images[" + index + "].Small.FileId", image.Small.FileId);
+                    formData.append("Images[" + index + "].Small.Url", image.Small.Url);
+                    formData.append("Images[" + index + "].Medium.FileId", image.Medium.FileId);
+                    formData.append("Images[" + index + "].Medium.Url", image.Medium.Url);
+                    formData.append("Images[" + index + "].Large.FileId", image.Large.FileId);
+                    formData.append("Images[" + index + "].Large.Url", image.Large.Url);
+                });
+                console.log(formData);
+                fetch(destinationUrl + "/Album/AddImagesToAlbum", {
+                    body: formData,
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .catch(error => console.log(error));
+
+
         }
     },
-    props: ['Album']
+    props: ['Album'],
+    mounted(){
+        console.log(this.album)
+    }
 }
 </script>
 

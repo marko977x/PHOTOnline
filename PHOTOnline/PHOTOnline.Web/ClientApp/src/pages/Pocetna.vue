@@ -5,8 +5,8 @@
         </header-bar>
         <div class="main" v-if="this.showComp == 'pocetna'">
             <el-carousel height="100%" class="slideshow">
-                <el-carousel-item v-for="photo in photos" :key="photo">
-                    <img :src="photo"/>
+                <el-carousel-item v-for="photo in this.Album.Images" :key="photo.id">
+                    <img :src="photo.Large.Url"/>
                 </el-carousel-item>
             </el-carousel>
             <div class="information">
@@ -24,39 +24,28 @@
         <korpa-korisnik v-if="this.showComp == 'korpa'" ></korpa-korisnik>
         <zakazivanja-korisnik v-if="this.showComp == 'zakazivanja'" ></zakazivanja-korisnik>
         <user-sidebar v-if="this.showComp == 'profil'" ></user-sidebar>
-        <footer-bar class="footer"></footer-bar> 
+        <footer-bar class="footer"></footer-bar>
     </div>
 </template>
 
 <script>
- import HeaderBar from '../components/appBar/HeaderBar.vue'
+import HeaderBar from '../components/appBar/HeaderBar.vue'
 import FooterBar from '../components/appBar/FooterBar.vue'
 import AlbumKorisnik from "../components/Korisnik/AlbumKorisnik.vue"
 import Proizvodi from "../components/Korisnik/Proizvodi.vue"
-import slika1 from "../assets/pictures/p1.jpg"
-import slika2 from "../assets/pictures/p2.jpg"
-import slika3 from "../assets/pictures/p3.jpg"
-import slika4 from "../assets/pictures/p4.jpg"
-import slika5 from "../assets/pictures/p5.jpg"
 import NarucivanjeFotografija from "../components/Korisnik/NarucivanjeFotografija.vue"
 import { setPageShown, getPageToShow, getUserInfo, setUserInfo } from '../services/contextManagement';
 import UserSidebar from "../components/Korisnik/sidebar/UserSidebar.vue";
 import KorpaKorisnik from "../components/Korisnik/KorpaKorisnik.vue";
 import ZakazivanjaKorisnik from "../components/Korisnik/ZakazivanjaKorisnik.vue";
-import { ANONYMOUS_USER_TYPE } from '../services/authFetch';
+import { ANONYMOUS_USER_TYPE, ALBUM_PASSWORD } from '../services/authFetch';
+import { apiFetch, destinationUrl } from '../services/authFetch';
  
 export default {
     components: { HeaderBar, FooterBar, NarucivanjeFotografija, AlbumKorisnik, Proizvodi, 
         UserSidebar, Proizvodi, KorpaKorisnik, ZakazivanjaKorisnik },
     data() {
         return {
-            photos:[
-                slika1,
-                slika2,
-                slika3,
-                slika4,
-                slika5
-            ],
             count: 0,
             showComp:'',
             menuItems: [
@@ -77,18 +66,29 @@ export default {
                 }
             ],
             userType: '',
-            showComp: 'pocetna'
+            showComp: 'pocetna',
+            Album: {}
         }
     },
     methods: {
         setComponent(component){
             this.showComp = component;
             setPageShown(this.showComp);
+        },
+         loadAlbum() {
+            apiFetch('GET', destinationUrl + "/Album/GetAlbumByPassword?=" + ALBUM_PASSWORD)
+            .then(result => {
+                if(result.Success) {
+                    this.Album = result.Data;
+                    //console.log(this.Album.Images);
+                }
+            }).catch(error => {console.log(error)});
         }
     },
     mounted: function() {
         setPageShown("Pocetna");
         this.userType = getUserInfo().userType;
+        this.loadAlbum();
         this.showComp = "pocetna";
         console.log(getUserInfo().userType);
     }
@@ -142,6 +142,7 @@ export default {
         height: 70%;
         padding: 60px 60px;
         padding-top: 80px;
+        margin-top: 100px;
         justify-content: center;
         background-color: rgba(231, 231, 236, 0.4);
         border-radius: 8px;
@@ -151,6 +152,7 @@ export default {
         font-family:sans-serif;
         font-size:18px;
         color: black;
+        text-align: center;
     }
 
     h3 {
@@ -161,6 +163,7 @@ export default {
       .information{
           flex-direction: column;
           height: 800px;
+          margin: 0px;
           padding: 10px;
           display: flex;
           justify-content: center;

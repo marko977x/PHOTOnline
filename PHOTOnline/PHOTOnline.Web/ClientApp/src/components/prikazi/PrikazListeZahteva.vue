@@ -180,7 +180,7 @@ export default {
                 apiFetch('POST', destinationUrl + "/Request/RejectRequest", Data)
                     .then(result => {
                         if(result.Success){
-                        this.$message({message: "Uspesno ste odbili zahtev za fotografisanje.", type: 'success'})
+                        this.$message({message: "Uspesno ste odbili zahtev za fotografisanje.", type: 'warning'})
                             this.listaZahteva.splice(this.listaZahteva.indexOf(this.currentRow),1);
                             this.$emit('datum',this.listaZahteva);
                             this.fotografId = '';

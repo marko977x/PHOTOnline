@@ -1,21 +1,33 @@
 <template>
     <div class="prikaz-proizvoda-container">
         <label>Online Naručivanje Fotografija</label>
-         <el-upload
-                class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                multiple
-                :limit="3">
-                <el-button size="small" type="primary">Click to upload</el-button>
-            </el-upload>
+         <input type="file" :disabled="omoguciDugme" accept="image/*" @click="uploadImage($event)" id="file-input" >
     </div>
 </template>
 
 <script>
+import { getUserInfo } from '../../services/contextManagement';
+import { apiFetch, destinationUrl, UserTypes, REGULAR_USER_TYPE } from '../../services/authFetch';
 export default {
     data(){
         return{
             proiz: this.list,
+            omoguciDugme: false
+        }
+    },
+    methods:{
+        uploadImage(data){
+            this.proveraPrijavljen();
+            console.log(data);
+        },
+         proveraPrijavljen(){
+             console.log(getUserInfo().userType)
+            if(getUserInfo().userType == REGULAR_USER_TYPE){
+                this.omoguciDugme = false;
+            }
+            else{
+                this.omoguciDugme = true;
+            }
         }
     },
     props: ['list']
