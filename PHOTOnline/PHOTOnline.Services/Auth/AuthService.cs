@@ -125,6 +125,15 @@ namespace PHOTOnline.Services.Auth
             IdentityResult passwordResult = await _userManager.ResetPasswordAsync(
                 user, passwordToken, newPassword);
 
+            if (IsPasswordToShort(passwordResult))
+            {
+                return new Result()
+                {
+                    Success = false,
+                    Errors = new List<Error>() { new Error(ErrorCode.PasswordTooShort) }
+                };
+            }
+
             return new Result() { Success = passwordResult.Succeeded };
         }
 

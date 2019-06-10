@@ -11,10 +11,10 @@
             </el-input-number>
             <el-select :value="format" @input="setFormat" placeholder="Format Slike" size="mini">
                 <el-option
-                    v-for="item in options"
-                    :key="item"
-                    :label="item"
-                    :value="item">
+                    v-for="item in formatPricePairList"
+                    :key="item.format"
+                    :label="item.format"
+                    :value="item.format">
                 </el-option>
              </el-select>
         </div>
@@ -22,14 +22,14 @@
 </template>
 
 <script>
-import {IMAGE_FORMAT} from "../../services/productPriceCalculator.js";
+import {IMAGE_FORMAT, IMAGE_FORMAT_PRICE_PAIR_LIST} from "../../data/formatPricePairList";
 import { getAlbumKorisnikState } from '../../services/contextManagement';
 export default {
     data(){
         return{
             num: 1,
             format: '',
-            options: IMAGE_FORMAT,
+            formatPricePairList: IMAGE_FORMAT_PRICE_PAIR_LIST,
             select: false
         }
     },
