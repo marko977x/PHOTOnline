@@ -59,7 +59,9 @@ export default {
             apiFetch('POST', destinationUrl + "/User/SignOut")
                 .then(result => {
                     if(result.Success) {
-                        clearUserInfo()
+                        clearLocalStorage();
+                        clearSessionStorage();
+                        setUserInfo(null, ANONYMOUS_USER_TYPE);
                         window.location.href = "/";
                     }
                     else console.log(result);

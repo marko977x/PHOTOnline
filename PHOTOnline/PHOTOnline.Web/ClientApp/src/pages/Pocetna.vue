@@ -90,6 +90,7 @@ export default {
         setPageShown("Pocetna");
         this.userType = getUserInfo().userType;
         this.showComp = "pocetna";
+        console.log(getUserInfo().userType);
     }
 }
 </script>
