@@ -113,12 +113,8 @@ export default {
         justify-content: center;
         overflow: hidden;
         /* height: 10%; */
-        background-color: rgba(26, 104, 168, 0.678);
-        flex: 0 0 70px;
-    }
-    .header-container:hover{
         background-color: rgb(26, 104, 168);
-        transition-duration: 1s;
+        flex: 0 0 70px;
     }
 
     .container{

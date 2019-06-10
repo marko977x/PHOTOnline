@@ -46,7 +46,8 @@ export default {
                 format: "",
                 quantity: 1
             },
-            photo: {}
+            photo: {},
+            showPicture: {}
         }
     },
     methods: {

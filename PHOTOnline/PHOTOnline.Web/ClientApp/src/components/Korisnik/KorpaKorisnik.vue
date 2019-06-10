@@ -110,7 +110,7 @@ export default {
             this.cartItems.forEach(element => {
                 result += element.Price;
             });
-            return result
+            return result.toFixed(2)
         },
         openImage(cartItem) {
             this.shownImage = cartItem.Image;

@@ -8,7 +8,7 @@
                 style="width:100%"
                 :row-class-name="tableColumn"
                 highlight-current-row
-                @current-change="handleCurrentChange">
+                @row-click="handleCurrentChange">
                 <el-table-column min-width="20%" prop="Order.Date" label="Datum" sortable="true"></el-table-column>
                 <el-table-column min-width="20%" prop="Address" label="Adresa"></el-table-column>
                 <el-table-column min-width="20%" prop="Order.Price" label="Ukupna cena"></el-table-column>
@@ -53,10 +53,12 @@ export default {
             })
         },
         handleCurrentChange(val) {
+            console.log(val);
             this.currentRow = val;
             this.itemsinCart = this.currentRow.Order.CartItems;
         },
         prikaziPoruku(){
+            console.log("asd");
             if(this.currentRow.Order.RequestStatus == 1)  this.$notify({title: "OBAVEŠTENJE", message: this.currentRow.Order.Notification==null ? this.poruka1 : this.currentRow.Order.Notification, type: 'success',  position: 'bottom-right' })
             else if(this.currentRow.Order.RequestStatus == 2) this.$notify({title: "OBAVEŠTENJE", message: this.currentRow.Order.Notification==null ? this.poruka2 : this.currentRow.Order.Notification, type: 'error', position: 'bottom-right'})
             else this.$notify({title: "OBAVEŠTENJE", message: this.poruka3, type: 'warning', position: 'bottom-right'})

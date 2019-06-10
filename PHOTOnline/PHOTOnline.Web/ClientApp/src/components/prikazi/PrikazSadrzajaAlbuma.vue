@@ -16,7 +16,7 @@
             <div class="right">
                 <el-button type="danger" size="mini" class="el-icon-delete"
                     style="margin-right: 5%; margin-left: 5%; height:35px; font-family:sans-serif;"
-                    @click="deleteAlbum"> Obriši Album
+                    @click="deleteAlbum"> Obriši album
                 </el-button>
             </div>
         </div>

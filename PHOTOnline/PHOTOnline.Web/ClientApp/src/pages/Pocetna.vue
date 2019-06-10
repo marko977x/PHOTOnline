@@ -24,7 +24,7 @@
         <korpa-korisnik v-if="this.showComp == 'korpa'" ></korpa-korisnik>
         <zakazivanja-korisnik v-if="this.showComp == 'zakazivanja'" ></zakazivanja-korisnik>
         <user-sidebar v-if="this.showComp == 'profil'" ></user-sidebar>
-        <footer-bar class="footer" v-if="this.showComp != 'proizvodi'"></footer-bar> 
+        <footer-bar class="footer"></footer-bar> 
     </div>
 </template>
 
@@ -128,7 +128,7 @@ export default {
 
     .information {
         /* width: 100%; */
-        height: 100%;
+        /*height: 100%;*/
         position: absolute;
         top: 15%;
         bottom: 15%;
