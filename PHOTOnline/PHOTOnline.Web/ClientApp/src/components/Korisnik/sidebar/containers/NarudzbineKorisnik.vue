@@ -14,7 +14,9 @@
                 <el-table-column min-width="20%" prop="Order.Price" label="Ukupna cena"></el-table-column>
                 <el-table-column min-width="20%" prop="PhoneNumber" label="Telefon"></el-table-column>
                 <el-table-column fixed="right" width="50">
-                    <el-button type="info" icon="el-icon-message" circle size="mini" @click="prikaziPoruku"></el-button>
+                    <template slot-scope="scope">
+                    <el-button type="info" icon="el-icon-message" circle size="mini" @click="prikaziPoruku(scope.row)"></el-button>
+                    </template>
                 </el-table-column>
             </el-table>
         </div>
@@ -34,7 +36,6 @@ export default {
         return{
             listaNarudzbina: [],
             currentRow: null,
-            orderFinished: false,
             itemsinCart: [],
             poruka1: 'Vaš zahtev je prihvaćen.',
             poruka2: 'Vaš zahtev je odbijen.',
@@ -49,16 +50,14 @@ export default {
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {
                     this.listaNarudzbina = result.Data;
-                    console.log(this.listaNarudzbina);
             })
         },
         handleCurrentChange(val) {
-            console.log(val);
             this.currentRow = val;
             this.itemsinCart = this.currentRow.Order.CartItems;
         },
-        prikaziPoruku(){
-            console.log("asd");
+        prikaziPoruku(row){
+            this.currentRow = row;
             if(this.currentRow.Order.RequestStatus == 1)  this.$notify({title: "OBAVEŠTENJE", message: this.currentRow.Order.Notification==null ? this.poruka1 : this.currentRow.Order.Notification, type: 'success',  position: 'bottom-right' })
             else if(this.currentRow.Order.RequestStatus == 2) this.$notify({title: "OBAVEŠTENJE", message: this.currentRow.Order.Notification==null ? this.poruka2 : this.currentRow.Order.Notification, type: 'error', position: 'bottom-right'})
             else this.$notify({title: "OBAVEŠTENJE", message: this.poruka3, type: 'warning', position: 'bottom-right'})

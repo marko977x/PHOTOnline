@@ -2,16 +2,21 @@
     <div class="narudzbina-container">
         <div class="narudzbina-container-table">
             <el-table
-                :data="tableData"
-                :default-sort = "{prop:'datum', order: 'descending'}"
+                :data="listaNarudzbina"
+                :default-sort = "{prop:'Order.RequestStatus', order: 'descending'}"
                 height="1000"
                 style="width:100%"
-                :row-class-name="tableColumn">
-                <el-table-column min-width="20%" prop="datum" label="Datum" sortable="true"></el-table-column>
-                <el-table-column min-width="20%" prop="ime" label="Ime"></el-table-column>
-                <el-table-column min-width="20%" prop="prezime" label="Prezime"></el-table-column>
-                <el-table-column min-width="20%" prop="adresa" label="Adresa"></el-table-column>
-                <el-table-column min-width="20%" prop="brtelefona" label="Broj Telefona"></el-table-column>
+                :row-class-name="tableColumn"
+                highlight-current-row
+                @row-click="handleCurrentChange">
+                <el-table-column min-width="20%" prop="Order.RequestStatus" label="Status" sortable="true"></el-table-column>
+                <el-table-column min-width="20%" prop="Order.Date" label="Datum"></el-table-column>
+                <el-table-column min-width="20%" prop="FirstName" label="Ime"></el-table-column>
+                <el-table-column min-width="20%" prop="LastName" label="Prezime"></el-table-column>
+                <el-table-column min-width="20%" prop="Address" label="Adresa"></el-table-column>
+                <el-table-column min-width="20%" prop="PhoneNumber" label="Telefon"></el-table-column>
+                <el-table-column min-width="20%" prop="Order.Price" label="Ukupna cena"></el-table-column>
+                
                 <el-table-column fixed="right" width="100" align="right">
                     <el-button type="warning" size="mini">Korpa</el-button>
                 </el-table-column>
@@ -20,7 +25,7 @@
                 </el-table-column>
             </el-table>
         </div>
-        <prikaz-korpe :endTask="task"></prikaz-korpe>
+        <prikaz-korpe :korpa="itemsinCart"></prikaz-korpe>
         <obavesti-korisnika hidden></obavesti-korisnika>
     </div>
 </template>
@@ -34,64 +39,37 @@ export default {
     components: {PrikazKorpe,ObavestiKorisnika},
     data(){
         return{
-            tableData: [
-                {
-                    datum: '2019-05-12',
-                    ime: 'Jovan',
-                    prezime: 'Aritonovic',
-                    adresa: 'Prvomajska 61 Zitkovac',
-                    brtelefona: '0614210997'
-                },
-                {
-                    datum: '2019-05-8',
-                    ime: 'Jovan',
-                    prezime: 'Aritonovic',
-                    adresa: 'Prvomajska 61 Zitkovac',
-                    brtelefona: '0614210997'
-                },
-                {
-                    datum: '2019-01-2',
-                    ime: 'Jovan',
-                    prezime: 'Aritonovic',
-                    adresa: 'Prvomajska 61 Zitkovac',
-                    brtelefona: '0614210997'
-                },
-                {
-                    datum: '2019-01-2',
-                    ime: 'Jovan',
-                    prezime: 'Aritonovic',
-                    adresa: 'Prvomajska 61 Zitkovac',
-                    brtelefona: '0614210997'
-                },
-                {
-                    datum: '2019-01-2',
-                    ime: 'Jovan',
-                    prezime: 'Aritonovic',
-                    adresa: 'Prvomajska 61 Zitkovac',
-                    brtelefona: '0614210997'
-                }
-            ],
-            orderFinished: false,
-            itemsinCart: '',
-            Obavestenje: '',
-            task: this.endTask
+            listaNarudzbina: [],
+            currentRow: null,
+            itemsinCart: [],
+            Obavestenje: ''
         }
     },
     methods:{
+        loadOrders() {
+            fetch(destinationUrl + '/Order/GetAllOrders', {method: "GET"})
+                .then(response => response.ok ? response.json() : new Error())
+                .then(result => {
+                    this.listaNarudzbina = result.Data;
+                    console.log(this.listaNarudzbina);
+            })
+        },
+        handleCurrentChange(val) {
+            this.currentRow = val;
+            this.itemsinCart = this.currentRow.Order.CartItems;
+        },
         tableColumn({row, rowIndex}) {
-            if (this.task == true) {
+            if (row.Order.RequestStatus == 1) {
                 return 'success-row';
             }
             else{
                 return '';
             }
-            console.log(this.task);
         }
     },
     mounted: function() {
-        
-    },
-    props:['endTask']
+        this.loadOrders();
+    }
 }
 </script>
 

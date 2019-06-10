@@ -92,12 +92,14 @@ export default {
         },
         deleteAlbum() {
             this.showComp = 'albumi';
+            console.log(this.Albums)
             this.Albums.splice(this.OpenedAlbumIndex, 1);
             this.FiltriraniAlbumi = this.Albums;
         }
     },
     mounted: function() {
         this.loadAlbums();
+         console.log(this.FiltriraniAlbumi)
     }
 }
 </script>
