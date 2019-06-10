@@ -37,22 +37,22 @@ import { ERRORS} from "../../../../../../data/errorsCode.js";
         methods: {
             validacijaPassworda: function(){
                 if(this.oldPass == "" || this.newPass == "" || this.newPassRe == "") {
-                    this.$message({message: "Morate uneti sva polja", type: 'error'})
+                    this.$message({message: "Morate uneti sva polja", type: 'error'});
+                    return false;
                 }
                 if(this.newPass != this.newPassRe){
-                    this.$message({message: "Lozinke se ne podudaraju", type: 'error'})
-                    this.newPass = ''
-                    this.newPassRe = ''
-                    return false
+                    this.$message({message: "Lozinke se ne podudaraju", type: 'error'});
+                    this.newPass = '';
+                    this.newPassRe = '';
+                    return false;
                 }
-                if(this.oldPass.length > 16){
-                    this.$message({message: "Lozinka može da ima najviše 16 karaktera", type: 'error'})
-                    this.newPass = ''
-                    this.newPassRe = ''
-                    return false
+                if(this.newPass.length < 6){
+                    this.$message({message: "Lozinka mora da ima bar 6 karaktera", type: 'warning'});
+                    this.newPass = '';
+                    this.newPassRe = '';
+                    return false;
                 }
-                return true
-
+                return true;
             },
             potvrdiUnos: function(){
                 if(this.validacijaPassworda()){

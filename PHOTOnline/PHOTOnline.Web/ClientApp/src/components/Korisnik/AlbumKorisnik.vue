@@ -33,6 +33,7 @@ import FormSlika from "../forme/FormSlika.vue"
 import { constants } from 'fs';
 import { destinationUrl, ANONYMOUS_USER_TYPE, REGULAR_USER_TYPE } from '../../services/authFetch';
 import { getUserInfo, setAlbumKorisnikState, getAlbumKorisnikState, clearAlbumKorisnikState } from '../../services/contextManagement';
+import { IMAGE_FORMAT_PRICE_PAIR_LIST } from '../../data/formatPricePairList';
 export default {
     components: {FooterBar, Fotografija, FormSlika},
     data(){
@@ -123,7 +124,7 @@ export default {
                     formData.append("CartItems[" + index + "].Image.Medium.Url", item.image.Medium.Url);
                     formData.append("CartItems[" + index + "].Image.Small.FileId", item.image.Small.FileId);
                     formData.append("CartItems[" + index + "].Image.Small.Url", item.image.Small.Url);
-                    formData.append("CartItems[" + index + "].Price", 100);
+                    formData.append("CartItems[" + index + "].Price", this.getCartItemPrice(item));
                 });
 
                 for(let index = 0; index < this.items.length; index++) {
@@ -151,6 +152,10 @@ export default {
         },
         onQuantityChange(quantity, index) {
             this.$set(this.items, index, {...this.items[index], quantity: quantity});
+        },
+        getCartItemPrice(cartItem) {
+            const formatPricePair = IMAGE_FORMAT_PRICE_PAIR_LIST.find(item => item.format == cartItem.format);
+            return formatPricePair.price;
         }
     },
     mounted: function() {
