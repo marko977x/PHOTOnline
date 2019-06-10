@@ -68,6 +68,9 @@ export default {
     height: 87px;
     width: 100%;
 }
+.el-icon-download{
+    margin: 0 10px;
+}
 </style>
 
 

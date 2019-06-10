@@ -9,5 +9,6 @@ namespace PHOTOnline.Business.OrderManagement.Input
     {
         public string OrderId { get; set; }
         public RequestStatus RequestStatus { get; set; }
+        public string Notification { get; set; }
     }
 }

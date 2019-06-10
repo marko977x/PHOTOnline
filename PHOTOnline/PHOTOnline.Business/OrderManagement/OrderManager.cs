@@ -136,6 +136,7 @@ namespace PHOTOnline.Business.OrderManagement
             if (order == null) return new Result() { Success = false };
 
             order.RequestStatus = input.RequestStatus;
+            order.Notification = input.Notification;
             await _orderRepository.UpdateAsync(order);
             return new Result() { Success = true };
         }

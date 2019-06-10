@@ -79,7 +79,7 @@ namespace PHOTOnline.Web.Controllers
 
         [HttpPost]
         public async Task<IActionResult> UpdateOrderState(
-            [FromBody]UpdateOrderStateInput input)
+            [FromForm]UpdateOrderStateInput input)
         {
             Result result = await _orderManager.UpdateOrderState(input);
             if (result.Success) return Ok(result);

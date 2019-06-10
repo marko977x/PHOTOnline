@@ -102,7 +102,6 @@ namespace PHOTOnline.Business.CartManagement
             if (cartItem != null)
             {
                 cart.Price -= cartItem.Price;
-                await _albumManager.DeleteImage(cartItem.Image);
                 cart.CartItems.Remove(cartItem);
                 await _cartRepository.UpdateAsync(cart);
             }

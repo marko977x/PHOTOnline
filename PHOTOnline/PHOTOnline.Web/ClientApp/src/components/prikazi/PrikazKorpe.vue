@@ -1,32 +1,39 @@
 <template>
     <div class="korpa-container">   
+        <h3>Sadržaj narudžbine</h3>
         <el-table 
         :data="this.korpa"
         style="width:80%; border:1px solid black;">
             <el-table-column
                 prop="ProductType"
                 label="Tip"
-                class="table-column">
+                class="table-column"
+                min-width="100">
             </el-table-column>
              <el-table-column
                 prop="Quantity"
                 label="Kolicina"
-                class="table-column">
+                class="table-column"
+                min-width="100">
             </el-table-column>
             <el-table-column
                 prop="Format"
                 label="Format"
-                class="table-column">
+                class="table-column"
+                min-width="100">
             </el-table-column>
             <el-table-column
                 prop="Price"
                 label="Cena"
-                class="table-column">
+                class="table-column"
+                min-width="100">
             </el-table-column>
-            <el-table-column label="Slika">
+            <el-table-column label="Slika" min-width="100">
                 <template slot-scope="cartItem" >
-                    <el-button type="secondary" icon="el-icon-picture" circle size="mini" @click="openImage(cartItem.row)">
-                    </el-button>
+                    <div class="kolonaDugmici-1">
+                        <el-button type="secondary" icon="el-icon-picture" circle size="medium" @click="openImage(cartItem.row)"></el-button>
+                        <el-button type="text" @click="skiniSliku(cartItem.$index)" v-if="uprava">Download</el-button>
+                    </div>
                 </template>
             </el-table-column>
         </el-table>
@@ -36,6 +43,9 @@
 
 <script>
 import FormSlika from "../forme/FormSlika.vue";
+import { UserTypes, REGULAR_USER_TYPE } from '../../services/authFetch';
+import { getUserInfo } from '../../services/contextManagement';
+import { Promise } from 'q';
 export default {
     components: { FormSlika },
     data(){
@@ -46,17 +56,43 @@ export default {
                     Url: ""
                 }
             },
+            downloadLink: [],
+            uprava: ''
         }
     },
     methods: {
-            openImage(cartItem) {
-                this.shownImage = cartItem.Image;
-                this.isImageHidden = false;
-            },
-            closeImage() {
-                this.isImageHidden = true;
-            },
-
+        openImage(cartItem) {
+            this.shownImage = cartItem.Image;
+            this.isImageHidden = false;
+        },
+        closeImage() {
+            this.isImageHidden = true;
+        },
+        skiniSliku(index) {
+            let aTag = document.createElement('a');
+            aTag.download = "image.png";
+            aTag.href = this.downloadLink[index];
+            document.body.appendChild(aTag);
+            aTag.click();
+            document.body.removeChild(aTag);
+        }
+    },
+    updated: function() {
+        this.korpa.forEach( (element, index) => {
+            fetch(element.Image.Original.Url, {method: 'GET'}).then(response => {
+                    return response.blob();
+                }).then(blob => {
+                    this.downloadLink[index] = URL.createObjectURL(blob);
+                });
+        });
+    },
+    beforeMount: function() {
+        if(getUserInfo().userType == REGULAR_USER_TYPE){
+            this.uprava = false;
+        }
+        else{
+            this.uprava = true;
+        }
     },
     props: ['korpa']
 }
@@ -74,8 +110,9 @@ export default {
         justify-content: center;
         align-items: center;
 }
-.el-icon-download{
-    margin-right: 10px;
+h3{
+    text-align: center;
+    font-family: sans-serif;
 }
 </style>
 

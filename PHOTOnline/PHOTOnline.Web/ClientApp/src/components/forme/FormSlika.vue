@@ -6,10 +6,7 @@
 
 <script>
 export default {
-    props: ['shownPhoto', 'isVisible'],
-    mounted: function() {
-        console.log(this.shownPhoto);
-    }
+    props: ['shownPhoto', 'isVisible']
 }
 </script>
 
