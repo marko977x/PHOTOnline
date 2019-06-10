@@ -36,7 +36,7 @@
     export default {
         data() {
             return {
-                proizvod: { Title: '', Price: '', Size: '', Description: '', ProductType: '', ImageUrl: '' },
+                proizvod: { Title: '', Price: '', Size: 'Univerzalni', Description: '', ProductType: '', ImageUrl: '' },
             }
         },
         methods: {
