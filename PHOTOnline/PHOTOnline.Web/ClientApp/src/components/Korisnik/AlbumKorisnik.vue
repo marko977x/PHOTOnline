@@ -46,8 +46,7 @@ export default {
                 format: "",
                 quantity: 1
             },
-            photo: {},
-            showPicture: ''
+            photo: {}
         }
     },
     methods: {
@@ -64,12 +63,18 @@ export default {
             fetch(destinationUrl + "/Album/GetAlbumByPassword/?password=" + this.password, {method: 'GET'})
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {
+                    this.items = [];
                     result.Success ? 
-                        result.Data.Images.forEach((image, index) => {
-                            this.itemData.image = image;
-                            this.items.push(this.itemData);
+                        result.Data.Images.forEach(image => {
+                            this.items.push({
+                                selected: false,
+                                format: '',
+                                quantity: 1,
+                                image: image
+                            });
                         }) : 
                         this.$message("Pogresna sifra albuma!");
+                        console.log(this.items);
                 }).catch(error => console.log(error));
         },
         addImageToSelected(data, index){
