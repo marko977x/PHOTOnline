@@ -62,18 +62,17 @@ export default {
     methods: {
         getUser(){
             let userId = getUserInfo().userID;
-            console.log(userId)
+            console.log(getUserInfo());
             fetch(destinationUrl + '/User/GetUserById/?id=' + userId, {method: "GET"})
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {
-                    console.log(result)
                     this.user.FirstName = result.Data.FirstName;
                     this.user.LastName = result.Data.LastName;
                     this.user.Email = result.Data.Email;
                     this.user.Password = "*****";
                     this.user.Adress = result.Data.Address;
                     this.user.PhoneNumber = result.Data.PhoneNumber;
-                })
+                }).catch(error => console.log(error));
         }
     },
     mounted: function() {

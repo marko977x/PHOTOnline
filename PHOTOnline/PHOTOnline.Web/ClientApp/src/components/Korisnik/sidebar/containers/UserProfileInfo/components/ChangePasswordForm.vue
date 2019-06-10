@@ -2,15 +2,15 @@
     <div class="promena-lozinke-container">
         <div class="form-lozinka-line">
             <label>Unesite staru lozinku:</label>
-            <el-input type="password" v-model="oldPass"></el-input>
+            <el-input class="elInput" type="password" v-model="oldPass"></el-input>
         </div>
         <div class="form-lozinka-line">
             <label>Unesite novu lozinku:</label>
-            <el-input type="password" v-model="newPass"></el-input>
+            <el-input class="elInput" type="password" v-model="newPass"></el-input>
         </div>
         <div class="form-lozinka-line">
             <label>Ponovite lozinku:</label>
-            <el-input type="password" v-model="newPassRe"></el-input>
+            <el-input class="elInput" type="password" v-model="newPassRe"></el-input>
         </div>
         <div class="form-lozinka-buttons">
             <el-button @click="potvrdiUnos" >Potvrdi</el-button>
@@ -99,24 +99,27 @@ import { ERRORS} from "../../../../../../data/errorsCode.js";
     .promena-lozinke-container h1{
         font-size: 23px;
         margin-bottom: 1.5em;
-        display: flex;
-        justify-content: center;
     }
 
     .form-lozinka-line{
         display: flex;
         align-content: center;
+        justify-content: center;
         margin-top: 2vh;
     }
 
     .form-lozinka-line label{
-        width: 40%;
+        flex: 1;
         font-size: 14px;
     }
 
-    .form-lozinka-line label + * {
-        width: 60%;
+    .elInput {
+        flex: 1;
     }
+
+    /* .form-lozinka-line label + * {
+        width: 30%;
+    } */
 
     .form-lozinka-buttons{
         margin-top: 1.5em;

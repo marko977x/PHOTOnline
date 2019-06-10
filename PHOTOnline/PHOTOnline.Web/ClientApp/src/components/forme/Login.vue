@@ -28,6 +28,7 @@
 <script>
 import { apiFetch, destinationUrl, UserTypes } from '../../services/authFetch';
 import {setUserInfo, getPageToShow} from '../../services/contextManagement';
+import { ERRORS } from '../../data/errorsCode';
 export default {
     data() {
         return{
@@ -39,19 +40,29 @@ export default {
     },
     methods: {
         onLoginSubmit() {
+            if(!this.isDataValid()) return;
             apiFetch('POST', destinationUrl + "/User/SignIn", this.loginData)
                 .then(result => {
                     if(result.Success){
                         setUserInfo(result.Data.Id, result.Data.UserType);
                         window.location.href = "/" + UserTypes[result.Data.UserType];
                     }
-                    else this.$message("Pogreska lozinka ili email adresa!");
+                    else if(result.Errors != null && result.Errors.length != 0) {
+                        this.$message({message: ERRORS[result.Errors[0].Code], type: "error"});
+                    }
                 }).catch(error => {
                     console.log(error);
                 });
         },
         signUpForm(){
             this.$emit("goToSignUpForm");
+        },
+        isDataValid() {
+            if(this.loginData.Email == "" || this.loginData.Password == "") {
+                this.$message({message: "Morate popuniti sva polja", type: "warning"});
+                return false;
+            }
+            return true;
         }
     }
 }

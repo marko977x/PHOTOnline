@@ -1,6 +1,6 @@
 <template>
-    <div class="proizvodi-container" v-loading="isSpinnerActive" :loading-options="{text: 'text', background: 'rgb(0, 0, 0, 0.6)'}">
-        <div class="lista-proizvoda">
+    <div class="proizvodi-container" >
+        <div class="lista-proizvoda" v-loading="isSpinnerActive" :loading-options="{text: 'text', background: 'rgb(0, 0, 0, 0.6)'}">
             <div v-for="(item, index) in proizvodi" :key="item.value" :list="proizvodi">
             <template>
                 <div class="prikaz-proizvoda-container">
@@ -11,7 +11,7 @@
                         <div class="part2">
                             <h4>{{item.Title}}</h4>
                             <p id="opis">{{item.Description}}</p>
-                            <input type="file" accept="image/*" @change="uploadImage($event)" id="file-input" >
+                            <input type="file" accept="image/*" @change="uploadImage($event, index)" id="file-input" >
                         </div>
                         <div class="part3">
                             <h6 id="cena">Cena: {{item.Price}}din</h6>
@@ -28,7 +28,7 @@
 
 <script>
 import NarucivanjeFotografija from "./NarucivanjeFotografija.vue"
-import { apiFetch, destinationUrl, UserTypes, REGULAR_USER_TYPE } from '../../services/authFetch';
+import { apiFetch, destinationUrl, UserTypes, REGULAR_USER_TYPE, ANONYMOUS_USER_TYPE } from '../../services/authFetch';
 import { getUserInfo } from '../../services/contextManagement';
 import { Promise } from 'q';
 export default {
@@ -36,9 +36,10 @@ export default {
     data(){
         return{
             proizvodi: [],
-            uploadedImage: {},
+            uploadedImage: [],
             isSpinnerActive: false,
             isUploadingDone: false,
+            uploadingImageInProgress: [],
             indeksIzabranogProizvoda: null
         }
     },
@@ -50,34 +51,39 @@ export default {
                 });
         },
         onClickDodajUKorpu(index) {
-            if(getUserInfo().userType == REGULAR_USER_TYPE){
-                this.indeksIzabranogProizvoda = index;
-                this.dodajUKorpu(); 
-            }
-            else{
+            if(getUserInfo().userType == ANONYMOUS_USER_TYPE){
                 this.$message("Da biste naručili proizvod morate se prijaviti ili registrovati.");
                 this.$emit("gotoLogin");
+            }
+            else if(this.uploadedImage[index] == null &&
+                !this.uploadingImageInProgress[index]) {
+                this.$message({message: "Morate izabrati fotografiju", type: "warning"});
+            }
+            else {
+                this.indeksIzabranogProizvoda = index;
+                this.dodajUKorpu(); 
             }
         },
         dodajUKorpu(){
             if(this.isUploadingDone && !this.isSpinnerActive) {    
+                const image = this.uploadedImage[this.indeksIzabranogProizvoda];
                 const formData = new FormData();
                 formData.append("UserId", getUserInfo().userID);
                 formData.append("CartItems[" + 0 + "].ProductType", this.proizvodi[this.indeksIzabranogProizvoda].ProductType);
                 formData.append("CartItems[" + 0 + "].Format", this.proizvodi[this.indeksIzabranogProizvoda].Size);
                 formData.append("CartItems[" + 0 + "].Quantity", 1);
-                formData.append("CartItems[" + 0 + "].Image.Id", this.uploadedImage.Id);
-                formData.append("CartItems[" + 0 + "].Image.Title", this.uploadedImage.Title);
-                formData.append("CartItems[" + 0 + "].Image.Original.FileId", this.uploadedImage.Original.FileId);
-                formData.append("CartItems[" + 0 + "].Image.Original.Url", this.uploadedImage.Original.Url);
-                formData.append("CartItems[" + 0 + "].Image.Thumbnail.FileId", this.uploadedImage.Thumbnail.FileId);
-                formData.append("CartItems[" + 0 + "].Image.Thumbnail.Url", this.uploadedImage.Thumbnail.Url);
-                formData.append("CartItems[" + 0 + "].Image.Large.FileId",this.uploadedImage.Large.FileId);
-                formData.append("CartItems[" + 0 + "].Image.Large.Url", this.uploadedImage.Large.Url);
-                formData.append("CartItems[" + 0 + "].Image.Medium.FileId", this.uploadedImage.Medium.FileId);
-                formData.append("CartItems[" + 0 + "].Image.Medium.Url", this.uploadedImage.Medium.Url);
-                formData.append("CartItems[" + 0 + "].Image.Small.FileId", this.uploadedImage.Small.FileId);
-                formData.append("CartItems[" + 0 + "].Image.Small.Url", this.uploadedImage.Small.Url);
+                formData.append("CartItems[" + 0 + "].Image.Id", image.Id);
+                formData.append("CartItems[" + 0 + "].Image.Title", image.Title);
+                formData.append("CartItems[" + 0 + "].Image.Original.FileId", image.Original.FileId);
+                formData.append("CartItems[" + 0 + "].Image.Original.Url", image.Original.Url);
+                formData.append("CartItems[" + 0 + "].Image.Thumbnail.FileId", image.Thumbnail.FileId);
+                formData.append("CartItems[" + 0 + "].Image.Thumbnail.Url", image.Thumbnail.Url);
+                formData.append("CartItems[" + 0 + "].Image.Large.FileId",image.Large.FileId);
+                formData.append("CartItems[" + 0 + "].Image.Large.Url", image.Large.Url);
+                formData.append("CartItems[" + 0 + "].Image.Medium.FileId", image.Medium.FileId);
+                formData.append("CartItems[" + 0 + "].Image.Medium.Url", image.Medium.Url);
+                formData.append("CartItems[" + 0 + "].Image.Small.FileId", image.Small.FileId);
+                formData.append("CartItems[" + 0 + "].Image.Small.Url", image.Small.Url);
                 formData.append("CartItems[" + 0 + "].Price", this.proizvodi[this.indeksIzabranogProizvoda].Price);
 
                 fetch(destinationUrl + "/Cart/AddToCart", {method: 'POST', body: formData})
@@ -95,7 +101,13 @@ export default {
                 this.isSpinnerActive = true;
             }
         },
-        async uploadImage(event) {
+        async uploadImage(event, index) {
+            if(getUserInfo().userType == ANONYMOUS_USER_TYPE){
+                this.$message("Da biste naručili proizvod morate se prijaviti ili registrovati.");
+                this.$emit("gotoLogin");
+                return;
+            }
+            this.uploadingImageInProgress[index] = true;
             const promises = [];
             const formData = new FormData();
             formData.append("image", event.target.files[0]);
@@ -103,11 +115,12 @@ export default {
                 .then(response => {
                     return response.ok ? response.json() : new Error();
                 }).then(result => {
-                    this.uploadedImage = result.Data.Image;
-                    console.log(this.uploadedImage);
+                    this.uploadedImage[index] = result.Data.Image;
                 }).catch(error => {console.log(error)}));
+
             await Promise.all(promises);
             this.isUploadingDone = true;
+            this.uploadingImageInProgress[index] = false;
             if(this.isSpinnerActive) {
                 this.isSpinnerActive = false;  
                 this.dodajUKorpu();
@@ -140,6 +153,7 @@ export default {
         flex-direction: column;
         overflow: auto;
         background-color: rgba(224, 224, 235, 0.445);
+        overflow: auto;
 }
 
 .prikaz-proizvoda-container{
