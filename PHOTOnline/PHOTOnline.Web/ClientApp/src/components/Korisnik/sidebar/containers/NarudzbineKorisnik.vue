@@ -10,7 +10,7 @@
                 :row-class-name="tableRowClassName"
                 highlight-current-row
                 @row-click="handleCurrentChange">
-                <el-table-column min-width="20%" prop="Order.Date" label="Datum" sortable="true"></el-table-column>
+                <el-table-column min-width="20%" prop="Order.Date" label="Datum"></el-table-column>
                 <el-table-column min-width="20%" prop="Address" label="Adresa"></el-table-column>
                 <el-table-column min-width="20%" prop="Order.Price" label="Ukupna cena"></el-table-column>
                 <el-table-column min-width="20%" prop="PhoneNumber" label="Telefon"></el-table-column>
@@ -32,6 +32,7 @@ import ObavestiKorisnika from "../../../ObavestiKorisnika.vue"
 import { apiFetch, destinationUrl } from '../../../../services/authFetch';
 import { getUserInfo } from '../../../../services/contextManagement';
 import {APPROVED_REQUEST_MESSAGE, REJECTED_REQUEST_MESSAGE, ON_HOLD_REQUEST_MESSAGE} from "../../../../data/constants.js";
+import { sortOrdersByDate } from '../../../../services/sort';
 export default {
     components: {PrikazKorpe,ObavestiKorisnika},
     data(){
@@ -51,7 +52,7 @@ export default {
             fetch(destinationUrl + '/Order/GetOrdersByUserId/?userId=' + userId, {method: "GET"})
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {
-                    this.listaNarudzbina = result.Data;
+                    this.listaNarudzbina = sortOrdersByDate(result.Data);
             })
         },
         handleCurrentChange(val) {

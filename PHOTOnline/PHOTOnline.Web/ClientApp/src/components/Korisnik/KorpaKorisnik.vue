@@ -8,6 +8,12 @@
                     max-height="1000"
                     style="border-radius: 3px;">
                 <el-table-column
+                    prop="Title"
+                    label="Naziv"
+                    min-width="100"
+                    class="table-column">
+                </el-table-column>
+                <el-table-column
                         prop="ProductType"
                         label="Tip"
                         min-width="100"
