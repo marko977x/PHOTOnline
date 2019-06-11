@@ -40,14 +40,10 @@ export default {
 
 .profile-info-page {
     width: 60%;
-    margin-top: 10%;
+    margin-top: 5vh;
     display: flex;
     flex-direction: column;
     align-content: center;
-}
-
-.changePasswordForm {
-    /* width: 80%; */
 }
 
 </style>
