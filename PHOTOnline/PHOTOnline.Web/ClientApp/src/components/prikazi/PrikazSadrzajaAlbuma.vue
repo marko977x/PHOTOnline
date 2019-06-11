@@ -119,6 +119,7 @@ export default {
                     formData.append("Images[" + index + "].Large.Url", image.Large.Url);
                 });
                 console.log(formData);
+                this.Images = [];
                 fetch(destinationUrl + "/Album/AddImagesToAlbum", {
                     body: formData,
                     method: 'POST'
