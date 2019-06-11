@@ -2,7 +2,16 @@
     <div class="evidencija-container">
         <div class="evidencija-container-inner">
             <filter-clanova hidden></filter-clanova>
-            <h5 style="text-align:center; font-family:sans-serif;"> Evidencija članova </h5>
+            <div id="select"> 
+                <div style="flex: 1"></div>
+                <h5 style="text-align:center; font-family:sans-serif; flex: 1"> Evidencija članova </h5>
+                <div class="select-container" style="flex: 1; justify-content: flex-end; display: flex">
+                    <el-select :value="user" @change="setUser($event)">
+                        <el-option :value="'Fotograf'">Fotograf</el-option>
+                        <el-option :value="'Korisnik'">Korisnik</el-option>
+                    </el-select>
+                </div>
+            </div>
             <el-table style="width: 100%" :data="tableData.filter(data => !search || data.FirstName.toLowerCase().includes(search.toLowerCase()))">
                 <el-table-column prop="FirstName" label="Ime" class="table-column"></el-table-column>
                 <el-table-column prop="LastName" label="Prezime" class="table-column"></el-table-column>
@@ -13,8 +22,8 @@
                         <el-input v-model="search" style="margin: 0;" size="big" placeholder="Ime za pretragu" :focus="scope.search">
                         </el-input>
                     </template>
-                    <template slot-scope="scope">
-                        <el-button size="mini" type="danger" @click="deleteUser(scope.row.Id)">
+                    <template slot-scope="scope" >
+                        <el-button v-if="scope.row.UserType == userTypes[photographUserType]" size="mini" type="danger" @click="deleteUser(scope.row.Id)">
                             Obriši
                         </el-button>
                     </template>
@@ -35,17 +44,24 @@
     import FormDodajClana from './forme/FormDodajClana'
     import { } from 'element-ui'
     import { setPageShown } from '../services/contextManagement';
-import { apiFetch, destinationUrl, UserTypes } from '../services/authFetch';
+import { apiFetch, destinationUrl, UserTypes, PHOTOGRAPH_USER_TYPE } from '../services/authFetch';
+import { constants } from 'fs';
     export default {
         components: { FilterClanova, FormDodajClana },
         data() {
             return {
                 tableData: [],
                 showComp: '',
-                search: ''
+                search: '',
+                photographUserType: PHOTOGRAPH_USER_TYPE,
+                userTypes: UserTypes,
+                user: '',
             }
         },
         methods: {
+            skloni(row){
+                console.log(row)
+            },
             dodajClana: function () {
                 this.showComp = 'album';
                 setPageShown('album');
@@ -75,6 +91,38 @@ import { apiFetch, destinationUrl, UserTypes } from '../services/authFetch';
                         data.UserType = UserTypes[result.Data[index].UserType];
                     });
                 });
+            },
+            setUser(event){
+                this.user = event;
+                console.log(this.user)
+
+                if(this.user == UserTypes[PHOTOGRAPH_USER_TYPE]){
+                    apiFetch('GET', destinationUrl + "/User/GetAllPhotographs")
+                    .then(result => {
+                            if(result.Success){
+                            this.tableData = result.Data;
+                            this.tableData.forEach((data, index) => {
+                                data.UserType = UserTypes[result.Data[index].UserType];
+                            });
+                        }
+                        else this.$message({message: "Došlo je do greške!", type: 'error'})
+                    });
+                    console.log(this.Users)
+                }
+                else{
+                    apiFetch('GET', destinationUrl + "/User/GetAllRegularUsers")
+                    .then(result => {
+                        if(result.Success){
+
+                            this.tableData = result.Data;
+                             this.tableData.forEach((data, index) => {
+                                data.UserType = UserTypes[result.Data[index].UserType];
+                            });
+                        }
+                        else this.$message({message: "Došlo je do greške!", type: 'error'})
+                    });
+                    console.log(this.Users)
+                }
             }
         },
         mounted: function() {
@@ -87,6 +135,11 @@ import { apiFetch, destinationUrl, UserTypes } from '../services/authFetch';
 </script>
 
 <style scoped>
+    #select{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
 
     .evidencija-container {
         display: flex;

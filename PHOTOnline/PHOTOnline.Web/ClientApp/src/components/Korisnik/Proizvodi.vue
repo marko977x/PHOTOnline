@@ -295,7 +295,7 @@ export default {
 }
 .part1{
     height: 100%;
-    width: 25%;
+    width: 35%;
     display: flex;
     justify-content: center;
     align-items: center;
