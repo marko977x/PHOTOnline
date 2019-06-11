@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Entities.Enums;
 using PhotoLine.Domain.Interop;
+using PHOTOnline.Business.CartManagement;
 using PHOTOnline.Business.OrderManagement.Input;
 using PHOTOnline.Business.OrderManagement.Output;
 using PHOTOnline.Domain.Entities;
@@ -17,15 +18,18 @@ namespace PHOTOnline.Business.OrderManagement
         private readonly IOrderRepository _orderRepository;
         private readonly IUserRepository _userRepository;
         private readonly ICartRepository _cartRepository;
+        private readonly ICartManager _cartManager;
 
         public OrderManager(
             IOrderRepository orderRepository,
             IUserRepository userRepository,
-            ICartRepository cartRepository)
+            ICartRepository cartRepository,
+            ICartManager cartManager)
         {
             _orderRepository = orderRepository;
             _userRepository = userRepository;
             _cartRepository = cartRepository;
+            _cartManager = cartManager;
         }
 
         public async Task<Result<List<OrderOutput>>> GetAllOrders()
@@ -123,6 +127,8 @@ namespace PHOTOnline.Business.OrderManagement
                 RequestStatus = RequestStatus.OnHold,
                 Notification = ""
             };
+
+            await _cartManager.ClearCart(input.UserId);
 
             return new Result<string>()
             {

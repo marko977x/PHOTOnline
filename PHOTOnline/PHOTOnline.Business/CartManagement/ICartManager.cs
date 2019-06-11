@@ -8,5 +8,6 @@ namespace PHOTOnline.Business.CartManagement
     {
         Task<Result<string>> AddToCart(CreateCartInput input);
         Task<Result> DeleteItem(string cartId, string itemId);
+        Task<Result> ClearCart(string userId);
     }
 }

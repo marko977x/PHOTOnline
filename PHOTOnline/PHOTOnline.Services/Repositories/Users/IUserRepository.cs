@@ -11,5 +11,6 @@ namespace PHOTOnline.Services.Repositories.Users
     {
         Task<List<PHOTOnlineUser>> GetAllPhotographs();
         Task<List<PHOTOnlineUser>> GetAllUsers();
+        Task<List<PHOTOnlineUser>> GetAllRegularUsers();
     }
 }

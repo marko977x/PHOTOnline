@@ -68,7 +68,8 @@ export default {
             ],
             userType: '',
             showComp: 'pocetna',
-            Album: {}
+            Album: {},
+            preloadedImages: []
         }
     },
     methods: {
@@ -81,7 +82,7 @@ export default {
             .then(result => {
                 if(result.Success) {
                     this.Album = result.Data;
-                    preloadImages(this.Album.Images);
+                    this.preloadedImages = preloadImages(this.Album.Images);
                 }
             }).catch(error => {console.log(error)});
         }

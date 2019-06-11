@@ -86,6 +86,18 @@ namespace PHOTOnline.Business.CartManagement
             }
         }
 
+        public async Task<Result> ClearCart(string userId)
+        {
+            Cart cart = await _cartRepository.GetCartByUserId(userId);
+
+            if (cart == null) return new Result() { Success = false };
+
+            cart.CartItems = new List<CartItem>();
+            await _cartRepository.UpdateAsync(cart);
+
+            return new Result() { Success = true };
+        }
+
         public async Task<Result> DeleteItem(string cartId, string cartItemId)
         {
             Cart cart = await _cartRepository.FindAsync(cartId);

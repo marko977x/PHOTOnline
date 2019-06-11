@@ -80,5 +80,13 @@ namespace PHOTOnline.Web.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ClearCart(string userId)
+        {
+            Result result = await _cartManager.ClearCart(userId);
+            if (result.Success) return Ok(result);
+            else return BadRequest(result);
+        }
     }
 }

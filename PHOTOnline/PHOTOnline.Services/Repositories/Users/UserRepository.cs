@@ -24,6 +24,13 @@ namespace PHOTOnline.Services.Repositories.Users
             return await (await Collection.FindAsync(filter)).ToListAsync();
         }
 
+        public async Task<List<PHOTOnlineUser>> GetAllRegularUsers()
+        {
+            var filter = Builders<PHOTOnlineUser>.Filter.Eq(
+                user => user.UserType, UserType.Regular);
+            return await (await Collection.FindAsync(filter)).ToListAsync();
+        }
+
         public async Task<List<PHOTOnlineUser>> GetAllUsers()
         {
             var filter = Builders<PHOTOnlineUser>.Filter.Ne(
