@@ -4,7 +4,7 @@
              @changeView="setComponent($event)" :type="this.userType">
         </header-bar>
         <div class="main" v-if="this.showComp == 'pocetna'">
-            <el-carousel height="100%" class="slideshow">
+            <el-carousel height="100%" :interval="5000" class="slideshow">
                 <el-carousel-item v-for="photo in this.Album.Images" :key="photo.id">
                     <img :src="photo.Large.Url"/>
                 </el-carousel-item>

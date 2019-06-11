@@ -5,7 +5,7 @@
             <a @click="deleteImage()"><el-icon class="el-icon-delete"></el-icon></a>
             <img :src="Image.Thumbnail.Url" height="100%" width="100%" @click="prosledi"/>
         </div>
-        <h6 style="font-size:10px; text-align:center; position:bottom;">{{naziv}}</h6>
+        <h6 style="font-size:10px; text-align:center; position:bottom;">{{this.Image.Title}}</h6>
     </div>
 </template>
 

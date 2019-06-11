@@ -26,20 +26,20 @@
                  @showPhotos="pribaviSlike($event)">
             </narucivanje-fotografija>
         </div>
-         <div class="album-fotografije" v-if="this.Images != ''">
-             <div id="dugme">
+        <div class="album-fotografije" v-if="this.Images != ''">
+            <div id="dugme">
                 <el-button type="danger" size="mini" @click="dodajUKorpuPhoto">Dodaj u korpu</el-button>
-             </div>
-             <div id="photo">
-            <fotografija 
-                    v-for="(item, index) in Images" :key="item.Id"
-                    @selectImage="addImageToSelected($event, index)"
-                    @unselectImage="removeImageFromSelected($event, index)"
-                    @showPhoto="prikazi($event)" :item="item"
-                    @formatChange="onFormatChange($event, index)"
-                    @quantityChange="onQuantityChange($event, index)">
-            </fotografija>
-             </div>
+            </div>
+            <div id="photo">
+                <fotografija 
+                        v-for="(item, index) in Images" :key="item.Id"
+                        @selectImage="addImageToSelected($event, index)"
+                        @unselectImage="removeImageFromSelected($event, index)"
+                        @showPhoto="prikazi($event)" :item="item"
+                        @formatChange="onFormatChange($event, index)"
+                        @quantityChange="onQuantityChange($event, index)">
+                </fotografija>
+            </div>
         </div>
     </div>
 </template>
@@ -50,6 +50,7 @@ import Fotografija from "./Fotografija.vue"
 import { apiFetch, destinationUrl, UserTypes, REGULAR_USER_TYPE } from '../../services/authFetch';
 import { Promise } from 'q';
 import { getUserInfo, setAlbumKorisnikState, getAlbumKorisnikState, clearAlbumKorisnikState } from '../../services/contextManagement';
+import {IMAGE_FORMAT_PRICE_PAIR_LIST} from "../../data/formatPricePairList";
 export default {
     components: { NarucivanjeFotografija, Fotografija },
     data(){
@@ -83,12 +84,12 @@ export default {
         },
         pribaviSlike(data){
             data.forEach(image => {
-                            this.Images.push({
-                                selected: false,
-                                format: '',
-                                quantity: 1,
-                                image: image
-                            });
+                this.Images.push({
+                    selected: false,
+                    format: '',
+                    quantity: 1,
+                    image: image
+                });
             })
             console.log(this.Images)
         },
@@ -208,7 +209,7 @@ export default {
                     formData.append("CartItems[" + index + "].Image.Medium.Url", item.image.Medium.Url);
                     formData.append("CartItems[" + index + "].Image.Small.FileId", item.image.Small.FileId);
                     formData.append("CartItems[" + index + "].Image.Small.Url", item.image.Small.Url);
-                    formData.append("CartItems[" + index + "].Price", 100);
+                    formData.append("CartItems[" + index + "].Price", this.izracunajCenu(item));
                 });
 
                 for(let index = 0; index < this.Images.length; index++) {
@@ -229,6 +230,10 @@ export default {
                 this.$message("Da biste naručili fotografije morate se prijaviti ili registrovati.");
                 this.$emit("gotoLogin");
             }
+        },
+        izracunajCenu(image){
+            const formatPricePair = IMAGE_FORMAT_PRICE_PAIR_LIST.find(item => item.format == image.format);
+            return formatPricePair.price * image.quantity;
         }
     },
     mounted: function() {

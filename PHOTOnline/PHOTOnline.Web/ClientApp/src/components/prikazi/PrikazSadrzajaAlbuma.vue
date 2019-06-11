@@ -81,6 +81,7 @@ export default {
             for(let index = 0; index < event.target.files.length; index++) {
                 const formData = new FormData();
                 formData.append("image", event.target.files[index]);
+                console.log(event.target.files[0]);
                 promises.push(fetch(destinationUrl + "/Image/UploadImage", {method: 'POST', body: formData})
                     .then(response => {
                         return response.ok ? response.json() : new Error();
@@ -90,8 +91,9 @@ export default {
                     }).catch(error => {console.log(error)}));
             }
             await Promise.all(promises);
+            this.album.Images = this.album.Images.concat(this.Images);
             this.isUploadingDone = true;
-            console.log(this.Images)
+            this.Images = [];
             this.dodajSlike();
         },
         dodajSlike(){

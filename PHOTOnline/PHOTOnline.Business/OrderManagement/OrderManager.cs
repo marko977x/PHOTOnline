@@ -120,7 +120,8 @@ namespace PHOTOnline.Business.OrderManagement
                 DeliveryAddress = input.DeliveryAddress,
                 UserId = input.UserId,
                 Date = input.Date,
-                RequestStatus = RequestStatus.OnHold
+                RequestStatus = RequestStatus.OnHold,
+                Notification = ""
             };
 
             return new Result<string>()
