@@ -47,11 +47,9 @@ namespace PHOTOnline.Business.RequestManagement
         public async Task<Result<List<Request>>> GetAllRequests()
         {
             List<Request> requests = await _requestRepository.GetAllRequests();
-            List<Task> tasks = new List<Task>();
             requests.RemoveAll(request =>
             {
-                DateTime result;
-                bool success = DateTime.TryParse(request.Date, out result);
+                bool success = DateTime.TryParse(request.Date, out DateTime result);
                 if (success)
                 {
                     result.AddDays(MAXIMUM_REQUEST_DAYS);
@@ -63,8 +61,6 @@ namespace PHOTOnline.Business.RequestManagement
                     return false;
                 }
             });
-
-            await Task.WhenAll(tasks);
 
             return new Result<List<Request>>()
             {
