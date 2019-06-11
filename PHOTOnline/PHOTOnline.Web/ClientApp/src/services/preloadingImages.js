@@ -4,11 +4,11 @@ export function preloadImages(images) {
         preloadedImages[index] = {
             small: new Image(),
             thumbnail: new Image(),
-            orginal: new Image()
+            original: new Image()
         };
-        this.preloadedImages[index].small.src = image.Small.Url;
-        this.preloadedImages[index].thumbnail.src = image.Thumbnail.Url;
-        this.preloadedImages[index].original.src = image.Original.Url;
+        preloadedImages[index].small.src = image.Small.Url;
+        preloadedImages[index].thumbnail.src = image.Thumbnail.Url;
+        preloadedImages[index].original.src = image.Original.Url;
     });
 }
 
@@ -19,11 +19,25 @@ export function preloadAlbums(albums) {
             preloadedImages[albumIndex * imageIndex + imageIndex] = {
                 small: new Image(),
                 thumbnail: new Image(),
-                orginal: new Image()
+                original: new Image()
             };
-            this.preloadedImages[albumIndex * imageIndex + imageIndex].small.src = image.Small.Url;
-            this.preloadedImages[albumIndex * imageIndex + imageIndex].thumbnail.src = image.Thumbnail.Url;
-            this.preloadedImages[albumIndex * imageIndex + imageIndex].original.src = image.Original.Url;
+            preloadedImages[albumIndex * imageIndex + imageIndex].small.src = image.Small.Url;
+            preloadedImages[albumIndex * imageIndex + imageIndex].thumbnail.src = image.Thumbnail.Url;
+            preloadedImages[albumIndex * imageIndex + imageIndex].original.src = image.Original.Url;
         })
     });
+}
+
+export function preloadImage(image) {
+    let preloadedImage = {
+        small: new Image(),
+        thumbnail: new Image(),
+        original: new Image()
+    };
+
+    preloadedImage.small.src = image.Small.Url;
+    preloadedImage.thumbnail.src = image.Thumbnail.Url;
+    preloadedImage.original.src = image.Original.Url;
+
+    return preloadedImage;
 }

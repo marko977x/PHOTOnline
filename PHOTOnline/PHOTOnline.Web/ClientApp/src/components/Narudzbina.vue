@@ -40,6 +40,7 @@ import PrikazKorpe from "./prikazi/PrikazKorpe"
 import ObavestiKorisnika from "./ObavestiKorisnika.vue"
 import { apiFetch, destinationUrl } from '../services/authFetch';
 import { Stats } from 'fs';
+import { preloadImages } from '../services/preloadingImages';
 export default {
     components: {PrikazKorpe,ObavestiKorisnika},
     data(){
@@ -59,6 +60,7 @@ export default {
                     this.listaNarudzbina = result.Data;
                     this.odrediStatusNarudzbine();
                     this.sortiraj();
+                    this.preloadImages();
             })
         },
         handleCurrentChange(val) {
@@ -122,6 +124,16 @@ export default {
                     }}
                 else this.$message({message: "Doslo je do greske!", type: "error"});
             }).catch(error => console.log(error));
+        },
+        preloadImages() {
+            console.log(this.listaNarudzbina);
+            let images = [];
+            this.listaNarudzbina.forEach(order => {
+                order.Order.CartItems.forEach(cartItem => {
+                    images.push(cartItem.Image);
+                })
+            });
+            preloadImages(images);
         }
     },
     mounted: function() {

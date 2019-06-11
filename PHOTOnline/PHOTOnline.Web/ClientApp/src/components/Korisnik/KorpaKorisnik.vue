@@ -49,6 +49,7 @@ import FooterBar from "../appBar/FooterBar.vue"
 import FormSlika from "../forme/FormSlika.vue";
 import { apiFetch, destinationUrl } from '../../services/authFetch';
 import { getUserInfo } from '../../services/contextManagement';
+import { preloadImage, preloadImages } from '../../services/preloadingImages';
 export default {
     components: {FormPrikazSolja, FooterBar, FormSlika},
     data(){
@@ -125,16 +126,24 @@ export default {
             formData.append("CartId", this.cartId);
             formData.append("CartItemId", cartItem.Id);
             fetch(destinationUrl + "/Cart/DeleteItem", {method: 'POST', body: formData});
+        },
+        preloadImages() {
+            let images = [];
+            this.cartItems.forEach(cartItem => {
+                images.push(cartItem.Image);
+            });
+            preloadImages(images);
         }
     },
     mounted() {
         fetch(destinationUrl + "/Cart/GetCartByUserId/?userId=" + getUserInfo().userID, {method: 'GET'})
             .then(response => response.ok ? response.json() : new Error())
             .then(result => {
-                console.log(result);
-                if(result.Success)
+                if(result.Success) {
                     this.cartItems = result.Data.CartItems;
                     this.cartId = result.Data.Id;
+                }
+                this.preloadImages();
             }).catch(error => console.log(error));
     }
 }
