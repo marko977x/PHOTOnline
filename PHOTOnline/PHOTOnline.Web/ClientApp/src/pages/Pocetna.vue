@@ -40,6 +40,7 @@ import KorpaKorisnik from "../components/Korisnik/KorpaKorisnik.vue";
 import ZakazivanjaKorisnik from "../components/Korisnik/ZakazivanjaKorisnik.vue";
 import { ANONYMOUS_USER_TYPE, ALBUM_PASSWORD } from '../services/authFetch';
 import { apiFetch, destinationUrl } from '../services/authFetch';
+import { preloadImages } from '../services/preloadingImages';
  
 export default {
     components: { HeaderBar, FooterBar, NarucivanjeFotografija, AlbumKorisnik, Proizvodi, 
@@ -80,7 +81,7 @@ export default {
             .then(result => {
                 if(result.Success) {
                     this.Album = result.Data;
-                    //console.log(this.Album.Images);
+                    preloadImages(this.Album.Images);
                 }
             }).catch(error => {console.log(error)});
         }
@@ -90,7 +91,6 @@ export default {
         this.userType = getUserInfo().userType;
         this.loadAlbum();
         this.showComp = "pocetna";
-        console.log(getUserInfo().userType);
     }
 }
 </script>

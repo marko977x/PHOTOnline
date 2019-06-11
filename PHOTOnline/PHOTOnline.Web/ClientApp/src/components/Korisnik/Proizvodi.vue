@@ -1,6 +1,8 @@
 <template>
-    <div class="proizvodi-container" v-loading="isSpinnerActive" :loading-options="{text: 'text', background: 'rgb(0, 0, 0, 0.6)'}">
-        <div class="lista-proizvoda" v-if="this.Images == ''" >
+    <div class="proizvodi-container">
+        <div class="lista-proizvoda" v-loading="isSpinnerActive" 
+            :loading-options="{text: 'text', background: 'rgb(0, 0, 0, 0.6)'}" 
+            v-if="this.Images == ''" >
             <div v-for="(item, index) in proizvodi" :key="item.value" :list="proizvodi">
             <template>
                 <div class="prikaz-proizvoda-container">
@@ -21,9 +23,10 @@
                 </div>
             </template>
             </div>
-            <narucivanje-fotografija v-loading="isSpinnerActive"
-                :loading-options="{text: 'text', background: 'rgb(0, 0, 0, 0.6)'}"
-                 @showPhotos="pribaviSlike($event)">
+            <narucivanje-fotografija 
+                @showPhotos="pribaviSlike($event)"
+                @startSpinner="() => isSpinnerActive = true"
+                @stopSpinner="() => isSpinnerActive = false">
             </narucivanje-fotografija>
         </div>
         <div class="album-fotografije" v-if="this.Images != ''">

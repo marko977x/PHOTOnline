@@ -63,5 +63,12 @@ namespace PHOTOnline.Web.Controllers
                 Data = await _taskRepository.GetAllTasksByUserId(id)
             });
         }
+
+        [HttpPost]
+        public async System.Threading.Tasks.Task<IActionResult> DeleteTask(string id)
+        {
+            await _taskRepository.DeleteAsync(id);
+            return Ok(new Result() { Success = true });
+        }
     }
 }

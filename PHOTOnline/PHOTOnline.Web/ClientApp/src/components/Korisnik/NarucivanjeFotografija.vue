@@ -8,7 +8,6 @@
 <script>
 import { getUserInfo } from '../../services/contextManagement';
 import { apiFetch, destinationUrl, UserTypes, REGULAR_USER_TYPE } from '../../services/authFetch';
-import { closeSpinner, openSpinner } from '../../data/spinner';
 export default {
     data(){
         return{
@@ -27,7 +26,8 @@ export default {
                 this.omoguciDugme = true;
             }
         },
-          async uploadImages(event) {
+        async uploadImages(event) {
+            this.$emit('startSpinner');
             const promises = [];
             for(let index = 0; index < event.target.files.length; index++) {
                 const formData = new FormData();
@@ -36,12 +36,12 @@ export default {
                     .then(response => {
                         return response.ok ? response.json() : new Error();
                     }).then(result => {
-                        console.log(result.Data);
                         this.Images.push(result.Data.Image);
                     }).catch(error => {console.log(error)}));
             }
             await Promise.all(promises);
             this.showPhotos();
+            this.$emit('stopSpinner');
         },
         showPhotos(){
             this.$emit("showPhotos",this.Images);

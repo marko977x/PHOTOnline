@@ -73,7 +73,6 @@ export default {
                 }
                 this.isSpinnerActive = false;
                 preloadAlbums(this.Albums);
-                console.log("Mounted");
             }).catch(error => {console.log(error)});
         },
         filtriraj(){
