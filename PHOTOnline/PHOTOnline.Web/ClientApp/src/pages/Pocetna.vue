@@ -12,8 +12,8 @@
             <div class="information">
                 <div class="info2">
                     <h3>Foto Studio Aritonović</h3>
-                    <p>Fotografska radnja Foto Aritonović osnovana je 1991 godine u Zitkovcu
-                        , malom mestu blizu Aleksinca sa ciljem da zabelezi najepse trenutke života naših mušterija sa poverenjem
+                    <p>Fotografska radnja Foto Aritonović osnovana je 1991 godine u Žitkovcu
+                        , malom mestu blizu Aleksinca sa ciljem da zabeleži najepše trenutke života naših mušterija sa poverenjem
                         dužim od 20 godina. Profesionalna fotografisanja i snimanja svih vrsta proslava. 
                     </p>
                 </div>

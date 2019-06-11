@@ -31,7 +31,7 @@ import PrikazKorpe from "../../../prikazi/PrikazKorpe"
 import ObavestiKorisnika from "../../../ObavestiKorisnika.vue"
 import { apiFetch, destinationUrl } from '../../../../services/authFetch';
 import { getUserInfo } from '../../../../services/contextManagement';
-import {APPROVED_REQUEST_MESSAGE, REJECTED_REQUEST_MESSAGE, ON_HOLD_REQUEST_MESSAGE} from "../../../../data/constants.js";
+import { APPROVED_REQUEST_MESSAGE, REJECTED_REQUEST_MESSAGE, ON_HOLD_REQUEST_MESSAGE } from "../../../../data/constants.js";
 import { sortOrdersByDate } from '../../../../services/sort';
 export default {
     components: {PrikazKorpe,ObavestiKorisnika},
@@ -48,7 +48,6 @@ export default {
     methods:{
         loadOrders() {
             let userId = getUserInfo().userID;
-            console.log(userId)
             fetch(destinationUrl + '/Order/GetOrdersByUserId/?userId=' + userId, {method: "GET"})
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {
@@ -61,7 +60,6 @@ export default {
         },
         prikaziPoruku(row){
             this.currentRow = row;
-            console.log(row)
             if(this.currentRow.Order.RequestStatus == 1)  this.$notify({title: "OBAVEŠTENJE", message: this.currentRow.Order.Notification == null ? this.poruka1 : this.currentRow.Order.Notification, type: 'success',  position: 'bottom-right' })
             else if(this.currentRow.Order.RequestStatus == 2) this.$notify({title: "OBAVEŠTENJE", message: this.currentRow.Order.Notification == null ? this.poruka2 : this.currentRow.Order.Notification, type: 'error', position: 'bottom-right'})
             else this.$notify({title: "OBAVEŠTENJE", message: this.poruka3, type: 'warning', position: 'bottom-right'})
@@ -80,7 +78,6 @@ export default {
                 return '';
             }
         },
-        
     },
     mounted: function() {
         this.loadOrders();

@@ -4,10 +4,10 @@
             <div class="navbar-left"> 
                 <el-popover
                     placement="top-start"
-                    title="Foto-Aritonovic"
+                    title="Foto-Aritonović"
                     width="212"
                     trigger="hover"
-                    content="Iskustvo duze od 20 godina"> 
+                    content="Iskustvo duže od 20 godina"> 
                     <!-- <a class="navbar-item" @click="showHomePage()" slot="reference">Foto Aritonović</a>  -->
                     <img :src="Logo" @click="showHomePage()" style="height:50px; width: 200px;" slot="reference"/>
                 </el-popover>
