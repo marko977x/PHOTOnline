@@ -104,6 +104,7 @@ import { apiFetch, destinationUrl } from '../../services/authFetch';
 import {} from 'element-ui'
 import { getUserInfo } from '../../services/contextManagement';
 import { sortReuquestByDate } from '../../services/sort';
+import { ERRORS } from '../../data/errorsCode';
 export default {
     data(){
         return{
@@ -163,7 +164,7 @@ export default {
                             this.$emit('potvrdjeni', this.listaPotvrdjenihZahteva);
                             this.fotografId = '';
                         }
-                        else this.$message("Doslo je do greske!");
+                        else this.$message({message: ERRORS[result.Errors[0].Code], type: "warning"});
                         console.log(result)
                     }).catch(error => {
                         console.log(error);
