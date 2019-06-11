@@ -103,6 +103,7 @@ const eventTypes = ['Svadba','Krstenje', 'Veridba', 'Rodjendan', 'PhotoSession',
 import { apiFetch, destinationUrl } from '../../services/authFetch';
 import {} from 'element-ui'
 import { getUserInfo } from '../../services/contextManagement';
+import { sortReuquestByDate } from '../../services/sort';
 export default {
     data(){
         return{
@@ -121,8 +122,8 @@ export default {
             apiFetch('GET', destinationUrl + "/Request/GetAllRequests")
             .then(result => {
                 if(result.Success) {
-                    this.listaZahteva = result.Data.filter(x => x.RequestStatus == 3);
-                    this.listaPotvrdjenihZahteva = result.Data.filter(x => x.RequestStatus == 1);
+                    this.listaZahteva = sortReuquestByDate(result.Data.filter(x => x.RequestStatus == 3), false);
+                    this.listaPotvrdjenihZahteva = sortReuquestByDate(result.Data.filter(x => x.RequestStatus == 1), false);
                     this.$emit('datum',this.listaZahteva);
                     this.$emit('potvrdjeni', this.listaPotvrdjenihZahteva);
                 }

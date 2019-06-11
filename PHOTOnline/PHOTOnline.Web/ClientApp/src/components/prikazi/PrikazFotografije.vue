@@ -59,7 +59,7 @@ export default {
     height: 150px;
     width: 130px;
     background: linear-gradient(0deg, #a6e1f065, #dcf5f8a9 );
-    margin-top: 30px;
+    margin-top: 35px;
     margin-bottom: 15px;
     border-radius: 3px;
     margin-left: 10px;
