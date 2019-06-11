@@ -97,8 +97,13 @@ export default {
         },
         dodajUKorpu() {
             setAlbumKorisnikState({items: this.items});
-            if(this.items.filter(item => item.selected == true).length == 0) {
+            const selectedItems = this.items.filter(item => item.selected == true);
+            if(selectedItems.length == 0) {
                 this.$message({message: "Morate izabrati bar jednu fotografiju", type: "warning"});
+                return;
+            }
+            else if(selectedItems.filter(item => item.format == "").length != 0) {
+                this.$message({message: "Morate izabrati formate za sve selektovane fotografije", type: "warning"});
                 return;
             }
             if(getUserInfo().userType == REGULAR_USER_TYPE) {
@@ -156,7 +161,7 @@ export default {
         },
         getCartItemPrice(cartItem) {
             const formatPricePair = IMAGE_FORMAT_PRICE_PAIR_LIST.find(item => item.format == cartItem.format);
-            return formatPricePair.price;
+            return formatPricePair.price * cartItem.quantity;
         }
     },
     mounted: function() {
