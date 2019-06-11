@@ -118,6 +118,16 @@ namespace PHOTOnline.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetAllRegularUsers()
+        {
+            return Ok(new Result<List<PHOTOnlineUser>>()
+            {
+                Success = true,
+                Data = await _userRepository.GetAllRegularUsers()
+            });
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
             return Ok(new Result<List<PHOTOnlineUser>>()
