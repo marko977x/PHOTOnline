@@ -1,4 +1,5 @@
-﻿using PhotoLine.Domain.Interop;
+﻿using Domain.Entities;
+using PhotoLine.Domain.Interop;
 using PHOTOnline.Business.RequestManagement.Input;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,6 @@ namespace PHOTOnline.Business.RequestManagement
     {
         Task<Result<string>> CreateRequest(CreateRequestInput input);
         Task<Result> RejectRequest(RejectRequestInput input);
+        Task<Result<List<Request>>> GetAllRequests();
     }
 }

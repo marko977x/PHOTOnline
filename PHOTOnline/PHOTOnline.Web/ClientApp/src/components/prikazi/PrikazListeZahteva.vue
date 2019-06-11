@@ -55,8 +55,8 @@
         </div>
         <h3>Potvrđeni zahtevi</h3>
          <div class="zahtev-container-table">
-             <el-table
-             :data="this.listaPotvrdjenihZahteva">
+            <el-table
+             :data="this.listaPotvrdjenihZahteva" max-height="400">
             <el-table-column
                     prop="FirstName"
                     label="Ime"
@@ -216,6 +216,7 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 20px;
+    height: 250px;
 }
 
 .zahtevDugmici{

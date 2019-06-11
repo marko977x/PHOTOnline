@@ -7,12 +7,15 @@ using Domain.Entities.Enums;
 using PhotoLine.Domain.Interop;
 using PHOTOnline.Business.RequestManagement.Input;
 using PHOTOnline.Services.Repositories.Requests;
+using System.Linq;
+using Task = System.Threading.Tasks.Task;
 
 namespace PHOTOnline.Business.RequestManagement
 {
     public class RequestManager : IRequestManager
     {
         private IRequestRepository _requestRepository;
+        private const int MAXIMUM_REQUEST_DAYS = 30;
 
         public RequestManager(IRequestRepository requestRepository)
         {
@@ -38,6 +41,35 @@ namespace PHOTOnline.Business.RequestManagement
             {
                 Success = true,
                 Data = await _requestRepository.CreateAsync(request)
+            };
+        }
+
+        public async Task<Result<List<Request>>> GetAllRequests()
+        {
+            List<Request> requests = await _requestRepository.GetAllRequests();
+            List<Task> tasks = new List<Task>();
+            requests.RemoveAll(request =>
+            {
+                DateTime result;
+                bool success = DateTime.TryParse(request.Date, out result);
+                if (success)
+                {
+                    result.AddDays(MAXIMUM_REQUEST_DAYS);
+                    if (DateTime.Now.Date.CompareTo(result) == 1) { return true; }
+                    else return false;
+                }
+                else
+                {
+                    return false;
+                }
+            });
+
+            await Task.WhenAll(tasks);
+
+            return new Result<List<Request>>()
+            {
+                Success = true,
+                Data = requests
             };
         }
 

@@ -35,11 +35,9 @@ namespace PHOTOnline.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllRequests()
         {
-            return Ok(new Result<List<Request>>()
-            {
-                Success = true,
-                Data = await _requestRepository.GetAllRequests()
-            });
+            Result<List<Request>> result = await _requestManager.GetAllRequests();
+            if (result.Success) return Ok(result);
+            else return BadRequest(result);
         }
 
         [HttpGet]
