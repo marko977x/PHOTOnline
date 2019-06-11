@@ -33,6 +33,7 @@
 
     import { apiFetch, destinationUrl, PHOTOGRAPH_USER_TYPE } from "../../services/authFetch";
     import openSpinner from "./FormDodajAlbum.vue";
+import { ERRORS } from '../../data/errorsCode';
     export default {
         data() {
             return {
@@ -43,8 +44,13 @@
             prihvatiUnosForme() {
                 apiFetch('POST', destinationUrl + "/User/CreatePhotographAsync", this.zaposleni)
                     .then(result => {
-                        this.$message("Uspesno ste dodali novog fotografa!");
-                        this.$emit("zatvoriDodavanjeClana");
+                        if(result.Success) {
+                            this.$message("Uspesno ste dodali novog fotografa!");
+                            this.$emit("zatvoriDodavanjeClana");
+                        }
+                        else if(result.Errors != null && result.Errors.length != 0) {
+                            this.$message({message: ERRORS[result.Errors[0].Code], type: "error"});
+                        }
                     }).catch(error => {
                         console.log(error);
                     });
