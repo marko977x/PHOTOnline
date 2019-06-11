@@ -88,6 +88,7 @@ export default {
                 formData.append("CartItems[" + index + "].ProductType", item.ProductType);
                 formData.append("CartItems[" + index + "].Format", item.Format);
                 formData.append("CartItems[" + index + "].Quantity", item.Quantity);
+                formData.append("CartItems[" + index + "].Title", item.Title);
                 formData.append("CartItems[" + index + "].Image.Id", item.Image.Id);
                 formData.append("CartItems[" + index + "].Image.Title", item.Image.Title);
                 formData.append("CartItems[" + index + "].Image.Original.FileId", item.Image.Original.FileId);

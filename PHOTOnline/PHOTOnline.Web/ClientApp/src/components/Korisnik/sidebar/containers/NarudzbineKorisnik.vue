@@ -60,8 +60,8 @@ export default {
         prikaziPoruku(row){
             this.currentRow = row;
             console.log(row)
-            if(this.currentRow.Order.RequestStatus == 1)  this.$notify({title: "OBAVEŠTENJE", message: this.currentRow.Order.Notification == "" ? this.poruka1 : this.currentRow.Order.Notification, type: 'success',  position: 'bottom-right' })
-            else if(this.currentRow.Order.RequestStatus == 2) this.$notify({title: "OBAVEŠTENJE", message: this.currentRow.Order.Notification == "" ? this.poruka2 : this.currentRow.Order.Notification, type: 'error', position: 'bottom-right'})
+            if(this.currentRow.Order.RequestStatus == 1)  this.$notify({title: "OBAVEŠTENJE", message: this.currentRow.Order.Notification == null ? this.poruka1 : this.currentRow.Order.Notification, type: 'success',  position: 'bottom-right' })
+            else if(this.currentRow.Order.RequestStatus == 2) this.$notify({title: "OBAVEŠTENJE", message: this.currentRow.Order.Notification == null ? this.poruka2 : this.currentRow.Order.Notification, type: 'error', position: 'bottom-right'})
             else this.$notify({title: "OBAVEŠTENJE", message: this.poruka3, type: 'warning', position: 'bottom-right'})
         },
         tableRowClassName({row, rowIndex}) {

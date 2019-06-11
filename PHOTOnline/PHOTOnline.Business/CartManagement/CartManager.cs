@@ -45,7 +45,8 @@ namespace PHOTOnline.Business.CartManagement
                         ProductType = item.ProductType,
                         Format = item.Format,
                         Quantity = item.Quantity,
-                        Price = item.Price
+                        Price = item.Price,
+                        Title = item.Title
                     });
                 });
 
@@ -71,7 +72,8 @@ namespace PHOTOnline.Business.CartManagement
                     ProductType = item.ProductType,
                     Format = item.Format,
                     Quantity = item.Quantity,
-                    Price = item.Price
+                    Price = item.Price,
+                    Title = item.Title
                 }));
 
                 cart.Price = CalculateCartPrice(cart.CartItems);

@@ -8,7 +8,8 @@
                     width="212"
                     trigger="hover"
                     content="Iskustvo duze od 20 godina"> 
-                    <a class="navbar-item" @click="showHomePage()" slot="reference">Foto Aritonović</a> 
+                    <!-- <a class="navbar-item" @click="showHomePage()" slot="reference">Foto Aritonović</a>  -->
+                    <img :src="Logo" @click="showHomePage()" style="height:50px; width: 200px;" slot="reference"/>
                 </el-popover>
             </div>
             <div class="navbar-right">
@@ -51,6 +52,7 @@
 <script>
 import popover from 'element-ui'
 import menu from '../../assets/menu.png'
+import logo2 from '../../assets/logo2.png'
 import { apiFetch, destinationUrl, ANONYMOUS_USER_TYPE, REGULAR_USER_TYPE } from '../../services/authFetch';
 import { clearUserInfo, clearSessionStorage, clearLocalStorage, getPageToShow, setUserInfo, getUserInfo } from '../../services/contextManagement';
 import Login from "../forme/Login.vue";
@@ -63,7 +65,8 @@ export default {
            slika: menu,
            showComp: '',
            ANONYMOUS_USER_TYPE: ANONYMOUS_USER_TYPE,
-           REGULAR_USER_TYPE: REGULAR_USER_TYPE
+           REGULAR_USER_TYPE: REGULAR_USER_TYPE,
+           Logo: logo2
         }
     },
     methods: {

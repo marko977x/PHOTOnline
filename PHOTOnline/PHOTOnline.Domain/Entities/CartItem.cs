@@ -7,6 +7,7 @@ namespace PHOTOnline.Domain.Entities
     {
         public string Id { get; set; }
         public string ProductType { get; set; }
+        public string Title { get; set; }
         public string Format { get; set; }
         public float Price { get; set; }
         public int Quantity { get; set; }

@@ -106,6 +106,7 @@ export default {
                 formData.append("CartItems[" + 0 + "].ProductType", this.proizvodi[this.indeksIzabranogProizvoda].ProductType);
                 formData.append("CartItems[" + 0 + "].Format", this.proizvodi[this.indeksIzabranogProizvoda].Size);
                 formData.append("CartItems[" + 0 + "].Quantity", 1);
+                formData.append("CartItems[" + 0 + "].Title", this.proizvodi[this.indeksIzabranogProizvoda].Title);
                 formData.append("CartItems[" + 0 + "].Image.Id", this.uploadedImage.Id);
                 formData.append("CartItems[" + 0 + "].Image.Title", this.uploadedImage.Title);
                 formData.append("CartItems[" + 0 + "].Image.Original.FileId", this.uploadedImage.Original.FileId);
