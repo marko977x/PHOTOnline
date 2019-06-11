@@ -4,7 +4,7 @@
             <h3>Lista narudžbina</h3>
             <el-table
                 :data="listaNarudzbina"
-                height="1000"
+                max-height="1000"
                 style="width:100%"
                 :row-class-name="tableRowClassName"
                 highlight-current-row
@@ -16,7 +16,7 @@
                 <el-table-column min-width="220" prop="Address" label="Adresa"></el-table-column>
                 <el-table-column min-width="140" prop="PhoneNumber" label="Telefon"></el-table-column>
                 <el-table-column min-width="140" prop="Order.Price" label="Ukupna cena"></el-table-column>
-                <el-table-column fixed="right" width="125">
+                <el-table-column width="125">
                     <template slot-scope="scope">
                         <div class="kolonaDugmici-1">
                             <el-button type="info" icon="el-icon-message" circle size="mini" @click="dodajPoruku(scope.$index)"></el-button>

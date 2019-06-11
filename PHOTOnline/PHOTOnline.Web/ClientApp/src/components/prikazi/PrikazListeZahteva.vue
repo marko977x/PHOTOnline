@@ -140,7 +140,8 @@ export default {
         },
         potvrdiZahtev(){
             if(this.currentRow != null && this.fotografId != ''){
-                let Data = {Location:'',Date:'', Time: '', Note: '', PhotographId: '', EventType: 1, RequestId: '', Notification: '' };
+                console.log(this.currentRow)
+                let Data = {Location:'',Date:'', Time: '', Note: '', PhotographId: '', EventType: 1, RequestId: '', Notification: '',CustomerId: '' };
                 Data.Location = this.currentRow.Location;
                 Data.Date = this.currentRow.Date;
                 Data.Time = this.currentRow.Time;
@@ -149,6 +150,8 @@ export default {
                 Data.RequestId = this.currentRow.Id;
                 Data.EventType = eventTypes.indexOf(this.currentRow.EventType);
                 Data.Notification = this.notification;
+                Data.CustomerId = this.currentRow.UserId;
+                console.log(Data.CustomerId)
                 apiFetch('POST', destinationUrl + "/Task/AssignTask", Data)
                     .then(result => {
                         if(result.Success){
