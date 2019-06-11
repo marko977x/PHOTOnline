@@ -56,7 +56,8 @@ namespace PHOTOnline.Services.Files
                 Thumbnail = thumbnailVariant,
                 Small = smallVariant,
                 Medium = mediumVariant,
-                Large = largeVariant
+                Large = largeVariant,
+                Title = originalFileName
             };
         }
 

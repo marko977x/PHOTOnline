@@ -66,7 +66,7 @@ namespace PHOTOnline.Web.Controllers
         }
 
         [HttpPost]
-        async Task<IActionResult> DeleteImageOutisdeAlbum([FromForm]Image image)
+        public async Task<IActionResult> DeleteImageOutisdeAlbum([FromForm]Image image)
         {
             Result result = await _albumManager.DeleteImage(image);
             if (result.Success) return Ok(result);
