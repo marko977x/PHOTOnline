@@ -30,20 +30,18 @@
 <script>
 import { apiFetch, destinationUrl } from '../../services/authFetch';
 import { getUserInfo } from '../../services/contextManagement';
+import { APPROVED_REQUEST_MESSAGE, REJECTED_REQUEST_MESSAGE, ON_HOLD_REQUEST_MESSAGE } from '../../data/constants';
 export default {
     data(){
         return{
-            poruka1: 'Vaš zahtev je prihvaćen.',
-            poruka2: 'Vaš zahtev je odbijen.',
-            poruka3: 'Vaš zahtev se obrađuje.',
             listaZahteva: []
         }
     },
     methods: {
         obavestenje(row){
-            if(row.RequestStatus == 1)  this.$notify({title: "OBAVEŠTENJE", message: row.Notification==null ? this.poruka1 : row.Notification, type: 'success',  position: 'bottom-right' })
-            else if(row.RequestStatus == 2) this.$notify({title: "OBAVEŠTENJE", message: row.Notification==null ? this.poruka2 : row.Notification, type: 'error', position: 'bottom-right'})
-            else this.$notify({title: "OBAVEŠTENJE", message: this.poruka3, type: 'warning', position: 'bottom-right'})
+            if(row.RequestStatus == 1)  this.$notify({title: "OBAVEŠTENJE", message: row.Notification==null ? APPROVED_REQUEST_MESSAGE : row.Notification, type: 'success',  position: 'bottom-right' })
+            else if(row.RequestStatus == 2) this.$notify({title: "OBAVEŠTENJE", message: row.Notification==null ? REJECTED_REQUEST_MESSAGE : row.Notification, type: 'error', position: 'bottom-right'})
+            else this.$notify({title: "OBAVEŠTENJE", message: ON_HOLD_REQUEST_MESSAGE, type: 'warning', position: 'bottom-right'})
         },
         pribaviZahteve(){
             let userId = getUserInfo().userID;
