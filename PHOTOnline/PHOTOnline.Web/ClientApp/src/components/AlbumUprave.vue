@@ -72,7 +72,7 @@ export default {
                     this.FiltriraniAlbumi = this.Albums.slice();
                 }
                 this.isSpinnerActive = false;
-                preloadAlbums(this.Albums);
+                this.preloadedImages = preloadAlbums(this.Albums);
             }).catch(error => {console.log(error)});
         },
         filtriraj(){
@@ -94,7 +94,6 @@ export default {
         },
         deleteAlbum() {
             this.showComp = 'albumi';
-            console.log(this.Albums)
             this.Albums.splice(this.OpenedAlbumIndex, 1);
             this.FiltriraniAlbumi = this.Albums;
         }

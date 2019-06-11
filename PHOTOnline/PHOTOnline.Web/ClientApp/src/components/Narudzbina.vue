@@ -49,7 +49,8 @@ export default {
             currentRow: null,
             itemsinCart: [],
             showComp: '',
-            selectedIndex: ''
+            selectedIndex: '',
+            preloadedImages: []
         }
     },
     methods:{
@@ -133,7 +134,7 @@ export default {
                     images.push(cartItem.Image);
                 })
             });
-            preloadImages(images);
+            this.preloadedImages = preloadImages(images);
         }
     },
     mounted: function() {

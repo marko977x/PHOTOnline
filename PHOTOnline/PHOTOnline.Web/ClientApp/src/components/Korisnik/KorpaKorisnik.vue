@@ -62,6 +62,7 @@ export default {
                     Url: ""
                 }
             },
+            preloadedImages: []
         }
     },
     methods: {
@@ -102,7 +103,10 @@ export default {
                 body: formData
             }).then(response => response.ok ? response.json() : new Error())
             .then(result => {
-                if(result.Success) this.$message({message: "Uspesno odradjena narudzbina", type: "success"});
+                if(result.Success) {
+                     this.$message({message: "Uspesno odradjena narudzbina", type: "success"});
+                     this.cartItems = [];
+                }
                 else this.$message({message: "Neuspesno odradjena narudzbina", type: "error"});
             }).catch(error => console.log(error));
         },
@@ -132,7 +136,7 @@ export default {
             this.cartItems.forEach(cartItem => {
                 images.push(cartItem.Image);
             });
-            preloadImages(images);
+            this.preloadedImages = preloadImages(images);
         }
     },
     mounted() {

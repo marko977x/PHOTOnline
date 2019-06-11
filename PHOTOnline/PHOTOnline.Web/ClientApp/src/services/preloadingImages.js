@@ -10,6 +10,7 @@ export function preloadImages(images) {
         preloadedImages[index].thumbnail.src = image.Thumbnail.Url;
         preloadedImages[index].original.src = image.Original.Url;
     });
+    return preloadedImages;
 }
 
 export function preloadAlbums(albums) {
@@ -26,6 +27,7 @@ export function preloadAlbums(albums) {
             preloadedImages[albumIndex * imageIndex + imageIndex].original.src = image.Original.Url;
         })
     });
+    return preloadedImages;
 }
 
 export function preloadImage(image) {

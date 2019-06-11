@@ -75,6 +75,9 @@ export default {
                     this.proizvodi = result.Data;
                 });
         },
+        preloadImages() {
+            
+        },
         onClickDodajUKorpu(index) {
             if(getUserInfo().userType == REGULAR_USER_TYPE){
                 this.indeksIzabranogProizvoda = index;

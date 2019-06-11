@@ -34,6 +34,7 @@ import { constants } from 'fs';
 import { destinationUrl, ANONYMOUS_USER_TYPE, REGULAR_USER_TYPE } from '../../services/authFetch';
 import { getUserInfo, setAlbumKorisnikState, getAlbumKorisnikState, clearAlbumKorisnikState } from '../../services/contextManagement';
 import { IMAGE_FORMAT_PRICE_PAIR_LIST } from '../../data/formatPricePairList';
+import { preloadImages } from '../../services/preloadingImages';
 export default {
     components: {FooterBar, Fotografija, FormSlika},
     data(){
@@ -76,7 +77,7 @@ export default {
                             });
                         }) : 
                         this.$message("Pogresna sifra albuma!");
-                        this.preload();
+                    preloadImages(result.Data.Images);
                 }).catch(error => console.log(error));
         },
         addImageToSelected(data, index){
@@ -156,11 +157,6 @@ export default {
         getCartItemPrice(cartItem) {
             const formatPricePair = IMAGE_FORMAT_PRICE_PAIR_LIST.find(item => item.format == cartItem.format);
             return formatPricePair.price;
-        },
-        preload() {
-            this.items.forEach(item => {
-                (new Image()).src = item.image.Small.Url;
-            });
         }
     },
     mounted: function() {
