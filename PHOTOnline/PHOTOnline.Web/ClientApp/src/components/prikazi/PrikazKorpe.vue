@@ -3,6 +3,7 @@
         <h3>Sadržaj narudžbine</h3>
         <el-table 
         :data="this.korpa"
+        max-height="1000"
         style="width:80%; border:1px solid black;">
             <el-table-column
                 prop="ProductType"

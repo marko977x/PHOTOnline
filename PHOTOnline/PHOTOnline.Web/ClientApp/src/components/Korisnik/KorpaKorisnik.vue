@@ -5,28 +5,33 @@
                 <h3>Ukupna cena: {{izracunajCenu()}} RSD</h3>
             </div>
             <el-table :data="cartItems"
+                    max-height="1000"
                     style="border-radius: 3px;">
                 <el-table-column
                         prop="ProductType"
                         label="Tip"
+                        min-width="100"
                         class="table-column">
                 </el-table-column>
                 <el-table-column 
                         prop="Quantity"
                         label="Kolicina"
+                        min-width="100"
                         class="table-column">
                 </el-table-column>
                 <el-table-column 
                         prop="Format"
                         label="Format"
+                         min-width="100"
                         class="table-column">
                 </el-table-column>
                 <el-table-column 
                         prop="Price"
                         label="Cena"
+                        min-width="100"
                         class="table-column">
                 </el-table-column>
-                <el-table-column align="center" prop="Image">
+                <el-table-column align="center" prop="Image"  min-width="100">
                     <template slot-scope="cartItem">
                         <el-button type="secondary" icon="el-icon-picture" circle size="mini"
                             @click="openImage(cartItem.row)">
@@ -102,8 +107,8 @@ export default {
                 body: formData
             }).then(response => response.ok ? response.json() : new Error())
             .then(result => {
-                if(result.Success) this.$message({message: "Uspesno odradjena narudzbina", type: "success"});
-                else this.$message({message: "Neuspesno odradjena narudzbina", type: "error"});
+                if(result.Success) this.$message({message: "Uspešno odradjena narudzbina", type: "success"});
+                else this.$message({message: "Neuspešno odrađena narudzbina", type: "error"});
             }).catch(error => console.log(error));
         },
         izracunajCenu(){

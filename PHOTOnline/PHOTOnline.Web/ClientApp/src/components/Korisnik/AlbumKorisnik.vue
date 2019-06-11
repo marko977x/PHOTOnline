@@ -75,7 +75,7 @@ export default {
                                 image: image
                             });
                         }) : 
-                        this.$message("Pogresna sifra albuma!");
+                        this.$message("Pogrešna šifra albuma!");
                         this.preload();
                 }).catch(error => console.log(error));
         },

@@ -5,7 +5,7 @@
             <el-table
                 :data="listaNarudzbina"
                 :default-sort = "{prop:'Order.Date', order: 'descending'}"
-                height="1000"
+                max-height="1000"
                 style="width:100%"
                 :row-class-name="tableRowClassName"
                 highlight-current-row
@@ -14,7 +14,7 @@
                 <el-table-column min-width="20%" prop="Address" label="Adresa"></el-table-column>
                 <el-table-column min-width="20%" prop="Order.Price" label="Ukupna cena"></el-table-column>
                 <el-table-column min-width="20%" prop="PhoneNumber" label="Telefon"></el-table-column>
-                <el-table-column fixed="right" width="50">
+                <el-table-column width="50">
                     <template slot-scope="scope">
                         <el-button type="info" icon="el-icon-message" circle size="mini" @click="prikaziPoruku(scope.row)"></el-button>
                     </template>
