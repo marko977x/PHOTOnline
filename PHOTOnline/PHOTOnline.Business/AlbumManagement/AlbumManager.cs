@@ -116,7 +116,8 @@ namespace PHOTOnline.Business.AlbumManagement
                 };
             }
 
-            album.Images.AddRange(input.Images);
+            if (album.Images == null) album.Images = new List<Image>();
+            album.Images.AddRange(input.Images.AsEnumerable());
             await _albumRepository.UpdateAsync(album);
             return new Result() { Success = true };
         }

@@ -1,5 +1,5 @@
 <template>
-    <div class="sadrzaj-albuma">
+    <div class="sadrzaj-albuma" v-loading="isSpinnerActive">
         <div class="dodavanje" style="margin:none;">
             <div class="left">
                 <el-button class="el-icon-arrow-left" type="success" size="mini" 
@@ -39,6 +39,7 @@ import PrikazFotografije from "./PrikazFotografije.vue"
 import FormSlika from "../forme/FormSlika.vue"
 import { destinationUrl } from '../../services/authFetch';
 import { closeSpinner, openSpinner } from '../../data/spinner';
+import { preloadImages } from '../../services/preloadingImages';
 export default {
     components: {PrikazFotografije, FormSlika},
     data(){
@@ -47,7 +48,9 @@ export default {
             showPicture: '',
             photo: {},
             album: this.Album,
-            Images: []
+            Images: [],
+            isSpinnerActive: false,
+            preloadedImages: []
         }
     },
     methods:{
@@ -77,6 +80,7 @@ export default {
             this.$emit('zavrsipregled', this.Album);
         },
         async uploadImages(event) {
+            this.isSpinnerActive = true;
             const promises = [];
             for(let index = 0; index < event.target.files.length; index++) {
                 const formData = new FormData();
@@ -92,8 +96,8 @@ export default {
             }
             await Promise.all(promises);
             this.album.Images = this.album.Images.concat(this.Images);
+            this.preloadedImages = preloadImages(this.Images);
             this.isUploadingDone = true;
-            this.Images = [];
             this.dodajSlike();
         },
         dodajSlike(){
@@ -119,7 +123,10 @@ export default {
                     body: formData,
                     method: 'POST'
                 })
-                .then(response => response.json())
+                .then(response => {
+                    this.isSpinnerActive = false;
+                    return response.json();
+                })
                 .catch(error => console.log(error));
         }
     },
