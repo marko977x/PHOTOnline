@@ -1,4 +1,5 @@
 export function sortOrdersByDate(orders) {
+  if(orders != null){
     let len = orders.length;
     for (let i = len-1; i>=0; i--){
      for(let j = 1; j<=i; j++){
@@ -9,6 +10,7 @@ export function sortOrdersByDate(orders) {
         }
      }
    }
+  } 
    return orders;
 }
 
