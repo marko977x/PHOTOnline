@@ -5,7 +5,7 @@
             <a @click="deleteImage()"><el-icon class="el-icon-delete"></el-icon></a>
             <img :src="Image.Thumbnail.Url" height="100%" width="100%" @click="prosledi"/>
         </div>
-        <h6 style="font-size:10px; text-align:center; position:bottom;">{{this.Image.Title}}</h6>
+        <h6 style="font-size:14px; text-align:center; position:bottom; margin-top:30px;" >{{this.Image.Title}}</h6>
     </div>
 </template>
 
@@ -56,17 +56,17 @@ export default {
 
 <style scoped>
 .fotografija-container{
-    height: 100px;
-    width: 100px;
-    background: linear-gradient(0deg, #a6e1f0e7, #dcf1f8 );
-    margin-top: 15px;
+    height: 150px;
+    width: 130px;
+    background: linear-gradient(0deg, #a6e1f065, #dcf5f8a9 );
+    margin-top: 30px;
     margin-bottom: 15px;
     border-radius: 3px;
     margin-left: 10px;
 }
 .download-delete{
-    height: 87px;
-    width: 100%;
+    height: 150px;
+    width: 130px;
 }
 .el-icon-download{
     margin: 0 10px;
