@@ -76,7 +76,7 @@ export default {
         onClickBack() {
             this.$emit('zavrsipregled', this.Album);
         },
-         async uploadImages(event) {
+        async uploadImages(event) {
             const promises = [];
             for(let index = 0; index < event.target.files.length; index++) {
                 const formData = new FormData();
@@ -119,14 +119,9 @@ export default {
                 })
                 .then(response => response.json())
                 .catch(error => console.log(error));
-
-
         }
     },
-    props: ['Album'],
-    mounted(){
-        console.log(this.album)
-    }
+    props: ['Album']
 }
 </script>
 

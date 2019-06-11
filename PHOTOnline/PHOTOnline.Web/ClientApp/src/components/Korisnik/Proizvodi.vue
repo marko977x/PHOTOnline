@@ -268,8 +268,8 @@ export default {
         height: 90%;
         width: 100%;
         flex-direction: column;
-        overflow: auto;
         background-color: rgba(224, 224, 235, 0.445);
+        overflow: auto;
 }
 
 .prikaz-proizvoda-container{

@@ -71,6 +71,7 @@ export default {
                     this.FiltriraniAlbumi = this.Albums.slice();
                 }
                 this.isSpinnerActive = false;
+                this.preload();
             }).catch(error => {console.log(error)});
         },
         filtriraj(){
@@ -95,11 +96,16 @@ export default {
             console.log(this.Albums)
             this.Albums.splice(this.OpenedAlbumIndex, 1);
             this.FiltriraniAlbumi = this.Albums;
+        },
+        preload(images) {
+            images.forEach(image => {
+                (new Image()).src = image.Small.Url;
+                (new Image()).src = image.Thumbnail.Url;
+            });
         }
     },
     mounted: function() {
         this.loadAlbums();
-         console.log(this.FiltriraniAlbumi)
     }
 }
 </script>

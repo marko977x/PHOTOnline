@@ -76,7 +76,7 @@ export default {
                             });
                         }) : 
                         this.$message("Pogresna sifra albuma!");
-                        console.log(this.items);
+                        this.preload();
                 }).catch(error => console.log(error));
         },
         addImageToSelected(data, index){
@@ -156,6 +156,11 @@ export default {
         getCartItemPrice(cartItem) {
             const formatPricePair = IMAGE_FORMAT_PRICE_PAIR_LIST.find(item => item.format == cartItem.format);
             return formatPricePair.price;
+        },
+        preload() {
+            this.items.forEach(item => {
+                (new Image()).src = item.image.Small.Url;
+            });
         }
     },
     mounted: function() {
