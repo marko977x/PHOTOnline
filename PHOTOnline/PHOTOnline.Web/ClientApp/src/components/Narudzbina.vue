@@ -56,6 +56,7 @@ import { apiFetch, destinationUrl } from '../services/authFetch';
 import { Stats } from 'fs';
 import { preloadImages } from '../services/preloadingImages';
 import {sortOrdersByDate} from "../services/sort.js";
+import { REJECTED_REQUEST_MESSAGE } from '../data/constants';
 export default {
     components: {PrikazKorpe,ObavestiKorisnika},
     data(){
@@ -134,9 +135,20 @@ export default {
         },
         updateOrderStatus(index,vrednost){
             const formData = new FormData();
+            
+            const isNotificationNull = this.listaNarudzbina[index].Order.Notification == null || 
+                this.listaNarudzbina[index].Order.Notification == "" || 
+                this.listaNarudzbina[index].Order.Notification == "null";
+
+            if(vrednost == 2 && isNotificationNull) {
+                this.listaNarudzbina[index].Order.Notification = REJECTED_REQUEST_MESSAGE;
+            }
+
             formData.append('OrderId', this.listaNarudzbina[index].Order.Id);
             formData.append('RequestStatus', vrednost);
             formData.append('Notification', this.listaNarudzbina[index].Order.Notification);
+
+            console.log(this.listaNarudzbina[index].Order);
 
             fetch(destinationUrl + "/Order/UpdateOrderState", {
                 method: 'POST',

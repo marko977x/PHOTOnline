@@ -31,6 +31,7 @@ import PrikazKorpe from "../../../prikazi/PrikazKorpe"
 import ObavestiKorisnika from "../../../ObavestiKorisnika.vue"
 import { apiFetch, destinationUrl } from '../../../../services/authFetch';
 import { getUserInfo } from '../../../../services/contextManagement';
+import {APPROVED_REQUEST_MESSAGE, REJECTED_REQUEST_MESSAGE, ON_HOLD_REQUEST_MESSAGE} from "../../../../data/constants.js";
 export default {
     components: {PrikazKorpe,ObavestiKorisnika},
     data(){
@@ -38,9 +39,9 @@ export default {
             listaNarudzbina: [],
             currentRow: null,
             itemsinCart: [],
-            poruka1: 'Vaš zahtev je prihvaćen.',
-            poruka2: 'Vaš zahtev je odbijen.',
-            poruka3: 'Vaš zahtev se obrađuje.',
+            poruka1: APPROVED_REQUEST_MESSAGE,
+            poruka2: REJECTED_REQUEST_MESSAGE,
+            poruka3: ON_HOLD_REQUEST_MESSAGE,
         }
     },
     methods:{
