@@ -20,6 +20,7 @@ namespace PHOTOnline.Business.CartManagement.Input
         public int Quantity { get; set; }
         public string Format { get; set; }
         public float Price { get; set; }
+        public string Title { get; set; }
     }
 }
 

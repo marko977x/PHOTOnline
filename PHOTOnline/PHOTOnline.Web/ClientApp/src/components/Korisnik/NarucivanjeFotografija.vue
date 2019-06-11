@@ -12,7 +12,7 @@ export default {
     data(){
         return{
             proiz: this.list,
-            omoguciDugme: false,
+            omoguciDugme: '',
             Images: [],
         }
     },
@@ -46,6 +46,9 @@ export default {
         showPhotos(){
             this.$emit("showPhotos",this.Images);
         }
+    },
+    mounted(){
+        this.proveraPrijavljen();
     },
     props: ['list']
 }

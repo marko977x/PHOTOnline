@@ -6,6 +6,12 @@
         max-height="1000"
         style="width:80%; border:1px solid black;">
             <el-table-column
+                prop="Title"
+                label="Naziv"
+                class="table-column"
+                min-width="100">
+            </el-table-column>
+            <el-table-column
                 prop="ProductType"
                 label="Tip"
                 class="table-column"
