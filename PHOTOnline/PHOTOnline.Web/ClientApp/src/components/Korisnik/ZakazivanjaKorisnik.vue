@@ -41,7 +41,18 @@ export default {
     },
     methods: {
         radi(date){
-            this.datum = date
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+            today = yyyy + '-' + mm + '-' + dd  ;
+            if(date > today){
+                this.datum = date
+            }    
+            else{
+                this.$message({message: "Morate izabrati predstojeći datum!", type: 'warning'})
+                this.datum = ''
+            }
             console.log(this.datum)
         },
         vratiZahteve(data){
@@ -58,7 +69,7 @@ export default {
                     this.listaZahteva = this.listaZahteva.filter(x => x.RequestStatus != 2);
                     this.pribaviDatum(this.listaZahteva);
                 }
-                else this.$message({message: "Doslo je do greske prilikom ucitavanja zahteva!", type: 'error'})   
+                else this.$message({message: "Došlo je do greske prilikom učitavanja zahteva!", type: 'error'})   
                  }).catch(error => {console.log(error)});
         },
         pribaviDatum(datumi){
