@@ -89,6 +89,9 @@ export default {
     },
     mounted: function() {
         setPageShown("Pocetna");
+        if(getUserInfo().userType == undefined){
+            setUserInfo('',ANONYMOUS_USER_TYPE);
+        }
         this.userType = getUserInfo().userType;
         this.loadAlbum();
         this.showComp = "pocetna";

@@ -3,6 +3,7 @@
         <user-profile-info 
             @openChangePasswordForm="openChangePasswordForm" />
         <el-dialog
+            width="30%"
             title="Promena lozinke" center class="changePasswordForm"
             @close="closeChangePasswordForm" 
             :visible="isChangePasswordFormVisible" 
@@ -46,7 +47,7 @@ export default {
 }
 
 .changePasswordForm {
-    width: 80%;
+    /* width: 80%; */
 }
 
 </style>
