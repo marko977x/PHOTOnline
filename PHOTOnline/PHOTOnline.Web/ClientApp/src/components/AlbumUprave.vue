@@ -32,6 +32,7 @@ import PrikazSadrzajaAlbuma from "./prikazi/PrikazSadrzajaAlbuma"
 import {setOpenedAlbumId} from "../services/contextManagement";
 import { apiFetch, destinationUrl } from '../services/authFetch';
 import {openSpinner, closeSpinner} from "../data/spinner.js";
+import {preloadAlbums, preloadImages} from "../services/preloadingImages";
 export default {
     components: {PrikazAlbuma, DodavanjeAlbuma, PrikazSadrzajaAlbuma},
     data(){
@@ -42,7 +43,7 @@ export default {
             FiltriraniAlbumi: [],
             OpenedAlbumIndex: 0,
             isSpinnerActive: false,
-
+            preloadedImages: []
         }
     },
     methods:{
@@ -71,7 +72,7 @@ export default {
                     this.FiltriraniAlbumi = this.Albums.slice();
                 }
                 this.isSpinnerActive = false;
-                this.preload();
+                preloadAlbums(this.Albums);
             }).catch(error => {console.log(error)});
         },
         filtriraj(){
@@ -96,12 +97,6 @@ export default {
             console.log(this.Albums)
             this.Albums.splice(this.OpenedAlbumIndex, 1);
             this.FiltriraniAlbumi = this.Albums;
-        },
-        preload(images) {
-            images.forEach(image => {
-                (new Image()).src = image.Small.Url;
-                (new Image()).src = image.Thumbnail.Url;
-            });
         }
     },
     mounted: function() {
