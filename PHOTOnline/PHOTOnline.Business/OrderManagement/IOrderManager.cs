@@ -13,5 +13,6 @@ namespace PHOTOnline.Business.OrderManagement
         Task<Result> UpdateOrderState(UpdateOrderStateInput input);
         Task<Result<List<OrderOutput>>> GetAllOrdersByUserIdAsync(string userId);
         Task<Result<List<OrderOutput>>> GetAllOrders();
+        Task<Result<List<OrderOutput>>> GetUnresolvedOrders();
     }
 }

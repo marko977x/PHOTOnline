@@ -36,5 +36,11 @@ namespace PHOTOnline.Services.Repositories.Orders
             var filter = Builders<Order>.Filter.Eq(order => order.UserId, userId);
             return await (await Collection.FindAsync(filter)).ToListAsync();
         }
+
+        public async Task<List<Order>> GetUnresolvedOrders()
+        {
+            var filter = Builders<Order>.Filter.Eq(order => order.RequestStatus, RequestStatus.OnHold);
+            return await (await Collection.FindAsync(filter)).ToListAsync();
+        }
     }
 }

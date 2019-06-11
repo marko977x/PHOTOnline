@@ -12,5 +12,6 @@ namespace PHOTOnline.Services.Repositories.Orders
         Task<List<Order>> GetAllOrders();
         Task<List<Order>> GetOrdersByUserId(string userId);
         System.Threading.Tasks.Task DeleteCompleted();
+        Task<List<Order>> GetUnresolvedOrders();
     }
 }

@@ -85,5 +85,13 @@ namespace PHOTOnline.Web.Controllers
             if (result.Success) return Ok(result);
             else return BadRequest(result);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUnresolvedOrders()
+        {
+            Result<List<OrderOutput>> result = await _orderManager.GetUnresolvedOrders();
+            if (result.Success) return Ok(result);
+            else return BadRequest(result);
+        }
     }
 }

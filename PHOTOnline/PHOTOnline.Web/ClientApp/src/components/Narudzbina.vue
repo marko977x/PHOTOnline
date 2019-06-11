@@ -6,10 +6,8 @@
                     :data="listaNarudzbina"
                     max-height="1000"
                     style="width:100%"
-                    :row-class-name="tableRowClassName"
                     highlight-current-row
                     @row-click="handleCurrentChange">
-                <el-table-column class-name="status" min-width="120" prop="Order.RequestStatus" label="Status"></el-table-column>
                 <el-table-column min-width="100" prop="Order.Date" label="Datum"></el-table-column>
                 <el-table-column min-width="150" prop="FirstName" label="Ime"></el-table-column>
                 <el-table-column min-width="150" prop="LastName" label="Prezime"></el-table-column>
@@ -27,14 +25,12 @@
                             <el-button 
                                 type="success" 
                                 icon="el-icon-success" circle size="mini" 
-                                @click="updateOrderStatus(scope.$index,1)"
-                                :disabled="scope.row.Order.RequestStatus == 'Obradjena'">
+                                @click="updateOrderStatus(scope.$index,1)">
                             </el-button>
                             <el-button 
                                 type="danger" icon="el-icon-error" 
                                 circle size="mini" 
-                                @click="updateOrderStatus(scope.$index,2)"
-                                :disabled="scope.row.Order.RequestStatus == 'Odbijena'">
+                                @click="updateOrderStatus(scope.$index,2)">
                             </el-button>
                         </div>
                     </template>
@@ -71,11 +67,11 @@ export default {
     },
     methods:{
         loadOrders() {
-            fetch(destinationUrl + '/Order/GetAllOrders', {method: "GET"})
+            fetch(destinationUrl + '/Order/GetUnresolvedOrders', {method: "GET"})
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {
                     this.listaNarudzbina = result.Data;
-                    this.odrediStatusNarudzbine();
+                    
                     this.sortiraj();
                     this.preloadImages();
             })
@@ -84,41 +80,8 @@ export default {
             this.currentRow = val;
             this.itemsinCart = this.currentRow.Order.CartItems;
         },
-        tableRowClassName({row, rowIndex}) {
-            if (this.listaNarudzbina[rowIndex].Order.RequestStatus === Status[0]) {
-                return 'success-row';
-            }
-            else if (this.listaNarudzbina[rowIndex].Order.RequestStatus === Status[1]){
-                return 'rejected-row';
-            }
-            else if (this.listaNarudzbina[rowIndex].Order.RequestStatus === Status[2]) {
-                return 'odHold-row';
-            }
-            else{
-                return '';
-            }
-        },
-        odrediStatusNarudzbine(){
-            this.listaNarudzbina.forEach(element => {
-                element.Order.RequestStatus = Status[element.Order.RequestStatus-1];
-            })
-        },
         sortiraj(){
-            let onHold = [];
-            let approved = [];
-            let rejected = [];
-            this.listaNarudzbina.forEach(item => {
-                if(item.Order.RequestStatus == Status[0]) approved.push(item);
-                if(item.Order.RequestStatus == Status[1]) rejected.push(item);
-                if(item.Order.RequestStatus == Status[2]) onHold.push(item);
-            });
-            onHold = sortOrdersByDate(onHold);
-            rejected = sortOrdersByDate(rejected);
-            approved = sortOrdersByDate(approved);
-            this.listaNarudzbina = [];
-            this.listaNarudzbina = this.listaNarudzbina.concat(onHold);
-            this.listaNarudzbina = this.listaNarudzbina.concat(rejected);
-            this.listaNarudzbina = this.listaNarudzbina.concat(approved);
+            this.listaNarudzbina = sortOrdersByDate(this.listaNarudzbina);
         },
         dodajPoruku(index){
             this.showComp = 'obavestenje'
@@ -143,13 +106,10 @@ export default {
             if(vrednost == 2 && isNotificationNull) {
                 this.listaNarudzbina[index].Order.Notification = REJECTED_REQUEST_MESSAGE;
             }
-
+            
             formData.append('OrderId', this.listaNarudzbina[index].Order.Id);
             formData.append('RequestStatus', vrednost);
             formData.append('Notification', this.listaNarudzbina[index].Order.Notification);
-
-            console.log(this.listaNarudzbina[index].Order);
-
             fetch(destinationUrl + "/Order/UpdateOrderState", {
                 method: 'POST',
                 body: formData
@@ -158,13 +118,15 @@ export default {
                 if(result.Success) {
                     this.$set(this.listaNarudzbina[index].Order, 'RequestStatus', Status[vrednost - 1]);
                     this.sortiraj();
+                    this.listaNarudzbina.splice(index, 1);
+                    this.itemsinCart = [];
                     if(vrednost == 1){
                         this.$message({message: "Uspešno ste potvrdili narudžbinu.", type: 'success'})
                     }
                     else if (vrednost == 2){
                         this.$message({message: "Uspešno ste odbili narudžbinu.", type: 'success'})
                     }}
-                else this.$message({message: "Doslo je do greske!", type: "error"});
+                    else this.$message({message: "Doslo je do greske!", type: "error"});
             }).catch(error => console.log(error));
         },
         preloadImages() {
