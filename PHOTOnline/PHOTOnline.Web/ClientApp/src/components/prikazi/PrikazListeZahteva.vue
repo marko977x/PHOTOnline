@@ -6,7 +6,7 @@
                 :data="this.listaZahteva"
                 highlight-current-row
                 @current-change="handleCurrentChange"
-                max-height="400">
+                max-height="1500">
             <el-table-column
                     prop="FirstName"
                     label="Ime"
@@ -226,7 +226,7 @@ export default {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    height: 250px;
+    height: 400px;
 }
 
 .zahtevDugmici{
