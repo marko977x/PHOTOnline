@@ -29,7 +29,7 @@
                 @stopSpinner="() => isSpinnerActive = false">
             </narucivanje-fotografija>
         </div>
-        <div class="album-fotografije" v-if="this.Images != ''">
+        <div class="album-fotografije" v-if="isOnlineOrderingVisible">
             <div id="dugme">
                 <el-button type="danger" size="mini" @click="dodajUKorpuPhoto">Dodaj u korpu</el-button>
             </div>
@@ -74,9 +74,6 @@ export default {
                 .then(result => {
                     this.proizvodi = result.Data;
                 });
-        },
-        preloadImages() {
-            
         },
         onClickDodajUKorpu(index) {
             if(getUserInfo().userType == REGULAR_USER_TYPE){

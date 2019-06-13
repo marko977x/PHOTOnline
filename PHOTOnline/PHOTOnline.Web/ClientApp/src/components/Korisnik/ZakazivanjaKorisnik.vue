@@ -35,7 +35,7 @@ export default {
             datum: '',
             listaZahteva: [],
             datumi: [],
-            counts: {},
+            counts: [],
             userId: ''
         }
     },
@@ -81,13 +81,14 @@ export default {
             this.countDate(this.datumi)
         },
         countDate(datumi){
-            var counts = {}
+            let counts = []
             datumi.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
             this.counts = counts;
         },
         osveziPrikaz(zahtev){
             this.listaZahteva.push(zahtev);
             this.pribaviDatum(this.listaZahteva);
+            window.location.reload();
         }
     },
     beforeMount(){
