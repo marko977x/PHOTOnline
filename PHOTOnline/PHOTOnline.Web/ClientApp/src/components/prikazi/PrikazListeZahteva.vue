@@ -5,7 +5,8 @@
             <el-table
                 :data="this.listaZahteva"
                 highlight-current-row
-                @current-change="handleCurrentChange">
+                @current-change="handleCurrentChange"
+                max-height="400">
             <el-table-column
                     prop="FirstName"
                     label="Ime"

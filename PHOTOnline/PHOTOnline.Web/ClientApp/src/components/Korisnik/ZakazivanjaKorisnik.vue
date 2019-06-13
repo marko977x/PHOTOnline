@@ -72,23 +72,21 @@ export default {
                  }).catch(error => {console.log(error)});
         },
         pribaviDatum(datumi){
-            let i =0;
-            let novidatumi = [];
+            this.datumi = [];
             datumi.forEach(el => {
-                novidatumi[i++] = el.Date;
-            })
-            this.datumi = novidatumi;
-            this.countDate(this.datumi)
+                this.datumi.push(el.Date);
+            });
+            this.countDate();
         },
-        countDate(datumi){
+        countDate(){
             let counts = []
-            datumi.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
+            this.datumi.forEach(function(x) { counts[x] = (counts[x] || 0) + 1; });
             this.counts = counts;
         },
         osveziPrikaz(zahtev){
             this.listaZahteva.push(zahtev);
-            this.pribaviDatum(this.listaZahteva);
-            window.location.reload();
+            this.datumi.push(zahtev.Date);
+            this.countDate();
         }
     },
     beforeMount(){

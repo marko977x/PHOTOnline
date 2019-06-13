@@ -98,8 +98,8 @@ export default {
             .then(result => {
                 if(result.Success){
                     this.$message({message: "Uspesno ste zakazali termin.", type: 'success'});
-                    this.clearForm();
                     this.$emit("zakazano",this.podaciZakazi);
+                    this.clearForm();
                 }
                 else if(result.Errors != null) {
                     result.Errors.forEach(error => {
