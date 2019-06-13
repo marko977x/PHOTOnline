@@ -76,11 +76,11 @@ import { ERRORS } from '../../data/errorsCode';
                 if(!this.isDataValid()) this.$message({message: "Morate popuniti sva polja", type: "warning"});
                 else if(!this.isPhoneNumberValid()) this.$message({message: "Broj telefona nije validan", type: "warning"});
                 else {
-                    apiFetch('POST', "http://localhost:14893/api/User/CreateUserAsync", this.signupData)
+                    apiFetch('POST', destinationUrl + "/User/CreateUserAsync", this.signupData)
                         .then(result => {
                             if(result.Success) {
                                 setUserInfo(result.Data, REGULAR_USER_TYPE);
-                                //window.location.href = "/" + UserTypes[REGULAR_USER_TYPE];
+                                window.location.href = "/" + UserTypes[REGULAR_USER_TYPE];
                             }
                             else if(result.Errors != null && result.Errors.length != 0) {
                                 this.$message({message: ERRORS[result.Errors[0].Code], type: "error"});

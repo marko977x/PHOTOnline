@@ -9,21 +9,25 @@
             <el-table-column
                     prop="FirstName"
                     label="Ime"
+                    width="100px"
                     class="table-column">
             </el-table-column>
              <el-table-column 
                      prop="LastName"
                     label="Prezime"
+                    width="100px"
                     class="table-column">
             </el-table-column>
             <el-table-column 
                     prop="Location"
                     label="Lokacija"
+                    width="150px"
                     class="table-column">
             </el-table-column>
             <el-table-column 
                      prop="Date"
                     label="Datum"
+                    width="100px"
                     class="table-column">
             </el-table-column>
              <el-table-column 
@@ -34,11 +38,13 @@
              <el-table-column 
                      prop="EventType"
                     label="Tip"
+                    width="120px"
                     class="table-column">
             </el-table-column>
               <el-table-column 
                      prop="Time"
                     label="Vreme"
+                    width="80px"
                     class="table-column">
             </el-table-column>
             </el-table>
@@ -47,9 +53,9 @@
                     <el-option v-for="item in fotografi" :key="item.Id" :label="item.FirstName+' '+item.LastName" :value="item.Id"></el-option>
                 </el-select>
                 <div class="dugmici">
-                        <el-button type="success" size="mini" style="margin-left: 20%;" @click="potvrdiZahtev()">Potvrdi</el-button>
-                        <el-button type="danger" size="mini" style="margin-left: 20%;" @click="odbijZahtev()">Odbij</el-button>
-                        <el-button type="info" icon="el-icon-message" style="padding: 12px; margin-left: 20%;" circle size="mini" @click="poruka"></el-button>
+                    <el-button type="success" size="mini" style="margin-left: 20%;" @click="potvrdiZahtev()">Potvrdi</el-button>
+                    <el-button type="danger" size="mini" style="margin-left: 20%;" @click="odbijZahtev()">Odbij</el-button>
+                    <el-button type="info" icon="el-icon-message" style="padding: 12px; margin-left: 20%;" circle size="mini" @click="poruka"></el-button>
                 </div>
             </div>
         </div>
@@ -60,21 +66,25 @@
             <el-table-column
                     prop="FirstName"
                     label="Ime"
+                    width="100px"
                     class="table-column">
             </el-table-column>
              <el-table-column 
                      prop="LastName"
                     label="Prezime"
+                    width="100px"
                     class="table-column">
             </el-table-column>
             <el-table-column 
                     prop="Location"
                     label="Lokacija"
+                    width="120px"
                     class="table-column">
             </el-table-column>
             <el-table-column 
                      prop="Date"
                     label="Datum"
+                    width="100px"
                     class="table-column">
             </el-table-column>
              <el-table-column 
@@ -85,11 +95,13 @@
              <el-table-column 
                      prop="EventType"
                     label="Tip"
+                    width="120px"
                     class="table-column">
             </el-table-column>
               <el-table-column 
                      prop="Time"
                     label="Vreme"
+                    width="80px"
                     class="table-column">
             </el-table-column>
              </el-table>

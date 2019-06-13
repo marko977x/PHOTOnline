@@ -1,15 +1,9 @@
 <template>
     <div class="obaveza-container" v-if="this.obaveza">
         <div class="obaveza-container-inner">
-            <!-- <div class="month-button">
-                <el-button class="button-arrow" @click="decrement"> <el-icon class="el-icon-arrow-left"></el-icon> </el-button>
-                <h5>{{months[broj].name}}</h5>
-                <el-button class="button-arrow" @click="increment">  <el-icon class="el-icon-arrow-right"></el-icon> </el-button>
-            </div> -->
             <div class="tabela-obaveza-container">
                 <prikaz-obaveza-table></prikaz-obaveza-table>
             </div>
-            <!-- <el-button @click="zatvori" type="primary">Zatvori</el-button> -->
         </div>
     </div>
 </template>
@@ -58,7 +52,7 @@ export default {
         justify-content: center;
         align-items: center;
         height: 80%;
-        width: 80%;
+        width: 90%;
         background-color:  #ccccd3e5;
         opacity: 1;
         padding: 1em;

@@ -18,7 +18,7 @@
              <el-table-column
                     prop="CustomerPhoneNumber"
                     label="Broj Telefon"
-                    width="120px"
+                    width="100px"
                     class="table-column">
             </el-table-column>
             <el-table-column
@@ -36,13 +36,13 @@
             <el-table-column 
                      prop="Location"
                     label="Lokacija"
-                    width="200px"
+                    width="150px"
                     class="table-column">
             </el-table-column>
              <el-table-column 
                      prop="EventType"
                     label="Tip"
-                    width="120px"
+                    width="100px"
                     class="table-column">
             </el-table-column>
              <el-table-column 
