@@ -7,6 +7,7 @@
                 <h5 style="text-align:center; font-family:sans-serif; flex: 1"> Evidencija članova </h5>
                 <div class="select-container" style="flex: 1; justify-content: flex-end; display: flex">
                     <el-select :value="user" @change="setUser($event)">
+                        <el-option :value="'/'"></el-option>
                         <el-option :value="'Fotograf'">Fotograf</el-option>
                         <el-option :value="'Korisnik'">Korisnik</el-option>
                     </el-select>
@@ -44,7 +45,7 @@
     import FormDodajClana from './forme/FormDodajClana'
     import { } from 'element-ui'
     import { setPageShown } from '../services/contextManagement';
-import { apiFetch, destinationUrl, UserTypes, PHOTOGRAPH_USER_TYPE } from '../services/authFetch';
+import { apiFetch, destinationUrl, UserTypes, PHOTOGRAPH_USER_TYPE, REGULAR_USER_TYPE } from '../services/authFetch';
 import { constants } from 'fs';
     export default {
         components: { FilterClanova, FormDodajClana },
@@ -59,17 +60,9 @@ import { constants } from 'fs';
             }
         },
         methods: {
-            skloni(row){
-                console.log(row)
-            },
             dodajClana: function () {
                 this.showComp = 'album';
                 setPageShown('album');
-                console.log(this.tableData);
-            },
-            handleEdit(index, row) {
-                console.log(index);
-                console.log(row);
             },
             deleteUser(id) {
                 apiFetch('POST', destinationUrl + "/User/DeleteUserById?id=" + id)
@@ -94,35 +87,34 @@ import { constants } from 'fs';
             },
             setUser(event){
                 this.user = event;
-                console.log(this.user)
 
                 if(this.user == UserTypes[PHOTOGRAPH_USER_TYPE]){
                     apiFetch('GET', destinationUrl + "/User/GetAllPhotographs")
-                    .then(result => {
-                            if(result.Success){
-                            this.tableData = result.Data;
-                            this.tableData.forEach((data, index) => {
-                                data.UserType = UserTypes[result.Data[index].UserType];
-                            });
-                        }
-                        else this.$message({message: "Došlo je do greške!", type: 'error'})
-                    });
-                    console.log(this.Users)
+                        .then(result => {
+                            this.handleResponse(result);
+                        });
                 }
-                else{
+                else if (this.user == UserTypes[REGULAR_USER_TYPE]){
                     apiFetch('GET', destinationUrl + "/User/GetAllRegularUsers")
-                    .then(result => {
-                        if(result.Success){
-
-                            this.tableData = result.Data;
-                             this.tableData.forEach((data, index) => {
-                                data.UserType = UserTypes[result.Data[index].UserType];
-                            });
-                        }
-                        else this.$message({message: "Došlo je do greške!", type: 'error'})
-                    });
-                    console.log(this.Users)
+                        .then(result => {
+                            this.handleResponse(result);
+                        });
                 }
+                else {
+                    apiFetch('GET', destinationUrl + "/User/GetAllUsers")
+                        .then(result => {
+                            this.handleResponse(result);
+                        });
+                }
+            },
+            handleResponse(result) {
+                if(result.Success){
+                    this.tableData = result.Data;
+                        this.tableData.forEach((data, index) => {
+                        data.UserType = UserTypes[result.Data[index].UserType];
+                    });
+                }
+                else this.$message({message: "Došlo je do greške!", type: 'error'})
             }
         },
         mounted: function() {

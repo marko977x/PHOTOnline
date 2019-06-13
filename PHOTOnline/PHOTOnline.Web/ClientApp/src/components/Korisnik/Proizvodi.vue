@@ -97,7 +97,6 @@ export default {
                     image: image
                 });
             })
-            console.log(this.Images)
         },
         dodajUKorpu(){
             if(this.isUploadingDone && !this.isSpinnerActive) {    
@@ -145,7 +144,6 @@ export default {
                     return response.ok ? response.json() : new Error();
                 }).then(result => {
                     this.uploadedImage = result.Data.Image;
-                    console.log(this.uploadedImage);
                 }).catch(error => {console.log(error)}));
             await Promise.all(promises);
             this.isUploadingDone = true;
@@ -179,7 +177,6 @@ export default {
             this.showPicture = 'photo'
         },
         onFormatChange(format, index) {
-            console.log(this.Images[index]);
             this.$set(this.Images, index, {...this.Images[index], format: format});
         },
         onQuantityChange(quantity, index) {
@@ -204,6 +201,7 @@ export default {
                     formData.append("CartItems[" + index + "].ProductType", "Fotografija");
                     formData.append("CartItems[" + index + "].Format", item.format);
                     formData.append("CartItems[" + index + "].Quantity", item.quantity);
+                    formData.append("CartItems[" + index + "].Title", item.image.Title);
                     formData.append("CartItems[" + index + "].Image.Id", item.image.Id);
                     formData.append("CartItems[" + index + "].Image.Title", item.image.Title);
                     formData.append("CartItems[" + index + "].Image.Original.FileId", item.image.Original.FileId);

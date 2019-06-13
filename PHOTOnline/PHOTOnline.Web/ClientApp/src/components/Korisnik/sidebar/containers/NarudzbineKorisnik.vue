@@ -4,7 +4,6 @@
             <h3>Lista narudžbina</h3>
             <el-table
                 :data="listaNarudzbina"
-                :default-sort = "{prop:'Order.Date', order: 'descending'}"
                 max-height="1000"
                 style="width:100%"
                 :row-class-name="tableRowClassName"
@@ -51,7 +50,7 @@ export default {
             fetch(destinationUrl + '/Order/GetOrdersByUserId/?userId=' + userId, {method: "GET"})
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {
-                    this.listaNarudzbina = sortOrdersByDate(result.Data);
+                    this.listaNarudzbina = sortOrdersByDate(result.Data, false);
             })
         },
         handleCurrentChange(val) {

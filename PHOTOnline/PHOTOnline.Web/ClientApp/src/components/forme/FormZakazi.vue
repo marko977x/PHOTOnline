@@ -98,6 +98,7 @@ export default {
             .then(result => {
                 if(result.Success){
                     this.$message({message: "Uspesno ste zakazali termin.", type: 'success'});
+                    this.clearForm();
                     this.$emit("zakazano",this.podaciZakazi);
                 }
                 else if(result.Errors != null) {
@@ -118,8 +119,14 @@ export default {
                 .then(result => {
                     this.user.FirstName = result.Data.FirstName;
                     this.user.LastName = result.Data.LastName;
-                    console.log(this.user)
                 })
+        },
+        clearForm() {
+            this.podaciZakazi.Date = "";
+            this.podaciZakazi.AdditionalRequests = "";
+            this.podaciZakazi.EventType = "";
+            this.podaciZakazi.Time = "";
+            this.podaciZakazi.Location = "";
         }
     },
     beforeMount(){

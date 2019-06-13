@@ -18,27 +18,31 @@
              <el-table-column
                     prop="CustomerPhoneNumber"
                     label="Broj Telefon"
-                    width="150px"
+                    width="120px"
                     class="table-column">
             </el-table-column>
             <el-table-column
                     prop="Date"
                     label="Datum"
+                    width="100px"
                     class="table-column">
             </el-table-column>
             <el-table-column 
                     prop="Time"
                     label="Vreme"
+                    width="80px"
                     class="table-column">
             </el-table-column>
             <el-table-column 
                      prop="Location"
                     label="Lokacija"
+                    width="200px"
                     class="table-column">
             </el-table-column>
              <el-table-column 
                      prop="EventType"
                     label="Tip"
+                    width="120px"
                     class="table-column">
             </el-table-column>
              <el-table-column 
@@ -76,13 +80,11 @@ export default {
     methods:{
          pribaviListuZahteva:  function(){
             let userid = getUserInfo().userID;
-            console.log(userid)
             fetch(destinationUrl + "/Task/GetAllTasksByUserId/?id=" + userid, {method: 'GET'})
             .then(response => response.ok ? response.json() : new Error())
             .then(result => {
                 if(result.Success) {
                     this.ListaObaveza = result.Data;
-                    console.log(this.ListaObaveza)
                     this.odrediTipDogadjaja();
                 }
                 else this.$message({message: "Doslo je do greske prilikom ucitavanja zahteva!", type: 'error'})   
@@ -94,10 +96,8 @@ export default {
             })
         },
         deleteTask(Id){
-            console.log(Id)
             fetch(destinationUrl + '/Task/DeleteTask?id=' + Id, {method: "POST"})
             .then(result => {
-                console.log(result.Success)
                     if(result.Success) {
                         this.$message("Obaveza je uspešno obrisana!");
                     }

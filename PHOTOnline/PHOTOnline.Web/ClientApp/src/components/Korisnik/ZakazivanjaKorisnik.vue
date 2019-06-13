@@ -53,7 +53,6 @@ export default {
                 this.$message({message: "Morate izabrati predstojeći datum!", type: 'warning'})
                 this.datum = ''
             }
-            console.log(this.datum)
         },
         vratiZahteve(data){
            this.datumi.forEach(element => {
@@ -75,14 +74,13 @@ export default {
         pribaviDatum(datumi){
             let i =0;
             let novidatumi = [];
-           datumi.forEach(el => {
-               novidatumi[i++] = el.Date;
-           })
-           this.datumi = novidatumi;
-           this.countDate(this.datumi)
+            datumi.forEach(el => {
+                novidatumi[i++] = el.Date;
+            })
+            this.datumi = novidatumi;
+            this.countDate(this.datumi)
         },
         countDate(datumi){
-            console.log(datumi)
             var counts = {}
             datumi.forEach(function(x) { counts[x] = (counts[x] || 0)+1; });
             this.counts = counts;

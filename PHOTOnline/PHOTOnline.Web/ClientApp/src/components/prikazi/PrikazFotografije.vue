@@ -27,7 +27,6 @@ export default {
             const formData = new FormData();
             formData.append('AlbumId', sessionStorage.AlbumId);
             formData.append('ImageId', this.Image.Id);
-            console.log(this.Image);
             
             fetch(destinationUrl + "/Image/DeleteImage", {method: 'POST', body: formData})
                 .then(response => response.ok ? response.json() : new Error())

@@ -54,7 +54,6 @@ export default {
     methods: {
         setComponent(component){
             this.showComp = component;
-            console.log(component)
         }
     }
 }

@@ -64,7 +64,6 @@ export default {
                         setUserInfo(null, ANONYMOUS_USER_TYPE);
                         window.location.href = "/";
                     }
-                    else console.log(result);
                 });
         }
     },

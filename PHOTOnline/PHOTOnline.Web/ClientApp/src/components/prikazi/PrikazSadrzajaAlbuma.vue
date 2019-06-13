@@ -85,12 +85,10 @@ export default {
             for(let index = 0; index < event.target.files.length; index++) {
                 const formData = new FormData();
                 formData.append("image", event.target.files[index]);
-                console.log(event.target.files[0]);
                 promises.push(fetch(destinationUrl + "/Image/UploadImage", {method: 'POST', body: formData})
                     .then(response => {
                         return response.ok ? response.json() : new Error();
                     }).then(result => {
-                        console.log(result.Data);
                         this.Images.push(result.Data.Image);
                     }).catch(error => {console.log(error)}));
             }
@@ -102,7 +100,6 @@ export default {
         },
         dodajSlike(){
                 const formData = new FormData();
-                console.log(this.Images)
                 formData.append("AlbumId", this.album.Id);
                 this.Images.forEach((image, index) => {
                     formData.append("Images[" + index + "].Id", image.Id);
@@ -118,7 +115,6 @@ export default {
                     formData.append("Images[" + index + "].Large.FileId", image.Large.FileId);
                     formData.append("Images[" + index + "].Large.Url", image.Large.Url);
                 });
-                console.log(formData);
                 this.Images = [];
                 fetch(destinationUrl + "/Album/AddImagesToAlbum", {
                     body: formData,

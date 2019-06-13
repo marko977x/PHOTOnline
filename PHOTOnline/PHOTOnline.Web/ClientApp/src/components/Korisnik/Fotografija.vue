@@ -53,9 +53,6 @@ export default {
             this.$emit('quantityChange', quantity);
         }
     },
-    mounted: function() {
-        console.log(this.select);
-    },
     updated() {
         this.select = this.item.selected;
         this.num = this.item.quantity;

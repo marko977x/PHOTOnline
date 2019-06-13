@@ -71,7 +71,6 @@ export default {
     },
     methods: {
         emitMenuSelect: function(event){
-            console.log()
             if(getUserInfo().userType == ANONYMOUS_USER_TYPE && event == "zakazivanja")
                 this.showComp = "login";
             else this.$emit('changeView', event)
@@ -88,7 +87,6 @@ export default {
                         setUserInfo(null, ANONYMOUS_USER_TYPE);
                         window.location.href = "/";
                     }
-                    else console.log(result);
                 });
         },
         signupEnd: function(){
@@ -101,11 +99,7 @@ export default {
             this.showComp = 'login';
         }
     },
-    props: ['list','type'],
-    mounted() {
-        console.log(this.korisnik);
-
-    }
+    props: ['list','type']
 }
 </script>
 

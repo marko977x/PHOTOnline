@@ -130,7 +130,6 @@ export default {
             }).catch(error => console.log(error));
         },
         preloadImages() {
-            console.log(this.listaNarudzbina);
             let images = [];
             this.listaNarudzbina.forEach(order => {
                 order.Order.CartItems.forEach(cartItem => {

@@ -89,7 +89,6 @@ export default {
                     formData.append("Images[" + index + "].Large.FileId", image.Large.FileId);
                     formData.append("Images[" + index + "].Large.Url", image.Large.Url);
                 });
-                console.log(formData);
                 fetch(destinationUrl + "/Album/AddAlbum", {
                     body: formData,
                     method: 'POST'

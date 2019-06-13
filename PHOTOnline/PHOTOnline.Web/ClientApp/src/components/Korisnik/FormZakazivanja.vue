@@ -45,7 +45,6 @@ export default {
         },
         pribaviZahteve(){
             let userId = getUserInfo().userID;
-            console.log(userId)
             fetch(destinationUrl + '/Request/GetRequestsByUserId/?id=' + userId, {method: "GET"})
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {

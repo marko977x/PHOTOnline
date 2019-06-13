@@ -1,7 +1,7 @@
 <template>
     <div class="zakazivanja-korisnik-profil">
          <el-table :data="this.listaZahteva"
-            :default-sort = "{prop: 'Date', order: 'descending'}"
+            :default-sort = "{prop: 'Date', order: 'ascending'}"
                 style="font-size: 17px;" height="70%" width="70%">
                 <el-table-column prop="Date" label="Datum" class="table-column"></el-table-column>
                 <el-table-column prop="Time" label="Vreme" class="table-column"></el-table-column>
@@ -47,7 +47,6 @@ export default {
         },
         pribaviZahteve(){
             let userId = getUserInfo().userID;
-            console.log(userId)
             fetch(destinationUrl + '/Request/GetRequestsByUserId/?id=' + userId, {method: "GET"})
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {

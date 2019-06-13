@@ -62,7 +62,6 @@ export default {
     methods: {
         getUser(){
             let userId = getUserInfo().userID;
-            console.log(getUserInfo());
             fetch(destinationUrl + '/User/GetUserById/?id=' + userId, {method: "GET"})
                 .then(response => response.ok ? response.json() : new Error())
                 .then(result => {

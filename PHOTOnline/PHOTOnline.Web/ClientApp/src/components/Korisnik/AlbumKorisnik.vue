@@ -154,7 +154,6 @@ export default {
             }
         },
         onFormatChange(format, index) {
-            console.log(this.items[index]);
             this.$set(this.items, index, {...this.items[index], format: format});
         },
         onQuantityChange(quantity, index) {

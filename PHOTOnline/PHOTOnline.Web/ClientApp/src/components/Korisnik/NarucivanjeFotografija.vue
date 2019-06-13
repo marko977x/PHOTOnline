@@ -18,7 +18,6 @@ export default {
     },
     methods:{
          proveraPrijavljen(){
-             console.log(getUserInfo().userType)
             if(getUserInfo().userType == REGULAR_USER_TYPE){
                 this.omoguciDugme = false;
             }

@@ -48,7 +48,7 @@
                     </template>
                 </el-table-column>
             </el-table>
-        <el-button style="margin-top: 10px;" @click="Naruci()" type="primary">Naruči</el-button>
+        <el-button :disabled="cartItems.length == 0 ? true : false" style="margin-top: 10px;" @click="Naruci()" type="primary">Naruči</el-button>
         </div>   
         <form-slika :isVisible="!isImageHidden" :shownPhoto="shownImage" :hidden="isImageHidden" @zatvoriSliku="closeImage"/>
     </div>
@@ -161,6 +161,7 @@ export default {
                 }
                 this.preloadImages();
             }).catch(error => console.log(error));
+        console.log(this.cartItems);
     }
 }
 </script>

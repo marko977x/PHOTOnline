@@ -4,10 +4,16 @@
             <div class="grid-one-half" style="color:white;">
                 <p>Foto Aritonovic © 2019. All Rights Reserved.</p>
                 <p>Designed by Group-ArT Team</p>
+                <p>Broj telefona: 018-886-195 / 065-78-956-32</p>
+                <p>Adresa: Zitkovac</p>
             </div>
             <div class="grid-one-half-last">
                 <ul id="social-links" style="list-style-type: none; color:white; margin:0">
-                    <li style="font-size:18px;"> <a href="https://www.facebook.com/foto.aritonovic/"><img style="height: 35px; width: 35px;" src='../../assets/facebook_logo.png'/></a> </li>
+                    <li style="font-size:18px;">
+                        <a href="https://www.facebook.com/foto.aritonovic/">
+                            <img style="height: 35px; width: 35px;" src='../../assets/facebook_logo.png'/>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

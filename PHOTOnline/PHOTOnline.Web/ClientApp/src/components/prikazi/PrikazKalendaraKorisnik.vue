@@ -27,11 +27,6 @@ export default {
             // ],
             datum: ""
         }
-    },
-    methods: {
-        izabranDatum1(){
-            console.log(this.datum);
-        }
     }
 }
 </script>

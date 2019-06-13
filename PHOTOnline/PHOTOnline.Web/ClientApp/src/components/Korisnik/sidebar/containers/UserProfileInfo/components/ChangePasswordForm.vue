@@ -61,7 +61,6 @@ import { ERRORS} from "../../../../../../data/errorsCode.js";
                         OldPassword: this.oldPass,
                         NewPassword: this.newPass
                     }).then(result => {
-                        console.log(result);
                         if(result.Success) {
                             this.$message({message: "Uspesno ste promenili lozinku", type: "success"});
                             this.clearFormFilds();

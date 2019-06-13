@@ -52,7 +52,7 @@ namespace PHOTOnline.Business.RequestManagement
                 bool success = DateTime.TryParse(request.Date, out DateTime result);
                 if (success)
                 {
-                    result.AddDays(MAXIMUM_REQUEST_DAYS);
+                    result = result.AddDays(MAXIMUM_REQUEST_DAYS);
                     if (DateTime.Now.Date.CompareTo(result) == 1) { return true; }
                     else return false;
                 }

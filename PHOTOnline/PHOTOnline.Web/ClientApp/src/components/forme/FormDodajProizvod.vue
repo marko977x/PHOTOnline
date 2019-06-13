@@ -85,7 +85,6 @@
                     .then(response => {
                         return response.ok ? response.json() : new Error();
                     }).then(result => {
-                        console.log(result.Data);
                         this.proizvod.ImageUrl = result.Data.Image.Small.Url;
                         this.uploadingImagesInProgress = false;
                         this.isUploadingDone = true;

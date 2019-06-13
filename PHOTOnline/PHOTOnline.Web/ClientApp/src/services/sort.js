@@ -1,9 +1,13 @@
-export function sortOrdersByDate(orders) {
+export function sortOrdersByDate(orders, ascending = true) {
   if(orders != null){
     let len = orders.length;
     for (let i = len-1; i>=0; i--){
      for(let j = 1; j<=i; j++){
-       if(orders[j-1].Order.Date > orders[j].Order.Date){
+      let condition = ascending ? 
+        orders[j-1].Order.Date > orders[j].Order.Date : 
+        orders[j-1].Order.Date < orders[j].Order.Date;
+
+       if(condition){
             let temp = orders[j-1];
             orders[j-1] = orders[j];
             orders[j] = temp;
@@ -14,7 +18,7 @@ export function sortOrdersByDate(orders) {
    return orders;
 }
 
-export function sortReuquestByDate(requests, ascending) {
+export function sortReuquestByDate(requests, ascending = true) {
   let len = requests.length;
     for (let i = len-1; i>=0; i--){
      for(let j = 1; j<=i; j++){

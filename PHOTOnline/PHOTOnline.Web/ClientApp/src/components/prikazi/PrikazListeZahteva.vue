@@ -142,7 +142,6 @@ export default {
         },
         potvrdiZahtev(){
             if(this.currentRow != null && this.fotografId != ''){
-                console.log(this.currentRow)
                 let Data = {Location:'',Date:'', Time: '', Note: '', PhotographId: '', EventType: 1, RequestId: '', Notification: '',CustomerId: '' };
                 Data.Location = this.currentRow.Location;
                 Data.Date = this.currentRow.Date;
@@ -153,7 +152,6 @@ export default {
                 Data.EventType = eventTypes.indexOf(this.currentRow.EventType);
                 Data.Notification = this.notification;
                 Data.CustomerId = this.currentRow.UserId;
-                console.log(Data.CustomerId)
                 apiFetch('POST', destinationUrl + "/Task/AssignTask", Data)
                     .then(result => {
                         if(result.Success){
@@ -165,7 +163,6 @@ export default {
                             this.fotografId = '';
                         }
                         else this.$message({message: ERRORS[result.Errors[0].Code], type: "warning"});
-                        console.log(result)
                     }).catch(error => {
                         console.log(error);
                     });
@@ -191,7 +188,6 @@ export default {
                             this.fotografId = '';
                         }
                         else this.$message("Doslo je do greske!");
-                        console.log(result)
                     }).catch(error => {
                         console.log(error);
                     });
