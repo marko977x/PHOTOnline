@@ -136,8 +136,8 @@ export default {
             apiFetch('GET', destinationUrl + "/Request/GetAllRequests")
             .then(result => {
                 if(result.Success) {
-                    this.listaZahteva = sortReuquestByDate(result.Data.filter(x => x.RequestStatus == 3), false);
-                    this.listaPotvrdjenihZahteva = sortReuquestByDate(result.Data.filter(x => x.RequestStatus == 1), false);
+                    this.listaZahteva = sortReuquestByDate(result.Data.filter(x => x.RequestStatus == 3), true);
+                    this.listaPotvrdjenihZahteva = sortReuquestByDate(result.Data.filter(x => x.RequestStatus == 1), true);
                     this.$emit('datum',this.listaZahteva);
                     this.$emit('potvrdjeni', this.listaPotvrdjenihZahteva);
                 }

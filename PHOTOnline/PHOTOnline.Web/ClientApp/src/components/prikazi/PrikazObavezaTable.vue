@@ -42,7 +42,7 @@
              <el-table-column 
                      prop="EventType"
                     label="Tip"
-                    width="100px"
+                    width="110px"
                     class="table-column">
             </el-table-column>
              <el-table-column 
