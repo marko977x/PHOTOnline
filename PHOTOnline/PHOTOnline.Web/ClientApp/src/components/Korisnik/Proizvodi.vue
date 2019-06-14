@@ -29,7 +29,7 @@
                 @stopSpinner="() => isSpinnerActive = false">
             </narucivanje-fotografija>
         </div>
-        <div class="album-fotografije" v-if="isOnlineOrderingVisible">
+        <div class="album-fotografije" v-if="Images != ''">
             <div id="dugme">
                 <el-button type="danger" size="mini" @click="dodajUKorpuPhoto">Dodaj u korpu</el-button>
             </div>
